@@ -39,7 +39,7 @@ return [
     */
 
     // 'layout' => 'components.layouts.app' ,
-    'layout' => strtolower($_SERVER['HTTP_HOST']) == 'phpcat.local' ? 'phpcat.index' : 'components.layouts.app' ,
+    'layout' => strtolower($_SERVER['HTTP_HOST'] ?? '' ) == 'phpcat.local' ? 'phpcat.index' : 'components.layouts.app' ,
 
     /*
     |---------------------------------------------------------------------------
