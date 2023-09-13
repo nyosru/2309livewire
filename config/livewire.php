@@ -1,6 +1,6 @@
 <?php
 
-return [
+$re = [
 
     /*
     |---------------------------------------------------------------------------
@@ -28,18 +28,10 @@ return [
 
     'view_path' => resource_path('views/livewire'),
 
-    /*
-    |---------------------------------------------------------------------------
-    | Layout
-    |---------------------------------------------------------------------------
-    | The view that will be used as the layout when rendering a single component
-    | as an entire page via `Route::get('/post/create', CreatePost::class);`.
-    | In this case, the view returned by CreatePost will render into $slot.
-    |
-    */
 
-    // 'layout' => 'components.layouts.app' ,
-    'layout' => strtolower($_SERVER['HTTP_HOST'] ?? '' ) == 'phpcat.local' ? 'phpcat.index' : 'components.layouts.app' ,
+
+
+
 
     /*
     |---------------------------------------------------------------------------
@@ -157,3 +149,26 @@ return [
 
     'pagination_theme' => 'tailwind',
 ];
+
+    /*
+    |---------------------------------------------------------------------------
+    | Layout
+    |---------------------------------------------------------------------------
+    | The view that will be used as the layout when rendering a single component
+    | as an entire page via `Route::get('/post/create', CreatePost::class);`.
+    | In this case, the view returned by CreatePost will render into $slot.
+    |
+    */
+
+    // 'layout' => 'components.layouts.app' ,
+try {
+    if (strtolower($_SERVER['HTTP_HOST'] ?? '') == 'phpcat.local') {
+        $re['layout'] = 'phpcat.index';
+    } else {
+        $re['layout'] = 'components.layouts.app';
+    }
+}catch( \Exception $ex ) {
+    $re['layout'] = 'components.layouts.app';
+}
+
+    return $re;
