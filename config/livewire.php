@@ -161,14 +161,16 @@ $re = [
     */
 
     // 'layout' => 'components.layouts.app' ,
-try {
-    if (strtolower($_SERVER['HTTP_HOST'] ?? '') == 'phpcat.local') {
-        $re['layout'] = 'phpcat.index';
-    } else {
-        $re['layout'] = 'components.layouts.app';
-    }
-}catch( \Exception $ex ) {
-    $re['layout'] = 'components.layouts.app';
-}
+//try {    if (strtolower($_SERVER['HTTP_HOST'] ?? '') == 'phpcat.local') {
+//        $re['layout'] = 'phpcat.index';
+//    } else {
+//        $re['layout'] = 'components.layouts.app';
+//    }
+//}catch( \Exception $ex ) {
+//    $re['layout'] = 'components.layouts.app';
+//}
+
+//    $re['layout'] = 'components.layouts.app';
+    $re['layout'] = 'phpcat.index';
 
     return $re;
