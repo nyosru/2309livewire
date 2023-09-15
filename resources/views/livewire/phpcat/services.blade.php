@@ -14,6 +14,7 @@
                 {{-- {{ print_r($post) }} --}}
                 <h2 class="bg-green-200">{{ $i->title }}</h2>
                 {{-- <p>{{ $post->photo }}</p> --}}
+                <p><a href="{{ $i->link }}" target="_blank" >{{ $i->link_title }}</a></p>
                 <p>{{ $i->opis }}</p>
                 <Br />
             </div>

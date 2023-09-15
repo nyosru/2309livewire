@@ -13,6 +13,9 @@ return new class extends Migration {
         Schema::create('phpcat_services', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('link')->nullable();
+            $table->string('link_title')->nullable();
+            $table->string('img_url')->nullable();
             $table->text('opis');
             $table->timestamps();
         });

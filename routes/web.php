@@ -29,11 +29,11 @@ $d = function () {
     // Route::get('{.*}', News::class)->name('other');
     //    Route::fallback(function () { return redirect('/'); });
 };
-//Route::group([
-//    'as' => 'phpcat.',
-//    'domain' => 'phpcat.local'
-//], $d);
 Route::group([
     'as' => 'phpcat.',
-    'domain' => 'livewire.php-cat.com'
+    'domain' => 'phpcat.local'
 ], $d);
+//Route::group([
+//    'as' => 'phpcat.',
+//    'domain' => 'livewire.php-cat.com'
+//], $d);
