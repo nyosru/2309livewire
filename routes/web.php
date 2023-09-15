@@ -27,7 +27,7 @@ $d = function () {
     Route::get('services', News::class)->name('services');
     Route::get('money', News::class)->name('money');
     // Route::get('{.*}', News::class)->name('other');
-    Route::fallback(function () { return redirect('/'); });
+    //    Route::fallback(function () { return redirect('/'); });
 };
 //Route::group([
 //    'as' => 'phpcat.',
