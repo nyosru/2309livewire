@@ -1,5 +1,5 @@
 {{-- {{ $_SERVER['HTTP_HOST'] }} --}}
-11
+
 @if(
     $_SERVER['HTTP_HOST'] == 'phpcat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
@@ -16,7 +16,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Yes!!</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
