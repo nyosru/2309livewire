@@ -263,10 +263,10 @@
 
                 </div>
                 <div class="mb-12 lg:mb-0">
-                    <a href="/storage/phpcat/img/ya7.jpg" target="_blank" >/storage/phpcat/img/ya7.jpg</a>
+{{--                    <a href="/phpcat/img/ya7.jpg" target="_blank" >/storage/phpcat/img/ya7.jpg</a>--}}
                     <img
                     {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
-                      src="/storage/phpcat/img/ya7.jpg"
+                      src="/phpcat/img/ya7.jpg"
                         class="w-full rounded-lg shadow-lg dark:shadow-black/20" alt="" />
                 </div>
             </div>
