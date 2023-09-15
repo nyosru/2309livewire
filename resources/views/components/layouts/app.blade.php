@@ -1,6 +1,9 @@
 {{-- {{ $_SERVER['HTTP_HOST'] }} --}}
 11
-@if( $_SERVER['HTTP_HOST'] == 'phpcat.local' )
+@if(
+    $_SERVER['HTTP_HOST'] == 'phpcat.local' ||
+    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
 
 @include('phpcat.index')
 
