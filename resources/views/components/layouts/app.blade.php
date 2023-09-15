@@ -1,6 +1,8 @@
 {{-- {{ $_SERVER['HTTP_HOST'] }} --}}
-11
-@if( $_SERVER['HTTP_HOST'] == 'phpcat.local' )
+@if(
+    $_SERVER['HTTP_HOST'] == 'phpcat.local' ||
+    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
 
 @include('phpcat.index')
 
@@ -91,7 +93,7 @@
                 </span>
               </button>
             </div>
-      
+
             <!-- Navigation links -->
             <div
               class="!visible hidden grow basis-[100%] items-center lg:!flex lg:basis-auto"
@@ -144,7 +146,7 @@
             </div>
           </div>
         </nav>
-      
+
         <!-- Hero section with background image, heading, subheading and button -->
         {{-- <div
           class="relative overflow-hidden bg-cover bg-no-repeat"

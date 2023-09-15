@@ -1,9 +1,6 @@
 <?php
 
 use App\Livewire\Phpcat\News;
-use App\Livewire\ShowPosts;
-use App\Livewire\ShowPostsSearch;
-use App\Livewire\ShowRoom;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', ShowPosts::class)->name('index');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-// Route::get('/', ShowPosts::class)->name('index');
-// Route::get('/p1', ShowPosts::class)->name('p1');
-// Route::get('/p2', ShowPostsSearch::class)->name('p2');
-// Route::get('/p3', ShowRoom::class)->name('p3');
 
 $d = function () {
     // Route::get('/', function () { return view('phpcat.index'); });
@@ -35,7 +30,7 @@ $d = function () {
     Route::fallback(function () { return redirect('/'); });
 };
 //Route::group([
-//    //    'as' => 'phpcat.',
+//    'as' => 'phpcat.',
 //    'domain' => 'phpcat.local'
 //], $d);
 Route::group([
