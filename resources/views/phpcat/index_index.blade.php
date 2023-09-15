@@ -140,7 +140,7 @@
         <!-- Navbar -->
     @endif
 
-    
+
     <!-- Jumbotron -->
     <div class="px-6 py-12 text-center md:px-12 lg:text-left">
         <div class="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
@@ -176,40 +176,40 @@
 
                     <a class="
 
-                        mb-2 
-                        md:mr-2 
+                        mb-2
+                        md:mr-2
                         md:mb-0
 
-                        px-12 
-                        pt-4 
-                        pb-3.5 
+                        px-12
+                        pt-4
+                        pb-3.5
 
 
-                        inline-block 
-                        text-sm 
-                        font-medium 
+                        inline-block
+                        text-sm
+                        font-medium
 
-                        rounded 
-                        uppercase 
+                        rounded
+                        uppercase
 
-                        leading-normal 
-                        text-neutral-800 
+                        leading-normal
+                        text-neutral-800
 
-                        shadow-[0_4px_9px_-4px_#cbcbcb] 
-                        transition duration-150 
-                        ease-in-out 
+                        shadow-[0_4px_9px_-4px_#cbcbcb]
+                        transition duration-150
+                        ease-in-out
 
                         {{-- bg-neutral-50  --}}
-                        bg-orange-200 
+                        bg-orange-200
 
-                        hover:bg-orange-500 
+                        hover:bg-orange-500
                         hover:text-white
-                        hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] 
-                        
+                        hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)]
+
                         {{-- focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)]  --}}
                         {{-- focus:outline-none  --}}
                         {{-- focus:ring-0  --}}
-                        
+
                         {{-- active:bg-neutral-200  --}}
                         {{-- active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)]  --}}
 
@@ -219,34 +219,34 @@
                         {{-- dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]                         --}}
 
                         "
-                        data-te-ripple-init data-te-ripple-color="light" 
-                        href="tel:+79222622289" 
+                        data-te-ripple-init data-te-ripple-color="light"
+                        href="tel:+79222622289"
                         role="button">Позвонить 89-222-6-222-89</a>
 
                     <a class="
-                        inline-block 
-                        px-12 
-                        pt-4 
-                        pb-3.5 
-                        text-sm 
-                        font-medium 
+                        inline-block
+                        px-12
+                        pt-4
+                        pb-3.5
+                        text-sm
+                        font-medium
 
-                        rounded 
-                        uppercase 
+                        rounded
+                        uppercase
 
-                        leading-normal 
-                        transition 
-                        duration-150 
-                        ease-in-out 
+                        leading-normal
+                        transition
+                        duration-150
+                        ease-in-out
 
                         bg-blue-300
                         {{-- text-neutral-50  --}}
-                        
+
                         {{-- hover:bg-neutral-500  --}}
-                        hover:bg-blue-500 
+                        hover:bg-blue-500
                         {{-- hover:bg-opacity-10  --}}
                         {{-- hover:text-neutral-200  --}}
-                        hover:text-white 
+                        hover:text-white
 
                         {{-- focus:text-neutral-200  --}}
                         {{-- focus:outline-none  --}}
@@ -255,15 +255,16 @@
 
                         "
 
-                        data-te-ripple-init data-te-ripple-color="light" 
-                        href="https://t.me/phpcatcom" 
+                        data-te-ripple-init data-te-ripple-color="light"
+                        href="https://t.me/phpcatcom"
                         target="_blank"
                         role="button"
-                        >Написать в тележку @phpcatcom</a>
+                        >Написать в телеграм @phpcatcom</a>
 
                 </div>
                 <div class="mb-12 lg:mb-0">
-                    <img 
+                    <a href="/storage/phpcat/img/ya7.jpg" target="_blank" >/storage/phpcat/img/ya7.jpg</a>
+                    <img
                     {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
                       src="/storage/phpcat/img/ya7.jpg"
                         class="w-full rounded-lg shadow-lg dark:shadow-black/20" alt="" />
