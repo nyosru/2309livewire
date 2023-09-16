@@ -19,6 +19,7 @@
             {{-- news --}}
             {{-- {{ $data }} --}}
             @foreach ($items as $i)
+                <a href="{{ $i->link }}" target="_blank" >
                 <div class="flex-1">
 
                     <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2"/>
@@ -30,7 +31,7 @@
                     xbg-green-100 pt-2 pb-2 text-[2rem]">{{ $i->title }}</h2>
                     {{-- <p>{{ $post->photo }}</p> --}}
 
-                    <p><a class="text-blue-500 text-[1.5rem] hover:underline" href="{{ $i->link }}" target="_blank">{{ $i->link_title }}</a></p>
+                    <p class="text-blue-500 text-[1.5rem] hover:underline" >{{ $i->link_title }}</p>
                     <p>{{ $i->opis }}</p>
                     <Br/>
 
@@ -43,6 +44,7 @@
 
                 {{--<br clear="all" />--}}
                 </div>
+                </a>
             @endforeach
 
         </div>
