@@ -8,7 +8,7 @@ use Livewire\Component;
 class ShowRoom extends Component
 {
     public $imgs  = [];
-    
+
     // #[Reactive]
     public $n  = '';
 

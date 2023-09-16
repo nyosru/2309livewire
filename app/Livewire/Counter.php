@@ -8,7 +8,7 @@ class Counter extends Component
 {
     public $count = 0;
 
- 
+
 
     public function increment()
 
@@ -18,8 +18,8 @@ class Counter extends Component
 
     }
 
- 
-    
+
+
     public function render()
     {
         return view('livewire.counter');

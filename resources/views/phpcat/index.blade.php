@@ -1,19 +1,26 @@
 @extends('phpcat.layouts.app')
 
 @section('content')
-    @if (Route::currentRouteName() == 'phpcat.news')
-        <livewire:Phpcat.news />
-    @elseif(Route::currentRouteName() == 'phpcat.torrent')
-        2
-    @elseif(Route::currentRouteName() == 'phpcat.money')
-        3
-    @elseif(Route::currentRouteName() == 'phpcat.services')
-    <livewire:Phpcat.services />
-        {{-- @elseif( Route::currentRouteName() == 'phpcat.index' ) --}}
-    @else
-        @include('phpcat.index_index')
+
+    @include('phpcat.index_index')
+    <livewire:Phpcat.services/>
+
+    @if ( 1 == 2)
+        @if (Route::currentRouteName() == 'phpcat.news')
+            <livewire:Phpcat.news/>
+        @elseif(Route::currentRouteName() == 'phpcat.torrent')
+            2
+        @elseif(Route::currentRouteName() == 'phpcat.money')
+            3
+        @elseif(Route::currentRouteName() == 'phpcat.services')
+            <livewire:Phpcat.services/>
+            {{-- @elseif( Route::currentRouteName() == 'phpcat.index' ) --}}
+        @else
+            @include('phpcat.index_index')
+        @endif
     @endif
-    {{-- 
+
+    {{--
     <livewire:showRoom :imgs="[1, 2, 55]" />
     <hr/>
     2
@@ -46,7 +53,7 @@
             111
         @endif
 
-        <br />
+        <br/>
 
         nn: {{ $n }}
 

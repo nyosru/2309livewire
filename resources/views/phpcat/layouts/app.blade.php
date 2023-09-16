@@ -30,7 +30,6 @@
         };
     </script>
 
-
     @livewireStyles
 
 </head>
@@ -47,4 +46,13 @@
     @include('phpcat.layouts.footer')
 </body>
 
+<script src="/bg/three.min.js"></script>
+<script src="/bg/bg-22.js"></script>
+
+{{--<script src="/bg/bg-24.js"></script>--}}
+{{--<script src="/bg/bg-42.js"></script>--}}
+<style>#bg-42 {
+        min-height: 520px;
+        margin: 20px 0;
+    }</style>
 </html>

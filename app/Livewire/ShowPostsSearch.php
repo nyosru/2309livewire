@@ -9,14 +9,14 @@ use Livewire\WithPagination;
 class ShowPostsSearch extends Component
 {
     use WithPagination;
- 
+
     public $query = '';
- 
+
     public function search()
     {
         $this->resetPage();
     }
- 
+
     public function render()
     {
         return view('livewire.show-posts-search', [
