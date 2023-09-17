@@ -6,7 +6,7 @@
 
     <div class="bg-yellow-300 text-center p-2">
     Собираю коллекцию кружек со всех стран и городов, пить горячий сладкий кофе с молоком. Можете добавить свою частичку в коллекцию, было бы здорово!
-    <a href="https://кружки.сергейсб.рф" class="color-blue-500 hover:underline34" target="_blank" >кружки.СергейСБ.рф</a>
+    <a href="https://кружки.сергейсб.рф" class="text-blue-500 hover:underline" target="_blank" >кружки.СергейСБ.рф</a>
     </div>
 
     <livewire:Phpcat.services/>
