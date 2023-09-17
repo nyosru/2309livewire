@@ -1,6 +1,7 @@
 {{-- {{ $_SERVER['HTTP_HOST'] }} --}}
 
 @if(
+    $_SERVER['HTTP_HOST'] == 'php-cat.com' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
     )
