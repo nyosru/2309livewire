@@ -34,10 +34,10 @@ $d = function () {
 //    'domain' => 'livewire.php-cat.local'
 //], $d);
 Route::group([
-//    'as' => 'phpcat.',
-    'domain' => 'livewire.php-cat.com'
-], $d);
-Route::group([
     'as' => 'phpcat.',
     'domain' => 'php-cat.com'
+], $d);
+Route::group([
+//    'as' => 'phpcat.',
+    'domain' => 'livewire.php-cat.com'
 ], $d);
