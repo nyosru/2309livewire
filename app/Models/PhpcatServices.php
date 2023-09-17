@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PhpcatServices extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 }
