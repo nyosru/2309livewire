@@ -3,6 +3,12 @@
 @section('content')
 
     @include('phpcat.index_index')
+
+    <div class="alert alert-warning p-2">
+    Собираю коллекцию кружек со всех стран и городов, пить горячий сладкий кофе с молоком. Можете добавить свою частичку в коллекцию, было бы здорово!
+    <a href="https://кружки.сергейсб.рф" target="_blank" >кружки.СергейСБ.рф</a>
+    </div>
+
     <livewire:Phpcat.services/>
 
     @if ( 1 == 2)
