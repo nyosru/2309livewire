@@ -14,7 +14,8 @@ class Services extends Component
     {
         return view('livewire.phpcat.services',[
 //            'items' => PhpcatServices::paginate(5)
-            'items' => PhpcatServices::all()
+//            'items' => PhpcatServices::all()
+            'items' => PhpcatServices::get()
         ]);
     }
 }
