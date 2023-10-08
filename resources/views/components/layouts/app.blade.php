@@ -2,11 +2,24 @@
 
 @if(
     $_SERVER['HTTP_HOST'] == 'php-cat.com' ||
+    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
     )
 
 @include('phpcat.index')
+
+
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'domainwaiter.lw'
+//    ||
+//    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
+
+@include('domainwaiter.index')
+
 
 @else
 

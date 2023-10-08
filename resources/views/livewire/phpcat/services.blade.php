@@ -1,7 +1,7 @@
 <div>
     <div class="block bg-blue-200">
         <div class="container mx-auto py-5">
-            <h1 class="text-[2rem] font-bold">Удобные сервисы, приглашаю попробовать</h1>
+            <h1 class="text-[2rem] font-bold">Удобные сервисы, присоединяйтесь незаметно</h1>
         </div>
     </div>
     <div class="container mx-auto py-5">
@@ -19,7 +19,7 @@
             {{-- news --}}
             {{-- {{ $data }} --}}
             @foreach ($items as $i)
-                <a href="{{ $i->link }}" target="_blank" >
+                <a href="{{ $i->link }}" class="block" target="_blank" >
                 <div class="flex-1">
 
                     <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2"/>

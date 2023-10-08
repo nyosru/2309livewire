@@ -1,8 +1,15 @@
-@extends('phpcat.layouts.app')
+@extends('domainwaiter.layouts.app')
 
 @section('content')
+    654654
+@endsection
 
-    @include('phpcat.index_index')
+@if(1==2)
+
+{{--    @include('phpcat.index_index')--}}
+
+7777
+
 
     {{--    <div class="bg-yellow-300 text-center p-2">--}}
 {{--    <div>--}}
@@ -61,8 +68,6 @@
     </div>
     <!-- Container for demo purpose -->
 @endif
-
-
 
 
     <livewire:Phpcat.services/>
@@ -222,9 +227,6 @@
     3
     <hr/>
     <livewire:PhpcatMoney :imgs="[1, 2, 55]" /> --}}
-@endsection
-
-
 
 
 @if (1 == 2)
@@ -250,4 +252,5 @@
         nn: {{ $n }}
 
     </div>
+@endif
 @endif
