@@ -20,7 +20,8 @@ $inRoute[] =
     [
         'as' => 'uprav.',
 //            'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav.local' : 'управлятор.рф')
+//    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav.local' : 'управлятор.рф')
+    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav.local' : 'xn--80ae1ambgeod9j.xn--p1ai')
 ];
 
 foreach ($inRoute as $i) {
