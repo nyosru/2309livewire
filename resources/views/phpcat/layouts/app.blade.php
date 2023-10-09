@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Управлятор.рф - админка для сайта</title>
+    <title>php-cat.com создание и поддержка сайтов и служб</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
