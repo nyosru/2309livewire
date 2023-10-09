@@ -22,7 +22,7 @@
                 <a href="{{ $i->link }}" class="block" target="_blank" >
                 <div class="flex-1">
 
-                    <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2"/>
+                    <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
 
 {{--                    id: {{$i['id'] }}--}}
                     {{-- {{ print_r($post) }} --}}
