@@ -33,28 +33,23 @@
                 </div>
                 <div class="w-full text-left p-3 pt-[3rem] break-inside-avoid-column">
 
-                    <h2 class="text-[2rem] font-mono font-bold pt-3">
-                        Система для&nbsp;управления Вашим сайтом
-                    </h2>
-                    <br/>
-
-                    <h2 class="text-[2rem] font-mono font-bold">
+                    <p class="font-bold">
                         Система растет вместе с вами
-                    </h2>
+                    </p>
                     <p class="text-xl">
                         Настраивается под процессы любой сложности.
                         <br/>
                         Подходит маленьких и больших организаций и предпринимателей.
                     </p>
-                    <h2 class="text-[2rem] font-mono font-bold">
+                    <p class="font-bold">
                         Автоматизация
-                    </h2>
+                    </p>
                     <p class="text-xl">
                         Автоматизирует всю рутину и фокусирует сотрудников на действительно важных задачах
                     </p>
-                    <h2 class="text-[2rem] font-mono font-bold">
+                    <p class="font-bold">
                         Всегда актуальная версия
-                    </h2>
+                    </p>
                     <p class="text-xl">
                         Развивается в тесном контакте с пользователями.
                         <br/>
@@ -62,16 +57,16 @@
                         <br/>
                         Работает из облака на любом устройстве.
                     </p>
-                    <h2 class="text-[2rem] font-mono font-bold">
+                    <p class="font-bold">
                         Учет и контроль
-                    </h2>
+                    </p>
                     <p class="text-xl">
                         У каждого сотрудника и клиента есть свой аккаунт с доступом только к необходимой информации.
                         Ведется полный учет всех действий в системе и всех перемещений товара.
                     </p>
-                    <h2 class="text-[2rem] font-mono font-bold">
+                    <p class="font-bold">
                         Интеграции
-                    </h2>
+                    </p>
                     <p class="text-xl">
                         Легко встраивается в ваши процессы.
                         Подключается к 1с, Мой склад или Гугл таблицам.
@@ -128,7 +123,7 @@
                 <h2 class="text-[2rem] text-center font-mono font-bold ">
                     Техническая
                     интеграция
-                    за&nbsp;3&nbsp;дня
+                    за&nbsp;5&nbsp;дней
                 </h2>
             </div>
 
