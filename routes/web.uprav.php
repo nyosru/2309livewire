@@ -1,10 +1,10 @@
 <?php
 
-use App\Livewire\Uprav\UpravIndex ;
+use App\Livewire\Uprav\UpravIndex;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
-    Route::get('/', [UpravIndex::class,'index'] )->name('index');
+    Route::get('/', [UpravIndex::class, 'index'])->name('index');
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
 ////    Route::get('news', News::class)->name('news');
@@ -16,22 +16,12 @@ $d = function () {
 
 $inRoute = [];
 
-if (env('APP_ENV', 'x') == 'local') {
-    $inRoute[] =
-        [
-            'as' => 'uprav.',
+$inRoute[] =
+    [
+        'as' => 'uprav.',
 //            'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-        'domain' => 'uprav.local'
-    ];
-} else {
-    $inRoute[] =
-        [
-            'as' => 'uprav.',
-//            'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-        'domain' => 'управлятор.рф'
-    ];
-}
-
+    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav.local' : 'управлятор.рф')
+];
 
 foreach ($inRoute as $i) {
     Route::group($i, $d);
