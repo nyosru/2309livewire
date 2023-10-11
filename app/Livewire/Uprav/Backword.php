@@ -15,7 +15,7 @@ class Backword extends Component
 
     public $warning = '';
 
-    public function save( Request $r )
+    public function save(Request $r)
     {
 
 //        dd($r->all());
@@ -36,7 +36,7 @@ class Backword extends Component
 //            ->with('status', 'Post successfully created.')
 //            ;
 
-        $this->warning = 'Сообщение отправлено';
+        $this->warning = 'Сообщение отправлено, спасибо';
         $this->names = '';
         $this->contact = '';
         $this->message = '';
