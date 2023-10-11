@@ -157,4 +157,105 @@
 
     </div>
 
+
+    {{--    Предложение №1--}}
+    @if(1==2)
+        <div class="container mx-auto pb-5">
+
+            <div class="columns-1 md:columns-2 py-[3rem]">
+                <div class="w-full text-center">
+                    <h2 class="text-[2rem] font-mono font-bold">
+                        Предложение №1
+                    </h2>
+                    <p>Создадим для вас панель управления</p>
+                    {{--                <img src="/uprav/03.webp" class="w-full mx-auto max-w-[400px]"/>--}}
+                </div>
+                <div class="w-full text-left text-xl py-3 pt-[3rem] break-inside-avoid-column">
+                    <p class="">
+                        формочка
+                    </p>
+
+                </div>
+            </div>
+
+
+        </div>
+    @endif
+
+    {{--    Предложение №2--}}
+    @if(1==2)
+        <div class="container mx-auto pb-5">
+
+            <div class="columns-1 md:columns-2 py-[3rem]">
+                <div class="w-full text-center">
+                    <h2 class="text-[2rem] font-mono font-bold">
+                        Предложение №1
+                    </h2>
+                    <p>Создадим для вас панель управления</p>
+                    {{--                <img src="/uprav/03.webp" class="w-full mx-auto max-w-[400px]"/>--}}
+                </div>
+                <div class="w-full text-left text-xl py-3 pt-[3rem] break-inside-avoid-column">
+                    <p class="">
+                        формочка
+                    </p>
+
+                </div>
+            </div>
+
+
+        </div>
+    @endif
+    {{--    Предложение №3--}}
+    @if(1==2)
+        <div class="container mx-auto pb-5">
+
+            <div class="columns-1 md:columns-2 py-[3rem]">
+                <div class="w-full text-center">
+                    <h2 class="text-[2rem] font-mono font-bold">
+                        Предложение №1
+                    </h2>
+                    <p>Создадим для вас панель управления</p>
+                    {{--                <img src="/uprav/03.webp" class="w-full mx-auto max-w-[400px]"/>--}}
+                </div>
+                <div class="w-full text-left text-xl py-3 pt-[3rem] break-inside-avoid-column">
+                    <p class="">
+                        формочка
+                    </p>
+
+                </div>
+            </div>
+
+
+        </div>
+    @endif
+
+    {{--    напишите своё сообщение--}}
+    <div class="
+    1bg-[rgb(77,207,223)]
+    bg-gradient-to-r
+    1from-cyan-500
+    from-[rgb(77,207,223)]
+    via-[rgb(77,207,223)]
+    to-blue-500
+    ">
+        <div class="container mx-auto pb-5">
+
+            <div class="columns-1 md:columns-2 py-[3rem]">
+                <div class="w-full text-center">
+                    {{-- <p>Создадим для вас панель управления</p>--}}
+                    <img src="/uprav/lepri-mail.png" class="w-full mx-auto max-w-[400px]  hidden md:block"/>
+                </div>
+                <div class="w-full text-left text-xl pt-3 xpt-[3rem] break-inside-avoid-column">
+
+                    {{--                    <p class="">                        формочка                    </p>--}}
+
+                    <livewire:uprav.backword/>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 </div>

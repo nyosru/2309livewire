@@ -1,10 +1,10 @@
 <?php
 
-use App\Livewire\Uprav\UpravIndex;
+use App\Livewire\Uprav;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
-    Route::get('/', UpravIndex::class )->name('index');
+    Route::get('/', Uprav\UpravIndex::class )->name('index');
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
 ////    Route::get('news', News::class)->name('news');
