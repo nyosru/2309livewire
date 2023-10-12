@@ -249,7 +249,7 @@
 
                     {{--                    <p class="">                        формочка                    </p>--}}
 
-                    <livewire:uprav.backword/>
+                    <livewire:uprav.backword lazy />
 
                 </div>
             </div>

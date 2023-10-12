@@ -9,6 +9,7 @@ use Livewire\Component;
 class Backword extends Component
 {
 
+//    public $loading = false;
     public $names = '';
     public $contact = '';
     public $message = '';
@@ -17,6 +18,8 @@ class Backword extends Component
 
     public function save(Request $r)
     {
+
+//        $this->loading = true;
 
 //        dd($r->all());
 
@@ -40,9 +43,17 @@ class Backword extends Component
         $this->names = '';
         $this->contact = '';
         $this->message = '';
-
+//        $this->loading = false;
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+             ...
+        </div>
+        HTML;
+    }
 
     public function render()
     {
