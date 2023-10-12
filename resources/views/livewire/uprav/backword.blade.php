@@ -25,15 +25,20 @@
                 <div>@error('message') {{ $message }} @enderror</div>
             </label>
 
-            @if( $loading == true)
-                <div wire:transition>
-                    ... загружаю ...
-                </div>
-            @else
-                <button type="submit" class="button bg-blue-600 hover:bg-blue-800 rounded-lg px-4 py-2 text-white">
-                    Отправить
-                </button>
-            @endif
+            <div wire:loading class="bg-yellow-300 px-6 py-3">
+{{--                <span wire:transition>--}}
+                Отправляю данные ...
+{{--                    </span>--}}
+            </div>
+            {{--            @if( $loading == true)--}}
+            {{--                <div wire:transition>--}}
+            {{--                    ... загружаю ...--}}
+            {{--                </div>--}}
+            {{--            @else--}}
+            <button type="submit" class="button bg-blue-600 hover:bg-blue-800 rounded-lg px-4 py-2 text-white">
+                Отправить
+            </button>
+            {{--            @endif--}}
 
 
         </form>
