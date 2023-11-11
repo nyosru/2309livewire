@@ -20,7 +20,6 @@ class Backword extends Component
     {
 
 //        $this->loading = true;
-
 //        dd($r->all());
 
         $validated = $this->validate([
@@ -32,6 +31,7 @@ class Backword extends Component
 //        BackwordAlias::create(
 //            $this->only(['name', 'contact','message'])
 //        );
+
         BackwordAlias::create($validated);
 
 //        return $this->redirect('/posts')

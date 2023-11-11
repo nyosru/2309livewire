@@ -182,8 +182,9 @@
 
 
                         inline-block
-                        text-sm
-                        font-medium
+
+                        text-xl
+                        font-bold
 
                         rounded
                         uppercase
@@ -224,8 +225,10 @@
                         px-12
                         pt-4
                         pb-3.5
-                        text-sm
-                        font-medium
+
+                        text-xl
+                        font-bold
+
 
                         rounded
                         uppercase

@@ -11,24 +11,36 @@
             <label class="block mb-3">
                 <b>Как Вас зовут</b>
                 <input type="text" wire:model="names" class="w-full border border-b-4 mt-2" required/>
-                <div>@error('names') {{ $message }} @enderror</div>
+                @error('names')
+                <div wire:transition class="alert bg-yellow-300 px-5 py-2 rounded">
+                    {{ $message }}
+                </div>
+                @enderror
             </label>
             <label class="block mb-3">
                 <b>Контактный телеграм или телефон</b>
                 <input type="text" name="contact" wire:model="contact" class="w-full border border-b-4 mt-2" required/>
-                <div>@error('contact') {{ $message }} @enderror</div>
+                @error('contact')
+                <div wire:transition class="alert bg-yellow-300 px-5 py-2 rounded">
+                    {{ $message }}
+                </div>
+                @enderror
             </label>
             <label class="block mb-3">
                 <b>Сообщение</b>
                 <textarea name="message" wire:model="message" rows=6 class="w-full rounded border border-b-4 mt-2"
                           required></textarea>
-                <div>@error('message') {{ $message }} @enderror</div>
+                @error('message')
+                <div wire:transition class="alert bg-yellow-300 px-5 py-2 rounded">
+                    {{ $message }}
+                </div>
+                @enderror
             </label>
 
             <div wire:loading class="bg-yellow-300 px-6 py-3">
-{{--                <span wire:transition>--}}
+                {{--                <span wire:transition>--}}
                 Отправляю данные ...
-{{--                    </span>--}}
+                {{--                    </span>--}}
             </div>
             {{--            @if( $loading == true)--}}
             {{--                <div wire:transition>--}}
