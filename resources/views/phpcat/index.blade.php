@@ -193,10 +193,6 @@
     <!-- Container for demo purpose -->
 @endif
 
-
-
-
-
     @if ( 1 == 2)
         @if (Route::currentRouteName() == 'phpcat.news')
             <livewire:Phpcat.news/>
@@ -222,6 +218,9 @@
     3
     <hr/>
     <livewire:PhpcatMoney :imgs="[1, 2, 55]" /> --}}
+
+{{--    @include('phpcat.mod_yesno')--}}
+
 @endsection
 
 

@@ -7,6 +7,8 @@
 
     <title>php-cat.com создание и поддержка сайтов и служб</title>
 
+    <link type="image/x-icon" href="/phpcat/favcat.ico" rel="shortcut icon" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />

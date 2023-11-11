@@ -54,7 +54,6 @@
         }
     </style>
 
-
     @if (1 == 2)
         <!-- Navbar -->
         <nav
@@ -134,7 +133,6 @@
         </nav>
         <!-- Navbar -->
     @endif
-
 
     <!-- Jumbotron -->
     <div class="px-6 py-12 text-center md:px-12 lg:text-left">
