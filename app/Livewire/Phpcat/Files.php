@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Phpcat;
 
+use App\Models\VkFileHistory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -36,12 +37,26 @@ class Files extends Component
         $res = file_get_contents('https://api.vk.com/method/docs.search?' . $res2);
 //        $res70 = json_decode($res, true);
         $res70 = json_decode($res);
-        return $res70;
+//        dd($res70);
 
-//        $res7 = $res70->response->items;
-//        $this->results = $res70;
-//        return $res70->response->items;
-//        return $res7;
+        $in = [];
+
+        foreach ($res70->response->items as $ii) {
+
+            $f = [
+                'vk_id' => $ii->id,
+                'vk_owner_id' => $ii->owner_id,
+                'title' => $ii->title,
+                'ext' => $ii->ext,
+                'url' => $ii->url,
+                'size' => $ii->size,
+                'json' => json_encode($ii)];
+            $in[] = $f;
+        }
+
+        VkFileHistory::insert($in);
+
+        return $res70;
 
     }
 
@@ -57,11 +72,11 @@ class Files extends Component
             $res3 = $this->getSearch($searchNow, 120, 240);
             $res4 = $this->getSearch($searchNow, 120, 360);
             $res = array_merge($res->response->items, $res2->response->items, $res3->response->items, $res4->response->items);
-        }else if ($res->response->count > 240) {
+        } else if ($res->response->count > 240) {
             $res2 = $this->getSearch($searchNow, 120, 120);
             $res3 = $this->getSearch($searchNow, 120, 240);
             $res = array_merge($res->response->items, $res2->response->items, $res3->response->items);
-        }elseif ($res->response->count > 120) {
+        } elseif ($res->response->count > 120) {
             $res2 = $this->getSearch($searchNow, 120, 120);
             $res = array_merge($res->response->items, $res2->response->items);
         } else {
@@ -76,9 +91,9 @@ class Files extends Component
 
     public function filterCollection($collection)
     {
-        if( $this->filterBig > 0 ){
+        if ($this->filterBig > 0) {
             $filtered = $collection->filter(function ($value, $key) {
-                return $value->size > $this->filterBig*1024*1024;
+                return $value->size > $this->filterBig * 1024 * 1024;
             });
             return $filtered->all();
         }
@@ -92,8 +107,8 @@ class Files extends Component
 //        $res = $this->getSearch($this->search);
 //        $res2 = collect()
 
-        if( !empty($this->searchTxt) )
-        $resShow = $this->getFullResult($this->searchTxt);//->paginate(50)
+        if (!empty($this->searchTxt))
+            $resShow = $this->getFullResult($this->searchTxt);//->paginate(50)
 
         return view('livewire.phpcat.files',
             [
