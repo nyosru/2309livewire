@@ -1,5 +1,3 @@
-
-
 <!-- Section: Design Block -->
 <section class="background-radial-gradient xmb-40">
     <style>
@@ -21,25 +19,25 @@
     </style>
 
     <!-- Jumbotron -->
-    <div class="px-6 py-12 text-center md:px-12 lg:text-left">
+    <div class="px-6 py-2 text-center md:px-12 lg:text-left">
         <div class="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
-            <div class="grid items-center gap-12 lg:grid-cols-2">
-                <div class="mt-12 lg:mt-0 text-center">
-
-                    <a href="https://php-cat.com" target="_blank" class="p-0 m-0 block text-center"><h1 style="font-size: 3rem;">
-                            <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />
+            <div class="grid items-center gap-12 lg:grid-cols-3">
+                <div class="mt-1 lg:mt-0 text-center">
+                    <a href="https://php-cat.com" target="_blank" class="p-0 m-0 block text-center"><h1
+                            style="font-size: 3rem;">
+                            <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;"/>
                             php-cat.com</h1></a>
                     <br/>
+                </div>
+                <div class="mt-2 lg:mt-0 text-center">
+
                     <h1
                         class="mt-0 mb-3 text-xl font-bold tracking-tight md:text-2xl xl:text-2xl text-[rgb(118,11%,25%)]">
                         Создаю сайты и&nbsp;службы
                     </h1>
 
-
-{{--                    <br/>--}}
-{{--                    <br/>--}}
-
-                    <a class="
+                    @if(1==2)
+                        <a class="
                         inline-block
                         px-12
                         pt-4
@@ -73,12 +71,12 @@
                         mb-1
                         "
 
-                       data-te-ripple-init data-te-ripple-color="light"
-                       href="https://t.me/phpcatcom"
-                       target="_blank"
-                       role="button"
-                    >Написать в телеграм @phpcatcom</a>
-
+                           data-te-ripple-init data-te-ripple-color="light"
+                           href="https://t.me/phpcatcom"
+                           target="_blank"
+                           role="button"
+                        >Написать в телеграм @phpcatcom</a>
+                    @endif
                     <p>Этот сайт построен на: Laravel&nbsp;10 +&nbsp;LiveWire</p>
                 </div>
                 <div class="mb-1 lg:mb-0">
@@ -87,7 +85,7 @@
                         {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
                         src="/phpcat/img/ya7.jpg"
                         class=" rounded-lg shadow-lg dark:shadow-black/20" alt=""
-                        style="max-height: 200px; margin: 0 auto;"
+                        style="max-height: 150px; margin: 0 auto;"
                     />
                 </div>
             </div>
@@ -95,4 +93,3 @@
     </div>
     <!-- Jumbotron -->
 </section>
-<!-- Section: Design Block -->
