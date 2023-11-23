@@ -94,7 +94,11 @@
                         @endif
                     >
                         <td>{{ $count++ }}</td>
-                        <td class="p-1"><a href="{{ $i->url }}" class="text-blue-500 hover:underline"
+                        <td class="p-1">
+                            @if( $i->owner_id > 0 )
+                            <small><abbr title="id пользователя в vk (иногда ошибочное значение)" ><a href="https://vk.com/id{{ $i->owner_id }}" target="_blank" style="float:right; background-color: rgba(120,255,255,0.7);" class="p-1" >{{ $i->owner_id }}</a></abbr></small>
+                            @endif
+                            <a href="{{ $i->url }}" class="text-blue-500 hover:underline"
                                            target="_blank">{{ $i->title }}
                                 @if( $i->ext == 'jpg' || $i->ext == 'gif' || $i->ext == 'png' )
                                     {{--                        @if( $i->ext == 'jpg' )--}}
