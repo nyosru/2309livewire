@@ -21,6 +21,18 @@
 @include('domainwaiter.index')
 
 
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'ar.php-cat.local' ||
+    $_SERVER['HTTP_HOST'] == 'ar.php-cat.com'
+//    ||
+//    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
+
+@include('ar.index')
+
+
 @else
 
     <!DOCTYPE html>

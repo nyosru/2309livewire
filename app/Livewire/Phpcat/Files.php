@@ -39,22 +39,22 @@ class Files extends Component
         $res70 = json_decode($res);
 //        dd($res70);
 
-        $in = [];
-
-        foreach ($res70->response->items as $ii) {
-
-            $f = [
-                'vk_id' => $ii->id,
-                'vk_owner_id' => $ii->owner_id,
-                'title' => $ii->title,
-                'ext' => $ii->ext,
-                'url' => $ii->url,
-                'size' => $ii->size,
-                'json' => json_encode($ii)];
-            $in[] = $f;
+        try {
+            $in = [];
+            foreach ($res70->response->items as $ii) {
+                $f = [
+                    'vk_id' => $ii->id,
+                    'vk_owner_id' => $ii->owner_id,
+                    'title' => $ii->title,
+                    'ext' => $ii->ext,
+                    'url' => $ii->url,
+                    'size' => $ii->size,
+                    'json' => json_encode($ii)];
+                $in[] = $f;
+            }
+            VkFileHistory::insert($in);
+        } catch (\Exception $ex) {
         }
-
-        VkFileHistory::insert($in);
 
         return $res70;
 

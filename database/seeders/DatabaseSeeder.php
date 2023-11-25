@@ -13,9 +13,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-//            LarawireNewsSeeder::class,
-            PhpcatNewsSeeder::class,
-            PhpcatServicesSeeder::class,
+
+            ArObjectSeeder::class,
+            ArPeopleSeeder::class,
+            ArPriceSeeder::class,
+            ArPaySeeder::class,
+
+
+////            LarawireNewsSeeder::class,
+//            PhpcatNewsSeeder::class,
+//            PhpcatServicesSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
