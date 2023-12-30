@@ -17,6 +17,7 @@ class PhpcatDevelopFactory extends Factory
     public function definition(): array
     {
         return [
+            'system' => $this->faker->name(),
             'title' => $this->faker->name(),
             'link' => $this->faker->url(),
             'link_title' => $this->faker->name(),
