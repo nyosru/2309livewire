@@ -29,15 +29,15 @@ jobs:
             git reset --hard ${{ env.GIT_BRANCH }}
 
 
-#      - name: "update composer migration"
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ env.VPS_IP }}
-#          username: ${{ env.VPS_USERNAME }}
-#          key: ${{ secrets.DEPLOY_KEY }}
-#          script: |
-#            docker exec 2309livewire composer i
-#            docker exec 2309livewire php artisan migrate
+      - name: "update composer migration"
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.VPS_IP }}
+          username: ${{ env.VPS_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            docker exec 2309livewire composer i
+            docker exec 2309livewire php artisan migrate
 
 
 
