@@ -1,7 +1,7 @@
 @extends('phpcat.layouts.app')
 
 @section('content')
-
+777777
     @include('phpcat.index_index')
 
     {{--    <div class="bg-yellow-300 text-center p-2">--}}
