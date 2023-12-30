@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
             ArPriceSeeder::class,
             ArPaySeeder::class,
 
-
 ////            LarawireNewsSeeder::class,
 //            PhpcatNewsSeeder::class,
 //            PhpcatServicesSeeder::class,
+            PhpcatDevelopSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();
