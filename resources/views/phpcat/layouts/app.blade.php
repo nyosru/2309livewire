@@ -34,6 +34,25 @@
 
     @livewireStyles
 
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://php-cat.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="php-cat.com Сергей Бакланов программист">
+    <meta property="og:description" content="Домашняя страничка Сергея Бакланова программиста">
+
+    <meta property="og:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_fb.jpg">
+
+    <!-- VK Meta Tags -->
+    <meta property="vk:image"  content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="php-cat.com">
+    <meta property="twitter:url" content="https://php-cat.com">
+    <meta name="twitter:title" content="php-cat.com Сергей Бакланов программист">
+    <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">
+    <meta name="twitter:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg">
+
 </head>
 
 <body class="antialiased">
