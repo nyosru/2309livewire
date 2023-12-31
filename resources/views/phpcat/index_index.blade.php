@@ -15,7 +15,7 @@
                     </a></div>
             </div>
             <div class="col-12 col-md-6">
-                <h2 class="alert alert-warning text-center"> 2023&nbsp;год самое&nbsp;время реализовать вашу&nbsp;идею!
+                <h2 class="alert alert-warning text-center"> {{ date('Y') }}&nbsp;год самое&nbsp;время реализовать вашу&nbsp;идею!
                 </h2>
                 <p class="text-center"> Я&nbsp;Сергей&nbsp;Бакланов <br><br> Младший помощник программиста, Програмист,
                     IT архитектор и IT космонавт )
