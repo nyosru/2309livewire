@@ -14,22 +14,8 @@ $d = function () {
 //    //    Route::fallback(function () { return redirect('/'); });
 };
 
-$inRoute = [
-    [
-        'as' => 'phpcat.',
-        'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-    ]
-];
+Route::group([
+    'as' => 'phpcat.',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
+], $d);
 
-foreach ($inRoute as $i) {
-    Route::group($i, $d);
-}
-
-//Route::group([
-////    'as' => 'phpcat.',
-//    'domain' => 'php-cat.com'
-//], $d);
-//Route::group([
-////    'as' => 'phpcat.',
-//    'domain' => 'livewire.php-cat.com'
-//], $d);
