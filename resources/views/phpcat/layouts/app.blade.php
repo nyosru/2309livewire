@@ -88,6 +88,8 @@
 <script src="/bg/three.min.js"></script>
 <script src="/bg/bg-22.js"></script>
 
+{{--<script src="/app0.js"></script>--}}
+
 {{--<script src="/bg/bg-24.js"></script>--}}
 {{--<script src="/bg/bg-42.js"></script>--}}
 <style>#bg-42 {

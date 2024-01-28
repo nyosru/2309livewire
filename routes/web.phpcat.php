@@ -1,10 +1,12 @@
 <?php
 
+use App\Livewire\Phpcat\Develop;
 use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
     Route::get('/', News::class)->name('index');
+    Route::get('/develop/{item}', Develop::class)->name('develop');
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
 ////    Route::get('news', News::class)->name('news');

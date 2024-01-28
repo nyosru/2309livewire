@@ -1,9 +1,7 @@
-import './bootstrap';
 
-window.addEventListener('your-prefix:scroll-to', (ev) => {
-    ev.stopPropagation();
-
-    const selector = ev?.detail?.query;
+function scrollto(selector){
+    // ev.stopPropagation();
+    // const selector = ev?.detail?.query;
 
     if (!selector) {
         return;
@@ -21,4 +19,4 @@ window.addEventListener('your-prefix:scroll-to', (ev) => {
         });
     } catch {}
 
-}, false);
+};

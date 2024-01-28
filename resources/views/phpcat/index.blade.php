@@ -8,7 +8,10 @@
 
     <livewire:Phpcat.develop/>
 
-    <div class="container my-24 mx-auto md:px-6">
+    <div
+{{--        class="container my-24 mx-auto md:px-6"--}}
+        class=" my-24 xmx-auto xmd:px-6"
+    >
 
         {{-- пожертвование--}}
         <livewire:Phpcat.money/>
@@ -19,6 +22,7 @@
             {{--        <br clear="all"/>--}}
             <!-- Container for demo purpose -->
             {{--        <div class="container my-24 mx-auto md:px-6">--}}
+            <div class="container mx-auto">
             <!-- Section: Design Block -->
             <section class="mb-32">
                 <div
@@ -180,6 +184,7 @@
                     </div>
                 </div>
             </section>
+            </div>
             <!-- Section: Design Block -->
             <!-- Container for demo purpose -->
         @endif

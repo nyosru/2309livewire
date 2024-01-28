@@ -19,10 +19,20 @@ class PhpcatDevelopFactory extends Factory
         return [
             'system' => $this->faker->name(),
             'title' => $this->faker->name(),
+
             'link' => $this->faker->url(),
             'link_title' => $this->faker->name(),
+
             'img_url' => $this->faker->imageUrl(150,150,null,true, 'test'),
-            'opis' => $this->faker->text(500)
+
+            'opis' => $this->faker->text(500),
+
+
+            'github' =>  $this->faker->url(),
+            'packagist' => $this->faker->url(),
+
+            'how_start' => $this->faker->text(500)
+
         ];
     }
 }
