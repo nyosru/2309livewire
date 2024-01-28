@@ -10,7 +10,7 @@
                     <div class="w-full shrink-0 grow-0 basis-auto lg:w-6/12 xl:w-8/12">
                         <div class="px-6 py-12 md:px-12">
                             <h2 class="mb-6 pb-2 text-4xl font-bold">
-                                Отправить поддержку деньгами!
+                                Поддержите деньгами!
                             </h2>
                             <p class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
                                 Отправить пожертвования на поддержание хорошего настроения и&nbsp;развитие моих проектов!<br>
