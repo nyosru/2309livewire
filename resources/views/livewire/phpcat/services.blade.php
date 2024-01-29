@@ -12,7 +12,7 @@
         {{-- <div class="flex flex-row:md gap-5"> --}}
         {{-- <div class="flex flex-wrap gap-5"> --}}
         <div
-            class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 grid-auto-rows: auto; py-5"
+            class="grid grid-cols-1 xl:grid-cols-2 gap-4 grid-auto-rows: auto; py-5"
             {{--        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 grid-auto-rows: auto; py-5"--}}
         >
             {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
