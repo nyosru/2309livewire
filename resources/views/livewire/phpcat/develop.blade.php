@@ -40,6 +40,7 @@
                 {{-- news --}}
                 {{-- {{ $data }} --}}
                 @foreach ($items as $i)
+
                     <a
 {{--                        wire:navigate--}}
 {{--                        href="/develop/{{ $i->id }}"--}}
@@ -61,7 +62,7 @@
 
                             <p class="text-blue-500 text-[1.5rem] hover:underline">{{ $i->link_title }}</p>
                             <p>{{ $i->opis }}</p>
-                            <Br/>
+                            <Br clear="all"/>
 
                             @if(1==2)
                                 <div
@@ -73,6 +74,7 @@
                             {{--<br clear="all" />--}}
                         </div>
                     </a>
+
                 @endforeach
 
             </div>

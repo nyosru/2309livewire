@@ -42,7 +42,7 @@
                     </div>
                     @endif
 
-                {{--<br clear="all" />--}}
+                <br clear="all" />
                 </div>
                 </a>
             @endforeach
