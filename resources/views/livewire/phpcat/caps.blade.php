@@ -1,15 +1,22 @@
 <a href="https://кружки.сергейсб.рф"
-   target="_blank">
-    <section class="container mx-auto mb-32 xbg-yellow-200">
+   target="_blank"
+>
+    <section class="py-32
+    xbg-yellow-200
+    xbg-gradient-to-br xfrom-white xto-red-200
+    background-radial-gradient
+    ">
         <div
-            class="block rounded-lg
+            class="container mx-auto xblock rounded-lg
                 xbg-white
                 xshadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
                 dark:bg-neutral-700">
             <div class="flex flex-wrap items-center">
                 <div class="block
                     xw-full
-                    w-4/12
+                    xw-4/12
+                    w-full
+                    sm:w-4/12
                     mx-auto
                     shrink-0 grow-0 basis-auto lg:flex
                     xlg:w-6/12

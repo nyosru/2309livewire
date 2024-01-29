@@ -10,7 +10,7 @@
 
     <div
 {{--        class="container my-24 mx-auto md:px-6"--}}
-        class=" my-24 xmx-auto xmd:px-6"
+        class=" xmy-24 xmx-auto xmd:px-6"
     >
 
         {{-- пожертвование--}}

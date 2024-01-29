@@ -1,5 +1,5 @@
 <!-- Section: Design Block -->
-<section class="mb-32">
+<section class="xmb-32">
     <div class="block
             bg-gradient-to-r from-yellow-200 to-orange-300
             rounded-lg xbg-white
