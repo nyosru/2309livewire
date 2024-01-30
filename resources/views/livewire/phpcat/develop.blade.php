@@ -1,4 +1,4 @@
-<div id="develop-head">
+<div id="develop-head" class="pb-10">
     <div class="block bg-blue-200">
         <div class="container mx-auto py-5">
             <h1 class="text-[2rem] font-bold">
