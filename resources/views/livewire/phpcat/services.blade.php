@@ -15,9 +15,11 @@
             class="grid grid-cols-1 xl:grid-cols-2 gap-4 grid-auto-rows: auto; py-5"
             {{--        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 grid-auto-rows: auto; py-5"--}}
         >
+            
             {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
             {{-- news --}}
             {{-- {{ $data }} --}}
+
             @foreach ($items as $i)
                 <a href="{{ $i->link }}" class="block" target="_blank" >
                 <div class="flex-1">
