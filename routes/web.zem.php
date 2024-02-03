@@ -23,6 +23,12 @@ $d = function () {
 
 Route::group([
     'as' => 'zem.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'земельныйкадастр.рф'
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'земельныйкадастр.рф'
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
 ], $d);
+
+//Route::group([
+//    'as' => 'zem.',
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'земельныйкадастр.рф'
+//], $d);
 
