@@ -263,7 +263,7 @@
                     {{--                    <a href="/phpcat/img/ya7.jpg" target="_blank" >/storage/phpcat/img/ya7.jpg</a>--}}
                     <img
                         {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
-                        src="/phpcat/img/ya7.jpg"
+                        src="/phpcat/img/ya6.jpg"
                         class="w-full rounded-lg shadow-lg dark:shadow-black/20" alt=""/>
                 </div>
             </div>

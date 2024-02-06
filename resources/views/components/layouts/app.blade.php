@@ -22,6 +22,18 @@
 
 
 @elseif(
+    $_SERVER['HTTP_HOST'] == 'zem.local' ||
+    //земельныйкадастр.рф
+    $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
+//    ||
+//    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
+@include('zem.index')
+
+
+@elseif(
     $_SERVER['HTTP_HOST'] == 'ar.php-cat.local' ||
     $_SERVER['HTTP_HOST'] == 'ar.php-cat.com'
 //    ||
