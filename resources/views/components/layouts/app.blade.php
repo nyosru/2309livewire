@@ -26,7 +26,7 @@
     //земельныйкадастр.рф
     $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai' ||
     // приватизация гаража
-    $_SERVER['HTTP_HOST'] == 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai '
+    $_SERVER['HTTP_HOST'] == 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'
 //    ||
 //    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
 //    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
