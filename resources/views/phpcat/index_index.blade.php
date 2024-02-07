@@ -249,13 +249,13 @@
                         {{-- focus:outline-none  --}}
                         {{-- focus:ring-0  --}}
                         {{-- active:text-neutral-300 --}}
-
                         "
 
                        data-te-ripple-init data-te-ripple-color="light"
                        href="https://t.me/phpcatcom"
                        target="_blank"
                        role="button"
+
                     >Написать в телеграм @phpcatcom</a>
 
                 </div>

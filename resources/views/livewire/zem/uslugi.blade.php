@@ -77,6 +77,7 @@
                         </div>
                     </div>
                 @endforeach
+
             </div>
             {{--        <div class="grid grid-cols-8">--}}
             {{--            <div>1</div>--}}
@@ -199,6 +200,10 @@
 
             @endforeach
 
+
+            <div class="w-full text-3xl px-10 py-5 bg-green-300">
+                Поздравляем! Земля и гараж приватизированы!
+            </div>
 
             @if(1==2)
 
