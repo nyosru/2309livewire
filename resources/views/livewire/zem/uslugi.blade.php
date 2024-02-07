@@ -15,6 +15,12 @@
         }
     </style>
 
+    <div class="bg-gradient-to-b from-gray-100 to-yellow-100">
+        <div class="container text-2xl py-16 mx-auto text-center">
+            Все документы и схемы отправляем Вам чтобы их напечататать и записать диски ( тогда с нас скидка! ) или привозим к МФЦ, подаёте их и получаете приватизацию гаража и земли под ним! нужно 5 визитов в
+            <a href="https://моидокументы.рф/" target="_blank" class="text-blue-600 underline">МФЦ "Мои документы" (найдите ближайший)</a>
+        </div>
+    </div>
     <div class="lili px-[3%]">
 
         <div class="grid grid-cols-7  pb-[3rem]">
@@ -77,6 +83,13 @@
                         </div>
                     </div>
                 @endforeach
+
+
+                <div class="w-full text-3xl px-10 py-5 bg-green-300 mb-10">
+                    <img src="/icon/winner.png" class="inline-block" style="max-width: 64px; 1border: 1px solid green;"/>
+                    Поздравляем! Земля и гараж приватизированы!
+                </div>
+
 
             </div>
             {{--        <div class="grid grid-cols-8">--}}
@@ -202,6 +215,7 @@
 
 
             <div class="w-full text-3xl px-10 py-5 bg-green-300">
+                <img src="/icon/winner.png" class="inline-block" style="max-width: 64px; 1border: 1px solid green;"/>
                 Поздравляем! Земля и гараж приватизированы!
             </div>
 

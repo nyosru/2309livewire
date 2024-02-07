@@ -146,7 +146,7 @@
             {{--                    <div class="flex justify-between border-t border-gray-100 dark:border-gray-800 py-4 pb-8 md:pl-16">--}}
             <div class="text-center">&copy; Все права защищены 2023 - <span id="year">{{ date('Y') }}</span> </div>
             <div class="text-center">создание сервиса <a href="https://php-cat.com" target="_blank"
-                                      class="hover:text-blue-800 hover:bg-green-300 px-2 py-1 underline">php-cat.com</a></div>
+                                      class="hover:text-blue-800 hover:bg-green-300 px-2 py-1 underline"><img src="/phpcat/cat.png" style="display:inline-block; max-height: 3rem;" /> php-cat.com</a></div>
             {{--                    </div>--}}
         </div>
         {{--        </div>--}}

@@ -3,7 +3,9 @@
 
     <a href="/" class="p-3 m-0 block text-center"><h1 class="text-3xl lg:text-5xl" style="letter-spacing: 0.3vw;" >
             <span class="invisible fixed lg:relative lg:visible">
-            <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />
+
+                <img src="/zem/logo.png"  style="display:inline-block; max-height: 6rem;"  />
+{{--                <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />--}}
                 </span>
             ПриватизацияГаража.рф
         </h1></a>

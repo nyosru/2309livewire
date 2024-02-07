@@ -299,8 +299,10 @@ class Uslugi extends Component
         ]
         , [
             'mini' => [
-                'img' => '<img src="/icon/email.png" class="inline-block" style="max-width: 64px; 1border: 1px solid green;"/>',
-                'opis' => 'получаем результат, выписка из ЕГРН о том что строение Ваше, приватизировано'
+                'img' => '<img src="/icon/man.png" class="inline-block" style="max-width: 64px; 1border: 1px solid green;"/>
+                <img src="/logo/mfc_mini.svg" class="inline-block" style="max-width: 64px; 1border: 1px solid green;"/>',
+                'opis' => 'В МФЦ получаете результат, это выписка из ЕГРН о том что строение Ваше, приватизировано   <br/>
+                        <span class="text-sm" >(можно и не ходить если не охота ;) )</span>'
             ],
             'data' => [
                 'результат получен',
