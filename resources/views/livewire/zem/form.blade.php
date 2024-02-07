@@ -220,7 +220,8 @@
 
                                 Хорошо, данные отправлены, в ближайшее время позвоним познакомится,
                                 подготавливайте документы для первого шага,
-                                и отправляйте их на почту 777@php-cat.com или в телеграм <a href="https://t.me/garag777" >@garag777</a>
+                                и отправляйте их на почту <a href="mailto:777@php-cat.com" class="text-blue-600 underline" >777@php-cat.com</a> или в телеграм <a
+                                    class="text-blue-600 underline" href="https://t.me/garag777" >@garag777</a>
 
                             @endif
 
