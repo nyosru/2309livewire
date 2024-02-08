@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>php-cat.com создание и поддержка сайтов и служб</title>
+    <title>ПриватизацияГаража.рф</title>
 
     <link type="image/x-icon" href="/phpcat/favcat.ico" rel="shortcut icon"/>
 
@@ -35,23 +35,23 @@
     @livewireStyles
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://php-cat.com">
+    <meta property="og:url" content="https://приватизацияГаража.рф">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="php-cat.com Сергей Бакланов программист">
-    <meta property="og:description" content="Домашняя страничка Сергея Бакланова программиста">
+    <meta property="og:title" content="Приватизация Гаража">
+    <meta property="og:description" content="Сервис подготовки документов для приватизации гаража">
 
-    <meta property="og:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_fb.jpg">
+    <meta property="og:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_fb.jpg">
 
     <!-- VK Meta Tags -->
-    <meta property="vk:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg"/>
+    <meta property="vk:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_vk.jpg"/>
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="php-cat.com">
-    <meta property="twitter:url" content="https://php-cat.com">
-    <meta name="twitter:title" content="php-cat.com Сергей Бакланов программист">
-    <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">
-    <meta name="twitter:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg">
+    <meta property="twitter:domain" content="приватизацияГаража.рф">
+    <meta property="twitter:url" content="https://приватизацияГаража.рф">
+    <meta name="twitter:title" content="Сервис ПриватизацияГаража.рф">
+    <meta name="twitter:description" content="Сервис подготовки документов для приватизации гаража">
+    <meta name="twitter:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_vk.jpg">
 
         <style>
             header,
