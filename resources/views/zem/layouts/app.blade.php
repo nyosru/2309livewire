@@ -7,7 +7,7 @@
 
     <title>ПриватизацияГаража.рф</title>
 
-    <link type="image/x-icon" href="/phpcat/favcat.ico" rel="shortcut icon"/>
+    <link type="image/x-icon" href="/zem/favicon.ico" rel="shortcut icon"/>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
