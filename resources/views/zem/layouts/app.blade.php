@@ -53,24 +53,24 @@
     <meta name="twitter:description" content="Сервис подготовки документов для приватизации гаража">
     <meta name="twitter:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_vk.jpg">
 
-        <style>
-            header,
-            .background-radial-gradient {
-                background-color: rgb(255, 255, 240);
-                background-image: radial-gradient(650px circle at 0% 0%,
-                rgb(255, 255, 240) 15%,
-                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
-                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
-                transparent 100%),
-                radial-gradient(1250px circle at 100% 100%,
-                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
-                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
-                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
-                    transparent 100%);
-            }
-        </style>
+    <style>
+        header,
+        .background-radial-gradient {
+            background-color: rgb(255, 255, 240);
+            background-image: radial-gradient(650px circle at 0% 0%,
+            rgb(255, 255, 240) 15%,
+                /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
+                /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
+                /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
+            transparent 100%),
+            radial-gradient(1250px circle at 100% 100%,
+                    /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
+                    /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
+                    /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
+                    /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
+                transparent 100%);
+        }
+    </style>
 
 </head>
 
@@ -85,7 +85,7 @@
 </main>
 @include('zem.layouts.footer')
 
-@if(1==2)
+@if(1==1)
     {{--    <!-- Yandex.Metrika counter -->--}}
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
@@ -102,14 +102,14 @@
         })
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(76358443, "init", {
+        ym(96441410, "init", {
             clickmap: true,
             trackLinks: true,
             accurateTrackBounce: true
         });
     </script>
     <noscript>
-        <div><img src="https://mc.yandex.ru/watch/76358443" style="position:absolute; left:-9999px;" alt=""/></div>
+        <div><img src="https://mc.yandex.ru/watch/96441410" style="position:absolute; left:-9999px;" alt=""/></div>
     </noscript>
     {{--    <!-- /Yandex.Metrika counter -->--}}
 @endif
