@@ -39,14 +39,18 @@ class Form extends Component
 //            'placeholder' => 'Укажите Ваш телефон',
             'comment' => 'Можно запускать сразу несколько гаражей на одного владельца, нормально проходит',
 //            'type' => 'string'
+        ],
+        'promo_code' => [
+            'name' => 'Промо код',
+            'comment' => 'Укажите промо код, если есть',
         ]
-
 
     ];
 
     public $phone = '';
     public $name = '';
     public $city = '';
+    public $promo_code = '';
     public $kooperativ = '';
     public $nomer = '';
     public $lich = '';
