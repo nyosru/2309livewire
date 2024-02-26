@@ -64,7 +64,7 @@
                                                     placeholder="Укажите Ваш телефон"
                                                 @endif
 
-                                                @if( $p['required'] )
+                                                @if( !empty($p['required']) )
                                                     required
                                                 @endif
 
