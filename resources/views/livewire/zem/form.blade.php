@@ -42,8 +42,6 @@
                                             {{ $p['name'] }}:
                                         </div>
                                         <div class="basis-2/3 pl-3 text-left">
-
-
                                             <input
 
                                                 type="text"
@@ -58,13 +56,17 @@
                                                     wire:model="kooperativ"
                                                 @elseif( $pn == 'nomer' )
                                                     wire:model="nomer"
+                                                @elseif( $pn == 'promo_code' )
+                                                    wire:model="promo_code"
                                                 @endif
 
                                                 @if( !empty($p['placeholder'] ) )
                                                     placeholder="Укажите Ваш телефон"
                                                 @endif
 
-                                                required
+                                                @if( $p['required'] )
+                                                    required
+                                                @endif
 
                                                 class="
                                     font-semibold border-2 border-gray-300
@@ -110,130 +112,6 @@
                                     </div>
                                 </div>
 
-                                @if(1==2)
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Телефон:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left">
-                                            <input type="text" wire:model="phone" placeholder="Укажите Ваш телефон"
-                                                   class="
-                                    font-semibold border-2 border-gray-300
-                                    inline-block
-                                    rounded-2xl
-                                    pl-2
-                                    sm:w-max
-                                    "/>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Как Вас зовут:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left"><input
-                                                type="text" wire:model="name"
-                                                placeholder="Укажите Ваш телефон"
-                                                class="
-                                        font-semibold border-2 border-gray-300
-                                        inline-block
-                                        rounded-2xl
-                                        pl-2
-                                        sm:w-max
-                                        "/>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Ваш Город:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left"><input type="text" wire:model="city"
-                                                                                     placeholder="Укажите Ваш телефон"
-                                                                                     class="
-                                        font-semibold border-2 border-gray-300
-                                        inline-block
-                                        rounded-2xl
-                                        pl-2
-                                        sm:w-max
-                                        "/>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Название кооператива:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left"><input type="text" wire:model="kooperativ"
-                                                                                     placeholder="Укажите Ваш телефон"
-                                                                                     class="
-                                        font-semibold border-2 border-gray-300
-                                        inline-block
-                                        rounded-2xl
-                                        pl-2
-                                        sm:w-max
-                                        "/>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Номер гаража(ей):
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left"><input type="text" wire:model="nomer"
-                                                                                     placeholder="Укажите Ваш телефон"
-                                                                                     class="
-                                        font-semibold border-2 border-gray-300
-                                        inline-block
-                                        rounded-2xl
-                                        pl-2
-                                        sm:w-max
-                                        "/>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Разрешаете обрабатывать персональные данные:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left">
-                                            <div style="zoom:350%;">
-                                                <input type="checkbox" wire:model="lich"
-                                                       value="da"
-                                                       placeholder="Укажите Ваш телефон"
-                                                       class="
-                                    font-semibold border-2 border-gray-300
-                                    inline-block
-                                    rounded-2xl
-                                    pl-2
-                                    sm:w-max
-                                        "/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            &nbsp;
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left">
-                                            <button type="submit" class="bg-yellow-300 px-3 py-2 rounded-2xl">Отправить
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-row mb-2">
-                                        <div class="basis-1/3 text-right">
-                                            Промо код:
-                                        </div>
-                                        <div class="basis-2/3 pl-3 text-left"><input type="text" wire:model="promo_code"
-                                                                                     placeholder="Укажите Ваш телефон"
-                                                                                     class="
-                                        font-semibold border-2 border-gray-300
-                                        inline-block
-                                        rounded-2xl
-                                        pl-2
-                                        sm:w-max
-                                        "/>
-                                        </div>
-                                    </div>
-
-                                @endif
-
                             @else
 
                                 Хорошо, данные отправлены, в ближайшее время позвоним познакомится,
@@ -253,49 +131,4 @@
             </div>
         </div>
     </form>
-
-    @if(1==2)
-        <div class="container">
-            <div class="flex flex-row">
-                <div class="basis-3/4">
-                    <label>
-                        <span>Ваш город</span> <input type="text" wire:model="city"
-                                                      class="p-2 border-2 border-gray-300"/>
-                    </label>
-                    <br/>
-                    <label>
-                        <span>Телефон</span> <input type="text" value="" wire:model="phone"
-                                                    class="p-2 border-2 border-gray-300"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Как Вас зовут <input type="text" value="" wire:model="name"
-                                             class="p-2 border-2 border-gray-300"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Как называется кооператив <input type="text" value="" wire:model="cooperativ"
-                                                         class="p-2 border-2 border-gray-300"/>
-                    </label>
-                    <br/>
-                    <label>
-                        Номер гаража(ей) <input type="text" value="" wire:model="garage"
-                                                class="p-2 border-2 border-gray-300"/>
-                    </label>
-                </div>
-
-                <div class="basis-1/4 xplace-content-center">
-                    123
-                </div>
-
-                {{--        <div class="basis-1/2">--}}
-                {{--            222--}}
-                {{--        </div>--}}
-
-            </div>
-            отправить заявку,<br/>
-            позвоним спросим расскажем
-        </div>
-
 </div>
-@endif

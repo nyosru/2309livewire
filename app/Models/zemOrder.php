@@ -14,7 +14,8 @@ class zemOrder extends Model
         'name',
         'city',
         'kooperativ',
-        'nomer'
+        'nomer',
+        'promo_code'
     ];
 
 }
