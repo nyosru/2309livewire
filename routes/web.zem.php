@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Route;
 
 $d = function () {
 
-//    Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
+    Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
 //    Route::get('/', News::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
 //    Route::get('services', News::class)->name('services');
-     Route::get('/', function () {
-        dd([__FILE__,__LINE__]);
-//         return view('phpcat.index');
-     });
+//     Route::get('/', function () {
+//        dd([__FILE__,__LINE__]);
+////         return view('phpcat.index');
+//     });
 ////    Route::get('news', News::class)->name('news');
 ////    Route::get('torrent', News::class)->name('torrent');
 ////    Route::get('money', News::class)->name('money');
