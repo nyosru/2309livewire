@@ -29,6 +29,13 @@ Route::group([
     'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'
 ], $d);
 
+Route::group([
+//    'as' => 'zem.',
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'земельныйкадастр.рф'
+    'domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'
+], $d);
+
 ////XN--80AAAAAHJ0AEHCC8FOJZ5E1I.XN--P1AI ( IDN = ПРИВАТИЗАЦИЯГАРАЖА.РФ ),
 //Route::group([
 //    'as' => 'zem.',
