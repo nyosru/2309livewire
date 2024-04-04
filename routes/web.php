@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Route;
 ////dd($_SERVER['HTTP_HOST']);
 //
 
-require('web.domainwaiter.php');
-require('web.uprav.php');
-require('web.phpcat.files.php');
-require('web.ar.php');
-// земельный кадастр
-require('web.zem.php');
 
 $ee = function() {
     Route::get('/', function() {
@@ -42,6 +36,12 @@ Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
 
 
 
+require('web.domainwaiter.php');
+require('web.uprav.php');
+require('web.phpcat.files.php');
+require('web.ar.php');
+// земельный кадастр
+require('web.zem.php');
 require('web.phpcat.php');
 
 
