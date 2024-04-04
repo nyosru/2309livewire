@@ -2,6 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
+use App\Livewire\Phpcat\Develop;
+use App\Livewire\Phpcat\News;
+
+$d = function() {
+    Route::get('/', News::class)->name('index');
+    Route::get('/develop/{item}', Develop::class)->name('develop');
+};
+
+Route::group([
+    'as' => 'phpcat.',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
+], $d);
+
+
+
+
+
 //Route::get('{.*}',function () {
 //    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 ////    return redirect('/');
