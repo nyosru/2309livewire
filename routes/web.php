@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-
-dd($_SERVER['HTTP_HOST']);
+//dd($_SERVER['HTTP_HOST']);
 
 require('web.phpcat.php');
 require('web.domainwaiter.php');
