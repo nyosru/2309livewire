@@ -22,6 +22,9 @@ $ee = function() {
 
 
 
+Route::group(['domain' => 'управлятор.рф'], $ee);
+Route::group(['domain' => 'xn--80ae1ambgeod9j.xn--p1ai'], $ee);
+
 Route::group(['domain' => 'php-cat.com'], $ee);
 Route::group(['domain' => 'domainwaiter.com'], $ee);
 Route::group(['domain' => 'bu72.ru'], $ee);
