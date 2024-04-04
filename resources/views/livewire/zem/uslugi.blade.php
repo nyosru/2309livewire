@@ -30,10 +30,13 @@
                 </h2>
 
                 версия просмотра:
+{{--                <button class="@if( $show_type == 'schema' ) bg-green-300 @else bg-green-100 @endif p-2 underline"--}}
+{{--                        wire:click="setShow('schema')">Схема--}}
+{{--                </button>--}}
                 <button class="@if( $show_type == 'small' ) bg-green-300 @else bg-green-100 @endif p-2 underline"
                         wire:click="setShow('small')">Кратко
                 </button>
-                <button class="@if( $show_type != 'small' ) bg-green-300 @else bg-green-100 @endif p-2 underline"
+                <button class="@if( $show_type == 'full' ) bg-green-300 @else bg-green-100 @endif p-2 underline"
                         wire:click="setShow('full')">Расширенный план
                 </button>
 
@@ -41,14 +44,16 @@
         </div>
 
         {{--        show_type: {{ $show_type }}--}}
-
         {{--        <p>--}}
         {{--            --}}{{--            Кратко / Полно--}}
         {{--            <br/>--}}
         {{--            <br/>--}}
 
+        @if( $show_type == 'schema' )
 
-        @if( $show_type == 'small' )
+            @include('livewire.zem.uslugi-schema')
+
+        @elseif( $show_type == 'small' )
 
             <br clear="all"/>
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 $d = function () {
 
     Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
+
 //    Route::get('/', News::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
 //    Route::get('services', News::class)->name('services');
@@ -32,6 +33,7 @@ Route::group([
 Route::group([
 //    'as' => 'zem.',
 //    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'земельныйкадастр.рф'
+//    земельныйкадастр.рф
     'domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
 //    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'
 ], $d);
