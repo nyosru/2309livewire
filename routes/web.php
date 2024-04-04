@@ -2,7 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-dd($_SERVER['HTTP_HOST']);
+Route::get('{.*}',function () {
+    return response($_SERVER['HTTP_HOST'] );
+//    return redirect('/');
+});
+
+
+//dd($_SERVER['HTTP_HOST']);
 
 require('web.phpcat.php');
 require('web.domainwaiter.php');
