@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
 ////Route::get('{.*}',function () {
 ////    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
@@ -18,14 +19,20 @@ use Illuminate\Support\Facades\Route;
 //require('web.zem.php');
 
 
-Route::get('',function () {
-//    return '<html>Привет</html>';
-    return response( 'Привет', 200);
-//    return response()->json(['message' => 'Привет'], 200);
-//    return 'Привет буфет, ещё пару сек пожалуйста';
-});
-Route::get('{.*}',function () {
-    return response('Привет буфет, ещё пару сек пожалуйста');
-//    return redirect('/');
-});
+
+
+Route::get('/', News::class)->name('index');
+
+
+//
+//Route::get('',function () {
+////    return '<html>Привет</html>';
+//    return response( 'Привет', 200);
+////    return response()->json(['message' => 'Привет'], 200);
+////    return 'Привет буфет, ещё пару сек пожалуйста';
+//});
+//Route::get('{.*}',function () {
+//    return response('Привет буфет, ещё пару сек пожалуйста');
+////    return redirect('/');
+//});
 
