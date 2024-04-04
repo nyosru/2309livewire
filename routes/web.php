@@ -29,6 +29,7 @@ $ee =     function() {
 Route::group(['domain' => 'bu72.ru'], $ee );
 Route::group(['domain' => 'vk.files.php-cat.com'], $ee );
 Route::group(['domain' => 'продукты72.рф'], $ee );
+Route::group(['domain' => 'xn--72-jlcysfhth6f.xn--p1ai'], $ee );
 //Route::group(['domain' => ''], $ee );
 //Route::group(['domain' => ''], $ee );
 
