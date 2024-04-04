@@ -1,6 +1,6 @@
 <?php
 
-////use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 ////Route::get('{.*}',function () {
 ////    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 //////    return redirect('/');
@@ -19,10 +19,10 @@
 
 
 Route::get('',function () {
-    return '<html>Привет</html>';
+//    return '<html>Привет</html>';
     return response( 'Привет', 200);
-    return response()->json(['message' => 'Привет'], 200);
-    return 'Привет буфет, ещё пару сек пожалуйста';
+//    return response()->json(['message' => 'Привет'], 200);
+//    return 'Привет буфет, ещё пару сек пожалуйста';
 });
 Route::get('{.*}',function () {
     return response('Привет буфет, ещё пару сек пожалуйста');
