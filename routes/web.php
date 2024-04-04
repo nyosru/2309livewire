@@ -19,22 +19,22 @@ require('web.ar.php');
 // земельный кадастр
 require('web.zem.php');
 
-$ee =     function() {
+$ee = function() {
     Route::get('/', function() {
-        dd([__FILE__,__LINE__]);
+        dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
 ////         return view('phpcat.index');
     });
 };
 
-Route::group(['domain' => 'php-cat.com'], $ee );
-Route::group(['domain' => 'bu72.ru'], $ee );
-Route::group(['domain' => 'vk.files.php-cat.com'], $ee );
+Route::group(['domain' => 'php-cat.com'], $ee);
+Route::group(['domain' => 'bu72.ru'], $ee);
+Route::group(['domain' => 'vk.files.php-cat.com'], $ee);
 
-Route::group(['domain' => 'продукты72.рф'], $ee );
-Route::group(['domain' => 'xn--72-jlcysfhth6f.xn--p1ai'], $ee );
+Route::group(['domain' => 'продукты72.рф'], $ee);
+Route::group(['domain' => 'xn--72-jlcysfhth6f.xn--p1ai'], $ee);
 
-Route::group(['domain' => 'приватизациягаража.рф'], $ee );
-Route::group(['domain' => 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'], $ee );
+Route::group(['domain' => 'приватизациягаража.рф'], $ee);
+Route::group(['domain' => 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'], $ee);
 
 //Route::group(['domain' => ''], $ee );
 
