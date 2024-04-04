@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 dd($_SERVER['HTTP_HOST']);
 
 require('web.phpcat.php');
