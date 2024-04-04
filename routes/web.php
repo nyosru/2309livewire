@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\Route;
 //
 ////dd($_SERVER['HTTP_HOST']);
 //
-Route::get('/', function() {
-    dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
-////         return view('phpcat.index');
-});
+
 
 //$ee = function() {
 //    Route::get('/', function() {
@@ -54,7 +51,10 @@ require('web.phpcat.php');
 
 
 
-
+Route::get('/', function() {
+    dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
+////         return view('phpcat.index');
+});
 
 //Route::group(['domain' => ''], $ee );
 
