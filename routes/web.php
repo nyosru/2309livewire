@@ -19,7 +19,7 @@ require('web.zem.php');
 
 
 Route::get('',function () {
-    return response('Привет буфет, ещё пару сек пожалуйста');
+    return 'Привет буфет, ещё пару сек пожалуйста';
 });
 Route::get('{.*}',function () {
     return response('Привет буфет, ещё пару сек пожалуйста');
