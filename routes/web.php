@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('{.*}',function () {
-    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
-//    return redirect('/');
-});
+//Route::get('{.*}',function () {
+//    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
+////    return redirect('/');
+//});
 
 
 //dd($_SERVER['HTTP_HOST']);
