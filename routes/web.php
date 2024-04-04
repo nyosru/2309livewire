@@ -42,7 +42,7 @@ Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
 
 
 require('web.domainwaiter.php');
-require('web.uprav.php');
+//require('web.uprav.php');
 require('web.phpcat.files.php');
 require('web.ar.php');
 // земельный кадастр
