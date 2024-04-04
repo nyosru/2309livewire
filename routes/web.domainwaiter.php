@@ -28,7 +28,7 @@ if (env('APP_ENV', 'x') == 'local') {
         [
             'as' => 'phpcat.',
 //            'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-        'domain' => 'dw.com'
+        'domain' => 'domainwaiter.com'
     ];
 }
 
