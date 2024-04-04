@@ -17,8 +17,8 @@ require('web.ar.php');
 // земельный кадастр
 require('web.zem.php');
 
-//Route::get('{.*}',function () {
-//    return response('Привет буфет, ещё пару сек пожалуйста');
-////    return redirect('/');
-//});
-//
+Route::get('{.*}',function () {
+    return response('Привет буфет, ещё пару сек пожалуйста');
+//    return redirect('/');
+});
+
