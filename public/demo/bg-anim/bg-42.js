@@ -354,14 +354,14 @@ let texture, rtTexture, rtTexture2;
 let environment;
 loader.setCrossOrigin("anonymous");
 loader.load(
-	'/bg/bg-anim/noise.png',
+	'/demo/bg-anim/noise.png',
 	function do_something_with_texture(tex) {
 		texture = tex;
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
 		texture.minFilter = THREE.LinearFilter;
 		loader.load(
-			'/bg/bg-anim/fbg-42.jpg',
+			'/demo/bg-anim/fbg-42.jpg',
 			function environment_load(tex) {
 				environment = tex;
 				environment.wrapS = THREE.RepeatWrapping;

@@ -53,17 +53,63 @@
     <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">
     <meta name="twitter:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg">
 
+
+    <style>#bg-42 {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            xmin-height: 520px;
+            xmargin: 20px 0;
+            margin: 0;
+        }
+        #bg-42 .content{
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 10px 10px;
+            padding: 10px 15px;
+            font-size: 2rem;
+        }
+        #bg-42 .content_foot{
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 10px 10px;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+    </style>
+    <script src="/demo/bg-anim/three.88.min.js"></script>
+    <script src="/demo/bg-anim/bg-42.js"></script>
+
+
 </head>
 
 <body class="antialiased">
-
-<header>
+@if(1==2)
+<header class="bg-gray-400">
     @if(1==2)
         @include('phpcat.layouts.header')
     @endif
+    &nbsp;
 </header>
-<main style="min-height:80vh;">
-    <div id="bg-42">111</div>
+@endif
+<main>
+    <div  xstyle="min-height:80vh;" id="bg-42">
+        <div class="content">
+            Скоро всё будет!<br/>Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
+        </div>
+            <div class="content_foot">
+            <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
+            и телеграм <A class="text-blue-800 underline" href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
+
+        </div>
+    </div>
+
     @if(1==2)
         @yield('content')
         {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
@@ -102,15 +148,8 @@
 @endif
 </body>
 
-<script src="/bg/three.min.js"></script>
-<script src="/bg/bg-22.js"></script>
-
 {{--<script src="/app0.js"></script>--}}
 
 {{--<script src="/bg/bg-24.js"></script>--}}
 {{--<script src="/bg/bg-42.js"></script>--}}
-<style>#bg-42 {
-        min-height: 520px;
-        margin: 20px 0;
-    }</style>
 </html>

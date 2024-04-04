@@ -16,8 +16,8 @@ $d = function () {
 //    //    Route::fallback(function () { return redirect('/'); });
 };
 
-Route::group([
-    'as' => 'phpcat.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-], $d);
+//Route::group([
+//    'as' => 'phpcat.',
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
+//], $d);
 
