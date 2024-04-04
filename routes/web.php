@@ -19,6 +19,7 @@
 
 
 Route::get('',function () {
+    return response( 'Привет', 200);
     return response()->json(['message' => 'Привет'], 200);
     return 'Привет буфет, ещё пару сек пожалуйста';
 });
