@@ -37,6 +37,9 @@ Route::group(['domain' => 'xn--72-jlcysfhth6f.xn--p1ai'], $ee);
 Route::group(['domain' => 'приватизациягаража.рф'], $ee);
 Route::group(['domain' => 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'], $ee);
 
+Route::group(['domain' => 'земельныйкадастр.рф'], $ee);
+Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
+
 //Route::group(['domain' => ''], $ee );
 
 //Route::get('/', News::class)->name('index');
