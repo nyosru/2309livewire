@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
-die($_SERVER['HTTP_HOST']);
+//die($_SERVER['HTTP_HOST']);
 
 define('LARAVEL_START', microtime(true));
 
