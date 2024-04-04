@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 //
 ////dd($_SERVER['HTTP_HOST']);
 //
-require('web.phpcat.php');
+
 require('web.domainwaiter.php');
 require('web.uprav.php');
 require('web.phpcat.files.php');
@@ -39,6 +39,14 @@ Route::group(['domain' => 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'], $ee);
 
 Route::group(['domain' => 'земельныйкадастр.рф'], $ee);
 Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
+
+
+
+require('web.phpcat.php');
+
+
+
+
 
 //Route::group(['domain' => ''], $ee );
 
