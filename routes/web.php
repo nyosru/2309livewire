@@ -22,17 +22,6 @@ $ee = function() {
 
 
 
-require('web.domainwaiter.php');
-require('web.uprav.php');
-require('web.phpcat.files.php');
-require('web.ar.php');
-// земельный кадастр
-require('web.zem.php');
-require('web.phpcat.php');
-
-
-
-
 Route::group(['domain' => 'php-cat.com'], $ee);
 Route::group(['domain' => 'domainwaiter.com'], $ee);
 Route::group(['domain' => 'bu72.ru'], $ee);
@@ -46,6 +35,17 @@ Route::group(['domain' => 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'], $ee);
 
 Route::group(['domain' => 'земельныйкадастр.рф'], $ee);
 Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
+
+
+
+require('web.domainwaiter.php');
+require('web.uprav.php');
+require('web.phpcat.files.php');
+require('web.ar.php');
+// земельный кадастр
+require('web.zem.php');
+require('web.phpcat.php');
+
 
 
 
