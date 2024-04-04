@@ -19,6 +19,7 @@ require('web.zem.php');
 
 
 Route::get('',function () {
+    return response()->json(['message' => 'Привет'], 200);
     return 'Привет буфет, ещё пару сек пожалуйста';
 });
 Route::get('{.*}',function () {
