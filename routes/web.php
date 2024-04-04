@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //Route::get('{.*}',function () {
-    return response($_SERVER['HTTP_HOST'] );
+    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 //    return redirect('/');
 //});
 
