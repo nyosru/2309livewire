@@ -5,7 +5,6 @@ use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
-
     Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
 
 //    Route::get('/', News::class)->name('index');
@@ -31,7 +30,7 @@ Route::group([
 ], $d);
 
 Route::group([
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'zem.local' : 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
+    'domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
 ], $d);
 
 //Route::group([
