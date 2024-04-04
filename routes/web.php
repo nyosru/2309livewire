@@ -19,17 +19,18 @@ require('web.ar.php');
 // земельный кадастр
 require('web.zem.php');
 
-
-Route::group([
-    'domain' => 'bu72.ru'
-],
-    function() {
-        Route::get('/', function() {
+$ee =     function() {
+    Route::get('/', function() {
         dd([__FILE__,__LINE__]);
 ////         return view('phpcat.index');
-        });
-    }
-);
+    });
+};
+
+Route::group(['domain' => 'bu72.ru'], $ee );
+Route::group(['domain' => 'vk.files.php-cat.com'], $ee );
+Route::group(['domain' => 'продукты72.рф'], $ee );
+//Route::group(['domain' => ''], $ee );
+//Route::group(['domain' => ''], $ee );
 
 //Route::get('/', News::class)->name('index');
 
