@@ -20,6 +20,8 @@ $ee = function() {
     });
 };
 
+
+
 Route::group(['domain' => 'php-cat.com'], $ee);
 Route::group(['domain' => 'domainwaiter.com'], $ee);
 Route::group(['domain' => 'bu72.ru'], $ee);
