@@ -2,6 +2,7 @@
 
 use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
+
 ////Route::get('{.*}',function () {
 ////    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 //////    return redirect('/');
@@ -18,11 +19,7 @@ use Illuminate\Support\Facades\Route;
 //// земельный кадастр
 //require('web.zem.php');
 
-
-
-
 Route::get('/', News::class)->name('index');
-
 
 //
 //Route::get('',function () {
