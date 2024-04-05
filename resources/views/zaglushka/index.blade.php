@@ -73,6 +73,15 @@
             padding: 10px 15px;
             font-size: 2rem;
         }
+
+        @media screen and (max-width: 768px) {
+            #bg-42 .content {
+                left: 0;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
         #bg-42 .content_foot{
             position: fixed;
             bottom: 20px;
