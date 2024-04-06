@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-require('web.domainwaiter.php');
+//require('web.domainwaiter.php');
 require('web.uprav.php');
 require('web.phpcat.files.php');
 require('web.ar.php');
