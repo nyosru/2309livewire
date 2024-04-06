@@ -51,10 +51,12 @@ require('web.phpcat.php');
 
 
 
-Route::get('/', function() {
-//    dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
-         return view('zaglushka.index');
-});
+Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
+//Route::get('/', function() {
+//
+//    //    dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
+//         return view('zaglushka.index');
+//});
 
 //Route::group(['domain' => ''], $ee );
 
