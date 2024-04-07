@@ -10,7 +10,8 @@ class ZaglushkaController extends Controller {
     public function show(Request $request) {
 
         if( strtolower(substr($_SERVER['HTTP_HOST'], 0, 4) ) == 'www.' ){
-            return redirect()->away('https://'. substr($_SERVER['HTTP_HOST'], 4, 500 ) );
+            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+            return redirect()->away($protocol . substr($_SERVER['HTTP_HOST'], 4, 500 ) );
         }
 
         if( Cache::add('domain'.strtolower($_SERVER['HTTP_HOST']), '1', 60*60*24 ) ) {
