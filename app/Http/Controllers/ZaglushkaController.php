@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Cache;
 class ZaglushkaController extends Controller {
     public function show(Request $request) {
 
+        if( strtolower(substr($_SERVER['HTTP_HOST'], 0, 4) ) == 'www.' ){
+            return redirect()->away('https://'. substr($_SERVER['HTTP_HOST'], 4, 500 ) );
+        }
+
         if( Cache::add('domain'.strtolower($_SERVER['HTTP_HOST']), '1', 60*60*24 ) ) {
             $msg = 'заход на пустой домен ' . $_SERVER['HTTP_HOST'];
             \nyos\Msg::sendTelegramm($msg, null, 1);
