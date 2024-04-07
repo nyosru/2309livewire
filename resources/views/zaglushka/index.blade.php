@@ -54,66 +54,84 @@
     <meta name="twitter:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg">
 
 
-    <style>#bg-42 {
+    <style>
+        /*#bg-42 {*/
+        .up {
             position: absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
+            xheight: 520px;
             xmin-height: 520px;
             xmargin: 20px 0;
             margin: 0;
         }
-        #bg-42 .content{
+
+        /*#bg-42 .content{*/
+        .up .content {
             position: fixed;
             top: 20%;
             left: 30%;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px 10px;
             padding: 10px 15px;
             font-size: 2rem;
         }
 
         @media screen and (max-width: 768px) {
-            #bg-42 .content {
+            /*#bg-42 .content {*/
+            .up .content {
                 left: 0;
                 width: 100%;
                 border-radius: 0;
             }
         }
 
-        #bg-42 .content_foot{
+        /*#bg-42 .content_foot{*/
+        .up .content_foot {
             position: fixed;
             bottom: 20px;
             right: 30px;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px 10px;
             padding: 10px 15px;
             font-size: 1rem;
         }
     </style>
-    <script src="/demo/bg-anim/three.88.min.js"></script>
-    <script src="/demo/bg-anim/bg-42.js"></script>
-
+    @if($nn == 42 )
+        <script src="/demo/bg-anim/three.88.min.js"></script>
+        <script src="/demo/bg-anim/bg-42.js"></script>
+    @else
+            @if($nn == 1 || $nn == 16 )
+            <script src="/demo/webgl/three.min.js"></script>
+            @else
+            <script src="/demo/bg-anim/three.min.js"></script>
+            @endif
+        <script src="/demo/bg-anim/bg-{{ $nn }}.js"></script>
+    @endif
 
 </head>
 
 <body class="antialiased">
+<div style="z-index:5000;">{{ $nn }}</div>
 @if(1==2)
-<header class="bg-gray-400">
-    @if(1==2)
-        @include('phpcat.layouts.header')
-    @endif
-    &nbsp;
-</header>
+    <header class="bg-gray-400">
+        @if(1==2)
+            @include('phpcat.layouts.header')
+        @endif
+        &nbsp;
+    </header>
 @endif
 <main>
-    <div  xstyle="min-height:80vh;" id="bg-42">
-        <div class="content" id="blockToHide"  style="z-index:10;" >
-            <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right" title="Залипнуть по полной">x</span>
+    {{--    <div  xstyle="min-height:80vh;" id="bg-42">--}}
+    <div class="up" xstyle="min-height:80vh;" id="bg-{{ $nn }}">
+        <div class="content" id="blockToHide" style="z-index:10;">
+            <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right"
+                  title="Залипнуть по полной">x</span>
             Скоро всё будет!<br/>Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
         </div>
-            <div class="content_foot">
+        <div class="content_foot">
             <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
             и телеграм <A class="text-blue-800 underline" href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
 
@@ -170,7 +188,7 @@
     const hideBtn = document.getElementById('hideBtn');
     const blockToHide = document.getElementById('blockToHide');
 
-    hideBtn.addEventListener('click', function() {
+    hideBtn.addEventListener('click', function () {
         blockToHide.classList.toggle('hidden');
     });
 </script>

@@ -14,6 +14,15 @@ class ZaglushkaController extends Controller {
             \nyos\Msg::sendTelegramm($msg, null, 1);
 //            dd($_SERVER['HTTP_HOST']);
         }
-        return view('zaglushka.index');
+        $ra = [
+//            1,
+            38,
+            42, // ртуть
+            31,
+            26,
+            25, // снег
+//            16, // вода не работает
+        ];
+        return view('zaglushka.index',['nn' => $ra[rand(0,sizeof($ra)-1)]]);
     }
 }
