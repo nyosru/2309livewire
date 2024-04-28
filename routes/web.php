@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Phpcat\News;
+use App\Livewire\SnowkStart;
 use Illuminate\Support\Facades\Route;
 
 ////Route::get('{.*}',function () {
@@ -51,7 +52,34 @@ require('web.phpcat.php');
 
 
 
+
+$d = function () {
+    Route::get('/', SnowkStart::class)->name('index');
+//    Route::get('/develop/{item}', Develop::class)->name('develop');
+};
+Route::group([
+    'as' => 'snowkait.',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'snowk.local' : 'сноукайтинг.рф'
+], $d);
+
+
+
+$d = function () {
+    Route::get('/', SnowkStart::class)->name('index');
+//    Route::get('/develop/{item}', Develop::class)->name('develop');
+};
+Route::group([
+    'as' => 'as.php-cat.com.',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'as.php-cat.com.local' : 'as.php-cat.com'
+], $d);
+
+
+
+
+
+
 Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
+
 //Route::get('/', function() {
 //
 //    //    dd([__FILE__, __LINE__, env('APP_ENV', 'x')]);
