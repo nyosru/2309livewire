@@ -18,17 +18,17 @@
     <script src="https://cdn.tailwindcss.com/3.3.0"></script>
     <script>
         tailwind.config = {
-            darkMode: "class",
+            darkMode: 'class',
             theme: {
                 fontFamily: {
-                    sans: ["Roboto", "sans-serif"],
-                    body: ["Roboto", "sans-serif"],
-                    mono: ["ui-monospace", "monospace"],
-                },
+                    sans: ['Roboto', 'sans-serif'],
+                    body: ['Roboto', 'sans-serif'],
+                    mono: ['ui-monospace', 'monospace']
+                }
             },
             corePlugins: {
-                preflight: false,
-            },
+                preflight: false
+            }
         };
     </script>
 
@@ -103,11 +103,11 @@
         <script src="/demo/bg-anim/three.88.min.js"></script>
         <script src="/demo/bg-anim/bg-42.js"></script>
     @else
-            @if($nn == 1 || $nn == 16 )
+        @if($nn == 1 || $nn == 16 )
             <script src="/demo/webgl/three.min.js"></script>
-            @else
+        @else
             <script src="/demo/bg-anim/three.min.js"></script>
-            @endif
+        @endif
         <script src="/demo/bg-anim/bg-{{ $nn }}.js"></script>
     @endif
 
@@ -135,6 +135,29 @@
             <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
             и телеграм <A class="text-blue-800 underline" href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
 
+            <!-- Yandex.Metrika informer -->
+            <a href="https://metrika.yandex.ru/stat/?id=97718675&amp;from=informer"
+               target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/97718675/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                                                   style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="97718675" data-lang="ru" /></a>
+            <!-- /Yandex.Metrika informer -->
+
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript" >
+                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                    m[i].l=1*new Date();
+                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+                ym(97718675, "init", {
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            </script>
+            <noscript><div><img src="https://mc.yandex.ru/watch/97718675" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <!-- /Yandex.Metrika counter -->
+
         </div>
     </div>
 
@@ -149,9 +172,9 @@
 
     {{--    <!-- Yandex.Metrika counter -->--}}
     <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
+        (function(m, e, t, r, i, k, a) {
+            m[i] = m[i] || function() {
+                (m[i].a = m[i].a || []).push(arguments);
             };
             m[i].l = 1 * new Date();
             for (var j = 0; j < document.scripts.length; j++) {
@@ -159,11 +182,12 @@
                     return;
                 }
             }
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(
+                k, a);
         })
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-        ym(76358443, "init", {
+        ym(76358443, 'init', {
             clickmap: true,
             trackLinks: true,
             accurateTrackBounce: true
@@ -173,7 +197,11 @@
         <div><img src="https://mc.yandex.ru/watch/76358443" style="position:absolute; left:-9999px;" alt=""/></div>
     </noscript>
     {{--    <!-- /Yandex.Metrika counter -->--}}
+
 @endif
+@endif
+
+
 </body>
 
 
@@ -188,7 +216,7 @@
     const hideBtn = document.getElementById('hideBtn');
     const blockToHide = document.getElementById('blockToHide');
 
-    hideBtn.addEventListener('click', function () {
+    hideBtn.addEventListener('click', function() {
         blockToHide.classList.toggle('hidden');
     });
 </script>

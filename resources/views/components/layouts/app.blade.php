@@ -20,6 +20,30 @@
 
 @include('domainwaiter.index')
 
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'as.php-cat.com'
+    ||
+    $_SERVER['HTTP_HOST'] == 'as.php-cat.com.local'
+//    ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
+
+
+    @vite('resources/css/app.css')
+
+{{--@include('as_php-cat_com.domains')--}}
+<livewire:as_php-cat_com.domains/>
+
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'snowk.local'
+//    ||
+//    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
+//    $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
+    )
+
+@include('livewire.snowk-start')
 
 @elseif(
     $_SERVER['HTTP_HOST'] == 'zem.local' ||

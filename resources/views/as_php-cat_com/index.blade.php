@@ -2,10 +2,11 @@
 
 @section('content')
 
+    @if( 1 == 2 )
+
     @if( request()->query('tutu') == 'domains' )
 
         <livewire:Phpcat.domain/>
-
 
     @else
 
@@ -16,16 +17,19 @@
         <livewire:Phpcat.develop/>
 
         <div
-            {{--        class="container my-24 mx-auto md:px-6"--}}
+                    class="container my-24 mx-auto md:px-6"
             class=" xmy-24 xmx-auto xmd:px-6"
         >
 
-            {{-- пожертвование--}}
+             пожертвование
             <livewire:Phpcat.money/>
 
-            {{--коллекция кружек--}}
+            коллекция кружек
             <livewire:Phpcat.caps/>
 
         </div>
     @endif
+
+    @endif
+
 @endsection

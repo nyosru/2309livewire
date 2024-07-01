@@ -70,4 +70,15 @@ class DomainService extends Controller {
         }
     }
 
+    public static function getWhoisData($domain) {
+        // Формируем команду для выполнения whois запроса
+        $command = "whois $domain";
+
+        // Выполняем команду и сохраняем вывод в переменную
+        $whois_output = shell_exec($command);
+
+        // Возвращаем результат
+        return $whois_output;
+    }
+
 }
