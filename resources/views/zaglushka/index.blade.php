@@ -199,7 +199,6 @@
     {{--    <!-- /Yandex.Metrika counter -->--}}
 
 @endif
-@endif
 
 
 </body>

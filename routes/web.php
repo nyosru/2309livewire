@@ -75,9 +75,6 @@ Route::group([
 
 
 
-
-
-
 Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
 
 //Route::get('/', function() {
