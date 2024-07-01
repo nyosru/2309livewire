@@ -74,9 +74,10 @@ Route::group([
 ], $d);
 
 
+Route::fallback([ \App\Http\Controllers\ZaglushkaController::class, 'show']);
 
-Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
-Route::get('{.*}', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
+//Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
+//Route::get('{.*}', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
 
 //Route::get('/', function() {
 //
