@@ -129,7 +129,7 @@
         <div class="content" id="blockToHide" style="z-index:10;">
             <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right"
                   title="Залипнуть по полной">x</span>
-            Скоро всё будет!<br/>Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
+            Сайт не доступен!<br/>Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
         </div>
         <div class="content_foot">
             <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
