@@ -4,21 +4,25 @@
     {{--    <livewire:st_news.backend/>--}}
     {{--    @include('st_news.index_index')--}}
 
-    <livewire:StNews.backword />
+    <livewire:StNews.backword/>
 
     {{-- пожертвование--}}
-    <livewire:Phpcat.money />
+    <livewire:Phpcat.money/>
 
     {{--коллекция кружек--}}
     @if(1==1)
+
         {{--    <br clear="all"/>--}}
         <br clear="all"/>
+
         <!-- Container for demo purpose -->
         <div class="container my-24 mx-auto md:px-6">
+
             <!-- Section: Design Block -->
             <section class="mb-32">
+
                 <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                    class="block rounded-lg bg-white x-shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
 
                     <div class="flex flex-wrap items-center">
 
