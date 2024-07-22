@@ -4,6 +4,11 @@
     {{--    <livewire:st_news.backend/>--}}
     {{--    @include('st_news.index_index')--}}
 
+    <livewire:StNews.backword />
+
+    {{-- пожертвование--}}
+    <livewire:Phpcat.money />
+
     {{--коллекция кружек--}}
     @if(1==1)
         {{--    <br clear="all"/>--}}

@@ -21,10 +21,10 @@
         >
 
             {{-- пожертвование--}}
-            <livewire:Phpcat.money/>
+            <livewire:Phpcat.money />
 
             {{--коллекция кружек--}}
-            <livewire:Phpcat.caps/>
+            <livewire:Phpcat.caps />
 
         </div>
     @endif
