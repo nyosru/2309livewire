@@ -9,6 +9,20 @@
 
             <tr>
                 <td>
+                    <pre style="max-height: 250px; overflow: auto; font-size: 10px; border: 2px solid orange; padding: 5px;">
+                    {{ print_r($o,true) }}
+                    </pre>
+
+                    <livewire:ar.showPriceItem :data="$o->prices" :payes="$o->payes"
+                                               :object_id="$o->id"
+                    />
+                    <livewire:ar.showPayItem :data="$o->payes" />
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
                     <h2 class="text-2xl font-bold">{{ $o->adres }} # {{ $o->nomer }}</h2>
                     <small>{{ $o->opis }}</small>
                     {{-- {{ $o }}--}}

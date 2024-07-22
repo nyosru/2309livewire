@@ -4,7 +4,8 @@ use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
-    Route::get('/', News::class)->name('index');
+//    Route::get('/', News::class)->name('index');
+    Route::get('/', \App\Livewire\ar\table::class)->name('index');
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
 ////    Route::get('news', News::class)->name('news');

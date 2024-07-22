@@ -41,7 +41,6 @@ use Illuminate\Support\Facades\Route;
 //Route::group(['domain' => 'xn--80aalcakqihin5bmo2koa.xn--p1ai'], $ee);
 
 
-
 //require('web.domainwaiter.php');
 require('web.uprav.php');
 require('web.phpcat.files.php');
@@ -49,8 +48,6 @@ require('web.ar.php');
 // земельный кадастр
 require('web.zem.php');
 require('web.phpcat.php');
-
-
 
 
 $d = function () {
@@ -63,7 +60,6 @@ Route::group([
 ], $d);
 
 
-
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
@@ -74,7 +70,18 @@ Route::group([
 ], $d);
 
 
-Route::fallback([ \App\Http\Controllers\ZaglushkaController::class, 'show']);
+$d = function () {
+    Route::get('/', SnowkStart::class)->name('index');
+//    Route::get('/develop/{item}', Develop::class)->name('develop');
+};
+Route::group([
+    'as' => 'as.php-cat.com.',
+    // самые тюменские новости
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
+], $d);
+
+
+Route::fallback([\App\Http\Controllers\ZaglushkaController::class, 'show']);
 
 //Route::get('/', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);
 //Route::get('{.*}', [ \App\Http\Controllers\ZaglushkaController::class, 'show']);

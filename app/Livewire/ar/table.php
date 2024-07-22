@@ -122,7 +122,12 @@ class table extends Component
         return view('livewire.ar.table',
             [
 //                'objects' => ArObject::with('prices')->all()
-                'objects' => ArObject::with('prices','payes','prices.man')->get()
+                'objects' => ArObject::with(
+                    'prices',
+                    'payes',
+                    'prices.man',
+//                    'prices.man.prices',
+                )->get()
 //                'search2' => $this->search,
 //                'resultsSearch' => $res
 //                'resultsSearch' => $this->getSearch($this->search)
