@@ -10,7 +10,7 @@
     <livewire:Phpcat.money/>
 
     {{--коллекция кружек--}}
-    @if(1==1)
+    @if(1==2)
 
         {{--    <br clear="all"/>--}}
         <br clear="all"/>
