@@ -42,7 +42,8 @@
 <main style="min-height:80vh;">
 
     @yield('content')
-{{--    {{ $slot ?? ''}}--}}
+
+    {{ $slot ?? ''}}
 
     {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
 </main>
