@@ -43,7 +43,7 @@
 
                                     <div class="text-[1.5rem] mb-1">
                                         <span class="inline-block w-[30%] text-right">Как Вас зовут:    </span>
-                                        <input type="text" wire:model="inputName"/>
+                                        <input type="text" wire:model="inputName" required/>
                                     </div>
                                     <div class="text-[1.5rem] mb-1">
                                         <span class="inline-block w-[30%] text-right">Телефон:</span>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="text-[1.5rem] mb-1">
                                         <span class="inline-block w-[30%] text-right">Телеграмм:</span>
-                                        <input type="text" wire:model="inputTelega"/>
+                                        <input type="text" wire:model="inputTelega" required />
                                     </div>
                                     <div class="text-[1.5rem] mb-1">
                                         <span class="inline-block w-[30%] text-right">Промокод:</span>
