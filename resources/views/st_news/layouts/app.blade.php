@@ -43,11 +43,12 @@
 
     @yield('content')
 
-    {{ $slot ?? ''}}
+{{--    {{ $slot ?? ''}}--}}
 
     {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
 </main>
 @include('st_news.layouts.footer')
+@livewireScripts
 </body>
 
 {{--<script src="/bg/three.min.js"></script>--}}
