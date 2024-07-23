@@ -36,8 +36,8 @@
                                     placeholder="Отправте своё сообщение, новость, рекламу, информацию о событии, вашу оценку нашего творчества и всё то что вы хотите написать"></textarea>
                             {{--                                Отправить пожертвования на поддержание хорошего настроения и&nbsp;развитие проектов!--}}
                             {{--                            @if ($showAdditionalFields)--}}
-<br/>
-                                $showAdditionalFields: {{ $showAdditionalFields ? 1 : 2  }}
+{{--<br/>--}}
+{{--                                $showAdditionalFields: {{ $showAdditionalFields ? 1 : 2  }}--}}
                             @if( $showAdditionalFields )
 
                                 <div class="additional-fields" wire:transition>
