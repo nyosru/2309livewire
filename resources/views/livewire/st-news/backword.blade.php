@@ -37,7 +37,7 @@
                             {{--                                Отправить пожертвования на поддержание хорошего настроения и&nbsp;развитие проектов!--}}
                             {{--                            @if ($showAdditionalFields)--}}
 <br/>
-                                $showAdditionalFields: {{ $showAdditionalFields  }}
+                                $showAdditionalFields: {{ $showAdditionalFields ? 1 : 2  }}
                             @if( $showAdditionalFields )
 
                                 <div class="additional-fields" wire:transition>
