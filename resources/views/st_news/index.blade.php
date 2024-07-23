@@ -191,32 +191,6 @@
     <livewire:showRoom :imgs="[1, 2, 55]" />
     <livewire:Phpcat.money :imgs="[1, 2, 55]" />
     <livewire:PhpcatMoney :imgs="[1, 2, 55]" /> --}}
+
 @endsection
 
-
-
-
-@if (1 == 2)
-    <div>
-        show room
-
-        @foreach ($imgs as $im)
-            @if ($im == $n)
-                <button class="border-blue-700" wire:click="setset({{ $im }})">{{ $im }}</button>
-            @else
-                <button class="border-green-700" wire:click="setset({{ $im }})">{{ $im }}</button>
-            @endif
-            {{-- -  --}}
-            {{-- <button class="bg-gray-300 border-green-700" wire:append="setset({{$im}})" >00{{ $im }}</button> --}}
-        @endforeach
-
-        @if ($n == 1)
-            111
-        @endif
-
-        <br/>
-
-        nn: {{ $n }}
-
-    </div>
-@endif
