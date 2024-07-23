@@ -13,7 +13,7 @@
                     <div class="w-full shrink-0 grow-0 basis-auto x-lg:w-6/12 x-xl:w-8/12">
                         <div class="px-6 py-12 md:px-12">
                             <h2 class="mb-6 pb-2 text-4xl font-bold">
-                                Отправте сообщение
+                                Отправьте сообщение
                             </h2>
                             <p class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
 
@@ -29,6 +29,7 @@
                                 {{--                                </style>--}}
 
                                 <textarea
+                                    required="required"
                                     wire:focus="showFields"
                                     wire:model="inputMsg"
                                     class="w-full p-1"
