@@ -138,7 +138,7 @@
 
 
 
-        <button id="fullscreen-btn">Развернуть на весь экран</button>
+        <button id="fullscreen-btn"  style="z-index:10; position: fixed; left: 10px; top: 10px;" >Развернуть на весь экран</button>
 
         <script>
             document.getElementById('fullscreen-btn').addEventListener('click', function() {
