@@ -18,9 +18,7 @@
             text-center text-4xl
             "
             >
-
                 Присоединяйтесь незаметно и&nbsp;подпишитесь <nobr>на <img src="/st_news/logo_tymenskie.png" class="pl-3 inline" style="height: 2rem;"/></nobr>
-
             </div>
         </section>
         </a>
@@ -30,7 +28,7 @@
     <livewire:StNews.backword/>
 
     {{-- пожертвование--}}
-    <livewire:Phpcat.money/>
+    <livewire:StNews.money/>
 
     {{--коллекция кружек--}}
     @if(1==2)
