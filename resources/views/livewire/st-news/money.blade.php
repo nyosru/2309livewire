@@ -1,7 +1,7 @@
 <!-- Section: Design Block -->
 <section class="xmb-32" >
     <div class="block
-            bg-gradient-to-r from-yellow-200 to-orange-300
+            bg-gradient-to-r from-red-200 to-red-300
             rounded-lg xbg-white
             shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
             pt-[10%]
