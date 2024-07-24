@@ -127,6 +127,17 @@
     {{--    <div  xstyle="min-height:80vh;" id="bg-42">--}}
     <div class="up" xstyle="min-height:80vh;" id="bg-{{ $nn }}">
 
+
+
+        <div class="content" id="blockToHide" style="z-index:10;">
+            <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right"
+                  title="Залипнуть по полной">x</span>
+{{--            Сайт не доступен!<br/>--}}
+            Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
+        </div>
+
+
+
         <button id="fullscreen-btn">Развернуть на весь экран</button>
 
         <script>
@@ -141,12 +152,8 @@
             });
         </script>
 
-        <div class="content" id="blockToHide" style="z-index:10;">
-            <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right"
-                  title="Залипнуть по полной">x</span>
-{{--            Сайт не доступен!<br/>--}}
-            Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
-        </div>
+
+
         <div class="content_foot">
             <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
             и телеграм <A class="text-blue-800 underline" href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
