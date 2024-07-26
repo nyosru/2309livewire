@@ -64,7 +64,7 @@ class Backword extends Component
             $msg .= PHP_EOL;
             $msg .= 'Promo: ' . $this->inputPromo;
 
-            Msg::sendTelegramm($msg, null, 1);
+            Msg::sendTelegramm($msg, null, 1, null, env('TOKEN_TELEGA_NEWS') );
 
             // Сброс значений полей
             $this->reset(['inputMsg', 'inputName', 'inputPhone', 'inputTelega', 'inputPromo', 'showAdditionalFields']);
