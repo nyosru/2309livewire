@@ -8,6 +8,7 @@ class Index extends Component
 {
 
     public $pass = '';
+
     public function render()
     {
         return view('livewire.skidki.index');

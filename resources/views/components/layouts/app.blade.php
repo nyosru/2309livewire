@@ -97,7 +97,7 @@
     $_SERVER['HTTP_HOST'] == 'xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai'
     )
 
-    @include('Skidki.index')
+    @include('skidki.index')
 
 @else
 

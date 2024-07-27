@@ -8,6 +8,5 @@
             <livewire:skidki.addComponent/>
         @endif
 
-
     </div>
 @endsection
