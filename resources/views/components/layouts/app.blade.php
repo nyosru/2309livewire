@@ -91,6 +91,14 @@
     @include('st_news.index')
     {{--<livewire:uprav.communicator.indexPage/>--}}
 
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'skidki.local' ||
+//    скидки.сергейсб.рф
+    $_SERVER['HTTP_HOST'] == 'xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai'
+    )
+
+    @include('Skidki.index')
+
 @else
 
     <!DOCTYPE html>

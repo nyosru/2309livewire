@@ -1,62 +1,21 @@
 <?php
 
-use App\Livewire\Uprav;
 use Illuminate\Support\Facades\Route;
 
-//$d = function () {
-//    Route::get('/', Uprav\UpravIndex::class)->name('index');
-////    Route::get('services', News::class)->name('services');
-////    // Route::get('/', function () { return view('phpcat.index'); });
-//////    Route::get('news', News::class)->name('news');
-//////    Route::get('torrent', News::class)->name('torrent');
-//////    Route::get('money', News::class)->name('money');
-////    // Route::get('{.*}', News::class)->name('other');
-////    //    Route::fallback(function () { return redirect('/'); });
-//};
-//
-//$inRoute = [];
-//
-//$inRoute[] =
-//    [
-//    'as' => 'uprav.',
-////            'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
-////    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav.local' : 'управлятор.рф')
-//    'domain' => (env('APP_ENV', 'x') == 'local' ? 'uprav1.local' : 'xn--80ae1ambgeod9j.xn--p1ai')
-////xn--80ae1ambgeod9j.xn--p1ai
-//];
-//
-//foreach ($inRoute as $i) {
-//    Route::group($i, $d);
-//}
-//
-////Route::group([
-//////    'as' => 'phpcat.',
-////    'domain' => 'php-cat.com'
-////], $d);
-////Route::group([
-//////    'as' => 'phpcat.',
-////    'domain' => 'livewire.php-cat.com'
-////], $d);
-//
-//
-
-
 $d = function () {
-    Route::get('/', Index::class)->name('index');
+    Route::get('/', \App\Livewire\Skidki\Index::class)->name('index');
 };
 
-$inRoute = [];
-
-$inRoute[] =
+$inRoute = [
     [
         'as' => 'skidki.',
-
-//	xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai.
-//IDN: скидки.сергейсб.рф
-    'domain' => (env(
-        'APP_ENV',
-        'x'
-    ) == 'local' ? 'skidki.local' : 'xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai')
+        'domain' => (env(
+            'APP_ENV',
+            'local'
+        ) == 'local' ? 'skidki.local'
+            //IDN: скидки.сергейсб.рф
+            : 'xn--d1ahbfc2b.xn--90adfbu3bff.xn--p1ai')
+    ]
 ];
 
 foreach ($inRoute as $i) {

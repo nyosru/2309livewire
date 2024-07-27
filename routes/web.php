@@ -48,6 +48,7 @@ require('web.ar.php');
 // земельный кадастр
 require('web.zem.php');
 require('web.phpcat.php');
+require('web.skidki.php');
 
 
 $d = function () {
