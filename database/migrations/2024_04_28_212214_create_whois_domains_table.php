@@ -12,7 +12,7 @@ return new class extends Migration
      *
      * @var string
      */
-    protected $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
+//    protected $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
 
 
     /**
