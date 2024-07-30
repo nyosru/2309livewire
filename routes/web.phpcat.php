@@ -18,6 +18,6 @@ $d = function () {
 
 Route::group([
     'as' => 'phpcat.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'php-cat.local' : 'php-cat.com'
+    'domain' => (env('APP_ENV', 'local') == 'local') ? 'php-cat.local' : 'php-cat.com'
 ], $d);
 

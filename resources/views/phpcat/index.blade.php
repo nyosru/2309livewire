@@ -13,6 +13,9 @@
 
         <livewire:Phpcat.services/>
 
+        <livewire:Phpcat.bitrix/>
+{{--        @include('phpcat.bitrix')--}}
+
         <livewire:Phpcat.develop/>
 
         <div
