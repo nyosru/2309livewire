@@ -33,16 +33,36 @@
             text-align: center;
         }
         button {
-            font-size: 1.2em;
-            padding: 10px 20px;
+            font-size: 1.5em;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s;
         }
-        .adjust-btn {
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        .control-button {
+            width: auto;
+            display: inline;
             font-size: 1.2em;
-            width: 30px;
-            height: 30px;
-            margin: 0 10px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .control-button:hover {
+            background-color: #e0e0e0;
         }
         #countdown {
             font-size: 2em;
@@ -80,21 +100,21 @@
 <h1>Таймер со звуком</h1>
 <div class="time-container">
     <label for="hours">Часы:</label>
-    <button class="adjust-btn" onclick="adjustTime('hours', -1)">-</button>
+    <button onclick="adjustTime('hours', -1)">-</button>
     <input type="number" id="hours" min="0" value="0">
-    <button class="adjust-btn" onclick="adjustTime('hours', 1)">+</button>
+    <button onclick="adjustTime('hours', 1)">+</button>
 </div>
 <div class="time-container">
     <label for="minutes">Минуты:</label>
-    <button class="adjust-btn" onclick="adjustTime('minutes', -1)">-</button>
+    <button onclick="adjustTime('minutes', -1)">-</button>
     <input type="number" id="minutes" min="0" value="0">
-    <button class="adjust-btn" onclick="adjustTime('minutes', 1)">+</button>
+    <button onclick="adjustTime('minutes', 1)">+</button>
 </div>
 <div class="time-container">
     <label for="seconds">Секунды:</label>
-    <button class="adjust-btn" onclick="adjustTime('seconds', -1)">-</button>
+    <button onclick="adjustTime('seconds', -1)">-</button>
     <input type="number" id="seconds" min="0" max="59" value="0">
-    <button class="adjust-btn" onclick="adjustTime('seconds', 1)">+</button>
+    <button onclick="adjustTime('seconds', 1)">+</button>
 </div>
 <div class="checkbox-container">
     <label for="half-second">Пол секунды</label>
@@ -107,8 +127,8 @@
     </select>
 </div>
 <br>
-<button onclick="startTimer()">Запустить таймер</button>
-<button onclick="stopTimer()">Остановить</button>
+<button class="control-button" onclick="startTimer()">Запустить таймер</button>
+<button class="control-button" onclick="stopTimer()">Остановить</button>
 <div id="countdown"></div>
 <div id="seconds-left"></div>
 <div class="checkbox-container">
