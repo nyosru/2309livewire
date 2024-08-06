@@ -9,6 +9,14 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c0fe);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         .time-container {
             display: inline-flex;
@@ -53,6 +61,19 @@
         .sound-select-container {
             margin-top: 20px;
         }
+        .content_foot {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px 10px;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+        .content_foot a {
+            color: #1e90ff;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -82,11 +103,7 @@
 <div class="sound-select-container">
     <label for="sound-select">Выберите звук:</label>
     <select id="sound-select">
-        <option value="/timer_rings/ring.mp3">ring.mp3</option>
-        <option value="/timer_rings/ring2.mp3">ring2.mp3</option>
-        <option value="/timer_rings/ring3.mp3">ring3.mp3</option>
-        <option value="/timer_rings/schelchok-shumnyii.mp3">щелчок шумный</option>
-        <option value="/timer_rings/malyiy-baraban-odinochnyiy-schelchok.mp3">Малый барабан одиночный щелчок</option>
+        <!-- Options will be populated by JavaScript -->
     </select>
 </div>
 <br>
@@ -101,12 +118,29 @@
 <audio id="alarmSound" preload="auto"></audio>
 
 <script>
+    const soundFiles = [
+        { value: '/timer_rings/ring.mp3', text: 'ring' },
+        { value: '/timer_rings/ring2.mp3', text: 'ring2' },
+        { value: '/timer_rings/ring3.mp3', text: 'ring3' },
+        { value: '/timer_rings/schelchok-shumnyii.mp3', text: 'щелчок шумный' },
+        { value: '/timer_rings/malyiy-baraban-odinochnyiy-schelchok.mp3', text: 'Малый барабан одиночный щелчок' }
+    ];
+
+    const soundSelect = document.getElementById('sound-select');
+
+    soundFiles.forEach(sound => {
+        const option = document.createElement('option');
+        option.value = sound.value;
+        option.textContent = sound.text;
+        soundSelect.appendChild(option);
+    });
+
     let timerInterval;
     let timeLeft;
     let initialTime;
-    let soundFile = '/timer_rings/ring.mp3'; // Default sound file
+    let soundFile = soundFiles[0].value; // Default sound file
 
-    document.getElementById('sound-select').addEventListener('change', function() {
+    soundSelect.addEventListener('change', function() {
         soundFile = this.value;
     });
 
@@ -173,5 +207,10 @@
         document.getElementById('seconds-left').textContent = `Осталось: ${timeLeft.toFixed(1)} секунд`;
     }
 </script>
+
+<div class="content_foot">
+    <a href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
+    и телеграм <a href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
+</div>
 </body>
 </html>
