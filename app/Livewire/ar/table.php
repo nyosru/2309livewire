@@ -30,7 +30,7 @@ class table extends Component
 //
     public function onoff($nn)
     {
-        $this->oo[$nn] = empty($this->oo[$nn]) ? true : false ;
+        $this->oo[$nn] = empty($this->oo[$nn]) ? true : false;
     }
 
 //    public function getSearch($str, $count = 120, $offset = 0)
@@ -119,14 +119,21 @@ class table extends Component
 //        if (!empty($this->searchTxt))
 //            $resShow = $this->getFullResult($this->searchTxt);//->paginate(50)
 
-        return view('livewire.ar.table',
+        return view(
+            'livewire.ar.table',
             [
 //                'objects' => ArObject::with('prices')->all()
                 'objects' => ArObject::with(
-                    'prices',
-                    'payes',
-                    'prices.man',
+                    [
+//                    'prices',
+                        'prices' => function ($query) {
+                            $query->orderBy('date_start', 'asc');
+//                            $query->orderBy('date_start', 'desc');
+                        },
+                        'payes',
+                        'prices.man',
 //                    'prices.man.prices',
+                    ]
                 )->get()
 //                'search2' => $this->search,
 //                'resultsSearch' => $res

@@ -45,6 +45,8 @@ use Illuminate\Support\Facades\Route;
 require('web.uprav.php');
 require('web.phpcat.files.php');
 require('web.ar.php');
+//            таймер.сергейсб.рф
+require('web.timer.php');
 // земельный кадастр
 require('web.zem.php');
 require('web.phpcat.php');
