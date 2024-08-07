@@ -143,9 +143,9 @@
         { value: '/timer_rings/ring2.mp3', text: 'ring2' },
         { value: '/timer_rings/ring3.mp3', text: 'ring3' },
         { value: '/timer_rings/schelchok-shumnyii.mp3', text: 'щелчок шумный' },
-        { value: '/timer_rings/malyiy-baraban-odinochnyiy-schelchok.mp3', text: 'Малый барабан одиночный щелчок' }
-        { value: '/timer_rings/auto_bipbip_gluhoy-zvuk-gudka-avtomobilya.mp3', text: 'Авто - бип бип' }
-        { value: '/timer_rings/bitboxs_pchi.mp3', text: 'БитБокс Птчи' }
+        { value: '/timer_rings/malyiy-baraban-odinochnyiy-schelchok.mp3', text: 'Малый барабан одиночный щелчок' },
+        { value: '/timer_rings/auto_bipbip_gluhoy-zvuk-gudka-avtomobilya.mp3', text: 'Авто - бип бип' },
+        { value: '/timer_rings/bitboxs_pchi.mp3', text: 'БитБокс Птчи' },
         { value: '/timer_rings/myu.mp3', text: 'Мяу' }
     ];
 
