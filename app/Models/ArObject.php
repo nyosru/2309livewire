@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ArObject extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'nomer',
+        'adres',
+        'opis',
+    ];
 
     public function prices()
     {
@@ -17,6 +25,29 @@ class ArObject extends Model
     public function payes()
     {
         return $this->hasMany(ArPay::class,'ar_object_id', 'id')->orderBy('date','desc');
+    }
+
+
+    public function getPayInMonthAttribute()
+    {
+        $latestPay = $this->prices->flatMap(function($price) {
+            return $price->man->flatMap(function($man) {
+                return $man->payes;
+            });
+        })->sortByDesc('date')->first();
+
+        return $latestPay && Carbon::parse($latestPay->date)->greaterThanOrEqualTo(Carbon::now()->subDays(30));
+    }
+
+    public function getPayInWeekAttribute()
+    {
+        $latestPay = $this->prices->flatMap(function($price) {
+            return $price->man->flatMap(function($man) {
+                return $man->payes;
+            });
+        })->sortByDesc('date')->first();
+
+        return $latestPay && Carbon::parse($latestPay->date)->greaterThanOrEqualTo(Carbon::now()->subDays(10));
     }
 
 }

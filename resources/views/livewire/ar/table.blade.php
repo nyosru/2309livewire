@@ -2,14 +2,46 @@
 
     {{--        {{ $objects }}--}}
 
+    <livewire:ar.objectAddForm
+        xdata="$o->prices"
+        xpayes="$o->payes"
+        xobject_id="$o->id"
+    />
+
+    <style>
+        .pay-in-month{
+            /*.pay-in-month.pay-yes*/
+            display: block;
+        }
+        .pay-in-month.pay-yes{
+            background-color: #70f276;
+        }
+        /*.pay-in-month.pay-no*/
+        .pay-in-month.pay-no{
+            background-color: #f0f287;
+        }
+        .pay-in-month.pay-no2{
+            background-color: #f2a1ab;
+        }
+    </style>
+
     <div class="items">
         @foreach( $objects as $o )
 
             <div>
+
+                <div class="pay-in-month {{ $o->pay_in_month ? 'pay-yes' : ( $o->pay_in_month ? 'pay-no' : 'pay-no2' ) }}">
+                    <livewire:helper.showerDopInfo
+                        :string="'старт '.$o->nomer .' / '.$o->adres"
+                        :data="$o->getAttributes()"
+                    />
+                </div>
+
                 <div class="head">
                     <h2>
                         <span class="text-3xl font-bold bg-yellow-200 px-3 py-1">
-                            # {{$o['nomer']}}
+                            id {{$o->id }} /
+                            # {{$o['nomer']}} /
                     <sup>{{$o['adres']}}</sup>
                         </span>
                     </h2>
@@ -17,122 +49,53 @@
                 </div>
                 <div class="kto">
 
-                    <livewire:ar.showPriceItem
-                        :data="$o->prices"
+                    <livewire:ar.peopleAddForm
+                        :now_object="$o['id']"
+                        xdata="$o->prices"
                         xpayes="$o->payes"
-                        :object_id="$o->id"
+                        xobject_id="$o->id"
                     />
 
+                    @foreach( $o->prices as $op )
+                        <div
+                            class="inline-block max-w-[30%] mr-1 max-h-[300px] overflow-auto border border-solid border-[2px] border-green-200 p-1">
+
+                            <livewire:helper.showerDopInfo
+                                :string="'старт '.$op->date_start .' / <b>'.number_format($op->price,0,'','`') .'</b> р.'"
+                                :data="$op->getAttributes()"
+                            />
+                            <livewire:helper.showerDopInfo
+                                :string="'#'.$op->man[0]->id . ' / ' .$op->man[0]->name . ' ' .$op->man[0]->phone"
+                                :data="$op->man[0]->getAttributes()"
+                            />
+
+                            @if( !empty($op->man[0]->payes) )
+
+                                @if( !empty($op->man[0]->payes[0]->date))
+                                    <livewire:ar.service.payInLastMonth
+                                        :date_pay="$op->man[0]->payes[0]->date"
+                                    />
+                                @endif
+
+                                <livewire:ar.payAddForm
+                                    :object_id="$o->id"
+                                    :people_id="$op->man[0]->id"
+                                />
+
+
+                                @foreach( $op->man[0]->payes as $opm )
+                                    <livewire:ar.pay
+                                        :pay="$opm"
+                                    />
+                                @endforeach
+
+                            @endif
+
+                        </div>
+                    @endforeach
 
                 </div>
             </div>
-
-
-
-            {{--            <tr>--}}
-            {{--                <td>--}}
-            {{--                    <pre--}}
-            {{--                        style="max-height: 250px; overflow: auto; font-size: 10px; border: 2px solid orange; padding: 5px;">--}}
-            {{--                    {{ print_r($o->getAttributes(),true) }}--}}
-            {{--                        --}}{{--                    {{ print_r($o->relations->mans->getAttributes(),true) }}--}}
-            {{--                        {{ print_r($o,true) }}--}}
-            {{--                    </pre>--}}
-
-            {{--                    <livewire:ar.showPriceItem--}}
-            {{--                        :data="$o->prices" :payes="$o->payes"--}}
-            {{--                        :object_id="$o->id"--}}
-            {{--                    />--}}
-
-            {{--                    --}}{{--                    <livewire:ar.showPayItem :data="$o->payes"/>--}}
-
-            {{--                </td>--}}
-            {{--            </tr>--}}
-
-            {{--            <tr>--}}
-            {{--                <td>--}}
-            {{--                    <h2 class="text-2xl font-bold">{{ $o->adres }} # {{ $o->nomer }}</h2>--}}
-            {{--                    <small>{{ $o->opis }}</small>--}}
-            {{--                    --}}{{-- {{ $o }}--}}
-            {{--                    <br/>--}}
-            {{--                    <br/>--}}
-
-            {{--                    <div>--}}
-            {{--                        <button wire:click="onoff({{ $o->id }})" class="bg-[#adadad] p-1">новый арендатор</button>--}}
-            {{--                    </div>--}}
-            {{--                    @if( isset($oo[$o->id]) && $oo[$o->id] > 0 )--}}
-            {{--                        @include('livewire.ar.addNewPrice')--}}
-            {{--                    @endif--}}
-
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    <br/>--}}
-
-            {{--                    --}}{{--                    $o->prices<br/>--}}
-            {{--                    --}}{{--                    {{ $o->prices }}--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    @if(1==2)--}}
-            {{--                        <div class="pl-5">--}}
-            {{--                            @foreach($o->prices as $p )--}}
-            {{--                                <div class="border-[2px]">--}}
-            {{--                                    ar_people_id {{ $p->ar_people_id }} /--}}
-            {{--                                    date_start {{ $p->date_start }} /--}}
-            {{--                                    price {{ $p->price }}--}}
-            {{--                                    <br/>--}}
-            {{--                                    {{ $p }}--}}
-            {{--                                </div>--}}
-            {{--                                <br/>--}}
-            {{--                                <br/>--}}
-            {{--                            @endforeach--}}
-            {{--                        </div>--}}
-            {{--                    @endif--}}
-
-            {{--                    @if(1==2)--}}
-            {{--                        <div class="pl-5">--}}
-            {{--                            @foreach($o->payes as $pa )--}}
-            {{--                                <div class="border-[5px] border-orange-400 mb-1">--}}
-            {{--                                    ar_people_id: {{ $pa->ar_people_id }} /--}}
-            {{--                                    amount: {{ $pa->amount }} <br/>--}}
-            {{--                                    amount: {{ $pa->date }} <br/>--}}
-            {{--                                    --}}{{--                                {{ $pa }}--}}
-            {{--                                    --}}{{--                                ar_people_id {{ $p->ar_people_id }} /--}}
-            {{--                                    --}}{{--                                date_start {{ $p->date_start }} /--}}
-            {{--                                    --}}{{--                                price {{ $p->price }}--}}
-            {{--                                    --}}{{--                                <br/>--}}
-            {{--                                    --}}{{--                                {{ $p }}--}}
-            {{--                                </div>--}}
-            {{--                                --}}{{--                            <br/>--}}
-            {{--                                --}}{{--                            <br/>--}}
-            {{--                            @endforeach--}}
-            {{--                        </div>--}}
-            {{--                    @endif--}}
-            {{--                    --}}{{--                    ar_people_id: {{ $o->prices[0]['ar_people_id'] ?? '-no-' }} /--}}
-            {{--                    --}}{{--                    price: {{ $o->prices[0]['price'] ?? '-no-' }} /--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    price_date: {{ $o->prices[0]['date_start'] ?? '-no-' }} /--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    price-man: {{ $o->prices[0]['man'][0]->name ?? '-no-' }}--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                    --}}{{--                    <br/>--}}
-            {{--                </td>--}}
-            {{--                --}}{{--            <td>{{ $o->payes }}</td>--}}
-            {{--            </tr>--}}
-            {{--            <tr>--}}
-            {{--                <td>{{ $o->adres }}</td>--}}
-            {{--                <td>--}}
-            {{--                    <b> $o->prices </b><br/>--}}
-            {{--                    {{ $o->prices }}--}}
-            {{--            </td>--}}
-            {{--            <td>--}}
-            {{--                    <br/>--}}
-            {{--                    <b> $o->payes </b><br/>--}}
-            {{--                    {{ $o->payes }}</td>--}}
-            {{--            </tr>--}}
-            {{--        {{ $o->id }}--}}
-            {{--    <br/>--}}
-            {{--        {{ $o }}--}}
-            {{--        <br/>--}}
-            {{--        <br/>--}}
 
         @endforeach
     </div>

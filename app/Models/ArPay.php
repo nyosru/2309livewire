@@ -9,6 +9,16 @@ class ArPay extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'ar_object_id',
+        'ar_people_id',
+        'amount',
+        'date',
+        'opis',
+        'json'
+    ];
+
     /**
      * Связанная с моделью таблица.
      *

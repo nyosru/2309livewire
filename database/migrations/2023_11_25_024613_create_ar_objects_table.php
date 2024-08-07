@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
 
-            $table->string('nomer')->nullable();
+            $table->integer('nomer')->nullable();
             $table->string('adres')->nullable();
             $table->text('opis')->nullable();
 

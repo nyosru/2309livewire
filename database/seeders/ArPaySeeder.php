@@ -17,7 +17,7 @@ class ArPaySeeder extends Seeder
      */
     public function run(): void
     {
-        ArPay::factory(500)
+        ArPay::factory(10)
             ->state(new Sequence(
                 fn (Sequence $sequence) => [
                     'ar_object_id' => ArObject::all()->random(),

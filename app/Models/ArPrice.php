@@ -10,6 +10,16 @@ class ArPrice extends Model
     use HasFactory;
 
 
+
+    protected $fillable = [
+        'ar_object_id' ,
+        'ar_people_id' ,
+        'price' ,
+        'date_start',
+        'opis'
+
+    ];
+
     public function object()
     {
         return $this->belongsTo(ArObject::class);
