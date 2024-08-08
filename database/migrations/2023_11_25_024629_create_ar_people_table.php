@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
 
             $table->string('name');
-            $table->bigInteger('phone');
-            $table->bigInteger('phone2')->nullable();
+
+            $table->string('phone');
+
+            $table->string('phone2')->nullable();
             $table->text('opis')->nullable();
 
             $table->timestamps();

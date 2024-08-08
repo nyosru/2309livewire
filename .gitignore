@@ -18,3 +18,4 @@ yarn-error.log
 /.idea
 /.vscode
 /old230916
+/public/vendor/

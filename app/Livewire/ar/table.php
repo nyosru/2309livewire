@@ -29,6 +29,8 @@ class table extends Component
         $this->oo[$nn] = empty($this->oo[$nn]) ? true : false;
     }
 
+
+
     public function render()
     {
         $objects = ArObject::with(
@@ -44,7 +46,7 @@ class table extends Component
                     ]);
                 },
             ]
-        )->orderBy('adres', 'desc')
+        )->orderBy('adres', 'asc')
             ->orderBy('nomer', 'asc')
             ->get();
 

@@ -15,15 +15,10 @@ return new class extends Migration
 
             $table->id();
 
-//            $table->unsignedBigInteger('ar_price_id');
-//            $table->foreign('ar_price_id')->references('id')->on('ar_prices');
-
-//            $table->foreignId('ar_object_id')->constrained();
-//            $table->foreignId('ar_people_id')->constrained();
             $table->foreignId('ar_object_id')->constrained()->onDelete('cascade');
             $table->foreignId('ar_people_id')->constrained()->onDelete('cascade');
 
-            $table->integer('price');
+            $table->unsignedDecimal('price')->comment('цена');
             $table->date('date_start');
             $table->text('opis')->nullable();
 
