@@ -12,7 +12,6 @@
             </button>
         @endif
 
-
         <livewire:helper.showerDopInfo
             :string="$pay->date.' / '. number_format($pay->amount,0,'','`')"
             :data="$pay->getAttributes()"

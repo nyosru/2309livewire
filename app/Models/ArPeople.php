@@ -10,32 +10,27 @@ class ArPeople extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * Связанная с моделью таблица.
-     *
-     * @var string
-     */
-    protected $table = 'ar_peoples';
-
-
+    protected $table = 'ar_peoples'; // Указываем правильное имя таблицы
 
     protected $fillable = [
-        'name' ,
-        'phone' ,
-        'phone2' ,
+        'name',
+        'phone',
         'opis'
     ];
 
 
-    public function prices()
-    {
-        return $this->hasMany(ArPrice::class, 'ar_people_id', 'id');
-    }
-
+//    public function payes()
+//    {
+//        return $this->hasMany(ArPay::class, 'ar_object_id', 'id')->orderBy('date', 'desc');
+//    }
     public function payes()
     {
-//        return $this->hasManyThrough(ArPay::class, ArPrice::class, 'ar_people_id', 'ar_object_id', 'id', 'ar_object_id');
         return $this->hasMany(ArPay::class, 'ar_people_id', 'id');
     }
 
+    // Связь с комментариями
+    public function comments()
+    {
+        return $this->hasMany(ArComment::class, 'ar_people_id');
+    }
 }

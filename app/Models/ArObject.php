@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class ArObject extends Model
 {
@@ -19,32 +19,17 @@ class ArObject extends Model
 
     public function prices()
     {
-        return $this->hasMany(ArPrice::class, 'ar_object_id', 'id')->orderBy('date_start','desc');
+        return $this->hasMany(ArPrice::class, 'ar_object_id', 'id')->orderBy('date_start', 'desc');
     }
 
     public function payes()
     {
-        return $this->hasMany(ArPay::class,'ar_object_id', 'id')->orderBy('date','desc');
+        return $this->hasMany(ArPay::class, 'ar_object_id', 'id')->orderBy('date', 'desc');
     }
 
-    protected static function boot()
+    public function comments()
     {
-        parent::boot();
-
-        static::deleting(function ($arObject) {
-            if ($arObject->isForceDeleting()) {
-                $arObject->prices()->forceDelete();
-                $arObject->payes()->forceDelete();
-            } else {
-                $arObject->prices()->delete();
-                $arObject->payes()->delete();
-            }
-        });
-
-        static::restoring(function ($arObject) {
-            $arObject->prices()->withTrashed()->whereNotNull('deleted_at')->restore();
-            $arObject->payes()->withTrashed()->whereNotNull('deleted_at')->restore();
-        });
+        return $this->hasMany(ArComment::class, 'ar_object_id', 'id');
     }
 
     public function getPayInMonthAttribute()

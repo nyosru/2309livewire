@@ -25,10 +25,16 @@
 
     @endif
 
-    @if( !empty($message) )
-        <div class="bg-green-400 p-1">
-            {!! $message !!}
+    @if (session()->has('message'))
+        <div class="mb-2 p-2 bg-green-100 text-green-800 border border-green-200 rounded">
+            {{ session('message') }}
         </div>
     @endif
+
+    {{--    @if( !empty($message) )--}}
+    {{--        <div class="bg-green-400 p-1">--}}
+    {{--            {!! $message !!}--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
 
 </div>

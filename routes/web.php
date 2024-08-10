@@ -4,6 +4,17 @@ use App\Livewire\Phpcat\News;
 use App\Livewire\SnowkStart;
 use Illuminate\Support\Facades\Route;
 
+//$files = scandir( __DIR__.'/web/');
+//foreach ($files as $f) {
+//    if (strpos($f, '.php') != false ) {
+//        require(__DIR__.'/web/' . $f);
+//    }
+//}
+
+require('web.afisha.php');
+
+
+
 ////Route::get('{.*}',function () {
 ////    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 //////    return redirect('/');

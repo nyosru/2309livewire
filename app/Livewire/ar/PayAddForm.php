@@ -35,11 +35,14 @@ class PayAddForm extends Component
             'opis' => $this->opis,
 //        'json'
         ]);
-        $this->message = 'Добавлено! '.$this->amount.' '.$this->date;
-        $this->show = false;
-        $this->amount =
-        $this->date =
-        $this->opis = '';
+
+        session()->flash('message', 'Добавлено! '.$this->amount.' '.$this->date );
+
+//        $this->message = 'Добавлено! '.$this->amount.' '.$this->date;
+//        $this->show = false;
+//        $this->amount =
+//        $this->date =
+//        $this->opis = '';
     }
 
     public function render()

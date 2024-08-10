@@ -10,6 +10,14 @@
     @include('phpcat.index')
 
 @elseif(
+	#IDN: тюменскаяафиша.рф
+    $_SERVER['HTTP_HOST'] == 'xn--80aaarrjmj0bg3a3c0dua.xn--p1ai' ||
+    $_SERVER['HTTP_HOST'] == 'afisha.local'
+    )
+
+    @include('afisha.index')
+
+@elseif(
     $_SERVER['HTTP_HOST'] == 'domainwaiter.lw'
 //    ||
 //    $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
