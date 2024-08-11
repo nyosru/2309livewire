@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Afisha;
 
-use App\Models\Poster;
+use App\Models\AfishaPoster as Poster;
 use Livewire\Component;
 
 

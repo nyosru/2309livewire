@@ -7,7 +7,7 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="addPoster" class="space-y-4">
+    <form wire:submit.prevent="addPoster" class="space-y-4" enctype="multipart/form-data">
 
         <div class="flex items-center space-x-4">
             <label for="title" class="w-40 text-right font-medium">Название:</label>
@@ -38,6 +38,13 @@
         </div>
 
         <div class="flex items-center space-x-4">
+            <label for="event_time" class="w-40 text-right font-medium">Время проведения (необязательно):</label>
+            <input type="time" id="event_time" wire:model="event_time"
+                   class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500">
+            @error('event_time') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="flex items-center space-x-4">
             <label for="end_date" class="w-40 text-right font-medium">Дата окончания:</label>
             <input type="date" id="end_date" wire:model="end_date"
                    class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500">
@@ -62,11 +69,11 @@
             @for ($i = 1; $i <= 5; $i++)
                 <div class="flex-1 mb-4">
                     <label for="link_{{ $i }}" class="block font-medium">Доп. ссылка {{ $i }}:</label>
-                    <input type="text" id="link_{{ $i }}" wire:model="additional_links.{{ $i }}.url"
+                    <input type="text" id="link_{{ $i }}" wire:model="extra_links.{{ $i }}.link"
                            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                            placeholder="Введите ссылку">
                     <label for="text_{{ $i }}" class="block font-medium mt-2">Подпись {{ $i }}:</label>
-                    <input type="text" id="text_{{ $i }}" wire:model="additional_links.{{ $i }}.text"
+                    <input type="text" id="text_{{ $i }}" wire:model="extra_links.{{ $i }}.text"
                            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                            placeholder="Введите подпись">
                 </div>

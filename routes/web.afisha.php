@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Определение базового маршрута
+// Определение базового маршрута для Livewire
 $d = function () {
-    // Главная страница
+    // Главная страница (список афиш)
     Route::get('/', \App\Livewire\Afisha\Index::class)->name('index');
 
     // Отображение списка афиш

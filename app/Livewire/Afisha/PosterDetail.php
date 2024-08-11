@@ -3,7 +3,7 @@
 namespace App\Livewire\Afisha;
 
 use Livewire\Component;
-use App\Models\Poster;
+use App\Models\AfishaPoster;
 
 class PosterDetail extends Component
 {
@@ -12,8 +12,7 @@ class PosterDetail extends Component
 
     public function mount($posterId)
     {
-        $this->posterId = $posterId;
-        $this->poster = Poster::with('images')->find($posterId);
+        $this->poster = AfishaPoster::with('images')->find($posterId);
     }
 
     public function render()

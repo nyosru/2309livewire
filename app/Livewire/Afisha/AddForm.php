@@ -4,7 +4,8 @@ namespace App\Livewire\Afisha;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Poster;
+use App\Models\AfishaPoster as Poster;
+use App\Models\AfishaImage;
 
 class AddForm extends Component
 {
@@ -37,13 +38,8 @@ class AddForm extends Component
     {
         $this->validate();
 
-        // Сохранение изображений и получение их путей
-        $imagePaths = [];
-        foreach ($this->images as $image) {
-            $imagePaths[] = $image->store('posters', 'public');
-        }
-
-        Poster::create([
+        // Создание новой афиши
+        $poster = Poster::create([
             'title' => $this->title,
             'description' => $this->description,
             'link' => $this->link,
@@ -52,12 +48,21 @@ class AddForm extends Component
             'end_date' => $this->end_date,
             'source_link' => $this->source_link,
             'extra_links' => $this->extra_links,
-            'images' => $imagePaths,
         ]);
+
+        // Сохранение изображений и привязка их к афише
+        foreach ($this->images as $image) {
+            $imagePath = $image->store('afisha-img', 'public');  // Сохраняем изображения в нужную директорию
+
+            AfishaImage::create([
+                'poster_id' => $poster->id,
+                'path' => $imagePath,
+            ]);
+        }
 
         session()->flash('message', 'Афиша добавлена успешно.');
 
-        $this->reset();
+        $this->reset();  // Сбрасываем все свойства формы
     }
 
     public function render()

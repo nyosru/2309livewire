@@ -2,10 +2,11 @@
 
 @section('content')
 
-    @if( request()->query('ss') == 'add' )
+    @if(request()->query('ss') == 'add')
         <livewire:Afisha.AddForm/>
+    @elseif(request()->routeIs('afisha.detail'))
+        <livewire:Afisha.PosterDetail :posterId="request()->route('posterId')"/>
     @else
-{{--        <livewire:Afisha.Index/>--}}
         <livewire:Afisha.PosterComponent/>
     @endif
 

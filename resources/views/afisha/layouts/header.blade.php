@@ -1,7 +1,8 @@
 {{--<div class="text-center pb-3">--}}
 <a href="/" class="p-3 m-0 block text-center"><h1 style="font-size: 3rem;">
         <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />
-        php-cat.com</h1></a>
+        ТюменскаяАфиша.рф</h1></a>
+
 @if(1==2)
     {{--    <br/>--}}
     {{--    </div>--}}

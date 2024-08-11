@@ -2,7 +2,7 @@
 namespace App\Livewire\Afisha;
 
 use Livewire\Component;
-use App\Models\Poster;
+use App\Models\AfishaPoster as Poster;
 use Carbon\Carbon;
 
 class PosterComponent extends Component

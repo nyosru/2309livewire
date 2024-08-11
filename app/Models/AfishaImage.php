@@ -22,6 +22,6 @@ class AfishaImage extends Model
 
     public function poster()
     {
-        return $this->belongsTo(AfishaPoster::class, 'poster_id');
+        return $this->belongsTo(Poster::class, 'poster_id');
     }
 }
