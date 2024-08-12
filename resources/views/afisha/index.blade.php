@@ -1,4 +1,4 @@
-@extends('Afisha.layouts.app')
+@extends('afisha.layouts.app')
 
 @section('content')
 
