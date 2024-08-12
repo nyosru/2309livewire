@@ -11,6 +11,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        Schema::dropIfExists('afisha_images');
         Schema::create('afisha_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('poster_id')->constrained('afisha_posters')->onDelete('cascade');
