@@ -5,7 +5,7 @@
 {{--    @include('ar.index_index')--}}
 
 
-    <livewire:ar.objAddForm />
+    <livewire:ar.ObjAddForm />
     <livewire:ar.table/>
 
 
