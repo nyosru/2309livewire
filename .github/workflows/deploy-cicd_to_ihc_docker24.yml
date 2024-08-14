@@ -36,7 +36,7 @@ jobs:
           username: ${{ env.VPS_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            docker exec 2309livewire composer i
+            docker exec 2309livewire composer i --no-dev
             docker exec 2309livewire php artisan migrate
             docker exec 2309livewire php artisan view:clear && php artisan cache:clear
 
