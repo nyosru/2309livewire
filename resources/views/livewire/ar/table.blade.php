@@ -3,11 +3,11 @@
             {{ count($objects) }}
 {{--            {{ $objects }}--}}
 
-    <livewire:ar.ObjectAddForm
-        xdata="$o->prices"
-        xpayes="$o->payes"
-        xobject_id="$o->id"
-    />
+{{--    <livewire:ar.ObjectAddForm--}}
+{{--        xdata="$o->prices"--}}
+{{--        xpayes="$o->payes"--}}
+{{--        xobject_id="$o->id"--}}
+{{--    />--}}
 
     <style>
         .pay-in-month {
