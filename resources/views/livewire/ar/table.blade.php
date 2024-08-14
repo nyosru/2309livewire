@@ -4,6 +4,7 @@
 {{--            {{ $objects }}--}}
 
     <livewire:ar.ObjectItemAddForm />
+
 {{--    <livewire:ar.ObjectAddForm--}}
 {{--        xdata="$o->prices"--}}
 {{--        xpayes="$o->payes"--}}
