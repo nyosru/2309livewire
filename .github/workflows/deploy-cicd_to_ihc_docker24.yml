@@ -38,7 +38,8 @@ jobs:
           script: |
             docker exec 2309livewire composer i --no-dev
             docker exec 2309livewire php artisan migrate
-            docker exec 2309livewire php artisan view:clear && php artisan cache:clear
+            docker exec 2309livewire php artisan view:clear
+            docker exec 2309livewire php artisan cache:clear
 
 # deploy_composer_stop:
   #   runs-on: ubuntu-latest
