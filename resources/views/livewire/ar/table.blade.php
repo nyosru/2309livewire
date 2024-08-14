@@ -1,6 +1,7 @@
 <div>
 
-    {{--        {{ $objects }}--}}
+            {{ count($objects) }}
+{{--            {{ $objects }}--}}
 
     <livewire:ar.objectAddForm
         xdata="$o->prices"
@@ -15,12 +16,12 @@
         }
 
         .pay-in-month.pay-yes {
-            background-color: #70f276;
+            xbackground-color: #70f276;
         }
 
         /*.pay-in-month.pay-no*/
         .pay-in-month.pay-no {
-            background-color: #f0f287;
+            xbackground-color: #f0f287;
         }
 
     </style>

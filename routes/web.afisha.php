@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Route;
 // Определение базового маршрута для Livewire
 $d = function () {
     // Главная страница (список афиш)
-    Route::get('/', \App\Livewire\Afisha\Index::class)->name('index');
+//    Route::get('/', \App\Livewire\Afisha\Index::class)->name('index');
+    Route::get('/', \App\Livewire\Afisha\PosterComponent::class)->name('index');
 
     // Отображение списка афиш
-    Route::get('/afisha/list', \App\Livewire\Afisha\PosterComponent::class)->name('list');
+//    Route::get('/afisha/list', \App\Livewire\Afisha\PosterComponent::class)->name('list');
 
     // Форма добавления новой афиши
     Route::get('/afisha/add', \App\Livewire\Afisha\AddForm::class)->name('add');

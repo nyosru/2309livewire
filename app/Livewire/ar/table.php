@@ -13,7 +13,10 @@ class table extends Component
 
     use WithPagination;
 
-    protected $listeners = ['payAdded' => '$refresh'];
+//    protected $listeners = [
+//        'payAdded' => '$refresh',
+//        'objectAdded' => 'refreshObjects'
+//    ];
 
     public $oo = [];
 
@@ -29,6 +32,16 @@ class table extends Component
         $this->oo[$nn] = empty($this->oo[$nn]) ? true : false;
     }
 
+//    public function mount()
+//    {
+//        // Прослушивание события через Livewire
+//        $this->listeners = ['objectAdded' => 'refreshObjects'];
+//    }
+
+    public function refreshObjects()
+    {
+        $this->render(); // Перерисовка компонента
+    }
 
 
     public function render()

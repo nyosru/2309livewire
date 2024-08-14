@@ -1,7 +1,10 @@
-<div>
+<div class="text-[1rem]">
     <!-- Toggle Button -->
     <button wire:click="toggleForm"
-            class="float-right mb-4 px-4 py-2 bg-indigo-200 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            style="line-height: 25px;"
+            class="float-right
+            m-0 px-2 py-0
+            bg-indigo-200 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
         @if ($isFormVisible)
             Скрыть форму
         @else

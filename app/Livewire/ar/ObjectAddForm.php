@@ -35,8 +35,19 @@ class ObjectAddForm extends Component
 
         session()->flash('message', 'Объект успешно добавлен.');
 
+        // Отправка события для обновления списка объектов
+//        $this->emit('objectAdded');
+//        $this->emitSelf('objectAdded');
+
         // Сбросить форму после успешного добавления
         $this->reset();
+
+
+//        // Отправить событие в браузер
+//        $this->dispatchBrowserEvent('object-added');
+
+        // Обновление родительского компонента (если `Table` является родителем)
+//        $this->emitTo('ar.table', 'refreshTable');
     }
 
     public function render()
