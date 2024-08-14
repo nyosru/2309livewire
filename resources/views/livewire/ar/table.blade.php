@@ -3,7 +3,7 @@
             {{ count($objects) }}
 {{--            {{ $objects }}--}}
 
-    <livewire:ar.objectAddForm
+    <livewire:ar.ObjectAddForm
         xdata="$o->prices"
         xpayes="$o->payes"
         xobject_id="$o->id"
