@@ -3,7 +3,6 @@
             {{ count($objects) }}
 {{--            {{ $objects }}--}}
 
-    <livewire:ar.ObjAddForm />
 {{--    <livewire:ar.ObjectItemAddForm />--}}
 
 {{--    <livewire:ar.ObjectAddForm--}}
