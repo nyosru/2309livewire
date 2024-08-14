@@ -1,16 +1,19 @@
 <?php
+
 namespace App\Livewire\Ar;
 
 use App\Models\ArObject;
 use Livewire\Component;
 
-class ObjectAddForm extends Component
+class ObjectItemAddForm extends Component
 {
+
     public $nomer;
     public $adres;
     public $adres_list;
     public $opis;
     public $showForm = false; // Добавляем переменную состояния
+    public $uniqueAddresses;
 
     protected $rules = [
         'nomer' => 'required|string|max:255',
@@ -39,12 +42,18 @@ class ObjectAddForm extends Component
         $this->reset();
     }
 
+    public function mount()
+    {
+        $this->uniqueAddresses = ArObject::select('adres')->distinct()->orderBy('adres', 'desc')->get();
+    }
+
+//    public function render()
+//    {
+//        return view('livewire.ar.object-add-form');
+//    }
+//
     public function render()
     {
-        $uniqueAddresses = ArObject::select('adres')->distinct()->orderBy('adres', 'desc')->get();
-
-        return view('livewire.ar.object-add-form',[
-            'uniqueAddresses' => $uniqueAddresses
-        ]);
+        return view('livewire.ar.object-item-add-form');
     }
 }
