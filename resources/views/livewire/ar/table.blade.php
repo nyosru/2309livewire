@@ -3,7 +3,8 @@
             {{ count($objects) }}
 {{--            {{ $objects }}--}}
 
-    <livewire:ar.ObjectItemAddForm />
+    <livewire:ar.ObjAddForm />
+{{--    <livewire:ar.ObjectItemAddForm />--}}
 
 {{--    <livewire:ar.ObjectAddForm--}}
 {{--        xdata="$o->prices"--}}
