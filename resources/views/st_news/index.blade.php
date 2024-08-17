@@ -25,6 +25,8 @@
     </div>
 
 
+    <livewire:StNewsList/>
+    
     <livewire:StNews.backword/>
 
     {{-- пожертвование--}}

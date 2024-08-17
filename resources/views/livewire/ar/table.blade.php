@@ -1,15 +1,9 @@
 <div>
 
-            {{ count($objects) }}
-{{--            {{ $objects }}--}}
+    {{ count($objects) }}
+    {{-- {{ $objects }}--}}
 
-{{--    <livewire:ar.ObjectItemAddForm />--}}
-
-{{--    <livewire:ar.ObjectAddForm--}}
-{{--        xdata="$o->prices"--}}
-{{--        xpayes="$o->payes"--}}
-{{--        xobject_id="$o->id"--}}
-{{--    />--}}
+    <livewire:ar.ObjectAddForm/>
 
     <style>
         .pay-in-month {
@@ -36,6 +30,6 @@
         @endforeach
     </div>
 
-{{--    @include('livewire.ar.add')--}}
+    {{--    @include('livewire.ar.add')--}}
 
 </div>
