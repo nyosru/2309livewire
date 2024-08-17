@@ -3,20 +3,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // Подключение Soft Deletes
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StNews extends Model
 {
-    use HasFactory, SoftDeletes; // Используем SoftDeletes
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
+        'summary',
         'content',
         'published_at',
+        'promo_code', // Добавляем это поле
     ];
 
     protected $casts = [
-        'published_at' => 'datetime', // Автоматическое приведение к Carbon/DateTime
+        'published_at' => 'datetime',
     ];
 
     public function photos()
@@ -26,7 +28,6 @@ class StNews extends Model
 
     public function firstPhoto()
     {
-        // Метод возвращает первую связанную фотографию
         return $this->photos()->first();
     }
 }
