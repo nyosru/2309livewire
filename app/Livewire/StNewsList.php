@@ -20,7 +20,13 @@ class StNewsList extends Component
 
     public function render()
     {
-        $news = StNews::latest()->paginate(10);
+//        [moderation] =>
+//            [moderation_date] =>
+//            [moderation_who] =>
+//            [source] => https://tyumen-news.net/society/2024/08/18/402993.html
+//            [moderation_required] => 1
+//            [told_at] =>
+        $news = StNews::whereModeration(True)->whereModeration_required(true)->latest()->paginate(10);
 
         return view('livewire.st-news-list', ['news' => $news]);
     }

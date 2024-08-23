@@ -57,9 +57,9 @@
 
 <body class="antialiased">
 
-    <header>
+
         @include('afisha.layouts.header')
-    </header>
+
     <main style="min-height:80vh;">
         @yield('content')
         {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}

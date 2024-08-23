@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\StNews;
 
+use App\Http\Controllers\Controller;
 use App\Models\StNews;
 use Illuminate\Http\Request;
 

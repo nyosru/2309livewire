@@ -83,20 +83,7 @@ Route::group([
     'domain' => (env('APP_ENV', 'x') == 'local') ? 'as.php-cat.com.local' : 'as.php-cat.com'
 ], $d);
 
-
-
-$d = function () {
-    Route::get('/', SnowkStart::class)->name('index');
-    Route::get('/', SnowkStart::class)->name('news.list');
-    Route::get('/', SnowkStart::class)->name('news.show');
-//    Route::get('/develop/{item}', Develop::class)->name('develop');
-};
-Route::group([
-    'as' => 'stn.',
-    // самые тюменские новости
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
-], $d);
-
+require('web.stn.php');
 
 Route::fallback([\App\Http\Controllers\ZaglushkaController::class, 'show']);
 

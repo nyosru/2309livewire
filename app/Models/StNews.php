@@ -13,8 +13,11 @@ class StNews extends Model
         'title',
         'summary',
         'content',
+        'source',
         'published_at',
         'promo_code', // Добавляем это поле
+        'moderation_required',
+        'told_at',
     ];
 
     protected $casts = [

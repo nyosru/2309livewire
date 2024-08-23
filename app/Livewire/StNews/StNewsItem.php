@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\StNews;
 
-use Livewire\Component;
 use App\Models\StNews;
+use Livewire\Component;
 
 class StNewsItem extends Component
 {
@@ -23,6 +23,6 @@ class StNewsItem extends Component
 
     public function render()
     {
-        return view('livewire.st-news-item');
+        return view('livewire.st-news.st-news-item');
     }
 }

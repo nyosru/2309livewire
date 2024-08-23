@@ -16,6 +16,8 @@ $d = function () {
 
     // Отображение подробностей одной афиши
     Route::get('/afisha/{posterId}', \App\Livewire\Afisha\PosterDetail::class)->name('detail');
+
+    Route::get('/holliday', \App\Livewire\Afisha\HolidaysList::class)->name('holiday');
 };
 
 // Определение домена и группы маршрутов
