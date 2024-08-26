@@ -5,7 +5,8 @@
     xbg-yellow-200
     xbg-gradient-to-br xfrom-white xto-red-200
     background-radial-gradient
-          animate-gradient-bg
+          xanimate-gradient-bg
+          animate-pulse
     ">
         <div
             class="container mx-auto xblock rounded-lg
