@@ -48,12 +48,19 @@
     </section>
 
     <style>
+        /* Определение анимации плавного перехода между градиентами */
         @keyframes gradientBackground {
-            0%, 100% {
-                background: linear-gradient(to bottom right, #ffffff, #f56565);
+            0% {
+                --tw-gradient-from: #ffffff;
+                --tw-gradient-to: #f56565;
             }
             50% {
-                background: linear-gradient(to bottom right, #f56565, #ffffff);
+                --tw-gradient-from: #f56565;
+                --tw-gradient-to: #ffffff;
+            }
+            100% {
+                --tw-gradient-from: #ffffff;
+                --tw-gradient-to: #f56565;
             }
         }
 
