@@ -16,6 +16,12 @@ class MsgSendController extends Controller
         $msg = '';
 
         foreach ($_REQUEST as $k => $v) {
+
+            if ($k == 'XSRF-TOKEN' ||
+                $k == 'laravel_session') {
+                continue;
+            }
+
             $msg .= $k . ': ' . $v . PHP_EOL;
         }
         Msg::sendTelegramm('шлюз msg:' . PHP_EOL . $msg, null, 1);
