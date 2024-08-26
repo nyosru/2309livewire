@@ -37,65 +37,38 @@
 <!-- Section: Design Block -->
 <section class="background-radial-gradient xmb-40">
     <style>
-        .background-radial-gradient {
-            animation: gradientBackground 10s ease infinite;
-            xbackground-color: rgb(255, 255, 240);
-
-        }
-
-        /*      Определение анимации плавного перехода между градиентами */
-        @keyframes gradientBackground {
-            0% {
-                background-image: radial-gradient(650px circle at 0% 0%,
-                rgb(255, 255, 240) 15%,
-                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
-                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
-                transparent 100%),
-                radial-gradient(1250px circle at 100% 100%,
-                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
-                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
-                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
-                    transparent 100%);            }
+        /* Определяем ключевые кадры для анимации движения градиента */
+        @keyframes moveGradient {
+            0%, 100% {
+                background-position: 0% 0%, 100% 100%;
+            }
             50% {
-                background-image: radial-gradient(650px circle at 0% 0%,
-                rgb(255, 255, 240) 5%,
-                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 15%,
-                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 55%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 70%,
-                transparent 100%),
-                radial-gradient(1250px circle at 100% 100%,
-                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 25%,
-                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 65%,
-                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 70%,
-                    transparent 100%);            }
-            100% {
-                background-image: radial-gradient(650px circle at 0% 0%,
-                rgb(255, 255, 240) 15%,
-                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
-                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
-                transparent 100%),
-                radial-gradient(1250px circle at 100% 100%,
-                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
-                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
-                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
-                    transparent 100%);            }
+                background-position: 10% 10%, 90% 90%;
+            }
         }
 
-    {{--    .animate-gradient-bg {--}}
-    {{--        animation: gradientBackground 10s ease infinite;--}}
-    {{--    }--}}
-
-
-
-
+        /* Применяем анимацию к градиентному фону */
+        .background-radial-gradient {
+            background-color: rgb(255, 255, 240);
+            background-image: radial-gradient(650px circle at 0% 0%,
+            rgb(255, 255, 240) 15%,
+            rgb(255, 255, 220) 35%,
+            rgb(205, 255, 220) 75%,
+            rgb(240, 255, 250) 80%,
+            transparent 100%),
+            radial-gradient(1250px circle at 100% 100%,
+                rgb(240, 255, 250) 15%,
+                rgb(240, 255, 220) 35%,
+                rgb(240, 225, 250) 75%,
+                rgb(220, 255, 250) 80%,
+                transparent 100%);
+            background-size: 200% 200%;
+            animation: moveGradient 10s ease infinite;
+        }
     </style>
 
-    @if (1 == 2)
+
+@if (1 == 2)
         <!-- Navbar -->
         <nav
             class="relative flex w-full items-center justify-between bg-white py-2 shadow-sm shadow-neutral-700/10 dark:bg-neutral-800 dark:shadow-black/30 lg:flex-wrap lg:justify-start"
