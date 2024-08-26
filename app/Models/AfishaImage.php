@@ -17,7 +17,7 @@ class AfishaImage extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::url('afisha-img/' . $this->path);
+        return Storage::url( $this->path);
     }
 
     public function poster()

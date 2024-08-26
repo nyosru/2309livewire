@@ -12,16 +12,16 @@
 
         <a
             class="inline-block
-                @if( Route::currentRouteName() == 'afisha.index' ) active bg-orange-100 @endif
+                @if( Route::is('afisha.afisha.*' ) ) active bg-orange-100 @endif
                 transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
-            href="{{ route('afisha.index') }}" data-te-nav-link-ref data-te-ripple-init
+            href="{{ route('afisha.afisha.index') }}" data-te-nav-link-ref data-te-ripple-init
             data-te-ripple-color="light"
             wire:navigate
         >Афиша</a>
 
         <a
             class="inline-block
-                @if( Route::currentRouteName() == 'afisha.holiday' ) active bg-orange-100 @endif
+                @if( Route::is('afisha.holiday') ) active bg-orange-100 @endif
                 transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
             href="{{ route('afisha.holiday') }}" data-te-nav-link-ref data-te-ripple-init
             data-te-ripple-color="light"

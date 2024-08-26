@@ -20,7 +20,18 @@
             <p class="text-gray-600">Дата окончания: {{ date('d.m.Y', strtotime($poster->end_date)) }}</p>
         @endif
 
-        @if($poster->link)
+        @if($poster->address)
+            <p>
+                Место проведения:
+                <a href="https://2gis.ru/search/{{ urlencode($poster->address) }}" target="_blank" class="text-blue-500 hover:underline">
+                    {{ $poster->address }}
+                </a>
+            </p>
+        @endif
+
+
+
+    @if($poster->link)
             <p><a href="{{ $poster->link }}" target="_blank" class="text-blue-500 hover:underline">Перейти к афише</a></p>
         @endif
 

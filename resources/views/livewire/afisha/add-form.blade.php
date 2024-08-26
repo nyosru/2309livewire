@@ -65,6 +65,14 @@
             @error('buy_tickets_link') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        <div class="flex items-center space-x-4">
+            <label for="address" class="w-40 text-right font-medium">Адрес проведения:</label>
+            <input type="text" id="address" wire:model="address"
+                   class="flex-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-gray-500">
+            @error('address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
+
         <div class="flex flex-wrap space-x-4">
             @for ($i = 1; $i <= 5; $i++)
                 <div class="flex-1 mb-4">

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Afisha;
 
 use Livewire\Component;
@@ -11,7 +12,18 @@ class PosterComponent extends Component
 
     public function mount()
     {
-        $this->posters = Poster::all()->map(function($poster) {
+        $currentDate = Carbon::now();
+
+        $this->posters = Poster::where(function($query) use ($currentDate) {
+            $query->where(function($query) use ($currentDate) {
+                $query->whereNull('end_date')
+                    ->where('event_date', '>=', $currentDate);
+            })
+                ->orWhere(function($query) use ($currentDate) {
+                    $query->whereNotNull('end_date')
+                        ->where('end_date', '>=', $currentDate);
+                });
+        })->get()->map(function($poster) {
             // Преобразование строковых дат в объекты Carbon
             $poster->event_date = Carbon::parse($poster->event_date);
             if ($poster->end_date) {

@@ -20,7 +20,7 @@ class AddForm extends Component
     public $source_link;
     public $extra_links = [];
     public $images = [];  // Для хранения загруженных файлов
-
+    public $address;
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
@@ -31,8 +31,10 @@ class AddForm extends Component
         'source_link' => 'nullable|url',
         'extra_links.*.link' => 'nullable|url',
         'extra_links.*.text' => 'nullable|string|max:255',
-        'images.*' => 'nullable|image|max:1024',  // Ограничение на размер изображения
+        'images.*' => 'nullable|image|max:1024',
+        'address' => 'nullable|string|max:255',  // Новое правило
     ];
+
 
     public function addPoster()
     {
@@ -48,12 +50,13 @@ class AddForm extends Component
             'end_date' => $this->end_date,
             'source_link' => $this->source_link,
             'extra_links' => $this->extra_links,
+            'address' => $this->address,  // Сохранение адреса
         ]);
 
         // Сохранение изображений и привязка их к афише
         foreach ($this->images as $image) {
             $imagePath = $image->store('afisha-img', 'public');  // Сохраняем изображения в нужную директорию
-
+//            dd($imagePath);
             AfishaImage::create([
                 'poster_id' => $poster->id,
                 'path' => $imagePath,

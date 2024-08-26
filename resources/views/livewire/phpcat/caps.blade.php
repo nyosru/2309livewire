@@ -5,6 +5,7 @@
     xbg-yellow-200
     xbg-gradient-to-br xfrom-white xto-red-200
     background-radial-gradient
+          animate-gradient-bg
     ">
         <div
             class="container mx-auto xblock rounded-lg
@@ -45,4 +46,21 @@
             </div>
         </div>
     </section>
+
+    <style>
+        @keyframes gradientBackground {
+            0%, 100% {
+                background: linear-gradient(to bottom right, #ffffff, #f56565);
+            }
+            50% {
+                background: linear-gradient(to bottom right, #f56565, #ffffff);
+            }
+        }
+
+        .animate-gradient-bg {
+            animation: gradientBackground 10s ease infinite;
+        }
+    </style>
+
+
 </a>
