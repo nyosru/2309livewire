@@ -2,12 +2,9 @@
    target="_blank"
 >
     <section class="py-32
-        xbg-yellow-200
-        xbg-gradient-to-br
-        xfrom-white xto-red-200
-        xbackground-radial-gradient
-        xanimate-gradient-bg
-        xanimate-pulse
+    xbg-yellow-200
+    xbg-gradient-to-br xfrom-white xto-red-200
+    background-radial-gradient
     ">
         <div
             class="container mx-auto xblock rounded-lg
@@ -48,6 +45,4 @@
             </div>
         </div>
     </section>
-
-
 </a>
