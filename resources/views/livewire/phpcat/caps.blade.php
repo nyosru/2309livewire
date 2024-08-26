@@ -2,11 +2,12 @@
    target="_blank"
 >
     <section class="py-32
-    xbg-yellow-200
-    xbg-gradient-to-br xfrom-white xto-red-200
-    background-radial-gradient
-          xanimate-gradient-bg
-          animate-pulse
+        xbg-yellow-200
+        xbg-gradient-to-br
+        xfrom-white xto-red-200
+        xbackground-radial-gradient
+        xanimate-gradient-bg
+        xanimate-pulse
     ">
         <div
             class="container mx-auto xblock rounded-lg
@@ -47,28 +48,6 @@
             </div>
         </div>
     </section>
-
-    <style>
-        /* Определение анимации плавного перехода между градиентами */
-        @keyframes gradientBackground {
-            0% {
-                --tw-gradient-from: #ffffff;
-                --tw-gradient-to: #f56565;
-            }
-            50% {
-                --tw-gradient-from: #f56565;
-                --tw-gradient-to: #ffffff;
-            }
-            100% {
-                --tw-gradient-from: #ffffff;
-                --tw-gradient-to: #f56565;
-            }
-        }
-
-        .animate-gradient-bg {
-            animation: gradientBackground 10s ease infinite;
-        }
-    </style>
 
 
 </a>

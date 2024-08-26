@@ -38,20 +38,63 @@
 <section class="background-radial-gradient xmb-40">
     <style>
         .background-radial-gradient {
+            animation: gradientBackground 10s ease infinite;
             background-color: rgb(255, 255, 240);
-            background-image: radial-gradient(650px circle at 0% 0%,
-            rgb(255, 255, 240) 15%,
-                /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
-                /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
-                /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
-            transparent 100%),
-            radial-gradient(1250px circle at 100% 100%,
-                    /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
-                    /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                    /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
-                transparent 100%);
+
         }
+
+        /*<style>*/
+             /* Определение анимации плавного перехода между градиентами */
+        @keyframes gradientBackground {
+            0% {
+                background-image: radial-gradient(650px circle at 0% 0%,
+                rgb(255, 255, 240) 15%,
+                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
+                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
+                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
+                transparent 100%),
+                radial-gradient(1250px circle at 100% 100%,
+                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
+                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
+                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
+                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
+                    transparent 100%);            }
+            50% {
+                background-image: radial-gradient(650px circle at 0% 0%,
+                rgb(255, 255, 240) 5%,
+                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 15%,
+                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 55%,
+                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 70%,
+                transparent 100%),
+                radial-gradient(1250px circle at 100% 100%,
+                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 25%,
+                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
+                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 65%,
+                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 70%,
+                    transparent 100%);            }
+            100% {
+                background-image: radial-gradient(650px circle at 0% 0%,
+                rgb(255, 255, 240) 15%,
+                    /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
+                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
+                    /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
+                transparent 100%),
+                radial-gradient(1250px circle at 100% 100%,
+                        /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
+                        /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
+                        /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
+                        /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
+                    transparent 100%);            }
+        }
+
+    {{--    .animate-gradient-bg {--}}
+    {{--        animation: gradientBackground 10s ease infinite;--}}
+    {{--    }--}}
+    {{--</style>--}}
+
+
+
+
     </style>
 
     @if (1 == 2)
