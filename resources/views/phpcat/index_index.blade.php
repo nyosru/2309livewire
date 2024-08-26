@@ -39,12 +39,11 @@
     <style>
         .background-radial-gradient {
             animation: gradientBackground 10s ease infinite;
-            background-color: rgb(255, 255, 240);
+            xbackground-color: rgb(255, 255, 240);
 
         }
 
-        /*<style>*/
-             /* Определение анимации плавного перехода между градиентами */
+        /*      Определение анимации плавного перехода между градиентами */
         @keyframes gradientBackground {
             0% {
                 background-image: radial-gradient(650px circle at 0% 0%,
@@ -90,7 +89,6 @@
     {{--    .animate-gradient-bg {--}}
     {{--        animation: gradientBackground 10s ease infinite;--}}
     {{--    }--}}
-    {{--</style>--}}
 
 
 
