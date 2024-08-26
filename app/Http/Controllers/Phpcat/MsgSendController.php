@@ -11,10 +11,14 @@ class MsgSendController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request): String
+    public function __invoke(Request $request): string
     {
-        $msg = json_encode($_REQUEST);
-        Msg::sendTelegramm('шлюз msg:'.PHP_EOL.$msg, null, 1 );
+        $msg = '';
+
+        foreach ($_REQUEST as $k => $v) {
+            $msg .= $k . ': ' . $v . PHP_EOL;
+        }
+        Msg::sendTelegramm('шлюз msg:' . PHP_EOL . $msg, null, 1);
         return 'OK';
     }
 }
