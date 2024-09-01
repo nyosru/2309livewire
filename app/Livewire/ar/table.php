@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\ar;
+namespace App\Livewire\Ar;
 
 use App\Livewire\Phpcat\Url;
 use App\Models\ArObject;

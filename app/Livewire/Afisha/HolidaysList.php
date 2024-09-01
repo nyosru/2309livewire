@@ -9,6 +9,10 @@ use Carbon\Carbon;
 class HolidaysList extends Component
 {
     public $holidays;
+    public $currentMonth = null;
+    public $currentDay = null;
+    public $lastDay = null;
+    public $new_day= false;
 
     public function mount()
     {

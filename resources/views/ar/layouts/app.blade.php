@@ -41,13 +41,13 @@
 <body class="antialiased">
 
     <header>
-        @include('phpcat.layouts.header')
+        @include('ar.layouts.header')
     </header>
-    <main style="min-height:80vh;">
+    <main style="min-height:80vh;" class="pb-5 mb-3 shadow-xl">
         @yield('content')
         {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
     </main>
-    @include('phpcat.layouts.footer')
+    @include('ar.layouts.footer')
 </body>
 
 {{--<script src="/bg/three.min.js"></script>--}}

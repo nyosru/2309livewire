@@ -1,6 +1,6 @@
 <div>
 
-    {{ count($objects) }}
+    <div class="text-white hover:text-gray-300" style="position: absolute; top: 10px; right: 30px;" >    {{ count($objects) }}</div>
     {{-- {{ $objects }}--}}
 
     <livewire:ar.ObjectAddForm/>
@@ -22,14 +22,13 @@
 
     </style>
 
-    <div class="items">
+    <div class="items md:mx-auto md:max-w-[40rem]">
         @foreach( $objects as $o )
             <livewire:ar.arObject
                 :object="$o"
             />
         @endforeach
     </div>
-
     {{--    @include('livewire.ar.add')--}}
 
 </div>

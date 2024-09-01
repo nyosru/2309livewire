@@ -13,7 +13,13 @@
     </button>
 
     @if ($isFormVisible)
-        <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md">
+        <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md"
+             style="z-index: 50; position: absolute; xtop: 5px; left: 5px; right: 5px;">
+
+            <abbr  title="скрыть форму" class="float-right mx-2"
+                   style="cursor:pointer;"
+                   wire:click="toggleForm">X</abbr>
+
             <!-- Success Message -->
             @if (session()->has('message'))
                 <div class="mb-4 p-4 bg-green-100 text-green-800 border border-green-200 rounded">
@@ -23,29 +29,46 @@
 
             <!-- Form -->
             <form wire:submit.prevent="submit" class="space-y-4">
+
                 <!-- Имя -->
-                <div>
-                    <label for="name" class="block text-gray-700 font-medium">Имя</label>
+                {{--                <div>--}}
+                {{--                    <label for="name" class="block text-gray-700 font-medium">Имя</label>--}}
+                {{--                    <input type="text" id="name" wire:model="name"--}}
+                {{--                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>--}}
+                {{--                    @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror--}}
+                {{--                </div>--}}
+                <!-- Имя -->
+                <div class="flex items-center space-x-4">
+                    <label for="name" class="text-gray-700 font-medium w-1/4">Имя</label>
                     <input type="text" id="name" wire:model="name"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                    @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
                 </div>
+                @error('name')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
 
                 <!-- Телефон -->
-                <div>
-                    <label for="phone" class="block text-gray-700 font-medium">Телефон</label>
+                <div class="flex items-center space-x-4">
+                    <label for="phone"
+                           class="text-gray-700 font-medium w-1/4"
+                    >Телефон</label>
                     <input type="text" id="phone" wire:model="phone"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                    @error('phone') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
                 </div>
+                @error('phone') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                 <!-- Дополнительный телефон -->
-                <div>
-                    <label for="phone2" class="block text-gray-700 font-medium">Дополнительный телефон</label>
+                <div class="flex items-center space-x-4">
+                    <label for="phone2"
+                           class="text-gray-700 font-medium w-1/4"
+                    >Доп. телефон</label>
                     <input type="text" id="phone2" wire:model="phone2"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
-                    @error('phone2') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
                 </div>
+                @error('phone2') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                 <!-- Описание -->
                 <div>
@@ -71,18 +94,20 @@
                 @endif
 
                 <!-- Цена -->
-                <div>
-                    <label for="price" class="block text-gray-700 font-medium">Цена</label>
+                <div class="flex items-center space-x-4">
+                    <label for="price" class="text-gray-700 font-medium w-1/4">Цена</label>
                     <input type="text" id="price" wire:model="price"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
                     @error('price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Дата начала -->
-                <div>
-                    <label for="date_start" class="block text-gray-700 font-medium">Дата начала</label>
+                <div class="flex items-center space-x-4">
+                    <label for="date_start" class="text-gray-700 font-medium w-1/4">Дата начала</label>
                     <input type="date" id="date_start" wire:model="date_start"
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
                     @error('date_start') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 

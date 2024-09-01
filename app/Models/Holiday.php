@@ -19,13 +19,22 @@ class Holiday extends Model
 
     public $timestamps = false;
 
-    public function getCountryStrAttribute(){
-        $img = '';
-        if( $this->country == 'Россия' ){ $img = 'russia.png'; }
-        else if( $this->country == 'Канада' ){ $img = 'canada.png'; }
-        else if( $this->country == 'Индия' ){ $img = 'indiya.png'; }
+    public $CountrysImg = [
+        'Россия' => '/flag/russia.png',
+        'Канада' => '/flag/canada.png',
+        'Индия' => '/flag/indiya.png',
+        'Международное' => '/flag/earth.png',
+    ];
 
-        return !empty($img) ? ( '<img title="'.$this->country.'" src="/flag/'.$img.'" />' ) : $this->country;
+
+    public function getCountryStrAttribute()
+    {
+        return !empty($this->CountrysImg[$this->country]) ? '<img title="' . $this->country . '" src="' . $this->CountrysImg[$this->country] . '" />' : $this->country ?? '';
+    }
+
+    public function getCountryImgAttribute()
+    {
+        return !empty($this->CountrysImg[$this->country]) ? $this->CountrysImg[$this->country] : '';
     }
 
     /**
@@ -44,8 +53,15 @@ class Holiday extends Model
                 $query->where('month', '=', $today->month)
                     ->where('day', '>=', $today->day);
             })
-                ->orWhere(function ($query) use ($endDate) {
-                    $query->where('month', '=', $endDate->month)
+                ->orWhere(function ($query) use ($today, $endDate) {
+                    $query
+                        ->where('month', '>', $today->month)
+                        ->where('month', '<', $endDate->month);
+                })
+                ->orWhere(function ($query) use ($today, $endDate) {
+                    $query
+                        ->where('month', '>', $today->month)
+                        ->where('month', '<=', $endDate->month)
                         ->where('day', '<=', $endDate->day);
                 });
     }

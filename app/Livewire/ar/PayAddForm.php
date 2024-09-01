@@ -13,6 +13,7 @@ class PayAddForm extends Component
     public $people_id = '';
     public $opis = '';
     public $show = false;
+    public $show_ar = [];
     public $message = '';
 
     public function mount()
@@ -25,6 +26,11 @@ class PayAddForm extends Component
         $this->show = !$this->show;
     }
 
+    public function toggleShowAr($nomer = 1)
+    {
+        $this->show_ar[$nomer] = isset($this->show_ar[$nomer]) ? !$this->show_ar[$nomer] : true;
+    }
+
     public function addPay()
     {
         ArPay::insert([
@@ -33,16 +39,17 @@ class PayAddForm extends Component
             'amount' => $this->amount,
             'date' => $this->date,
             'opis' => $this->opis,
-//        'json'
         ]);
 
-        session()->flash('message', 'Добавлено! '.$this->amount.' '.$this->date );
-
-//        $this->message = 'Добавлено! '.$this->amount.' '.$this->date;
-//        $this->show = false;
-//        $this->amount =
-//        $this->date =
-//        $this->opis = '';
+        session()->flash('message', 'Добавлено! '.$this->amount.' '.$this->date."         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let dateInput = document.getElementById('date-input');
+                if (dateInput) {
+                    dateInput.focus();
+                }
+            });
+        </script>
+" );
     }
 
     public function render()

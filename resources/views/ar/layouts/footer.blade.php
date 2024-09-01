@@ -1,6 +1,7 @@
 <!-- Footer container -->
-<footer class="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
-    
+<footer class="xbg-neutral-100 text-center text-neutral-600
+    xdark:xbg-neutral-600 dark:text-neutral-200 lg:text-left">
+
     @if (1 == 2)
         <div
             class="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
@@ -154,7 +155,7 @@
     </div>
     @endif
     <!--Copyright section-->
-    <div class="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
+    <div class="xbg-neutral-200 p-6 text-center xdark:xbg-neutral-700">
         <span>© 1997-{{ date('Y') }} Все права защищены</span>
         {{-- <a
       class="font-semibold text-neutral-600 dark:text-neutral-400"
