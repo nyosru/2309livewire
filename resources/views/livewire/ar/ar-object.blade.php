@@ -3,7 +3,8 @@
     x-data="{ tab: 'payments' }">
 
     <div
-        class="head text-3xl pay-in-month {{ $object->pay_in_month ? 'pay-yes bg-green-300 hover:bg-green-500' : 'pay-no bg-yellow-200 hover:bg-yellow-300 ' }} p-2">
+        class="head text-3xl pay-in-month p-2
+        {{ $object->pay_in_month ? 'pay-yes bg-green-300 hover:bg-green-500' : 'pay-no bg-yellow-200 hover:bg-yellow-300 ' }}">
 
         <button class="px-2 py-0 my-0 text-[12px] float-right text-black-200 hover:bg-red-300 hover:text-black-800"
                 wire:click="delete"
@@ -18,10 +19,10 @@
             <livewire:ar.peopleAddForm :now_object="$object->id"/>
             <abbr title="Самый Свежий платёж" class="float-right text-[12px] bg-cyan-200 my-0 py-[0px] px-1"
                   style="line-height: 20px;">{{ $object->last_pay->date ?? '-' }}
-{{--                <pre>{{ print_r($object->last_pay) }}</pre>--}}
+                {{--                <pre>{{ print_r($object->last_pay) }}</pre>--}}
                 @if( !empty($object->last_pay->amount))
                     {{ round(($object->last_pay->amount)/1000,1) }}
-                    @endif
+                @endif
             </abbr>
 
         @endif

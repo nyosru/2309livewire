@@ -12,7 +12,7 @@ class StNewsModeration extends Component
     public function mount()
     {
         // Получение новостей на модерации
-        $this->news = StNews::where('moderation', 'pending')->get();
+        $this->news = StNews::whereModerationRequired(True)->get();
     }
 
     public function approve($id)

@@ -6,21 +6,28 @@
     @endif
 
 
-{{--        <pre style="font-size:10px;">{{ print_r($newsItem,true) }}</pre>--}}
+    {{--        <pre style="font-size:10px;">{{ print_r($newsItem,true) }}</pre>--}}
 
-{{--    <div style="max-height:600px; overflow: auto;">--}}
-{{--        <pre style="max-height:200px; overflow: auto; font-size:10px;">{{ print_r($newsItem,true) }}</pre>--}}
-{{--        <pre style="max-height:200px; overflow: auto; font-size:10px;">{{ print_r($newsItem->photos,true) }}</pre>--}}
-{{--        @foreach( $newsItem->photos as $ph )--}}
-{{--            <img src="/storage/{{ $ph->image_path }}"/>--}}
-{{--            <br/>--}}
-{{--        @endforeach--}}
-{{--    </div>--}}
+    {{--    <div style="max-height:600px; overflow: auto;">--}}
+    {{--        <pre style="max-height:200px; overflow: auto; font-size:10px;">{{ print_r($newsItem,true) }}</pre>--}}
+    {{--        <pre style="max-height:200px; overflow: auto; font-size:10px;">{{ print_r($newsItem->photos,true) }}</pre>--}}
+    {{--        @foreach( $newsItem->photos as $ph )--}}
+    {{--            <img src="/storage/{{ $ph->image_path }}"/>--}}
+    {{--            <br/>--}}
+    {{--        @endforeach--}}
+    {{--    </div>--}}
 
     <h2 class="text-xl font-semibold mb-2">{{ $newsItem->title }}</h2>
-    <p class="text-gray-600 mb-4">{{ $newsItem->summary }}</p>
-    <p class="text-gray-500 text-sm mb-4">Опубликовано: {{ $newsItem->published_at->format('d M Y') }}</p>
-        <p class="text-gray-500 text-sm mb-4">Источник: <a href="{{ $newsItem->source }}" target="_blank" >{{ $newsItem->source }}</a></p>
+{{--        ++--}}
+{{--    <p class="text-gray-600 mb-4">{{ $newsItem->summary }}</p>--}}
+{{--        ----}}
+{{--    <p class="text-gray-600 mb-4">{{ $newsItem->content }}</p>--}}
+    @if( !empty($newsItem->published_at) )
+        <p class="text-gray-500 text-sm mb-4">Опубликовано: {{ $newsItem->published_at->format('d M Y') }}</p>
+    @endif
+
+{{--        <p class="text-gray-500 text-sm mb-4">Источник: <a href="{{ $newsItem->source }}"--}}
+{{--                                                       target="_blank">{{ $newsItem->source }}</a></p>--}}
 
     @if ($newsItem->firstPhoto())
         <img class="w-full h-48 object-cover rounded-lg mb-4"

@@ -18,6 +18,6 @@
             {{ $news->links() }}
         </div>
     @else
-        <p class="text-center text-gray-500">Нет новостей для отображения.</p>
+        <p class="text-center text-gray-500">Новости ещё не подвезли</p>
     @endif
 </div>

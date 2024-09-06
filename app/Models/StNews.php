@@ -24,6 +24,13 @@ class StNews extends Model
         'published_at' => 'datetime',
     ];
 
+
+    // Связь с моделью StNewsParsingSite
+    public function site()
+    {
+        return $this->belongsTo(StNewsParsingSite::class, 'site_id');
+    }
+
     public function photos()
     {
         return $this->hasMany(StNewsPhoto::class);
