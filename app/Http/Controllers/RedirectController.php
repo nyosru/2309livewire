@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Redirect;
 use App\Models\RedirectHit;
 use Illuminate\Http\Request;
+use Nyos\Msg;
 
 class RedirectController extends Controller
 {
@@ -15,6 +16,7 @@ class RedirectController extends Controller
 
         // Ищем его в базе данных
         $redirect = Redirect::where('get_param', $get)->first();
+        Msg::sendTelegramm('редирект - гет параметр - '.$get );
 
         // Если запись найдена, перенаправляем на указанный URL
         if ($redirect) {
@@ -24,7 +26,7 @@ class RedirectController extends Controller
                 'ip_address' => $request->ip(), // Получаем IP пользователя
                 'hit_at' => now()
             ]);
-//            dd($redirect->url);
+
             return redirect()->to($redirect->url);
         }
 
