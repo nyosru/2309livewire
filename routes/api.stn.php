@@ -10,6 +10,7 @@ use App\Livewire\StNews\Index as StNewsIndex;
 //use App\Livewire\StNews\Show as StNewsShow;
 
 $d = function () {
+
 //    // Маршрут для главной страницы новостей
 //    Route::get('/', StNewsIndex::class)->name('index');
 //
