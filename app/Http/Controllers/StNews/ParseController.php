@@ -160,11 +160,11 @@ class ParseController extends Controller
                         $get['msg'][] = $in->save();
                         $get['msg'][] = $in->id;
 
-                        // Добавляем фото новости с доменом
-                        $p = new StNewsPhoto();
-                        $p->st_news_id = $in->id;
-                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
-                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
+//                        // Добавляем фото новости с доменом
+//                        $p = new StNewsPhoto();
+//                        $p->st_news_id = $in->id;
+//                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
+//                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
                     }
                 }
             }
@@ -204,6 +204,7 @@ class ParseController extends Controller
                 ->orderBy('updated_at')
 //                ->firstOrFail()
                 ->limit(5);
+//                ->limit(1);
 
 
             //dd($parsingCatalog0->site->site_name);
@@ -232,10 +233,26 @@ class ParseController extends Controller
 //                echo '<Br/>';
 //                echo 'url:' . $url;
 
-                if (1 == 2) {
+
+//                var_dump($get['news_item']);
+//                var_dump($get['news_item']['site']);
+
+                if (1 == 1) {
                     $i->content = $this->removePhotoCredit($get['news_item']['content']);
                     $i->updated_at = now();
                     $i->save();
+
+                    // добавляем фотки
+                    if (!empty($get['news_item']['image'])) {
+                        $this->saveImgToNews(
+                            $i->id,
+                            $get['news_item']['image'],
+                            $i->site->site_name
+                        );
+//                        $return['in'][] = '$get[news_item][site]->site_name';
+//                        $return['in'][] = $get['news_item']['site']->site_name;
+//                        $return['in'][] = $get['news_item']['site']['site_name'];
+                    }
                 }
 
 
@@ -300,9 +317,26 @@ class ParseController extends Controller
         }
     }
 
-    public function saveImgToNews($news_id, $images)
+    public function saveImgToNews(int $news_id, array $images, $domain = '')
     {
+        $insertData = [];
 
+        foreach ($images as $imagePath) {
+            if (!empty($imagePath)) {
+                $insertData[] = [
+                    'st_news_id' => $news_id,
+                    // ID новости
+                    'image_path' => (!strpos(strtolower($imagePath), $domain) ? 'https://' . $domain : '') . $imagePath,
+                    // Путь к изображению
+                    'created_at' => now(),
+                    // Время создания
+                    'updated_at' => now(),
+                    // Время обновления
+                ];
+            }
+        }
+
+        StNewsPhoto::insert($insertData);       // Вставляем все данные разом
     }
 
     public function parse(Request $request)

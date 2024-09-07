@@ -1,5 +1,7 @@
 <div>
+    @if(1==2)
     @livewire('st-news.fetch-fresh-news')
+    @endif
 
     {{--    <livewire:st_news.backend/>--}}
     {{--    @include('st_news.index_index')--}}

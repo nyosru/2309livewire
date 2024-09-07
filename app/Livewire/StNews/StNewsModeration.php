@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\StNews;
 
 use Livewire\Component;
@@ -12,31 +13,9 @@ class StNewsModeration extends Component
     public function mount()
     {
         // Получение новостей на модерации
-        $this->news = StNews::whereModerationRequired(True)->get();
-    }
-
-    public function approve($id)
-    {
-        $newsItem = StNews::findOrFail($id);
-        $newsItem->moderation = 'approved';
-        $newsItem->moderation_date = now();
-        $newsItem->moderation_who = Auth::id();
-        $newsItem->save();
-
-        // Обновление списка после изменения
-        $this->news = StNews::where('moderation', 'pending')->get();
-    }
-
-    public function reject($id)
-    {
-        $newsItem = StNews::findOrFail($id);
-        $newsItem->moderation = 'rejected';
-        $newsItem->moderation_date = now();
-        $newsItem->moderation_who = Auth::id();
-        $newsItem->save();
-
-        // Обновление списка после изменения
-        $this->news = StNews::where('moderation', 'pending')->get();
+        $this->news = StNews::whereModerationRequired(true)
+            ->whereNull('moderation')
+            ->get();
     }
 
     public function render()

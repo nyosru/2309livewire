@@ -18,36 +18,50 @@
             </thead>
             <tbody>
             @foreach($news as $item)
-                <tr>
-                    <td class="py-2 px-4 border-b">
-                        <b>{{ $item->title }}</b>
-                        <br/>
 
-                        @foreach( $item->photos as $p )
-                            <img src="{{ $p->image_path }}" style="max-height: 100px;"/>
-                        @endforeach
+                <livewire:st-news.st-news-moderation-item :item="$item" />
+                @if(1==2)
+                    <tr>
+                        <td class="py-2 px-4 border-b">
+                            <b>{{ $item->title }}</b>
+                            <br/>
 
-                        @if( empty($item->summary) )
-                            <button class="rounded-2xl bg-green-300 px-2 py-[2px]">загрузить содержимое</button>
-                        @else
-                            {{ $item->summary }}
-                            {{--                        <pre style="font-size: 10px;">{{ print_r($item->photos,true) }}</pre>--}}
-                            {{--                        <pre style="font-size: 10px;">{{ print_r($item->firstPhoto()->getAttributes(),true) }}</pre>--}}
-                        @endif
+                            @foreach( $item->photos as $p )
+                                @if(1==2)
+                                    <pre>
+                            {{ print_r($p) }}
+                                </pre>
+                                    <img src="{{ $p->image_path }}" style="max-height: 100px;"/>
+                                @else
+                                    <livewire:StNews.StNewsModerationImage :image="$p"/>
+                                @endif
+                            @endforeach
 
-                        <br/>
-                        <pre style="font-size: 10px;">{{ print_r($item->getAttributes(),true) }}</pre>
+                            @if( 1==2 )
+                                @if( empty($item->summary) )
+                                    <button class="rounded-2xl bg-green-300 px-2 py-[2px]">загрузить содержимое</button>
+                                @else
+                                    {{ $item->summary }}
+                                    {{--                        <pre style="font-size: 10px;">{{ print_r($item->photos,true) }}</pre>--}}
+                                    {{--                        <pre style="font-size: 10px;">{{ print_r($item->firstPhoto()->getAttributes(),true) }}</pre>--}}
+                                @endif
 
-                    </td>
-                    <td class="py-2 px-4 border-b">
-                        <button wire:click="approve({{ $item->id }})"
-                                class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Approve
-                        </button>
-                        <button wire:click="reject({{ $item->id }})"
-                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Reject
-                        </button>
-                    </td>
-                </tr>
+
+                                <br/>
+                                <pre class="max-w-[40rem] overflow-auto"
+                                     style="font-size: 10px;">{{ print_r($item->getAttributes(),true) }}</pre>
+                            @endif
+                        </td>
+                        <td class="py-2 px-4 border-b">
+                            <button wire:click="approve({{ $item->id }})"
+                                    class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Пойдёт
+                            </button>
+                            <button wire:click="reject({{ $item->id }})"
+                                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Не
+                            </button>
+                        </td>
+                    </tr>
+                @endif
             @endforeach
             </tbody>
         </table>
