@@ -17,7 +17,7 @@
         </div>
 
         <div class="mt-6">
-            {{ $news->links() }}
+            {{ $news->links('pagination::tailwind') }}
         </div>
 
     @else
