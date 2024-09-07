@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Phpcat\MsgSendController;
+use App\Http\Controllers\RedirectController;
 use App\Livewire\Phpcat\Develop;
 use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ $d = function () {
 ////    Route::get('torrent', News::class)->name('torrent');
 ////    Route::get('money', News::class)->name('money');
 //    // Route::get('{.*}', News::class)->name('other');
+    Route::get('go/{get}', RedirectController::class)->name('redirect');
     Route::fallback(function () {
         return redirect('/');
     });
