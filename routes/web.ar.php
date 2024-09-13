@@ -1,10 +1,11 @@
 <?php
 
+use App\Livewire\ar\table;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
 //    Route::get('/', News::class)->name('index');
-    Route::get('/', \App\Livewire\ar\table::class)->name('index');
+    Route::get('/', table::class)->name('index');
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
      Route::get('/ring', function () { return view('ring'); });

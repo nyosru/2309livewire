@@ -3,7 +3,7 @@
     <div class="text-white hover:text-gray-300" style="position: absolute; top: 10px; right: 30px;" >    {{ count($objects) }}</div>
     {{-- {{ $objects }}--}}
 
-    <livewire:ar.ObjectAddForm/>
+{{--    <livewire:ar.ObjectAddForm/>--}}
 
     <style>
         .pay-in-month {
