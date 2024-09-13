@@ -3,7 +3,7 @@
     <div class="text-white hover:text-gray-300" style="position: absolute; top: 10px; right: 30px;" >    {{ count($objects) }}</div>
     {{-- {{ $objects }}--}}
 
-{{--    <livewire:ar.ObjectAddForm/>--}}
+    <livewire:Ar.ObjectAddForm/>
 
     <style>
         .pay-in-month {
@@ -24,7 +24,7 @@
 
     <div class="items md:mx-auto md:max-w-[40rem]">
         @foreach( $objects as $o )
-            <livewire:ar.arObject
+            <livewire:Ar.arObject
                 :object="$o"
             />
         @endforeach
