@@ -18,6 +18,8 @@ class Table extends Component
 //        'objectAdded' => 'refreshObjects'
 //    ];
 
+    public $secret = '';
+
     public $oo = [];
 
     public $count = 0;
@@ -26,6 +28,13 @@ class Table extends Component
     public $filterBig = 0;
     #[Url(history: true)]
     public $searchTxt = '';
+
+    public $envSecret;
+
+    public function mount()
+    {
+        $this->envSecret = env('PASS_FOR_AR');
+    }
 
     public function onoff($nn)
     {
