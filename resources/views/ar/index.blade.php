@@ -4,6 +4,6 @@
 
 {{--    @include('ar.index_index')--}}
 {{--    <livewire:ar.ObjAddForm />--}}
-    <livewire:ar.table/>
+    <livewire:Ar.Table/>
 
 @endsection
