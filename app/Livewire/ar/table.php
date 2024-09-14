@@ -8,7 +8,7 @@ use App\Models\VkFileHistory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class table extends Component
+class Table extends Component
 {
 
     use WithPagination;

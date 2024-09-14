@@ -24,9 +24,9 @@
 
     <div class="items md:mx-auto md:max-w-[40rem]">
         @foreach( $objects as $o )
-{{--            <livewire:Ar.arObject--}}
-{{--                :object="$o"--}}
-{{--            />--}}
+            <livewire:ar.arObject
+                :object="$o"
+            />
         @endforeach
     </div>
     {{--    @include('livewire.ar.add')--}}
