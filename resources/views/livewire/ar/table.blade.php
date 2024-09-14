@@ -3,7 +3,7 @@
     <input type="password" wire:model.live="secret" style="position:absolute; top: 30px; right: 10px; border: 1px solid gray; width: 30px;"/>
 
     @if($secret!=$envSecret)
-        Привет кукумба
+        <p style="padding-top:3rem;text-align: center;">кукумба</p>
     @else
         <div class="text-white hover:text-gray-300"
              style="position: absolute; top: 10px; right: 30px;">    {{ count($objects) }}</div>
