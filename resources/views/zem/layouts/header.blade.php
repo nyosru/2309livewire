@@ -10,6 +10,7 @@
             ПриватизацияГаража.рф
         </h1></a>
     <h2 class="pt-0 pb-6 text-2xl lg:text-4xl font-bold block text-center">{{ date('Y') }}&nbsp;год самое&nbsp;время юридически оформить гараж!</h2>
+    <h2 class="pt-0 pb-6 text-2xl lg:text-4xl font-bold block text-center">Звоните и пишите <a href="tel:+79222622289" class="font-blue-400 underline" >8-922-262-22-89</a> Сергей</h2>
 
 </h1>
 

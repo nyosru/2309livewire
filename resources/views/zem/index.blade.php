@@ -5,7 +5,10 @@
     @include('zem.index_index')
 
     <livewire:Zem.form/>
-    <livewire:Zem.uslugi/>
+{{--    <livewire:Zem.uslugi/>--}}
+
+    @include('zem.index_uslugi')
+
     <livewire:Zem.form/>
 
     @if(1==2)
