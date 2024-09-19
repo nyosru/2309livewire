@@ -5,12 +5,16 @@
     @include('zem.index_index')
 
     <livewire:Zem.form/>
+    <br/>
+    <br/>
 {{--    <livewire:Zem.uslugi/>--}}
 
     @include('zem.index_uslugi')
-
+<br/>
+<br/>
     <livewire:Zem.form/>
-
+<Br/>
+<Br/>
     @if(1==2)
 
         {{--    <livewire:Phpcat.services/>--}}

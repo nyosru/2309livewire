@@ -24,24 +24,24 @@ class Form extends Component {
 //            'placeholder' => 'Укажите Ваш телефон',
 //            'type' => 'string'
         ],
-        'city' => [
-            'name' => 'Город',
-            'required'=> true,
-//            'placeholder' => 'Укажите Ваш телефон',
-//            'type' => 'string'
-        ],
-        'kooperativ' => [
-            'name' => 'Название гаражного кооператива',
-//            'placeholder' => 'Укажите Ваш телефон',
-//            'type' => 'string'
-        ],
-        'nomer' => [
-            'name' => 'Номер гаража(ей)',
-            'required'=> true,
-//            'placeholder' => 'Укажите Ваш телефон',
-            'comment' => 'Можно запускать сразу несколько гаражей на одного владельца, нормально проходит',
-//            'type' => 'string'
-        ],
+//        'city' => [
+//            'name' => 'Город',
+//            'required'=> true,
+////            'placeholder' => 'Укажите Ваш телефон',
+////            'type' => 'string'
+//        ],
+//        'kooperativ' => [
+//            'name' => 'Название гаражного кооператива',
+////            'placeholder' => 'Укажите Ваш телефон',
+////            'type' => 'string'
+//        ],
+//        'nomer' => [
+//            'name' => 'Номер гаража(ей)',
+//            'required'=> true,
+////            'placeholder' => 'Укажите Ваш телефон',
+//            'comment' => 'Можно запускать сразу несколько гаражей на одного владельца, нормально проходит',
+////            'type' => 'string'
+//        ],
         'promo_code' => [
             'name' => 'Промо код',
             'comment' => 'Укажите промо код, если есть',

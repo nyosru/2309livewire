@@ -1,22 +1,23 @@
 <footer>
-    <svg xmlns="http://www.w3.org/2000/svg" class="-mb-0.5 w-full" viewBox="0 0 1367.743 181.155">
-        <path
-            class="fill-current text-gray-100 dark:text-gray-800"
-            id="wave"
-            data-name="wave"
-            d="M0,0S166.91-56.211,405.877-49.5,715.838,14.48,955.869,26.854,1366,0,1366,0V115H0Z"
-            transform="translate(1.743 66.155)"
-        ></path>
-    </svg>
-
-    <div class="pb-5 bg-gradient-to-b from-gray-100 to-transparent dark:from-gray-800 dark:to-transparent pt-1">
+    @if(1==2)
+        <svg xmlns="http://www.w3.org/2000/svg" class="-mb-0.5 w-full" viewBox="0 0 1367.743 181.155">
+            <path
+                class="fill-current text-gray-100 dark:text-gray-800"
+                id="wave"
+                data-name="wave"
+                d="M0,0S166.91-56.211,405.877-49.5,715.838,14.48,955.869,26.854,1366,0,1366,0V115H0Z"
+                transform="translate(1.743 66.155)"
+            ></path>
+        </svg>
+    @endif
+    <div class="pb-10 xbg-gradient-to-b xfrom-gray-100 xto-transparent xdark:from-gray-800 xdark:to-transparent pt-1">
         {{--        <div class="container m-auto space-y-8 px-6 text-gray-600 dark:text-gray-400 md:px-12 lg:px-20">--}}
         {{--            <div class="grid grid-cols-8 gap-6 md:gap-0">--}}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-0">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-0">
 
-{{--            <div  class="text-center xcol-span-8 border-r border-gray-100 dark:border-gray-800 xmd:col-span-2 xlg:col-span-3">--}}
-{{--                г.Тюмень--}}
-{{--            </div>--}}
+            {{--            <div  class="text-center xcol-span-8 border-r border-gray-100 dark:border-gray-800 xmd:col-span-2 xlg:col-span-3">--}}
+            {{--                г.Тюмень--}}
+            {{--            </div>--}}
             @if(1==2)
                 <div class="col-span-8 border-r border-gray-100 dark:border-gray-800 md:col-span-2 lg:col-span-3">
                     <div
@@ -144,9 +145,10 @@
                 </div>
             @endif
             {{--                    <div class="flex justify-between border-t border-gray-100 dark:border-gray-800 py-4 pb-8 md:pl-16">--}}
-            <div class="text-center">&copy; Все права защищены 2023 - <span id="year">{{ date('Y') }}</span> </div>
+            <div class="text-center">&copy; Все права защищены 2023 - <span id="year">{{ date('Y') }}</span></div>
             <div class="text-center">создание сервиса <a href="https://php-cat.com" target="_blank"
-                                      class="hover:text-blue-800 hover:bg-green-300 px-2 py-1 underline"><img src="/phpcat/cat.png" style="display:inline-block; max-height: 3rem;" /> php-cat.com</a></div>
+                                                         class="hover:text-blue-800 hover:bg-green-300 px-2 py-1 underline"><img
+                        src="/phpcat/cat.png" style="display:inline-block; max-height: 3rem;"/> php-cat.com</a></div>
             {{--                    </div>--}}
         </div>
         {{--        </div>--}}

@@ -1,11 +1,11 @@
 <div>
-
     <form wire:submit="save">
-        <div class="bg-gradient-to-br from-pink-500 to-purple-600 py-16 md:bg-gradient-to-r">
+        <div class="bg-gradient-to-br from-pink-500 to-purple-600 md:bg-gradient-to-r
+         py-10 shadow-2xl">
             <div class="container m-auto px-6 text-center md:px-12 lg:px-20">
 
                 <h2 class="mb-8 text-4xl font-bold text-white md:text-4xl">
-                    Начнём процесс приватизации ?
+                    Начнём процес приватизации ?
                 </h2>
 
                 {{--            $this->show_form: {{ $show_form  }}--}}
@@ -33,7 +33,7 @@
 
                             @if( !$show_res_ok )
 
-                                <p>Заполните форму и позвоним, ответим на вопросы и начнём приватизацию.</p>
+                                <p>Заполните форму и мы позвоним, ответим на вопросы и начнём приватизацию.</p>
                                 <br/>
 
                                 @foreach( $polya as $pn => $p )
