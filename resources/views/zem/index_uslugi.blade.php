@@ -12,7 +12,13 @@
 
     <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 p-4">
+            <h2 class="text-3xl">Какая цель: <span class="bg-orange-200 font-bold px-2 py-1">гараж и земля под ним будут официально Вашим имуществом</span></h2>
+            <br/>
+            <br/>
             <h2 class="text-3xl">Срок: <span class="bg-orange-200 font-bold px-2 py-1">2-3 месяца</span></h2>
+            <br/>
+            <br/>
+            <h2 class="text-3xl">Стоимость: <span class="bg-orange-200 font-bold px-2 py-1">13 тр</span></h2>
             <br/>
             <br/>
             <h2 class="text-3xl">Условия для приватизации:</h2>
@@ -24,7 +30,7 @@
             </ul>
         </div>
         <div class="w-full md:w-1/2 p-4">
-            <h2 class="text-3xl">Стоимость и порядок действий:</h2>
+            <h2 class="text-3xl">Порядок действий:</h2>
             <ul class="ulul">
                 <li>Предоставляете данные (в телеграм, ватсап):
                     <ul>
@@ -54,10 +60,14 @@
     </div>
 
     <div class="flex flex-wrap">
-        <div class="w-full md:w-1/2 p-4">
+        <div class="w-full xxmd:w-1/2 p-4">
             <img src="/zem/sud.jpg" class="float-left pr-2"/>
-            В некоторых кооперативах (а иногда и без него (всякие сложности в юр.делах)) приходится проводить
-            приватизацию гаража в судебном порядке, это тоже можем, отправте заявку в форме чуть ниже, кнопка "Начать"
+            <div class="bg-blue-100 py-2">
+                <h2 class="text-3xl ml-4 inline-block">Приватизация строения / земли через суд</h2>
+            </div>
+            <p class="py-4 ml-4 ">
+                В некоторых кооперативах приходится проводить приватизацию гаража в судебном порядке, Фемида и Уважаемый суд обычно на стороне владельца гаража, подавайте заявку
+            <p>
         </div>
     </div>
 </div>

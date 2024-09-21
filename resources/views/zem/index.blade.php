@@ -5,16 +5,25 @@
     @include('zem.index_index')
 
     <livewire:Zem.form/>
+
     <br/>
     <br/>
-{{--    <livewire:Zem.uslugi/>--}}
+    {{--    <livewire:Zem.uslugi/>--}}
+
+    {{--    @include('zem.map',['cooperatives' => $cooperatives ])--}}
 
     @include('zem.index_uslugi')
-<br/>
-<br/>
+
+    @include('zem.map')
+
+    {{--<br/>--}}
+    {{--<br/>--}}
+
     <livewire:Zem.form/>
-<Br/>
-<Br/>
+
+    <Br/>
+    <Br/>
+
     @if(1==2)
 
         {{--    <livewire:Phpcat.services/>--}}

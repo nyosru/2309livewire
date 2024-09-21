@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Zem;
 
+use App\Models\Cooperative;
 use Livewire\Component;
 
 class Uslugi extends Component
@@ -381,7 +382,8 @@ class Uslugi extends Component
     public function render()
     {
         $in = [
-            'show' => $this->show_type
+            'show' => $this->show_type,
+            'cooperatives' => Cooperative::where('is_visible','=',True)->get()
         ];
         return view('livewire.zem.uslugi', $in);
     }

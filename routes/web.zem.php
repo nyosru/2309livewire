@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Zem\Index;
 use App\Livewire\Phpcat\Develop;
 use App\Livewire\Phpcat\News;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
-    Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
+//    Route::get('/', \App\Livewire\Zem\Uslugi::class)->name('index');
+    Route::get('/', [Index::class,'show'] )->name('index');
 
 //    Route::get('/', News::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
