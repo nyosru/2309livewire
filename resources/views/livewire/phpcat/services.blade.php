@@ -1,7 +1,7 @@
 <div>
     <div class="block bg-blue-200">
         <div class="container mx-auto py-5">
-            <h1 class="text-[2rem] font-bold">Удобные сервисы, присоединяйтесь незаметно</h1>
+            <h1 class="text-[2rem] font-bold">Удобные сервисы, присоединяйтесь заметно!</h1>
         </div>
     </div>
     <div class="container mx-auto py-5">
@@ -15,7 +15,7 @@
             class="grid grid-cols-1 xl:grid-cols-2 gap-4 grid-auto-rows: auto; py-5"
             {{--        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 grid-auto-rows: auto; py-5"--}}
         >
-            
+
             {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
             {{-- news --}}
             {{-- {{ $data }} --}}
