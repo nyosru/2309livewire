@@ -86,8 +86,9 @@ class ParseController extends Controller
         ];
     }
 
-    public function go(Request $request)
+    public function go()
     {
+
         $return = [ 'data' => [
             'scan' => '',
             'data' => []
@@ -95,13 +96,15 @@ class ParseController extends Controller
         ];
 
         // проверяем есть ли каталог для сканирования
-        if(!empty($request->skip_catalog)){
+        $r = $_REQUEST['skip_catalog'] ?? '';
+        if(!empty($r)){
             $scan_cat = false;
         }else {
             $scan_cat = $this->scanCatalog();
         }
         // показ доп инфы
-        if ($request->show_info) {
+        $r = $_REQUEST['show_info'] ?? '';
+        if ($r) {
             $return['info']['catalog'] = $this->scanCatalogInfo();
         }
 
@@ -112,7 +115,8 @@ class ParseController extends Controller
         else {
             $a = $this->parseNewsFull();
 
-            if ($request->show_info) {
+            $r = $_REQUEST['show_info'] ?? false;
+            if ($r) {
                 $return['info']['scan_news_full'] = $this->parseNewsFullInfo();
             }
 
@@ -613,11 +617,7 @@ class ParseController extends Controller
         //
     }
 
-    use App\Models\StNews;
-    use Carbon\Carbon;
 
-class NewsAutoModerationService
-{
     /**
      * Проверить новости и автоматически проставить поле moderation
      */
@@ -642,7 +642,5 @@ class NewsAutoModerationService
             }
         }
     }
-}
-
 
 }
