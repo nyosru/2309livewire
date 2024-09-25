@@ -21,7 +21,7 @@ class ParseController extends Controller
      * сколько новостей сканить когда обогащаем новости
      * @var int
      */
-    public static $count_scan_news_full = 1;
+    public static $count_scan_news_full = env('COUNT_SCAN_NEWS_FULL', 1);
 
     /**
      * показ инфы о каталогах
