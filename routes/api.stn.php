@@ -34,7 +34,17 @@ $d = function () {
 //
 //    // Маршрут для модерации конкретной новости
 //    Route::get('/news/moderate/{id}', ModerateNews::class)->name('mod');
-//
+
+    Route::get('/download-photos', function () {
+        Artisan::call('StNews:news-download-photo');
+        return response()->json(['message' => 'Photos download process initiated.']);
+    });
+
+    Route::get('/auto-moderate', function () {
+        Artisan::call('StNews:news-auto-moderate');
+        return response()->json(['message' => 'auto-moderate initiated.']);
+    });
+
 //    // Фоллбэк на случай отсутствия других маршрутов
 //    Route::fallback(function () {
 //        return redirect('/');
