@@ -20,7 +20,7 @@
             text-center text-4xl
             "
                 >
-                    Присоединяйтесь незаметно и&nbsp;подпишитесь
+                    Присоединяйтесь заметно! и&nbsp;подпишитесь
                     <nobr>на <img src="/st_news/logo_tymenskie.png" class="pl-3 inline"
                                   style="height: 2rem;"/>
                     </nobr>

@@ -16,21 +16,48 @@ mx-auto py-6 sm:px-6 lg:px-8">
 
         @if ($news->firstPhoto())
             <div class="mt-6">
-                <img
-                    {{--                    src="{{ asset('storage/' . $news->firstPhoto()->image_path) }}" --}}
-                    src="{{ $news->firstPhoto()->image_path }}"
-                    alt="{{ $news->title }}"
-                    {{--                    class="w-full h-auto rounded-md"--}}
-                    class="w-[30%] float-left pr-2 h-auto rounded-md"
-                >
+
+                @if( !empty($p->local_photo) )
+                    <img
+                        src="/{{ $news->firstPhoto()->local_photo }}"
+                        class="w-[30%] float-left pr-2 h-auto rounded-md border-l-2 border-orange-500"
+                        alt="{{ $news->title }}"
+                    >
+                @else
+                    <img
+                        src="{{ $news->firstPhoto()->image_path }}"
+                        class="w-[30%] float-left pr-2 h-auto rounded-md"
+                        alt="{{ $news->title }}"
+                    >
+                @endif
+
             </div>
         @endif
 
         <p>{{ $news->content }}</p>
+        <br clear="all"/>
+        <br clear="all"/>
+        <div class="flex flex-wrap -mx-2">
+            @foreach( $news->photos as $p )
+                @if( $news->firstPhoto()->image_path != $p->image_path  )
+                    <div class="w-1/2 px-2 mb-4">
+                        @if( !empty($p->local_photo) )
+                            <img src="/{{ $p->local_photo }}" class="w-full inline border-l-2 border-orange-500"/>
+                        @else
+                            <img src="{{ $p->image_path }}" class="w-full inline"/>
+                        @endif
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
 
         @if ($news->source)
             <div class="mt-4">
-                <a href="{{ $news->source }}" target="_blank" class="text-blue-500 hover:underline">
+                {{--                {{ dd($news->site->site_url) }}--}}
+                {{--                {{ dd($news->photos) }}--}}
+                <a href="{{ $news->site->site_url.$news->source }}" target="_blank"
+                   class="text-blue-500 hover:underline">
                     Читать на источнике
                 </a>
             </div>

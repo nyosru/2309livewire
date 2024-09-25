@@ -1,5 +1,12 @@
 <div class="container mx-auto p-4">
+
     <h2 class="text-2xl font-semibold mb-4">News Moderation</h2>
+
+{{--111--}}
+    <livewire:StNews.Moderation.TextInputComponent />
+{{--    @livewire('st-news.moderation.text-input-component')--}}
+{{--    @livewire('iframe')--}}
+{{--222--}}
 
     @if($news->isEmpty())
         <p>No pending news for moderation.</p>

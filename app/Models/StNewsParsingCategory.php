@@ -21,4 +21,12 @@ class StNewsParsingCategory extends Model
         'last_scan',
         'scan_status'
     ];
+
+
+    // Связь с моделью StNews
+    public function news()
+    {
+        return $this->hasMany(StNews::class, 'cat_id');
+    }
+
 }

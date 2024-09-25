@@ -21,6 +21,7 @@ class StNewsParsingSite extends Model
         'last_news_scan',
         'scan_status',
         'category_parsing_url',
+        'time_to_auto_publish', // новое поле
     ];
 
 

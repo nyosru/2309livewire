@@ -2,6 +2,7 @@
 
 namespace App\Livewire\StNews;
 
+use App\Services\StNews\AutoModerationNewsServices;
 use Livewire\Component;
 use App\Models\StNews;
 use Illuminate\Support\Facades\Auth;
@@ -21,5 +22,13 @@ class StNewsModeration extends Component
     public function render()
     {
         return view('livewire.st-news.st-news-moderation');
+    }
+    public function m()
+    {
+        $e = new AutoModerationNewsServices();
+        $ee = $e->autoModerateNews();
+        return response()->json([1=>2,
+            'res' => $ee
+        ]);
     }
 }

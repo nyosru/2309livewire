@@ -19,6 +19,8 @@ $d = function () {
 ////
 ////    // Маршрут для создания новости
 
+    Route::get('parse', [ParseController::class,'go'])->name('parse-go');
+
     Route::get('/parser', [ParseController::class,'parse'])->name('parse');
     // nтащим каталоги
     Route::get('/parsing/catalog', [ParseController::class,'parseCatalog'])->name('parse.catalog');

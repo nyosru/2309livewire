@@ -9,7 +9,11 @@ class StNewsPhoto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['st_news_id', 'image_path'];
+    protected $fillable = [
+        'st_news_id',
+        'image_path',
+        'local_photo' // Новое поле для локальной фотки
+    ];
 
     public function news()
     {

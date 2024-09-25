@@ -7,7 +7,7 @@
             class="px-4 py-2 border rounded w-full"
         />
     </div>
-
+1111
     @if ($secret === config('app.secret_moderation'))
         @if ($news->isEmpty())
             <p class="text-center text-gray-500">Нет новостей, требующих модерации.</p>

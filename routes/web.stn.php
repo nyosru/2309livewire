@@ -21,6 +21,7 @@ $d = function () {
 
     // Маршрут для страницы модерации новостей
     Route::get('/moderation', StNewsModeration::class)->name('moderation');
+    Route::get('/m', [StNewsModeration::class,'m'])->name('moderation');
 
     Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         // Маршрут для модерации конкретной новости

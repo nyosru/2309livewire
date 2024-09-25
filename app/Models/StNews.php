@@ -15,15 +15,21 @@ class StNews extends Model
         'content',
         'source',
         'published_at',
-        'promo_code', // Добавляем это поле
+        'promo_code',
         'moderation_required',
         'told_at',
+        'cat_id', // Добавляем это поле для заполнения
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
     ];
 
+    // Связь с моделью StNewsParsingCategory
+    public function category()
+    {
+        return $this->belongsTo(StNewsParsingCategory::class, 'cat_id');
+    }
 
     // Связь с моделью StNewsParsingSite
     public function site()
