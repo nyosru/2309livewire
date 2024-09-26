@@ -31,11 +31,12 @@ class SendStatus extends Command
 //        return 0;
 
         file_get_contents(
-            'https://api.php-cat.com/telegram.php?' . http_build_query([
+//            'https://api.php-cat.com/telegram.php?' . http_build_query([
+            'http://site_api/telegram.php?' . http_build_query([
                 's' => md5('2309livewire.schedule'),
                 'id' => 360209578,
                 'token' => null,
-                'msg' => 111,
+                'msg' => 222111,
                 'domain' => '2309livewire.schedule'
             ])
         );

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\StNews;
+
 class StNewsList extends Component
 {
     use WithPagination;
@@ -27,10 +28,13 @@ class StNewsList extends Component
 //            [moderation_required] => 1
 //            [told_at] =>
 //        $news = StNews::whereModeration(True)->whereModeration_required(true)->latest()->paginate(10);
+
         $news = StNews::whereModeration_required(true)
-        ->whereModeration(true)
+            ->whereModeration(true)
             ->where('content', '!=', '')
-            ->latest()->paginate(10);
+//            ->latest()
+            ->orderBy('published_at', 'desc')
+            ->paginate(10);
 
         return view('livewire.st-news-list', ['news' => $news]);
     }
