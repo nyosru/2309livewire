@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\StNews\StNewsModeration;
 use App\Livewire\StNews\ModerateNews;
 use App\Livewire\StNews\Index as StNewsIndex;
+use Nyos\Msg;
+
 //use App\Livewire\StNews\Create as StNewsCreate;
 //use App\Livewire\StNews\Show as StNewsShow;
 
