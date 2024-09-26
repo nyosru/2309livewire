@@ -36,11 +36,13 @@ $d = function () {
 //    Route::get('/news/moderate/{id}', ModerateNews::class)->name('mod');
 
     Route::get('/download-photos', function () {
+        Msg::sendTelegramm('api download-photos',null,2);
         Artisan::call('StNews:news-download-photo');
         return response()->json(['message' => 'Photos download process initiated.']);
     });
 
     Route::get('/auto-moderate', function () {
+        Msg::sendTelegramm('api auto-moderate',null,2);
         Artisan::call('StNews:news-auto-moderate');
         return response()->json(['message' => 'auto-moderate initiated.']);
     });
