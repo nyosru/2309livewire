@@ -16,8 +16,11 @@
             @endforeach
         </div>
 
-        <div class="mt-6">
-            {{ $news->links('pagination::tailwind') }}
+        <div class="mt-6 mb-6 w-auto max-w-md mx-auto">
+            {{--                        {{ $news->links('pagination::tailwind') }}--}}
+            {{--            resources/views/pagination/custom_st_news.blade.php--}}
+            {{ $news->links('pagination.custom_st_news') }}
+
         </div>
 
     @else
