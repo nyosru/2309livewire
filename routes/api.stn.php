@@ -1,12 +1,8 @@
 <?php
 
-use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\StNews\ParseController;
-use App\Models\StNews;
+use App\Services\ServiceController;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\StNews\StNewsModeration;
-use App\Livewire\StNews\ModerateNews;
-use App\Livewire\StNews\Index as StNewsIndex;
 use Nyos\Msg;
 
 //use App\Livewire\StNews\Create as StNewsCreate;
