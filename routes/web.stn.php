@@ -21,7 +21,11 @@ $d = function () {
 
     // Маршрут для страницы модерации новостей
     Route::get('/moderation', StNewsModeration::class)->name('moderation');
-    Route::get('/m', [StNewsModeration::class,'m'])->name('moderation');
+    Route::get('/m', [StNewsModeration::class,'m'])->name('moderation1');
+
+    Route::group(['a' => 'a.', 'prefix' => 'a'], function () {
+        Route::get('/m', \App\Livewire\StNews\A\Index::class)->name('index');
+    });
 
     Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         // Маршрут для модерации конкретной новости

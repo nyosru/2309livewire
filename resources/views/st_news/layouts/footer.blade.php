@@ -1,4 +1,8 @@
-<footer class="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200">
+<footer class="text-center text-neutral-600
+dark:bg-neutral-600 dark:text-neutral-200
+shadow-inner
+shadow-2xl
+">
     <div class="container mx-auto">
         <div class="columns-1 md:columns-2">
             <div class="w-full text-center p-3">© {{ date('Y') }} Все права защищены</div>

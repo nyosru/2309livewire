@@ -255,20 +255,22 @@ class ParseController extends Controller
         }
     }
 
-
     /**
-     * сканируем каталог на новости, получение списка новостей без содержания
+     * Сканируем каталог на новости, получение списка новостей без содержания
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function parseNewsListCatalog(Request $request)
     {
         try {
-            // Получаем каталог для парсинга новостей
+            // Получаем каталог для парсинга новостей только если статус сканирования включен
             $parsingCatalog0 = StNewsParsingCategory::whereNotNull('category_url')
                 ->where(function ($query) {
                     $query->where('last_scan', '<', now()->subHour())
                         ->orWhereNull('last_scan');
+                })
+                ->whereHas('site', function ($query) {
+                    $query->where('scan_status', true); // Проверяем, что статус сканирования включён
                 })
                 ->orderBy('last_scan')
                 ->firstOrFail();
@@ -305,11 +307,11 @@ class ParseController extends Controller
                         $get['msg'][] = $in->save();
                         $get['msg'][] = $in->id;
 
-//                        // Добавляем фото новости с доменом
-//                        $p = new StNewsPhoto();
-//                        $p->st_news_id = $in->id;
-//                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
-//                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
+                        // Добавляем фото новости с доменом (раскомментировать, если нужно)
+                        // $p = new StNewsPhoto();
+                        // $p->st_news_id = $in->id;
+                        // $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
+                        // $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
                     }
                 }
             }
@@ -322,6 +324,9 @@ class ParseController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+
 
     function addNewsList($items, StNewsParsingCategory $cat)
     {

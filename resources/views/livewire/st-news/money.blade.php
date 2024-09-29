@@ -1,8 +1,8 @@
 <!-- Section: Design Block -->
-<section class="xmb-32" >
+<section class="xmb-32">
     <div class="block
             bg-gradient-to-r from-red-200 to-red-300
-            rounded-lg xbg-white
+            xrounded-lg xbg-white
             shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
             pt-[10%]
             dark:bg-neutral-700"

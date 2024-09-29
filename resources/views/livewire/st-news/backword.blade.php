@@ -4,7 +4,11 @@
         <div class="block bg-gradient-to-l from-blue-200 to-blue-400 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
             <div class="md:container mx-auto">
                 <div class="flex flex-wrap items-center">
-                    <div class="w-full shrink-0 grow-0 basis-auto x-lg:w-6/12 x-xl:w-8/12">
+
+                    <div class="
+                    xw-full
+                    w-8/12
+                    shrink-0 grow-0 basis-auto x-lg:w-6/12 x-xl:w-8/12">
                         <div class="px-6 py-12 md:px-12">
                             @if($sentSuccessfully)
                                 <div class="text-center text-green-500 bg-gradient p-4 rounded-lg">
@@ -67,6 +71,44 @@
                             @endif
                         </div>
                     </div>
+
+                    @if(!$showAdditionalFields && !$sentSuccessfully)
+                    <div class="text-center" >
+                        <!-- Gismeteo informer START -->
+                        <link rel="stylesheet" type="text/css" href="https://ost1.gismeteo.ru/assets/flat-ui/legacy/css/informer.min.css">
+                        <div id="gsInformerID-DY31LG6T2yEkiM" class="gsInformer" style="width:210px;height:223px">
+                            <div class="gsIContent">
+                                <div id="cityLink">
+                                    <a href="https://www.gismeteo.ru/weather-tyumen-4501/" target="_blank" title="Погода в Тюмени">
+                                        <img src="https://ost1.gismeteo.ru/assets/flat-ui/img/gisloader.svg" width="24" height="24" alt="Погода в Тюмени">
+                                    </a>
+                                </div>
+                                <div class="gsLinks">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="leftCol">
+                                                    <a href="https://www.gismeteo.ru/" target="_blank" title="Погода">
+                                                        <img alt="Погода" src="https://ost1.gismeteo.ru/assets/flat-ui/img/logo-mini2.png" align="middle" border="0" width="11" height="16" />
+                                                        <img src="https://ost1.gismeteo.ru/assets/flat-ui/img/informer/gismeteo.svg" border="0" align="middle" style="left: 5px; top:1px">
+                                                    </a>
+                                                </div>
+                                                <div class="rightCol">
+                                                    <a href="https://www.gismeteo.ru/weather-tyumen-4501/2-weeks/" target="_blank" title="Погода в Тюмени на 2 недели">
+                                                        <img src="https://ost1.gismeteo.ru/assets/flat-ui/img/informer/forecast-2weeks.ru.svg" border="0" align="middle" style="top:auto" alt="Погода в Тюмени на 2 недели">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <script async src="https://www.gismeteo.ru/api/informer/getinformer/?hash=DY31LG6T2yEkiM"></script>
+                        <!-- Gismeteo informer END -->
+                    </div>
+                    @endif
+
                 </div>
             </div>
         </div>
