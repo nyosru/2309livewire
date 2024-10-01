@@ -20,6 +20,7 @@ $d = function () {
 //    Route::get('/create', StNewsCreate::class)->name('create');
 
     // Маршрут для страницы модерации новостей
+    Route::get('/caddy', \App\Livewire\CaddyfileDomainChecker::class)->name('caddy-checker');
     Route::get('/moderation', StNewsModeration::class)->name('moderation');
     Route::get('/m', [StNewsModeration::class,'m'])->name('moderation1');
 
@@ -43,4 +44,8 @@ $d = function () {
 Route::group([
     'as' => 'stn.',
     'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
+], $d);
+Route::group([
+    'as' => 'stn2.',
+    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'stn.dev.php-cat.com'
 ], $d);
