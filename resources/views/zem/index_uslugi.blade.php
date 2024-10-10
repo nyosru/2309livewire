@@ -35,7 +35,11 @@
         <div class="w-full md:w-1/2 p-4">
             <h2 class="text-3xl">Порядок действий:</h2>
             <ul class="ulul">
-                <li>Предоставляете данные (в телеграм, ватсап):
+                <li>Предоставляете данные (в
+                    <a href="https://t.me/phpcatcom" target="_blank" class="text-blue-600 hover:text-blue-500 underline" title="Написать в телеграм">Телеграм</a>,
+                    <a href="https://wa.me/79222622289" target="_blank" class="text-blue-600 hover:text-blue-500 underline" title="Написать в WhatsApp" >WhatsApp</a>,
+                    <a href="viber://chats?number=+79222622289" target="_blank" class="text-blue-600 hover:text-blue-500 underline" title="Написать в Viber" >Viber</a>
+                    ):
                     <ul>
                         <li>
                             фото гаража снаружи,

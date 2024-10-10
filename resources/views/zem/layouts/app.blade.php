@@ -38,20 +38,20 @@
     <meta property="og:url" content="https://приватизацияГаража.рф">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Приватизация Гаража">
-    <meta property="og:description" content="Сервис подготовки документов для приватизации гаража">
+    <meta property="og:description" content="Сервис для приватизации гаража">
 
-    <meta property="og:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_fb.jpg">
+    <meta property="og:image" content="https://ПриватизацияГаража.рф/zem/preview_for_fb.jpg">
 
     <!-- VK Meta Tags -->
-    <meta property="vk:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_vk.jpg"/>
+    <meta property="vk:image" content="https://приватизацияГаража.рф/zem/preview_for_vk.jpg"/>
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="приватизацияГаража.рф">
-    <meta property="twitter:url" content="https://приватизацияГаража.рф">
+    <meta property="twitter:domain" content="ПриватизацияГаража.рф">
+    <meta property="twitter:url" content="https://ПриватизацияГаража.рф">
     <meta name="twitter:title" content="Сервис ПриватизацияГаража.рф">
-    <meta name="twitter:description" content="Сервис подготовки документов для приватизации гаража">
-    <meta name="twitter:image" content="https://приватизацияГаража.рф/zem/preview_link_zem_for_vk.jpg">
+    <meta name="twitter:description" content="Сервис для приватизации гаража">
+    <meta name="twitter:image" content="https://приватизацияГаража.рф/zem/preview_for_vk.jpg">
 
     <style>
         header,
