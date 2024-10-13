@@ -21,7 +21,6 @@ $d = function () {
 
     // Маршрут для страницы модерации новостей
     Route::get('/caddy', \App\Livewire\CaddyfileDomainChecker::class)->name('caddy-checker');
-    Route::get('/caddy2', \App\Livewire\CaddyDomainFetcher::class)->name('caddy-fetcher');
 
     Route::get('/moderation', StNewsModeration::class)->name('moderation');
     Route::get('/m', [StNewsModeration::class,'m'])->name('moderation1');
