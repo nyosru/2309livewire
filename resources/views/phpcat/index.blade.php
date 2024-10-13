@@ -30,5 +30,8 @@
             <livewire:Phpcat.caps />
 
         </div>
+
+        <livewire:Phpcat.punny-converter />
+
     @endif
 @endsection
