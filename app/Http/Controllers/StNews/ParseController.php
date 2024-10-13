@@ -11,14 +11,12 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class ParseController extends Controller
 {
 
     public static $host = 'http://web_scraper2:5047';
-//    public static $host = 'http://stn.local:5047';
     public static $site_id = null;
     /**
      * сколько новостей сканить когда обогащаем новости
@@ -179,10 +177,24 @@ class ParseController extends Controller
             }
         }
 
+
+//        // показ доп инфы
+//        $r = $_REQUEST['show_info'] ?? '';
+//        if ($r) {
+//            $return['info']['catalog'] = $this->scanCatalogInfo();
+//        }
+//
+//        if ($scan_cat) {
+//            $return['data']['scan'] = 'catalog';
+//            $return['data']['data'] = $scan_cat;
+//        }
+
+
+        // сканим новости
+//        else {
+
+
         $a = $this->parseNewsFull();
-
-        return response()->json([$a,__FILE__,__LINE__]);
-
 
         $r = $_REQUEST['show_info'] ?? false;
         if ($r) {
@@ -223,45 +235,36 @@ class ParseController extends Controller
         $url = 'http://web_scraper:5047/scrape?url=https://xn--80aacozicjl1agbl4lraw.xn--p1ai/novosti/',
         $param = []
     ) {
+        // URL, который необходимо запросить
+//        $url = 'http://web_scraper:5007/scrape?url=https://xn--80aacozicjl1agbl4lraw.xn--p1ai/novosti/';
+//dd($html);
+        // Создаем новый HTTP-клиент
+//        $client = new Client();
 
         try {
-//            $url2 = self::$host.'/get_html';
-            $url2 = self::$host.'/parse_news_full';
-            $param = ['url' => $url];
+            // Выполняем GET-запрос к заданному URL
+//            $response = $client->request('GET', $url.( !empty($html) ? $html : '' ));
+//            $response = $client->request('POST', $url , ['html' => ( !empty($html) ? $html : '' ) ]);
+//            $response = $client->request('POST', $url , $param );
 
-            $cache_key = $url;
+//            $response = Http::timeout(2)->post($url, $param)->json();
+            $response = Http::asForm()->post($url, $param)->json();
+//            $response = Http::timeout(10)->get($url, $param)->json();
+//            $response = Http::get($url, $param)->json();
 
-// Получаем массив из кэша
-//            $cachedData = Cache::get($cache_key, null);
-            $cachedData = '';
-
-            // Данные найдены в кэше
-            if ($cachedData) {
-                $cachedData['cache'] = true;
-                return($cachedData);
-            }
-            // Данные не найдены в кэше
-
-//            $response = Http::get($url2, $param)->json();
-            $response = Http::get($url2, $param);
-
-//            dd($response);
+            dd($response);
+//            dd([$response, $url, $param]);
 
             // Проверяем, успешен ли запрос (код 200)
             if ($response->getStatusCode() == 200) {
-
                 // Получаем тело ответа
                 $body = $response->getBody()->getContents();
 
                 // Преобразуем его в массив, если это JSON-ответ
                 $data = json_decode($body, true);
                 $data['result'] = 1;
-
-                Cache::put($cache_key, $data, 3600);
-
                 // Возвращаем JSON-ответ
                 return $data;
-
             } else {
                 // В случае ошибки возвращаем сообщение с кодом ошибки
                 return ['error' => 'Request failed with status code: ' . $response->getStatusCode()];
@@ -516,16 +519,12 @@ class ParseController extends Controller
 
     public function parseNewsFull()
     {
-
         $return = [];
 
         try {
             // Получаем каталог для парсинга новостей
             $parsingCatalog0 = StNews::with('site', 'photos')
-//                ->where('site_id', '=', 2)
-                ->whereHas('site', function ($query) {
-                    $query->where('scan_status', true); // Проверяем, что статус сканирования включён
-                })
+                ->where('site_id', '=', 2)
                 ->whereNull('content')
 //                ->where(function ($query) {
 //                    $query->where('last_scan', '<', now()->subHour())
@@ -536,22 +535,56 @@ class ParseController extends Controller
                 ->limit(self::$count_scan_news_full);
 //                ->limit(1);
 
+            //dd($parsingCatalog0->get());
+
+//            // Получаем домен из URL
+//            $urlParts = parse_url($parsingCatalog0->category_url);
+//            $domain = $urlParts['host'];
+
             $parsingCatalog = $parsingCatalog0->get();
 
             $return['in'] = [];
             foreach ($parsingCatalog as $i) {
-
                 $source_url = $i->site->site_url . $i->source;
-                $get = $this->getParseRes($source_url );
-                $get['link'] = $source_url;
+//                dd($i->site->site_url.$i->source);
 
-                dd($get);
-                dd($get['html']);
+                $return['in'][] = $i;
+//                $return['i'][] = $i->site->site_name;
+//                echo $i->source;
 
+                $param = [];
+
+                if ($i->site->id == 2) {
+                    $client = new Client();
+                    $response = $client->request('GET', $source_url);
+                    $param['html'] =
+                    $html = $response->getBody()->getContents();
+//                    $param['html'] =
+//                    $html = '<html>111</html>';
+                }
+                $param['url'] = $source_url;
+//                $url = self::$host . '/parse_item?url=' . $source_url;
+                $url = self::$host . '/parse_item';
+                $get = $this->getParseRes($url, $param);
+
+                dd([$url, $get, $html]);
+
+                $return['in'][] = '$get';
                 $return['in'][] = $get;
 
-                // что то с фотками и обновление даты
-                if (1 == 2) {
+
+//                $return['in'][] = $get['news_item'];
+//                $return['in'][] = $get['news_item']['content'];
+//                $return['in'][] = $this->removePhotoCredit($get['news_item']['content']);
+//                content
+//                echo '<Br/>';
+//                echo 'url:' . $url;
+
+
+//                var_dump($get['news_item']);
+//                var_dump($get['news_item']['site']);
+
+                if (1 == 1) {
                     $i->content = $this->removePhotoCredit($get['news_item']['content']);
                     $i->updated_at = now();
                     $i->save();
@@ -563,10 +596,65 @@ class ParseController extends Controller
                             $get['news_item']['image'],
                             $i->site->site_name
                         );
+//                        $return['in'][] = '$get[news_item][site]->site_name';
+//                        $return['in'][] = $get['news_item']['site']->site_name;
+//                        $return['in'][] = $get['news_item']['site']['site_name'];
                     }
                 }
+
+
+//                echo '<Br/>';
+//                echo '<Br/>';
             }
+
+//            dd($parsingCatalog0);
+//            $return[] = $parsingCatalog0;
+//
+//            // Обновляем время последнего сканирования
+//            $parsingCatalog0->last_scan = now();
+//            $parsingCatalog0->save();
+//
+//            // Получаем домен из URL
+//            $urlParts = parse_url($parsingCatalog0->category_url);
+//            $domain = $urlParts['host'];
+//
+//            // Формируем URL для парсера
+//            $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
+//            $get = $this->getParseRes($url);
+//
+//            if (!empty($get['news'])) {
+//                $add_db = [];
+//                $check = [];
+//                foreach ($get['news'] as $n) {
+//                    try {
+//                        // Проверяем, существует ли уже новость с таким источником
+//                        $ee = StNews::whereSource($n['source'])->firstOrFail();
+//                    } catch (\Exception $e) {
+//                        // Если новость не найдена, добавляем её
+//                        $get['msg'][] = $e->getMessage();
+//
+//                        $in = new StNews();
+//                        $in->title = $n['title'];
+//                        $in->source = $n['source'];
+//                        $in->moderation_required = 1;
+//                        $get['msg'][] = $in->save();
+//                        $get['msg'][] = $in->id;
+//
+//                        // Добавляем фото новости с доменом
+//                        $p = new StNewsPhoto();
+//                        $p->st_news_id = $in->id;
+//                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
+//                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
+//                    }
+//                }
+//            }
+//            $return['ss'] = 1;
+//            return response()->json($return);
             return $return;
+//            return response()->json([
+//                'parsingCatalog' => $parsingCatalog0,
+//                'data' => $get
+//            ], 200);
         } catch (\Exception $e) {
             return [
                 'error' => $e->getMessage(),

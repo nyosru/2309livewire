@@ -1,17 +1,6 @@
 <div>
     <h2 class="text-xl font-bold mb-4">Проверка доменов из Caddyfile</h2>
 
-
-
-    <input
-        class="border-solid border border-green-200 px-2 py-1"
-        wire:model="domen" type="text" />
-    <button
-        class="bg-green-300 px-2 py-1 rounded"
-        wire:click="scanDomen" type="button" >просканить домен</button>
-
-    {{ $result_scan_domain ?? '-' }}
-
     {{-- Кнопки для загрузки и проверки доменов --}}
     <div class="mb-4">
         <button wire:click="parseCaddyfile" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">

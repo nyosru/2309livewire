@@ -61,9 +61,6 @@
         @include('phpcat.layouts.header')
     </header>
     <main style="min-height:80vh;">
-
-{{--        {{ $slot ?? '' }}--}}
-
         @yield('content')
         {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
     </main>

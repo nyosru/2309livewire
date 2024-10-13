@@ -6,6 +6,7 @@
 
         <livewire:Phpcat.domain/>
 
+
     @else
 
         @include('phpcat.index_index')
@@ -29,14 +30,5 @@
             <livewire:Phpcat.caps />
 
         </div>
-
-        <div class="block bg-blue-200">
-            <div class="container mx-auto py-5">
-                <h1 class="text-[2rem] font-bold">Помошники, пользуйтесь сразу</h1>
-            </div>
-        </div>
-
-        <livewire:Phpcat.punny-converter />
-
     @endif
 @endsection
