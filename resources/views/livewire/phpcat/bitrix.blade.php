@@ -20,6 +20,8 @@
                 <img src="/logo/bitrix24_partner.png" class="w-[60%] m-auto"/>
             </div>
 
+
+
             <style>
                 .star::before {
                     /*content: '★';*/
