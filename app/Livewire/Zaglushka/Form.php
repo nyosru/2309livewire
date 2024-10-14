@@ -16,9 +16,17 @@ class Form extends Component
     public $loading = false;
     public $sentSuccessfully = false;
 
+
+    /**
+     * отправляем
+     * @return void
+     */
     public function mount(){
-        $this->domain = ( strpos( $_SERVER['HTTP_HOST'], 'xn--') !== false ) ? \IntlIdn::idn_to_utf8($_SERVER['HTTP_HOST']) : $_SERVER['HTTP_HOST'];
+        $this->domain =
+            strpos( $_SERVER['HTTP_HOST'], 'xn--') !== false ? idn_to_utf8($_SERVER['HTTP_HOST']) : $_SERVER['HTTP_HOST']
+        ;
     }
+
     public function switchShowForm()
     {
         $this->show_form = !$this->show_form;
