@@ -12,19 +12,27 @@ class PunnyConverter extends Component
     // Метод для обновления домена
     public function updatedDomain($value)
     {
-        // Удаляем "http://", "https://" и "/"
-        $cleanedValue = $this->cleanDomain($value);
-        $this->domain = $cleanedValue;
-        $this->encodedDomain = idn_to_ascii($cleanedValue); // Кодируем домен в Punycode
+        if( empty($value) ) {
+            $this->encodedDomain = '';
+        }else {
+            // Удаляем "http://", "https://" и "/"
+            $cleanedValue = $this->cleanDomain($value);
+            $this->domain = $cleanedValue;
+            $this->encodedDomain = idn_to_ascii($cleanedValue); // Кодируем домен в Punycode
+        }
     }
 
     // Метод для обновления закодированного домена
     public function updatedEncodedDomain($value)
     {
-        // Удаляем "http://", "https://" и "/"
-        $cleanedValue = $this->cleanDomain($value);
-        $this->encodedDomain = $cleanedValue;
-        $this->domain = idn_to_utf8($cleanedValue); // Расшифровываем Punycode в обычный домен
+        if( empty($value) ) {
+            $this->domain = '';
+        }else {
+            // Удаляем "http://", "https://" и "/"
+            $cleanedValue = $this->cleanDomain($value);
+            $this->encodedDomain = $cleanedValue;
+            $this->domain = idn_to_utf8($cleanedValue); // Расшифровываем Punycode в обычный домен
+        }
     }
 
     // Функция для удаления "https://", "http://" и "/"

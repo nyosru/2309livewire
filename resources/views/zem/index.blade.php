@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('zem.index_index')
+{{--    @include('zem.index_index')--}}
 
     <livewire:Zem.form/>
 

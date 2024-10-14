@@ -8,13 +8,15 @@
         <div class="absolute left-4 top-0 bottom-0 w-1 bg-gray-300"></div>
 
         @php
-            $currentMonth = null;
+            use Carbon\Carbon;
+			$currentMonth = null;
             $lastDay = null;
         @endphp
 
         @foreach ($holidays as $holiday)
+
             @php
-                $date = \Carbon\Carbon::create()->month($holiday->month)->day($holiday->day);
+                $date = Carbon::create()->year(date('Y'))->month($holiday->month)->day($holiday->day);
                 $dayOfWeek = $date->translatedFormat('D'); // Получаем сокращение дня недели
                 $isWeekend = in_array($dayOfWeek, ['Sun', 'Sat']); // Определяем выходной день
             @endphp
@@ -23,10 +25,11 @@
                 @php
                     $currentMonth = $holiday->month;
                     // Получаем название месяца на русском языке
-                    $monthName = \Carbon\Carbon::create()->month($holiday->month)->locale('ru')->translatedFormat('F');
+                    $monthName = Carbon::create()->month($holiday->month)->locale('ru')->translatedFormat('F');
                 @endphp
                     <!-- Месяц -->
-                <div class="sticky top-[5.6rem] z-10 py-2" style="background: linear-gradient(to bottom right, blue, white);">
+                <div class="sticky top-[5.6rem] z-10 py-2"
+                     style="background: linear-gradient(to bottom right, blue, white);">
                     <h2 class="text-xl font-bold text-white text-center">{{ ucfirst($monthName) }}</h2>
                 </div>
             @endif
@@ -75,11 +78,12 @@
 
         <style>
             /* Удаляем нижнюю границу у последнего элемента */
-            .holydays-items >div:last-child {
+            .holydays-items > div:last-child {
                 border-bottom: none;
             }
+
             /* Стили для элементов праздников */
-            .holydays-items>div {
+            .holydays-items > div {
                 border-bottom: 1px solid #ababab; /* Цвет границы: градиент серый */
             }
 
