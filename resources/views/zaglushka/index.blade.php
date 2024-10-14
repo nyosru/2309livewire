@@ -99,6 +99,7 @@
             font-size: 1rem;
         }
     </style>
+
     @if($nn == 42 )
         <script src="/demo/bg-anim/three.88.min.js"></script>
         <script src="/demo/bg-anim/bg-42.js"></script>
@@ -127,18 +128,20 @@
     {{--    <div  xstyle="min-height:80vh;" id="bg-42">--}}
     <div class="up" xstyle="min-height:80vh;" id="bg-{{ $nn }}">
 
-
-
         <div class="content" id="blockToHide" style="z-index:10;">
             <span id="hideBtn" style="z-index:100; cursor: pointer;" class="text-sm float-right"
                   title="Залипнуть по полной">x</span>
-{{--            Сайт не доступен!<br/>--}}
+            {{--            Сайт не доступен!<br/>--}}
             Внимательно смотрите в&nbsp;экран и&nbsp;не&nbsp;выключайте свет!
+
+            <livewire:Zaglushka.Form/>
+
         </div>
 
 
-
-        <button id="fullscreen-btn"  style="z-index:10; position: fixed; left: 10px; top: 10px;" >Развернуть на весь экран</button>
+        <button id="fullscreen-btn" style="z-index:10; position: fixed; left: 10px; top: 10px;">Развернуть на весь
+            экран
+        </button>
 
         <script>
             document.getElementById('fullscreen-btn').addEventListener('click', function() {
@@ -153,75 +156,14 @@
         </script>
 
 
-
         <div class="content_foot">
             <A class="text-blue-800 underline" href="https://php-cat.com" target="_blank">php-cat.com</a><br/>
             и телеграм <A class="text-blue-800 underline" href="https://t.me/phpcatcom" target="_blank">@phpcatcom</a>
-
-{{--            <!-- Yandex.Metrika informer -->--}}
-{{--            <a href="https://metrika.yandex.ru/stat/?id=97718675&amp;from=informer"--}}
-{{--               target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/97718675/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"--}}
-{{--                                                   style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="97718675" data-lang="ru" /></a>--}}
-{{--            <!-- /Yandex.Metrika informer -->--}}
-
-{{--            <!-- Yandex.Metrika counter -->--}}
-{{--            <script type="text/javascript" >--}}
-{{--                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};--}}
-{{--                    m[i].l=1*new Date();--}}
-{{--                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}--}}
-{{--                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})--}}
-{{--                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");--}}
-
-{{--                ym(97718675, "init", {--}}
-{{--                    clickmap:true,--}}
-{{--                    trackLinks:true,--}}
-{{--                    accurateTrackBounce:true--}}
-{{--                });--}}
-{{--            </script>--}}
-{{--            <noscript><div><img src="https://mc.yandex.ru/watch/97718675" style="position:absolute; left:-9999px;" alt="" /></div></noscript>--}}
-{{--            <!-- /Yandex.Metrika counter -->--}}
-
         </div>
+        
     </div>
 
-    @if(1==2)
-        @yield('content')
-        {{-- {{ $_SERVER['HTTP_HOST'] ?? 'x' }} --}}
-    @endif
 </main>
-
-@if(1==2)
-    @include('phpcat.layouts.footer')
-
-    {{--    <!-- Yandex.Metrika counter -->--}}
-    <script type="text/javascript">
-        (function(m, e, t, r, i, k, a) {
-            m[i] = m[i] || function() {
-                (m[i].a = m[i].a || []).push(arguments);
-            };
-            m[i].l = 1 * new Date();
-            for (var j = 0; j < document.scripts.length; j++) {
-                if (document.scripts[j].src === r) {
-                    return;
-                }
-            }
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(
-                k, a);
-        })
-        (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-
-        ym(76358443, 'init', {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true
-        });
-    </script>
-    <noscript>
-        <div><img src="https://mc.yandex.ru/watch/76358443" style="position:absolute; left:-9999px;" alt=""/></div>
-    </noscript>
-    {{--    <!-- /Yandex.Metrika counter -->--}}
-
-@endif
 
 
 </body>
@@ -243,8 +185,4 @@
     });
 </script>
 
-{{--<script src="/app0.js"></script>--}}
-
-{{--<script src="/bg/bg-24.js"></script>--}}
-{{--<script src="/bg/bg-42.js"></script>--}}
 </html>
