@@ -11,7 +11,10 @@
         @else
             <div class="bg-white rounded-2xl max-w-[500px] md:w-6/12 mx-auto py-3  text-center         ">
                 <a class="float-right text-gray-300 pr-4" wire:click.prevent="switchShowForm" href="#">x</a>
-                Можете взять в аренду<br/>доменное имя {{ $domain }}<br/> есть&nbsp;предложение ?
+                Можете взять в аренду<br/>доменное имя
+                <br/>
+                <span class="underline bg-yellow-400 px-2 py-1 ">{{ $domain }}</span>
+                <br/> есть&nbsp;предложение ?
                 <br/>
                 <br/>
                 <form wire:submit="submitForm">
