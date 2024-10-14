@@ -13,7 +13,7 @@
                 <a class="float-right text-gray-300 pr-4" wire:click.prevent="switchShowForm" href="#">x</a>
                 Можете взять в аренду<br/>доменное имя
                 <br/>
-                <span class="underline bg-yellow-400 px-2 py-1 ">{{ $domain }}</span>
+                <span class="underline bg-yellow-400 px-2 py-1 font-bold">{{ $domain }}</span>
                 <br/> есть&nbsp;предложение ?
                 <br/>
                 <br/>
