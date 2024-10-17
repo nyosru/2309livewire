@@ -362,10 +362,12 @@ class ParseController extends Controller
 //            $parsingCatalog0->last_scan = now();
 //            $parsingCatalog0->save();
 
-            if( strpos('vsluh.ru',strtolower($parsingCatalog0->category_url)) !== false ){
+            if( strpos(strtolower($parsingCatalog0->category_url),'vsluh.ru') !== false ){
                 $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
                 echo $url;
             }
+
+
 
 
 
