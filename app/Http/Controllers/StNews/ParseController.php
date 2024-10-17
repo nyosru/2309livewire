@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\StNews;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Service\DateService;
 use App\Models\StNews;
 use App\Models\StNewsParsingCategory;
 use App\Models\StNewsParsingSite;
@@ -351,7 +352,7 @@ class ParseController extends Controller
         foreach ($list as $n) {
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSource($n['source'])->firstOrFail();
+                $ee = StNews::whereSource($n['link'])->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
 //                $get['msg'][] = $e->getMessage();
@@ -359,8 +360,12 @@ class ParseController extends Controller
                 $in = new StNews();
                 $in->site_id = $site->id;
                 $in->title = $n['title'];
-                $in->source = $site->site_url . $n['source'];
-                $in->published_at = date('Y-m-d', strtotime($n['date']));
+                $in->summary = $n['anons'];
+                $in->source = $site->site_url . $n['link'];
+
+                $d = DateService::convertDateTime($n['date']);
+                $in->published_at = date('Y-m-d', strtotime($d));
+
                 $in->moderation_required = 1;
 //                    $get['msg'][] = $in->save();
                 $in->save();
