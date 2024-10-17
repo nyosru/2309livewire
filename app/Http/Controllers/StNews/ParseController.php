@@ -363,8 +363,11 @@ class ParseController extends Controller
 //            $parsingCatalog0->save();
 
             if( strpos(strtolower($parsingCatalog0->category_url),'vsluh.ru') !== false ){
-                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
-                echo $url;
+                $go=['type'=>'parse_vsluh_news_list','url'=>$parsingCatalog0->category_url];
+//                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
+                $url = 'http://parser_service:5047/get_html?'.http_build_query($go);
+                return response()->json(['url'=>$url]);
+//                echo $url;
             }
 
 
