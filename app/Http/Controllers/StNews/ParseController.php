@@ -364,7 +364,7 @@ class ParseController extends Controller
                 $in->site_id = $site->id;
                 $in->title = $n->title;
                 $in->summary = $n->anons;
-                $in->source = $site->site_url . $n->link;
+                $in->source = $n->link;
 
                 $d = DateService::convertDateTime($n->date);
                 $in->published_at = date('Y-m-d', strtotime($d));
@@ -584,7 +584,7 @@ class ParseController extends Controller
 
     public function loadParsingNewsItem(StNews $news)
     {
-        $go = ['url' => $news->source];
+        $go = ['url' => $news->site->site_url.$news->source];
 
         // если вслух
         if ($news->site->id == 3) {
@@ -627,7 +627,9 @@ class ParseController extends Controller
 
                 // vsluh.ru
                 if( !empty($data['data']['category_link']) && !empty($data['data']['category_name']) ){
-                    $this->addCatalogIfNotExists($data['data']['category_name'],$data['data']['category_link'],$i->site);
+                    $return['cat'][] =
+                    $cat = $this->addCatalogIfNotExists($data['data']['category_name'],$data['data']['category_link'],$i->site);
+                    $i->cat_id = $cat['catalog']['id'];
                 }
 
 
