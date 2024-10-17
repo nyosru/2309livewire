@@ -343,6 +343,44 @@ class ParseController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+    public function saveNewNewsList($list, StNewsParsingSite $site)
+    {
+        $res = [];
+        $add_db = [];
+        $check = [];
+        foreach ($list as $n) {
+            try {
+                // Проверяем, существует ли уже новость с таким источником
+                $ee = StNews::whereSource($n['source'])->firstOrFail();
+            } catch (\Exception $e) {
+                // Если новость не найдена, добавляем её
+//                $get['msg'][] = $e->getMessage();
+
+                $in = new StNews();
+                $in->site_id = $site->id;
+                $in->title = $n['title'];
+                $in->source = $site->site_url . $n['source'];
+                $in->published_at = date('Y-m-d', strtotime($n['date']));
+                $in->moderation_required = 1;
+//                    $get['msg'][] = $in->save();
+                $in->save();
+                $res[] = $in->id;
+
+                // Добавляем фото новости с доменом (раскомментировать, если нужно)
+                // $p = new StNewsPhoto();
+                // $p->st_news_id = $in->id;
+                // $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
+                // $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
+            }
+        }
+        return $res;
+    }
+
+    /**
+     * Сканируем каталог на новости, получение списка новостей без содержания
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function parseNewsListCatalog(Request $request)
     {
         try {
@@ -368,7 +406,9 @@ class ParseController extends Controller
 //                $url = 'http://parser_service:5047/get_html?' . http_build_query($go);
                 $url = 'http://web_scraper2:5047/get_html?' . http_build_query($go);
                 $json = file_get_contents($url);
-                return response()->json(['url' => $url, 'data' => json_decode($json)]);
+                $list = json_decode($json);
+                $add_db_res = $this->saveNewNewsList($list, $parsingCatalog0->site);
+                return response()->json(['url' => $url, 'data' => $list, 'add_db_res' => $add_db_res]);
 //                echo $url;
             }
 
