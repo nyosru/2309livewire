@@ -17,7 +17,6 @@ $d = function () {
     // грузим содержимое новостей
     Route::get('parsing/news_full', [ParseController::class, 'parseNewsFull'])->name('parse.news_list');
 
-
     Route::get('get-html', function () {
         // Создаем новый HTTP-клиент
         $client = new Client();
