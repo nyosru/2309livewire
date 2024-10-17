@@ -11,7 +11,7 @@ class Show extends Component
 
     public function mount($id)
     {
-        $this->news = StNews::findOrFail($id);
+        $this->news = StNews::with('site')->findOrFail($id);
     }
 
     public function render()

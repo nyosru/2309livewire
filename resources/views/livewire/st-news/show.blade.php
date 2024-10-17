@@ -57,7 +57,7 @@ mx-auto py-6 sm:px-6 lg:px-8">
             <div class="mt-4">
                 {{--                {{ dd($news->site->site_url) }}--}}
                 {{--                {{ dd($news->photos) }}--}}
-                <a href="{{ $news->site->site_url.$news->source }}" target="_blank"
+                <a href="{{ ($news->site->site_url ?? '').$news->source }}" target="_blank"
                    class="text-blue-500 hover:underline">
                     Читать на источнике
                 </a>
