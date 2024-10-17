@@ -9,6 +9,7 @@ use App\Models\StNewsParsingCategory;
 use App\Models\StNewsParsingSite;
 use App\Models\StNewsPhoto;
 use Carbon\Carbon;
+use http\Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -637,7 +638,11 @@ class ParseController extends Controller
 
                 // добавляем фотки
                 if (!empty($data['data']['first_image'])) {
-                    $this->saveImgToNews($i->id, [$data['data']['first_image']], $i->site->site_name);
+                    try {
+                        $this->saveImgToNews($i->id, [$data['data']['first_image']], $i->site->site_name);
+                    }catch( \Exception $exc ){
+
+                    }
                 }
 
 //                continue;

@@ -15,10 +15,19 @@
     @endif
 
     @if ($newsItem->firstPhoto())
+            @if( !empty($newsItem->firstPhoto()->local_photo) )
         <img class="w-full h-48 object-cover rounded-lg mb-4"
-             src="{{ $newsItem->firstPhoto()->image_path }}"
-{{--             src="{{ asset('storage/' . $newsItem->firstPhoto()->image_path) }}" --}}
+             src="{{ $newsItem->firstPhoto()->local_photo }}"
              alt="{{ $newsItem->title }}">
+                1
+             @else
+                <img class="w-full h-48 object-cover rounded-lg mb-4"
+             src="{{ $newsItem->firstPhoto()->image_path }}"
+                     alt="{{ $newsItem->title }}">
+                2
+             @endif
+
+{{--             src="{{ asset('storage/' . $newsItem->firstPhoto()->image_path) }}" --}}
     @endif
 
     @if (request()->has('ss'))
