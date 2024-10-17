@@ -16,7 +16,7 @@
 
         @if ($newsItem->firstPhoto())
             @if( !empty($newsItem->firstPhoto()->local_photo) )
-                <img class="w-full h-48 object-cover rounded-lg mb-4  border-l-5 border-orange-500"
+                <img class="w-full h-48 object-cover rounded-lg mb-4  border-l-[5px] border-orange-500"
                      src="{{ $newsItem->firstPhoto()->local_photo }}"
                      alt="{{ $newsItem->title }}">
             @else
