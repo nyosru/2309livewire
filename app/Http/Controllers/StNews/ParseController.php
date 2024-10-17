@@ -362,16 +362,14 @@ class ParseController extends Controller
 //            $parsingCatalog0->last_scan = now();
 //            $parsingCatalog0->save();
 
-            if( strpos(strtolower($parsingCatalog0->category_url),'vsluh.ru') !== false ){
-                $go=['type'=>'parse_vsluh_news_list','url'=>$parsingCatalog0->category_url];
+            if (strpos(strtolower($parsingCatalog0->category_url), 'vsluh.ru') !== false) {
+                $go = ['type' => 'parse_vsluh_news_list', 'url' => $parsingCatalog0->category_url];
 //                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
-                $url = 'http://parser_service:5047/get_html?'.http_build_query($go);
-                return response()->json(['url'=>$url]);
+                $url = 'http://parser_service:5047/get_html?' . http_build_query($go);
+                $json = file_get_contents($url);
+                return response()->json(['url' => $url, 'data' => json_decode($json)]);
 //                echo $url;
             }
-
-
-
 
 
             // Получаем домен из URL
