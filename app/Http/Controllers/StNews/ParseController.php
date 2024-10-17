@@ -352,18 +352,18 @@ class ParseController extends Controller
         foreach ($list as $n) {
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSource($n['link'])->firstOrFail();
+                $ee = StNews::whereSource($n->link)->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
 //                $get['msg'][] = $e->getMessage();
 
                 $in = new StNews();
                 $in->site_id = $site->id;
-                $in->title = $n['title'];
-                $in->summary = $n['anons'];
-                $in->source = $site->site_url . $n['link'];
+                $in->title = $n->title;
+                $in->summary = $n->anons;
+                $in->source = $site->site_url . $n->link;
 
-                $d = DateService::convertDateTime($n['date']);
+                $d = DateService::convertDateTime($n->date);
                 $in->published_at = date('Y-m-d', strtotime($d));
 
                 $in->moderation_required = 1;
