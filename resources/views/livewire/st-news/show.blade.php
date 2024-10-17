@@ -17,10 +17,10 @@ mx-auto py-6 sm:px-6 lg:px-8">
         @if ($news->firstPhoto())
             <div class="mt-6">
 
-                @if( !empty($p->local_photo) )
+                @if( !empty($news->firstPhoto()->local_photo) )
                     <img
-                        src="/{{ $news->firstPhoto()->local_photo }}"
-                        class="w-[30%] float-left pr-2 h-auto rounded-md border-l-2 border-orange-500"
+                        src="{{ $news->firstPhoto()->local_photo }}"
+                        class="w-[30%] float-left pr-2 h-auto rounded-md border-l-[5px] border-orange-500"
                         alt="{{ $news->title }}"
                     >
                 @else
@@ -43,10 +43,8 @@ mx-auto py-6 sm:px-6 lg:px-8">
                 @if( $news->firstPhoto()->image_path != $p->image_path  )
                     <div class="w-1/2 px-2 mb-4">
                         @if( !empty($p->local_photo) )
-                            1
-                            <img src="/{{ $p->local_photo }}" class="w-full inline border-l-2 border-orange-500"/>
+                            <img src="{{ $p->local_photo }}" class="w-full inline border-l-2 border-orange-500"/>
                         @else
-                            2
                             <img src="{{ $p->image_path }}" class="w-full inline"/>
                         @endif
                     </div>
