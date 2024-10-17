@@ -352,7 +352,7 @@ class ParseController extends Controller
         foreach ($list as $n) {
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSource($n->link)->firstOrFail();
+                $ee = StNews::whereSource($site->site_url .$n->link)->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
 //                $get['msg'][] = $e->getMessage();
