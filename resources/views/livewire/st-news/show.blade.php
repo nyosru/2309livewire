@@ -43,8 +43,10 @@ mx-auto py-6 sm:px-6 lg:px-8">
                 @if( $news->firstPhoto()->image_path != $p->image_path  )
                     <div class="w-1/2 px-2 mb-4">
                         @if( !empty($p->local_photo) )
+                            1
                             <img src="/{{ $p->local_photo }}" class="w-full inline border-l-2 border-orange-500"/>
                         @else
+                            2
                             <img src="{{ $p->image_path }}" class="w-full inline"/>
                         @endif
                     </div>
