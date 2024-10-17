@@ -365,7 +365,8 @@ class ParseController extends Controller
             if (strpos(strtolower($parsingCatalog0->category_url), 'vsluh.ru') !== false) {
                 $go = ['type' => 'parse_vsluh_news_list', 'url' => $parsingCatalog0->category_url];
 //                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
-                $url = 'http://parser_service:5047/get_html?' . http_build_query($go);
+//                $url = 'http://parser_service:5047/get_html?' . http_build_query($go);
+                $url = 'http://web_scraper2:5047/get_html?' . http_build_query($go);
                 $json = file_get_contents($url);
                 return response()->json(['url' => $url, 'data' => json_decode($json)]);
 //                echo $url;
