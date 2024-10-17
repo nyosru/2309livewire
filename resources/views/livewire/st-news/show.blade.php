@@ -34,7 +34,8 @@ mx-auto py-6 sm:px-6 lg:px-8">
             </div>
         @endif
 
-        <p>{{ $news->content }}</p>
+        {!! $news->content !!}
+
         <br clear="all"/>
         <br clear="all"/>
         <div class="flex flex-wrap -mx-2">
