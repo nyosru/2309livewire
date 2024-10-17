@@ -77,7 +77,7 @@ class ParseController extends Controller
 
     /**
      * показ инфы о каталогах
-     * @return Array
+     * @return array
      */
     public function scanCatalogInfo(): array
     {
@@ -207,18 +207,18 @@ class ParseController extends Controller
 
         return response()->json($return);
 
-        // получаем 1 новость
-        $uri0 = '/novosti/demografiya/lyubov-v-kazhdom-podarke-tyumentsy-mogut-podderzhat-babushek-i-dedushek/';
-        $uri = 'https://тюменскаяобласть.рф';
-        return $this->getParseRes(self::$host . '/parse_item?url=' . $uri . $uri0);
-
-        // получаем список новостей из каталога
-        $uri = 'https://тюменскаяобласть.рф/novosti/demografiya/';
-        return $this->getParseRes(self::$host . '/news_list?rand=' . time() . '&url=' . $uri);
-
-        // получаем каталоги
-        $uri = 'https://тюменскаяобласть.рф/novosti/';
-        return $this->getParseRes(self::$host . '/catalogs?url=' . $uri);
+//        // получаем 1 новость
+//        $uri0 = '/novosti/demografiya/lyubov-v-kazhdom-podarke-tyumentsy-mogut-podderzhat-babushek-i-dedushek/';
+//        $uri = 'https://тюменскаяобласть.рф';
+//        return $this->getParseRes(self::$host . '/parse_item?url=' . $uri . $uri0);
+//
+//        // получаем список новостей из каталога
+//        $uri = 'https://тюменскаяобласть.рф/novosti/demografiya/';
+//        return $this->getParseRes(self::$host . '/news_list?rand=' . time() . '&url=' . $uri);
+//
+//        // получаем каталоги
+//        $uri = 'https://тюменскаяобласть.рф/novosti/';
+//        return $this->getParseRes(self::$host . '/catalogs?url=' . $uri);
 
 
 //        return json_encode([1=>2]);
@@ -359,8 +359,15 @@ class ParseController extends Controller
                 ->firstOrFail();
 
             // Обновляем время последнего сканирования
-            $parsingCatalog0->last_scan = now();
-            $parsingCatalog0->save();
+//            $parsingCatalog0->last_scan = now();
+//            $parsingCatalog0->save();
+
+            if( strpos('vsluh.ru',strtolower($parsingCatalog0->category_url)) !== false ){
+                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
+                echo $url;
+            }
+
+
 
             // Получаем домен из URL
             $urlParts = parse_url($parsingCatalog0->category_url);
