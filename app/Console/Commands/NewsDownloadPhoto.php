@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\StNews\NewsPhotoService;
 use Illuminate\Console\Command;
+use Nyos\Msg;
 
 class NewsDownloadPhoto extends Command
 {
@@ -31,13 +32,18 @@ class NewsDownloadPhoto extends Command
         foreach($res['log'] as $l ){
             $this->info($l);
         }
-        $this->info('downloadAndStorePhotos completed. '.PHP_EOL
+
+
+        $msg = 'downloadAndStorePhotos completed. '.PHP_EOL
 //            .serialize($res)
         .
             'all:'.($res['count_morate_all'] ?? 'x').PHP_EOL.
             'moderated:'.($res['count_morated'] ?? 'x').PHP_EOL.
             'size Mb:'.($res['loaded_size'] ? ( round($res['loaded_size']/1024,2) ) : 'x')
-        );
+        ;
+        Msg::sendTelegramm($msg,null,2);
+//        Msg::sendTelegramm($msg,null,2);
+        $this->info($msg);
 
     }
 }
