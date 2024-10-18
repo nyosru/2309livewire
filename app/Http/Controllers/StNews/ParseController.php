@@ -626,6 +626,9 @@ class ParseController extends Controller
                 $i->content = $data['data']['post_text_html'];
 //                $i->updated_at = now();
 
+                if( $i->site->moderation_on_upload )
+                    $i->moderation = true;
+
                 // vsluh.ru
                 if( !empty($data['data']['category_link']) && !empty($data['data']['category_name']) ){
                     $return['cat'][] =

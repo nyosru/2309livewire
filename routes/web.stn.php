@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\StNews\StNewsModeration;
 use App\Livewire\StNews\ModerateNews;
 use App\Livewire\StNews\Index as StNewsIndex;
 use App\Livewire\StNews\Show;
+use Nyos\Msg;
 
 //use App\Livewire\StNews\Create as StNewsCreate;
 //use App\Livewire\StNews\Show as StNewsShow;
@@ -30,10 +32,19 @@ $d = function () {
         Route::get('/m', \App\Livewire\StNews\A\Index::class)->name('index');
     });
 
+
+    Route::get('news/download-photo', function () {
+        Artisan::call('StNews:news-download-photo');
+        Msg::sendTelegramm('запуск команды StNews:news-download-photo',null,2);
+        return 'News download photo command executed!';
+    });
+
     Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         // Маршрут для модерации конкретной новости
         Route::get('moderate/{id}', ModerateNews::class)->name('mod');
         Route::get('{id}', Show::class)->name('show');
+
+
     });
 
     // Фоллбэк на случай отсутствия других маршрутов

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\StNews\ParseController;
 use App\Services\ServiceController;
+use App\Services\StNews\AutoModerationNewsServices;
 use GuzzleHttp\Client;
+//use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Nyos\Msg;
 
@@ -16,6 +18,7 @@ $d = function () {
     Route::get('parsing/news', [ParseController::class, 'parseNewsListCatalog'])->name('parse.news_list');
     // грузим содержимое новостей
     Route::get('parsing/news_full', [ParseController::class, 'parseNewsFull'])->name('parse.news_list');
+
 
     Route::get('get-html', function () {
         // Создаем новый HTTP-клиент
@@ -55,8 +58,17 @@ $d = function () {
     });
 
     Route::get('auto-moderate', function () {
-        Msg::sendTelegramm('api auto-moderate', null, 2);
-        Artisan::call('StNews:news-auto-moderate');
+//        Msg::sendTelegramm('api auto-moderate', null, 2);
+//        Artisan::call('StNews:news-auto-moderate');
+        $service = new AutoModerationNewsServices();
+        $result = $service->autoModerateNews();
+
+        // Выводим сообщение о завершении работы команды
+        $t = 'News auto moderation completed. '.PHP_EOL.
+            'all:'.($result['count_morate_all'] ?? 'x').PHP_EOL.
+            'moderated:'.($result['count_morated'] ?? 'x')
+        ;
+        Msg::sendTelegramm($t,null,2);
         return response()->json(['message' => 'auto-moderate initiated.']);
     });
 
