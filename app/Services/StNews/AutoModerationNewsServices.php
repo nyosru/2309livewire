@@ -15,10 +15,20 @@ class AutoModerationNewsServices
     {
         $return = [];
 
-        // Получаем новости, у которых moderation пустое и есть site_id
-        $newsToModerate = StNews::whereNotNull('content')->whereNull('moderation')
+//        // Получаем новости, у которых moderation пустое и есть site_id
+//        $newsToModerate = StNews::whereNotNull('content')->whereNull('moderation')
+//            ->whereHas('site', function ($query) {
+//                $query->whereNotNull('time_to_auto_publish'); // Проверяем, что у сайта есть time_to_auto_publish
+//            })
+//            ->with('site')
+//            ->get();
+
+// Получаем новости, у которых moderation пустое и есть site_id
+        $newsToModerate = StNews::whereNotNull('content')
+            ->whereNull('moderation')
             ->whereHas('site', function ($query) {
-                $query->whereNotNull('time_to_auto_publish'); // Проверяем, что у сайта есть time_to_auto_publish
+                $query->whereNotNull('time_to_auto_publish') // Проверяем, что у сайта есть time_to_auto_publish
+                ->orWhere('moderation_on_upload', true); // Добавляем альтернативное условие
             })
             ->with('site')
             ->get();
@@ -36,7 +46,7 @@ class AutoModerationNewsServices
                 $timeToAutoPublish = $site->time_to_auto_publish;
 
                 // Проверяем, прошло ли указанное время с момента публикации
-                if ($newsPublishTime && $newsPublishTime->addMinutes($timeToAutoPublish)->isPast()) {
+                if ( $news->site->moderation_on_upload || ( $newsPublishTime && $newsPublishTime->addMinutes($timeToAutoPublish)->isPast() ) ) {
                     // Устанавливаем moderation в true
                     $news->moderation = true;
                     $news->save();
