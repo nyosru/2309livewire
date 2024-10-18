@@ -12,32 +12,7 @@
 
             <ul class="mb-4">
                 @forelse($sites as $site)
-                    <li class="py-2 border-b border-gray-300">
-                        <strong>Название:</strong> {{ $site->site_name }}<br>
-                        <strong>URL:</strong>
-                        <a href="{{ $site->site_url }}" class="text-blue-500" target="_blank">{{ $site->site_url }}</a><br>
-                        <strong>Статус сканирования:</strong>
-                        {{ $site->scan_status ? 'Включен' : 'Выключен' }}<br>
-                        <strong>URL парсинга категории:</strong>
-                        @if($site->category_parsing_url)
-                            <a href="{{ $site->category_parsing_url }}" class="text-blue-500" target="_blank">{{ $site->category_parsing_url }}</a><br>
-                        @else
-                            Не указан<br>
-                        @endif
-                        <strong>Время до автопубликации:</strong>
-                        @if($site->time_to_auto_publish !== null)
-                            {{ $site->time_to_auto_publish }} минут<br>
-                        @else
-                            Не установлено<br>
-                        @endif
-
-                        {{-- Кнопка для включения/выключения статуса сканирования --}}
-                        <button
-                            wire:click="toggleScanStatus({{ $site->id }})"
-                            class="mt-2 px-4 py-2 bg-{{ $site->scan_status ? 'red' : 'green' }}-500 text-white rounded">
-                            {{ $site->scan_status ? 'Выключить' : 'Включить' }} сканирование
-                        </button>
-                    </li>
+                    @livewire('st-news.a.st-news-site-item', ['site' => $site], key($site->id))
                 @empty
                     <li class="text-gray-500">Нет сайтов</li>
                 @endforelse
@@ -85,7 +60,7 @@
                         wire:model="category_parsing_url"
                         id="category_parsing_url"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                        placeholder="Введите URL парсинга категории (опционально)">
+                        placeholder="Введите URL для парсинга категории">
                     @error('category_parsing_url')
                     <div class="text-red-500 mt-1">{{ $message }}</div>
                     @enderror
@@ -93,36 +68,36 @@
 
                 {{-- Время до автопубликации --}}
                 <div>
-                    <label for="time_to_auto_publish" class="block text-sm font-medium text-gray-700">Время до автопубликации (мин)</label>
+                    <label for="time_to_auto_publish" class="block text-sm font-medium text-gray-700">Время до автопубликации (в минутах)</label>
                     <input
                         type="number"
                         wire:model="time_to_auto_publish"
                         id="time_to_auto_publish"
                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                        placeholder="Введите время до автопубликации (опционально)">
+                        placeholder="Введите время до автопубликации">
                     @error('time_to_auto_publish')
                     <div class="text-red-500 mt-1">{{ $message }}</div>
                     @enderror
                 </div>
 
-                {{-- Статус сканирования --}}
+                {{-- Модерация при загрузке --}}
                 <div>
-                    <label for="scan_status" class="block text-sm font-medium text-gray-700">Статус сканирования</label>
+                    <label for="moderation_on_upload" class="block text-sm font-medium text-gray-700">Модерация при загрузке</label>
                     <input
                         type="checkbox"
-                        wire:model="scan_status"
-                        id="scan_status"
+                        wire:model="moderation_on_upload"
+                        id="moderation_on_upload"
                         class="mt-1">
-                    Включить сканирование
-                    @error('scan_status')
+                    Включить модерацию при загрузке
+                    @error('moderation_on_upload')
                     <div class="text-red-500 mt-1">{{ $message }}</div>
                     @enderror
                 </div>
 
-                {{-- Кнопка добавления --}}
+                {{-- Кнопка добавить --}}
                 <div>
-                    <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                        Добавить
+                    <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+                        Добавить сайт
                     </button>
                 </div>
             </form>
