@@ -356,7 +356,7 @@ class ParseController extends Controller
         foreach ($list as $n) {
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSource($site->site_url . $n->link)->firstOrFail();
+                $ee = StNews::whereSite_id($site->id)->whereSource( $n->link)->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
 //                $get['msg'][] = $e->getMessage();
@@ -364,14 +364,27 @@ class ParseController extends Controller
                 $in = new StNews();
                 $in->site_id = $site->id;
                 $in->title = $n->title;
-                $in->summary = $n->anons;
+
+                if (!empty($n->anons)) {
+                    $in->summary = $n->anons;
+                }
+
                 $in->source = $n->link;
 
-                $d = DateService::convertDateTime($n->date);
-                $in->published_at = date('Y-m-d', strtotime($d));
+                if (!empty($n->date_origin)) {
+                    $in->published_at = date('Y-m-d', strtotime($n->date_origin));
+                } else {
+                    $d = DateService::convertDateTime($n->date);
+                    $in->published_at = date('Y-m-d', strtotime($d));
+                }
 
                 $in->moderation_required = 1;
-//                    $get['msg'][] = $in->save();
+
+                $catalog = $this->addCatalogIfNotExists($n->catalog_name, $n->catalog_link, $site);
+                if (!empty($catalog['catalog']['id'])) {
+                    $in->cat_id = $catalog['catalog']['id'];
+                }
+
                 $in->save();
                 $res[] = $in->id;
 
@@ -396,6 +409,7 @@ class ParseController extends Controller
         try {
             // Получаем каталог для парсинга новостей только если статус сканирования включен
             $parsingCatalog0 = StNewsParsingCategory::whereNotNull('category_url')
+                ->where('scan_status', true)
                 ->where(function ($query) {
                     $query->where('last_scan', '<', now()->subHour())
                         ->orWhereNull('last_scan');
@@ -407,26 +421,36 @@ class ParseController extends Controller
                 ->firstOrFail();
 
             // Обновляем время последнего сканирования
+            // при любом запросе
             $parsingCatalog0->last_scan = now();
             $parsingCatalog0->save();
 
+            $go = [
+                'type' => 'parse_news_list',
+                'url' => $parsingCatalog0->category_url
+            ];
+
             if (strpos(strtolower($parsingCatalog0->category_url), 'vsluh.ru') !== false) {
-//                return response()->json(['11' => true ]);
-                $go = ['type' => 'parse_vsluh_news_list', 'url' => $parsingCatalog0->category_url];
-//                $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
-//                $url = 'http://parser_service:5047/get_html?' . http_build_query($go);
-//                $url = 'http://web_scraper2:5047/get_html?' . http_build_query($go);
-                $return['url'] = self::$host . '/get_html?' . http_build_query($go);
-//                $return['url'] = $url;
-                $json = file_get_contents($return['url']);
-//                $list = json_decode($json);
-                $return['data'] = json_decode($json);
-                $return['add_db_res'] = $this->saveNewNewsList($return['data'], $parsingCatalog0->site);
-                return response()->json($return);
-//                echo $url;
+                $go['type'] = 'parse_vsluh_news_list';
+            } elseif (strpos(strtolower($parsingCatalog0->category_url), '72.ru') !== false) {
+                $go['type'] = 'parse_72ru_news_list';
+            } elseif (strpos(strtolower($parsingCatalog0->category_url), 'тюменскаяобласть.рф') !== false) {
+                $go['type'] = 'parse_tmo_news_list';
             }
 
-            return response()->json(['11' => true]);
+            $return['url'] = self::$host . '/get_html?' . http_build_query($go);
+            $json = file_get_contents($return['url']);
+            $return['data'] = json_decode($json);
+
+            #return response()->json([__LINE__ => true, 'db_item_for_scan' => $parsingCatalog0, 'return' => $return]);
+
+            if (!empty($return['data'])) {
+                $return['add_db_res'] = $this->saveNewNewsList($return['data'], $parsingCatalog0->site);
+                return response()->json($return);
+            }
+
+            return response()->json(['11' => true, 'db_item_for_scan' => $parsingCatalog0]);
+
 
             // Получаем домен из URL
             $urlParts = parse_url($parsingCatalog0->category_url);
@@ -585,11 +609,13 @@ class ParseController extends Controller
 
     public function loadParsingNewsItem(StNews $news)
     {
-        $go = ['url' => $news->site->site_url.$news->source];
+        $go = ['url' => $news->site->site_url . $news->source];
 
         // если вслух
         if ($news->site->id == 3) {
             $go['type'] = 'parse_vsluh_news';
+        }else if ( strpos( $news->site->site_url , 'тюменскаяобласть.рф' ) ) {
+            $go['type'] = 'parse_tmo_news';
         }
 
         $return = ['url' => self::$host . '/get_html?' . http_build_query($go)];
@@ -623,28 +649,35 @@ class ParseController extends Controller
                 $return['loaded_news'][] =
                 $data = $this->loadParsingNewsItem($i);
 
-                $i->content = $data['data']['post_text_html'];
+                $i->content = $data['data']['post_text_html'] ?? $data['data']['text_html'] ?? '';
 //                $i->updated_at = now();
 
-                if( $i->site->moderation_on_upload )
+                if ($i->site->moderation_on_upload) {
                     $i->moderation = true;
+                }
 
                 // vsluh.ru
-                if( !empty($data['data']['category_link']) && !empty($data['data']['category_name']) ){
+                if (!empty($data['data']['category_link']) && !empty($data['data']['category_name'])) {
                     $return['cat'][] =
-                    $cat = $this->addCatalogIfNotExists($data['data']['category_name'],$data['data']['category_link'],$i->site);
+                    $cat = $this->addCatalogIfNotExists(
+                        $data['data']['category_name'],
+                        $data['data']['category_link'],
+                        $i->site
+                    );
                     $i->cat_id = $cat['catalog']['id'];
                 }
 
 
                 $i->save();
 
-                // добавляем фотки
-                if (!empty($data['data']['first_image'])) {
-                    try {
-                        $this->saveImgToNews($i->id, [$data['data']['first_image']], $i->site->site_name);
-                    }catch( \Exception $exc ){
+                //$return['res1'][] = $i;
 
+                // добавляем фотки
+                $img77 = $data['data']['first_image'] ?? $data['data']['image_url'] ?? '' ;
+                if (!empty($img77)) {
+                    try {
+                        $this->saveImgToNews($i->id, [$img77], $i->site->site_name);
+                    } catch (\Exception $exc) {
                     }
                 }
 
