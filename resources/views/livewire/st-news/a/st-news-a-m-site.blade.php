@@ -94,6 +94,19 @@
                     @enderror
                 </div>
 
+                <div>
+                    <label for="scan_status" class="block text-sm font-medium text-gray-700">Сканировать сайт ?</label>
+                    <input
+                        type="checkbox"
+                        wire:model="scan_status"
+                        id="scan_status"
+                        class="mt-1">
+                    Включить модерацию при загрузке
+                    @error('scan_status')
+                    <div class="text-red-500 mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 {{-- Кнопка добавить --}}
                 <div>
                     <button type="submit" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
