@@ -417,7 +417,7 @@ class ParseController extends Controller
                 ->whereHas('site', function ($query) {
                     $query->where('scan_status', true); // Проверяем, что статус сканирования включён
                 })
-                ->orderBy('last_scan')
+                ->orderBy('last_scan','ASC')
                 ->firstOrFail();
 
             // Обновляем время последнего сканирования
