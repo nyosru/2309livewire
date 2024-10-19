@@ -650,7 +650,7 @@ class ParseController extends Controller
                 $data = $this->loadParsingNewsItem($i);
 
                 $i->content = $data['data']['post_text_html'] ?? $data['data']['text_html'] ?? '';
-//                $i->updated_at = now();
+                $i->updated_at = now();
 
                 if ($i->site->moderation_on_upload) {
                     $i->moderation = true;
