@@ -618,112 +618,100 @@ class ParseController extends Controller
         $go = ['url' => $news->site->site_url . $news->source];
 
         // если вслух
-        if (strpos($news->site->site_url, 'vsluh.ru') !== false ) {
+        if (strpos($news->site->site_url, 'vsluh.ru') !== false) {
             $go['type'] = 'parse_vsluh_news';
-        } elseif (strpos($news->site->site_url, 'тюменскаяобласть.рф') !== false ) {
+        } elseif (strpos($news->site->site_url, 'тюменскаяобласть.рф') !== false) {
             $go['type'] = 'parse_tmo_news';
-        } elseif (strpos($news->site->site_url, 'ura.news') !== false ) {
+        } elseif (strpos($news->site->site_url, 'ura.news') !== false) {
             $go['type'] = 'parse_ura_news';
         }
 
         $return = ['url' => self::$host . '/get_html?' . http_build_query($go)];
 
         $json = file_get_contents($return['url']);
+
         $return['data'] = json_decode($json, true);
+        $return['dop'] = [$go];
+
         return $return;
     }
 
+    /**
+     * @param StNews $news
+     * @param $data
+     * @return array
+     */
     public
-    function parseNewsFull()
-    {
-        $return = [];
+    function saveParseNewsFullData(
+        StNews $i,
+        $data
+    ): array {
 
-        try {
-            // Получаем пустую(ые) новость для парсинга
-            $parsingNewsItems = StNews::with('site', 'photos')
-                ->whereNull('content')
-                ->whereHas('site', function ($query) {
-                    $query->where('scan_status', true);
-                })
-                ->orderBy('updated_at')
-                ->limit(self::$count_scan_news_full);
+        $i->content = $data['data']['post_text_html'] ?? $data['data']['text_html'] ?? '';
+        $i->updated_at = now();
 
-            $items = $parsingNewsItems->get();
-            //            // Получаем домен из URL
-            //            $urlParts = parse_url($parsingCatalog0->category_url);
-            //            $domain = $urlParts['host'];
+        if ($i->site->moderation_on_upload) {
+            $i->moderation = true;
+        }
 
-            $return['in'] = [];
-            $return['loaded_news'] = [];
-            foreach ($items as $i) {
-                $return['loaded_news'][] =
-                $data = $this->loadParsingNewsItem($i);
+        // vsluh.ru
+        if (!empty($data['data']['category_link']) && !empty($data['data']['category_name'])) {
+            $return['cat'][] =
+            $cat = $this->addCatalogIfNotExists(
+                $data['data']['category_name'],
+                $data['data']['category_link'],
+                $i->site
+            );
+            $i->cat_id = $cat['catalog']['id'];
+        }
 
-                return response()->json($data);
+//        $data['new'] = $i->toArray();
+//return $i->toArray();
+//        return response()->json($data);
 
+        $i->save();
 
-                $i->content = $data['data']['post_text_html'] ?? $data['data']['text_html'] ?? '';
-                $i->updated_at = now();
+        //$return['res1'][] = $i;
 
-                if ($i->site->moderation_on_upload) {
-                    $i->moderation = true;
-                }
-
-                // vsluh.ru
-                if (!empty($data['data']['category_link']) && !empty($data['data']['category_name'])) {
-                    $return['cat'][] =
-                    $cat = $this->addCatalogIfNotExists(
-                        $data['data']['category_name'],
-                        $data['data']['category_link'],
-                        $i->site
-                    );
-                    $i->cat_id = $cat['catalog']['id'];
-                }
-
-
-                $i->save();
-
-                //$return['res1'][] = $i;
-
-                // добавляем фотки
-                $img77 = $data['data']['first_image'] ?? $data['data']['image_url'] ?? '';
-                if (!empty($img77)) {
-                    try {
-                        $this->saveImgToNews($i->id, [$img77], $i->site->site_name);
-                    } catch (\Exception $exc) {
-                    }
-                }
+        // добавляем фотки
+        $img77 = $data['data']['first_image'] ?? $data['data']['image_url'] ?? '';
+        if (!empty($img77)) {
+            try {
+                $this->saveImgToNews($i->id, [$img77], $i->site->site_name);
+            } catch (\Exception $exc) {
+            }
+        }
 
 //                continue;
-                if (1 == 2) {
+        if (1 == 2) {
 //                $source_url = $i->site->site_url . $i->source;
 
 //                dd($i->site->site_url.$i->source);
 
-                    $return['in'][] = $i;
+            $return['in'][] = $i;
 //                $return['i'][] = $i->site->site_name;
 //                echo $i->source;
 
 
-                    $param = [];
+            $param = [];
 
-                    if ($i->site->id == 2) {
-                        $client = new Client();
-                        $response = $client->request('GET', $source_url ?? '');
-                        $param['html'] =
-                        $html = $response->getBody()->getContents();
+            if ($i->site->id == 2) {
+                $client = new Client();
+                $response = $client->request('GET', $source_url ?? '');
+                $param['html'] =
+                $html = $response->getBody()->getContents();
 //                    $param['html'] =
 //                    $html = '<html>111</html>';
-                    }
-                    $param['url'] = $source_url;
+            }
+            $param['url'] = $source_url;
 //                $url = self::$host . '/parse_item?url=' . $source_url;
-                    $url = self::$host . '/parse_item';
-                    $get = $this->getParseRes($url, $param);
+            $url = self::$host . '/parse_item';
+            $get = $this->getParseRes($url, $param);
 
-                    dd([$url, $get, $html]);
+            dd([$url, $get, $html]);
 
-                    $return['in'][] = '$get';
-                    $return['in'][] = $get;
+            $return['in'][] = '$get';
+            $return['in'][] = $get;
 
 
 //                $return['in'][] = $get['news_item'];
@@ -737,23 +725,23 @@ class ParseController extends Controller
 //                var_dump($get['news_item']);
 //                var_dump($get['news_item']['site']);
 
-                    if (1 == 1) {
-                        $i->content = $this->removePhotoCredit($get['news_item']['content']);
-                        $i->updated_at = now();
-                        $i->save();
+            if (1 == 1) {
+                $i->content = $this->removePhotoCredit($get['news_item']['content']);
+                $i->updated_at = now();
+                $i->save();
 
-                        // добавляем фотки
-                        if (!empty($get['news_item']['image'])) {
-                            $this->saveImgToNews(
-                                $i->id,
-                                $get['news_item']['image'],
-                                $i->site->site_name
-                            );
+                // добавляем фотки
+                if (!empty($get['news_item']['image'])) {
+                    $this->saveImgToNews(
+                        $i->id,
+                        $get['news_item']['image'],
+                        $i->site->site_name
+                    );
 //                        $return['in'][] = '$get[news_item][site]->site_name';
 //                        $return['in'][] = $get['news_item']['site']->site_name;
 //                        $return['in'][] = $get['news_item']['site']['site_name'];
-                        }
-                    }
+                }
+            }
 
 
 //                echo '<Br/>';
@@ -802,8 +790,41 @@ class ParseController extends Controller
 //                }
 //            }
 //            $return['ss'] = 1;
-                }
+        }
 
+        return $i->toArray();
+        return [];
+    }
+
+    /**
+     * @return array|JsonResponse
+     */
+    public
+    function parseNewsFull()
+    {
+        $return = [];
+
+        try {
+            // Получаем пустую(ые) новость для парсинга
+            $parsingNewsItems = StNews::with('site', 'photos')
+                ->whereNull('content')
+                ->whereHas('site', function ($query) {
+                    $query->where('scan_status', true);
+                })
+                ->orderBy('updated_at')
+                ->limit(self::$count_scan_news_full);
+
+            $items = $parsingNewsItems->get();
+            //            // Получаем домен из URL
+            //            $urlParts = parse_url($parsingCatalog0->category_url);
+            //            $domain = $urlParts['host'];
+
+            $return['in'] = [];
+            $return['loaded_news'] = [];
+            foreach ($items as $i) {
+                $return['loaded_news'][] =
+                $data = $this->loadParsingNewsItem($i);
+                $res = $this->saveParseNewsFullData($i, $data['data']);
             }
             return response()->json($return);
 //            return $return;

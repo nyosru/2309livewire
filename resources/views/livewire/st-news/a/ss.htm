@@ -1,0 +1,256 @@
+поправь функцию чтобы парсить новость из этого html
+<div class="vc-publication-container active" id="news_1052831839" data-og-image="{"
+     fb":="" {"x":="" 0,="" "y":="" "w":="" 400,="" "h":="" 210},="" "og":="" 210,="" "url":="" "="" images="" news="" figures="" 672="" 206="" b15eda20-1d5e-4df8-ace4-5b97fad22ee9="" foy083="" l-1200.1.9.jpg"}}"="" data-image-lg="https://s.ura.news/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/S-250.1.5.jpg" data-date-add="2024-10-19 16:28:00" ng-class="{'active': list_order[selected.order] === items[0].type+'_'+items[0].id || (!selected &amp;&amp; old)}" ng-hide="items[0] === null">
+<div class="vc-publication-center">
+    <div class="publication" itemscope="" itemtype="http://schema.org/NewsArticle"
+         ng-class="{'current_publication':list[selected.date].items[selected.index].type==item.type &amp;&amp; list[selected.date].items[selected.index].id==item.id}">
+
+        <div class="publication-rubrics-container" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+            <div itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <a class="publication-rubric" href="https://ura.news/rubrics/tumen/society" itemprop="item">
+                    <span itemprop="name">Общество</span>
+                    <meta itemprop="position" content="1">
+                </a>
+            </div>
+            <div itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <a class="publication-subrubric" href="https://ura.news/rubrics/tumen/society/health" itemprop="item">
+                    <span itemprop="name">Здоровье</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </div>
+
+        </div>
+
+
+        <h1 class="publication-title" itemprop="headline name">Из-за вспышки вируса на карантин отправлены дети из 19
+            тюменских школ</h1>
+
+        <meta itemprop="isAccessibleForFree" content="true">
+
+        <meta itemprop="about" content="Общество">
+
+
+        <div class="publication-meta-block">
+            <div class="publication-authors">
+                <div class="author-subscribe">
+                    <author-subscribe-popover author="items[0].authors[0]" class="ng-isolate-scope">
+                        <div class="popover-container popover-container-rounded">
+                            <div class="popover-open-btn" ng-click="$ctrl.toggle()" ng-transclude="">
+                                <div class="publication-author ng-scope">
+                                    <div class="author-img">
+                                        <img class="author-img"
+                                             src="https://s.ura.news/images/news/upload/author/5984/065b1a82c459152b44afed85e322b137_38x38_926.926.16.11.jpg"
+                                             width="38" height="38">
+                                    </div>
+                                    <div class="author-name author_name" itemprop="author" itemscope=""
+                                         itemtype="http://schema.org/Person">
+                                        <span itemprop="name">Кристина Алтынова</span>
+                                    </div>
+                                    <div class="author-desc">© Служба новостей «URA.RU»</div>
+                                </div>
+                            </div>
+                        </div>
+                    </author-subscribe-popover>
+                    <!-- ngIf: !userService.isAuth() || userService.isAnonymous() -->
+                </div>
+            </div>
+
+            <div class="publication-info">
+                <time class="time2" itemprop="datePublished" datetime="2024-10-19T16:28:00+05:00">19&nbsp;октября&nbsp;2024
+                    в 16:28
+                </time>
+                <time itemprop="dateModified" datetime="2024-10-19T18:15:05+05:00"></time>
+
+            </div>
+        </div>
+
+        <!-- текст -->
+        <div class="item-text" itemprop="articleBody">
+            <div class="item-text-incut zoom zoom-in item-img-lg-share">
+                <div class="photo-share-container" style="display: none;">
+                    <div class="photo-share">
+                        <div class="social_button social_button_vk"><a
+                            href="https://vk.com/share.php?url=https%3A%2F%2Fura.news%2Fnews%2F1052831839&amp;title=%D0%92%D1%81%D0%BF%D1%8B%D1%88%D0%BA%D0%B0%20%D0%9E%D0%A0%D0%92%D0%98%20%D0%B2%20%D0%A2%D1%8E%D0%BC%D0%B5%D0%BD%D1%81%D0%BA%D0%BE%D0%B9%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8%3A%20%D0%BA%D0%B0%D1%80%D0%B0%D0%BD%D1%82%D0%B8%D0%BD%20%D0%B8%20%D0%B4%D0%B8%D1%81%D1%82%D0%B0%D0%BD%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D1%88%D0%BA%D0%BE%D0%BB%D0%B0%D1%85&amp;description=%D0%A7%D0%B8%D1%82%D0%B0%D0%B9%D1%82%D0%B5%20%D0%BD%D0%B0%20URA.RU&amp;image=https%3A%2F%2Fs.ura.news%2Fimages%2Fnews%2Ffigures%2F672%2F206%2Fb15eda20-1d5e-4df8-ace4-5b97fad22ee9%2F0_sdot%2FM-760.1.5.jpg&amp;noparse=true"
+                            onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no,width=500,height=600'); return false;"></a>
+                        </div>
+                        <div class="social_button social_button_ok"><a
+                            href="https://connect.ok.ru/offer?url=https%3A%2F%2Fura.news%2Fnews%2F1052831839&amp;title=%D0%92%D1%81%D0%BF%D1%8B%D1%88%D0%BA%D0%B0%20%D0%9E%D0%A0%D0%92%D0%98%20%D0%B2%20%D0%A2%D1%8E%D0%BC%D0%B5%D0%BD%D1%81%D0%BA%D0%BE%D0%B9%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8%3A%20%D0%BA%D0%B0%D1%80%D0%B0%D0%BD%D1%82%D0%B8%D0%BD%20%D0%B8%20%D0%B4%D0%B8%D1%81%D1%82%D0%B0%D0%BD%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D1%88%D0%BA%D0%BE%D0%BB%D0%B0%D1%85&amp;description=%D0%A7%D0%B8%D1%82%D0%B0%D0%B9%D1%82%D0%B5%20%D0%BD%D0%B0%20URA.RU&amp;imageUrl=https%3A%2F%2Fs.ura.news%2Fimages%2Fnews%2Ffigures%2F672%2F206%2Fb15eda20-1d5e-4df8-ace4-5b97fad22ee9%2F0_sdot%2FM-760.1.5.jpg"
+                            onclick="window.open(this.href, '', 'resizable=no,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no,width=500,height=600'); return false;"></a>
+                        </div>
+                        <div class="social_button social_button_cp"><a></a></div>
+                        <div class="social_button social_button_close"><a></a></div>
+                        <div class="social_cp_success" style="visibility: hidden;opacity: 0;">Ссылка скопирована в
+                            буфер
+                        </div>
+                    </div>
+                </div>
+                <div class="item-img-block" itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject">
+                    <picture>
+                        <source type="image/webp"
+                                srcset="https://s.ura.news/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/S-250.1.5.webp">
+                        <source type="image/jpeg"
+                                srcset="https://s.ura.news/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/S-250.1.5.jpg">
+                        <img class="item-img" itemprop="contentUrl"
+                             src="https://s.ura.news/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/S-250.1.5.jpg"
+                             alt="Из-за вспышки ОРВИ на карантин отправлены школьники из 34 классов"
+                             style="aspect-ratio: 1.5;"></picture>
+                    <link itemprop="url"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/S-250.1.5.jpg">
+                    <div class="item-img-description">
+                        <div class="img-share-btn" style="display: none;"></div>
+                        <span
+                            itemprop="description">Из-за вспышки ОРВИ на карантин отправлены школьники из 34 классов</span>
+                        <span class="item-img-author">Фото: <span itemprop="author" itemscope=""
+                                                                  itemtype="http://schema.org/Person"><span
+                            itemprop="name">Денис Моргунов © URA.RU</span></span></span></div>
+                    <meta itemprop="width" content="250">
+                    <meta itemprop="height" content="167">
+                </div>
+                <div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject">
+                    <link itemprop="url"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <link itemprop="contentUrl"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <meta itemprop="description"
+                          content="Из-за вспышки ОРВИ на карантин отправлены школьники из 34 классов">
+                    <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <meta itemprop="name" content="Денис Моргунов © URA.RU">
+                    </div>
+                    <meta itemprop="width" content="1440">
+                    <meta itemprop="height" content="1080">
+                </div>
+                <div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject">
+                    <link itemprop="url"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <link itemprop="contentUrl"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <meta itemprop="description"
+                          content="Из-за вспышки ОРВИ на карантин отправлены школьники из 34 классов">
+                    <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <meta itemprop="name" content="Денис Моргунов © URA.RU">
+                    </div>
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="675">
+                </div>
+                <div itemscope="" itemprop="image" itemtype="https://schema.org/ImageObject">
+                    <link itemprop="url"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <link itemprop="contentUrl"
+                          href="https://s.ura.news/1200/images/news/figures/672/206/b15eda20-1d5e-4df8-ace4-5b97fad22ee9/0_sdot/L-1200.1.5.jpg">
+                    <meta itemprop="description"
+                          content="Из-за вспышки ОРВИ на карантин отправлены школьники из 34 классов">
+                    <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <meta itemprop="name" content="Денис Моргунов © URA.RU">
+                    </div>
+                    <meta itemprop="width" content="1200">
+                    <meta itemprop="height" content="1200">
+                </div>
+                <div class="zoom-btn"></div>
+            </div>
+            <p>В Тюменской области произошла вспышка заболеваемости ОРВИ. Из-за этого 34 класса 19 школ отправлены на
+                карантин, сообщили в региональном Роспотребнадзоре.</p>
+            <p>«По состоянию на 17 октября переведены на обучение с применением дистанционных образовательных технологий
+                в связи с превышением порога заболеваемости ОРВИ 34 класса (порядка 0,3% от общего числа) в 19 школах»,
+                — сообщили в ведомстве 72.RU. Они добавили, что сейчас ситуация стабильна и соответствует периоду
+                года.</p>
+            <p>За прошлую неделю в Тюменской области заболеваемость ОРВИ и коронавирусом снизилась на 10 и 8%
+                соответственно. Также в структуре выявленных респираторных вирусов регистрируются вирусы негриппозной
+                этиологии, вирусы гриппа не циркулируют.</p>
+            <div class="publication-send-news">
+                <div class="publication-send-news-text"><p>Сохрани номер URA.RU - сообщи новость первым!</p></div>
+                <div class="publication-send-news-buttons">
+                    <a href="https://t.me/senduranewstmn" target="_blank" class="publication-send-news-telegram"></a>
+                    <a href="https://wa.me/+79223465129" target="_blank" class="publication-send-news-whatsapp"></a>
+                </div>
+            </div>
+
+            <div class="yandex-rss-hidden">
+                <div class="publication-subscribe-telegram-text-block">
+                    <p style="font-style:italic;">Не упустите важные изменения в вашем регионе — подпишитесь на наш
+                        telegram-канал <a href="https://t.me/+bX4Pv_0B09JmMTYy"
+                                          onclick="ym(1130914,'reachGoal','clicktumentg'); return true;"
+                                          target="_blank">«Темы Тюмени»</a> и будьте в теме!</p>
+                </div>
+            </div>
+            <div class="yandex-rss-hidden">
+                <div ng-controller="PublicationSubscribeCtrl" ng-init="subscribe_type_id = 16" class="ng-scope">
+                    <div class="publication-subscribe publication-subscribe-email " style="background-color: #F1F6FF;">
+                        <div style="display: block;">
+                            <picture>
+                                <source type="image/webp"
+                                        srcset="https://s.ura.news/images/news/upload/publication_promo_email/1/2df9d886b28a6bdf8eed9558c69872f2_560x200_1456.520.0.170.webp">
+                                <source type="image/jpeg"
+                                        srcset="https://s.ura.news/images/news/upload/publication_promo_email/1/2df9d886b28a6bdf8eed9558c69872f2_560x200_1456.520.0.170.jpg">
+                                <img class="publication-subscribe-img"
+                                     src="https://s.ura.news/images/news/upload/publication_promo_email/1/2df9d886b28a6bdf8eed9558c69872f2_560x200_1456.520.0.170.jpg"
+                                     alt="">
+                            </picture>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="display:none;" itemprop="articleBody">В Тюменской области произошла вспышка заболеваемости ОРВИ.
+            Из-за этого 34 класса 19 школ отправлены на карантин, сообщили в региональном Роспотребнадзоре. «По
+            состоянию на 17 октября переведены на обучение с применением дистанционных образовательных технологий в
+            связи с превышением порога заболеваемости ОРВИ 34 класса (порядка 0,3% от общего числа) в 19 школах», —
+            сообщили в ведомстве 72.RU. Они добавили, что сейчас ситуация стабильна и соответствует периоду года. За
+            прошлую неделю в Тюменской области заболеваемость ОРВИ и коронавирусом снизилась на 10 и 8% соответственно.
+            Также в структуре выявленных респираторных вирусов регистрируются вирусы негриппозной этиологии, вирусы
+            гриппа не циркулируют.
+        </div>
+        <div class="clear"></div>
+
+
+        <meta itemprop="description"
+              content="В Тюменской области произошла вспышка заболеваемости ОРВИ. Из-за этого 34 класса 19 школ отправлены на карантин, сообщили в региональном Роспотребнадзоре.">
+        <meta itemprop="mainEntityOfPage" content="https://ura.news/news/1052831839">
+    </div>
+</div>
+
+
+-----------
+вот код функции для исправления
+-------------
+
+def parse_ura_news(html):
+
+# Парсим HTML с помощью BeautifulSoup
+soup = BeautifulSoup(html, 'html.parser')
+
+# Извлекаем заголовок новости
+title_element = soup.select_one('.detail-card__header h1')
+title = title_element.get_text(strip=True) if title_element else None
+
+# Извлекаем дату публикации
+date_element = soup.select_one('.detail-card__header time')
+date = date_element.get_text(strip=True) if date_element else None
+date_origin = date_element.get('datetime') if date_element else None
+
+# Извлекаем ссылку на категорию
+category_element = soup.select_one('.detail-card__header a')
+category_name = category_element.get_text(strip=True) if category_element else None
+category_link = category_element.get('href') if category_element else None
+
+# Извлекаем изображение
+image_element = soup.select_one('.detail-card__image img')
+image_url = image_element.get('src') if image_element else None
+
+# Извлекаем текст статьи
+text_element = soup.select_one('.detail-card__text')
+text_html = add_target_blank(str(text_element)) if text_element else None
+
+# Формируем итоговый JSON с нужными полями
+result = {
+"title": title,
+"date": date,
+"date_origin": date_origin,
+"category_name": category_name,
+"category_link": category_link,
+"image_url": image_url,
+"text_html": text_html
+}
+
+return json.dumps(result, ensure_ascii=False, indent=4)
