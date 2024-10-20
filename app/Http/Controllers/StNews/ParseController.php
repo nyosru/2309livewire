@@ -455,7 +455,7 @@ class ParseController extends Controller
                 return response()->json($return);
             }
 
-            return response()->json(['11' => true, 'db_item_for_scan' => $parsingCatalog0]);
+            return response()->json(['11' => true, 'db_item_for_scan' => $parsingCatalog0, '$json_loaded' => $json]);
 
 
             // Получаем домен из URL
@@ -646,7 +646,6 @@ class ParseController extends Controller
         StNews $i,
         $data
     ): array {
-
         $i->content = $data['data']['post_text_html'] ?? $data['data']['text_html'] ?? '';
         $i->updated_at = now();
 
