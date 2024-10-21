@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 
+use Illuminate\Support\Str;
+
+
 class ParseController extends Controller
 {
 
@@ -107,6 +110,37 @@ class ParseController extends Controller
 
         return $return;
     }
+
+    static public function convertToDateTime($dateString)
+    {
+        // Массив для замены русских месяцев на английские
+        $months = [
+            'января' => 'January',
+            'февраля' => 'February',
+            'марта' => 'March',
+            'апреля' => 'April',
+            'мая' => 'May',
+            'июня' => 'June',
+            'июля' => 'July',
+            'августа' => 'August',
+            'сентября' => 'September',
+            'октября' => 'October',
+            'ноября' => 'November',
+            'декабря' => 'December',
+        ];
+
+        // Замена русского месяца на английский
+        $dateString = Str::replace(array_keys($months), array_values($months), $dateString);
+
+        // Преобразование строки даты в Carbon
+        try {
+            $date = Carbon::createFromFormat('d F Y в H:i', $dateString);
+            return $date->format('Y-m-d H:i:s'); // Приводим к формату, который можно отправить в БД
+        } catch (\Exception $e) {
+            return null; // Обработка ошибки, если формат строки неправильный
+        }
+    }
+
 
     public function scanCatalog()
     {
@@ -642,6 +676,18 @@ class ParseController extends Controller
         return $return;
     }
 
+
+    static public function convertToIsoString($dateString)
+    {
+        // Преобразование строки даты в Carbon
+        try {
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
+            return $date->toISOString(); // Преобразуем в ISO 8601 формат
+        } catch (\Exception $e) {
+            return null; // Обработка ошибки, если формат строки неправильный
+        }
+    }
+
     /**
      * @param StNews $news
      * @param $data
@@ -652,7 +698,6 @@ class ParseController extends Controller
         StNews $i,
         $data
     ): array {
-
 //        dd($data);
 
         if (!empty($data['data']['text_html'])) {
@@ -678,6 +723,13 @@ class ParseController extends Controller
 
         $i->updated_at = now();
 
+        $date_publish = self::convertToDateTime($data['data']['date_published']);
+        if (!empty($date_publish)) {
+            $date_to_db = self::convertToIsoString($date_publish);
+            if (!empty($date_to_db)) {
+                $i->published_at = $date_to_db;
+            }
+        }
 
         $i->save();
 
@@ -723,8 +775,9 @@ class ParseController extends Controller
 //            $return['loaded_news'] =
                 [];
             foreach ($items as $i) {
-//                $return['loaded_news'][] =
+                $return['loaded_news'][] =
                 $data = $this->loadParsingNewsItem($i);
+
                 $return['saved_news'][] = $this->saveParseNewsFullData($i, $data);
             }
             return response()->json($return);
