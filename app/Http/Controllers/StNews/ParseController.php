@@ -668,9 +668,31 @@ class ParseController extends Controller
 
         $return = ['url' => self::$host . '/get_html?' . http_build_query($go)];
 
-        $json = file_get_contents($return['url']);
+//        $json = file_get_contents($return['url']);
+//        $return['data'] = json_decode($json, true);
 
-        $return['data'] = json_decode($json, true);
+
+        // Настраиваем контекст с тайм-аутом 10 секунд
+        $contextOptions = [
+            'http' => [
+                'timeout' => 3, // Ограничение времени загрузки в 10 секунд
+            ]
+        ];
+
+        // Создаем поток с контекстом
+        $context = stream_context_create($contextOptions);
+
+        try {
+            // Получаем содержимое с ограничением по времени
+            $json = file_get_contents($return['url'], false, $context);
+            // Обрабатываем результат
+            $return['data'] = json_decode($json, true);
+        } catch (\Exception $e) {
+            // Обработка ошибки (например, тайм-аут)
+            $return['error'] = 'Ошибка при загрузке данных: ' . $e->getMessage();
+        }
+
+
         $return['dop'] = [$go];
 
         return $return;
@@ -697,8 +719,12 @@ class ParseController extends Controller
     function saveParseNewsFullData(
         StNews $i,
         $data
-    ): array {
+    ): array|bool {
 //        dd($data);
+
+        if (empty($data['data'])) {
+            return false;
+        }
 
         if (!empty($data['data']['text_html'])) {
             $i->content = $data['data']['text_html'];
@@ -777,6 +803,7 @@ class ParseController extends Controller
             foreach ($items as $i) {
                 $return['loaded_news'][] =
                 $data = $this->loadParsingNewsItem($i);
+                dd($data);
 
                 $return['saved_news'][] = $this->saveParseNewsFullData($i, $data);
             }
