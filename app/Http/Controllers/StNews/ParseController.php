@@ -803,9 +803,10 @@ class ParseController extends Controller
             foreach ($items as $i) {
                 $return['loaded_news'][] =
                 $data = $this->loadParsingNewsItem($i);
-                dd($data);
-
+//                dd($data);
                 $return['saved_news'][] = $this->saveParseNewsFullData($i, $data);
+
+                
             }
             return response()->json($return);
 
