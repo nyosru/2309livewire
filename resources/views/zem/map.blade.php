@@ -1,10 +1,10 @@
 <br/>
-<div class="flex place-content-stretch">
+<div class="flex md:place-content-stretch">
 
-    <div class="flex-initial flex flex-col items-center justify-center text-center  w-[49%]">
+    <div class="xflex-initial flex xflex-col items-center justify-center text-center  w-full md:w-[49%]">
         <h2 class="text-4xl">Кооперативы и&nbsp;возможность провести приватизацию:</h2>
     </div>
-    <div class="flex-initial w-[49%] flex flex-col items-center justify-center text-center">
+    <div class="xflex-initial w-full md:w-[49%] flex flex-col items-center justify-center text-center">
 
 <span class="bg-green-100 p-1">
 <span class="bg-green-400 p-1">Зелёный</span>

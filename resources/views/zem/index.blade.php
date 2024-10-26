@@ -14,6 +14,8 @@
 
     @include('zem.index_uslugi')
 
+    <livewire:Zem.Mp3Pleer />
+
     @include('zem.map')
 
     {{--<br/>--}}

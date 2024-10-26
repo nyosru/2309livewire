@@ -57,18 +57,39 @@
         header,
         .background-radial-gradient {
             background-color: rgb(255, 255, 240);
-            background-image: radial-gradient(650px circle at 0% 0%,
-            rgb(255, 255, 240) 15%,
-                /* hsl(218, 41%, 35%) 15%, */ rgb(255, 255, 220) 35%,
-                /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(205, 255, 220) 75%,
-                /* hsl(218, 41%, 19%) 80%, */ rgb(240, 255, 250) 80%,
-            transparent 100%),
+            background-image: radial-gradient(
+                650px circle at 0% 0%,
+                rgb(255, 255, 240) 35%,
+                /* hsl(218, 41%, 35%) 15%, */
+                rgb(255, 255, 120) 45%,
+                /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */
+                rgb(205, 255, 180) 55%,
+                /* hsl(218, 41%, 19%) 80%, */
+                rgb(240, 255, 150) 80%,
+                transparent 100%
+            ),
             radial-gradient(1250px circle at 100% 100%,
-                    /* hsl(218, 41%, 45%) 15%, */ rgb(240, 255, 250) 15%,
-                    /* hsl(218, 41%, 30%) 35%, */ rgb(240, 255, 220) 35%,
-                    /* hsl(218, 41%, 20%) 75%, */ rgb(240, 225, 250) 75%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(220, 255, 250) 80%,
+                    /* hsl(218, 41%, 45%) 15%, */ rgb(240,  250, 255) 25%,
+                    /* hsl(218, 41%, 30%) 35%, */ rgb(240,  220, 255) 55%,
+                    /* hsl(218, 41%, 20%) 75%, */ rgb(240,  250, 255) 75%,
+                    /* hsl(218, 41%, 19%) 80%, */ rgb(220, 250, 255) 80%,
                 transparent 100%);
+
+            background-size: 150% 150%; /* Размер фона */
+            animation: animateGradient 90s linear infinite; /* Анимация */
+        }
+
+
+        @keyframes animateGradient {
+            0% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 20% 50%;
+            }
         }
     </style>
 

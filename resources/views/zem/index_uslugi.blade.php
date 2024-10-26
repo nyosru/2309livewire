@@ -1,4 +1,4 @@
-<div class="чcontainer mx-auto w-full xl:w-10/12 mx-auto">
+<div class="чcontainer mx-auto w-full xl:w-10/12 mx-auto xxstriped-background ">
 
     <style>
         .ulul {
@@ -11,6 +11,76 @@
         .ulul ul li{
             list-style: circle;
         }
+
+
+
+        /*.striped-background {*/
+        /*    width: 100%;*/
+        /*    height: 100vh;*/
+        /*    background: repeating-linear-gradient(*/
+        /*        135deg, !* Наклон полосок *!*/
+        /*        rgba(0, 0, 0, 0.05), !* Мелкий черный градиент *!*/
+        /*        rgba(0, 0, 0, 0.05) 2%, !* Ширина черной полосы *!*/
+        /*        transparent 10%, !* Прозрачная полоса *!*/
+        /*        transparent 90%, !* Ширина прозрачной полосы *!*/
+        /*        rgba(0, 0, 0, 0.1) 98%, !* Широкая черная полоса *!*/
+        /*        rgba(0, 0, 0, 0.1) 100%*/
+        /*    );*/
+        /*    xanimation: stripesTransition 5s ease-in-out infinite alternate;*/
+        /*    animation: stripesTransition 10s ease infinite alternate;*/
+        /*}*/
+
+        /*@keyframes stripesTransition {*/
+        /*    0% {*/
+        /*        background: repeating-linear-gradient(*/
+        /*            15deg,*/
+        /*            rgba(0, 0, 0, 0.05),*/
+        /*            rgba(0, 0, 0, 0.05) 2%,*/
+        /*            transparent 2%,*/
+        /*            transparent 48%,*/
+        /*            rgba(0, 0, 0, 0.1) 48%,*/
+        /*            rgba(0, 0, 0, 0.1) 52%,*/
+        /*            transparent 52%,*/
+        /*            transparent 98%,*/
+        /*            rgba(0, 0, 0, 0.1) 98%,*/
+        /*            rgba(0, 0, 0, 0.1) 100%*/
+        /*        );*/
+        /*        background-size: 100% 100%;*/
+        /*    }*/
+        /*         50% {*/
+        /*             background: repeating-linear-gradient(*/
+        /*                 25deg,*/
+        /*                 rgba(0, 0, 0, 0.05),*/
+        /*                 rgba(0, 0, 0, 0.05) 2%,*/
+        /*                 transparent 2%,*/
+        /*                 transparent 48%,*/
+        /*                 rgba(0, 0, 0, 0.1) 48%,*/
+        /*                 rgba(0, 0, 0, 0.1) 52%,*/
+        /*                 transparent 52%,*/
+        /*                 transparent 98%,*/
+        /*                 rgba(0, 0, 0, 0.1) 98%,*/
+        /*                 rgba(0, 0, 0, 0.1) 100%*/
+        /*             );*/
+        /*             background-size: 100% 100%;*/
+        /*    }*/
+
+        /*    100% {*/
+        /*        background: repeating-linear-gradient(*/
+        /*            35deg,*/
+        /*            rgba(0, 0, 0, 0.05),*/
+        /*            rgba(0, 0, 0, 0.05) 2%,*/
+        /*            transparent 2%,*/
+        /*            transparent 48%,*/
+        /*            rgba(0, 0, 0, 0.1) 48%,*/
+        /*            rgba(0, 0, 0, 0.1) 52%,*/
+        /*            transparent 52%,*/
+        /*            transparent 98%,*/
+        /*            rgba(0, 0, 0, 0.1) 98%,*/
+        /*            rgba(0, 0, 0, 0.1) 100%*/
+        /*        );*/
+        /*        background-size: 100% 100%;*/
+        /*    }*/
+        /*}*/
     </style>
 
     <div class="flex flex-wrap">
