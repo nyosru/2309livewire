@@ -52,6 +52,9 @@
                     wire:navigate
                 >afisha.add</a>
             @endif
+
+
+
         </div>
     @endif
 </header>
