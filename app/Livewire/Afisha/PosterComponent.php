@@ -25,22 +25,31 @@ class PosterComponent extends Component
                 });
         })->orderBy('event_date')->orderBy('event_time')
             ->get()
-            ->map(function($poster) {
-            // Преобразование строковых дат в объекты Carbon
-            $dn = date('w', strtotime(Carbon::parse($poster->event_date)));
-            if( $dn == 0 ){ $poster->dn = 'Воскресенье'; }
-            elseif( $dn == 1 ){ $poster->dn = 'Понедельник'; }
-            elseif( $dn == 2 ){ $poster->dn = 'Вторник'; }
-            elseif( $dn == 3 ){ $poster->dn = 'Среда'; }
-            elseif( $dn == 4 ){ $poster->dn = 'Четверг'; }
-            elseif( $dn == 5 ){ $poster->dn = 'Пятница'; }
-            elseif( $dn == 6 ){ $poster->dn = 'Суббота'; }
+            ->map(function($poster) use ($currentDate)  {
+
+                // Определение дня недели на русском
+                $dn = Carbon::parse($poster->event_date)->dayOfWeek;
+                $daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+                $poster->dn = $daysOfWeek[$dn];
+
 
             $poster->event_date = Carbon::parse($poster->event_date);
             if ($poster->end_date) {
                 $poster->end_date = Carbon::parse($poster->end_date);
             }
-            return $poster;
+
+                // Определение значения для поля relativeDate
+                if ($poster->event_date->isSameDay($currentDate)) {
+                    $poster->relativeDate = 'Сегодня';
+                } elseif ($poster->event_date->isSameDay($currentDate->copy()->addDay())) {
+                    $poster->relativeDate = 'Завтра';
+                } elseif ($poster->event_date->isSameDay($currentDate->copy()->addDays(2))) {
+                    $poster->relativeDate = 'Послезавтра';
+                } else {
+                    $poster->relativeDate = null; // Не показывать ничего, если дата не соответствует
+                }
+
+                return $poster;
         });
     }
 
