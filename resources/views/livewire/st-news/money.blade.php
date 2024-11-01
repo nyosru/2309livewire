@@ -5,7 +5,7 @@
             xrounded-lg xbg-white
             shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
             pt-[10%]
-            dark:bg-neutral-700"
+           "
     >
         <div class="md:container mx-auto">
             <div class="flex flex-wrap items-center">
@@ -15,7 +15,7 @@
                         <h2 class="mb-6 pb-2 text-4xl font-bold">
                             Поддержите деньгами!
                         </h2>
-                        <p class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
+                        <p class="mb-6 pb-2 text-[1.5rem] text-brown-500">
                             Отправить пожертвования на поддержание хорошего настроения и&nbsp;развитие проектов!
                             <br/>
                             <br/>

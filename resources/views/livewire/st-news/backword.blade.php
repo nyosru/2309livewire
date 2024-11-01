@@ -1,7 +1,7 @@
 <div>
     <!-- Section: Design Block -->
     <section class="xmb-32 section2">
-        <div class="block bg-gradient-to-l from-blue-200 to-blue-400 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+        <div class="block bg-gradient-to-l from-blue-200 to-blue-400 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
             <div class="md:container mx-auto">
                 <div class="flex flex-wrap items-center">
 
@@ -19,7 +19,7 @@
                                 </div>
                             @else
                                 <h2 class="mb-6 pb-2 text-4xl font-bold">Отправьте сообщение</h2>
-                                <form wire:submit.prevent="submit" class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
+                                <form wire:submit.prevent="submit" class="mb-6 pb-2 text-[1.5rem] text-brown-500">
                                     <textarea
                                         wire:focus="showFields"
                                         wire:model="inputMsg"

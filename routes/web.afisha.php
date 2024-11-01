@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 // Определение базового маршрута для Livewire
 $d = function () {
     Route::group(
-        ['as' => 'afisha.',],
+        [
+//            'as' => 'afisha.',
+            ],
         function () {
             // Главная страница (список афиш)
 //    Route::get('/', \App\Livewire\Afisha\Index::class)->name('index');

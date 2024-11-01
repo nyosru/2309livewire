@@ -1,5 +1,4 @@
 <footer class="text-center text-neutral-600
-dark:bg-neutral-600 dark:text-neutral-200
 shadow-inner
 shadow-2xl
 ">

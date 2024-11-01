@@ -675,7 +675,7 @@ class ParseController extends Controller
         // Настраиваем контекст с тайм-аутом 10 секунд
         $contextOptions = [
             'http' => [
-                'timeout' => 3, // Ограничение времени загрузки в 10 секунд
+                'timeout' => 10, // Ограничение времени загрузки в 10 секунд
             ]
         ];
 

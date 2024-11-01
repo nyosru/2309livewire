@@ -240,14 +240,14 @@
         @if (1 == 2)
             <!-- Navbar -->
             <nav
-                class="relative flex w-full items-center justify-between bg-white py-2 shadow-sm shadow-neutral-700/10 dark:bg-neutral-800 dark:shadow-black/30 lg:flex-wrap lg:justify-start"
+                class="relative flex w-full items-center justify-between bg-white py-2 shadow-sm shadow-neutral-700/10 lg:flex-wrap lg:justify-start"
                 data-te-navbar-ref>
                 <!-- Container wrapper -->
                 <div class="flex w-full flex-wrap items-center justify-between px-6">
                     <div class="flex items-center">
                         <!-- Toggle button -->
                         <button
-                            class="block border-0 bg-transparent py-2 pr-2.5 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+                            class="block border-0 bg-transparent py-2 pr-2.5 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
                             type="button" data-te-collapse-init data-te-target="#navbarSupportedContentY"
                             aria-controls="navbarSupportedContentY" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -262,7 +262,7 @@
                         </button>
 
                         <!-- Navbar Brand -->
-                        <a class="text-primary dark:text-primary-400" href="#!">
+                        <a class="text-primary" href="#!">
                         <span class="[&>svg]:ml-2 [&>svg]:mr-3 [&>svg]:h-6 [&>svg]:w-6 [&>svg]:lg:ml-0">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                  stroke-width="1.5" stroke="currentColor">
@@ -279,17 +279,17 @@
                         <!-- Left links -->
                         <ul class="mr-auto lg:flex lg:flex-row" data-te-navbar-nav-ref>
                             <li data-te-nav-item-ref>
-                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
+                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 lg:px-2 [&.active]:text-black/80"
                                    href="#!" data-te-nav-link-ref data-te-ripple-init data-te-ripple-color="light"
                                    disabled>Dashboard</a>
                             </li>
                             <li data-te-nav-item-ref>
-                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
+                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 lg:px-2 [&.active]:text-black/80"
                                    href="#!" data-te-nav-link-ref data-te-ripple-init
                                    data-te-ripple-color="light">Team</a>
                             </li>
                             <li class="mb-2 lg:mb-0" data-te-nav-item-ref>
-                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 dark:disabled:text-white/30 lg:px-2 [&.active]:text-black/80 dark:[&.active]:text-white/80"
+                                <a class="block py-2 pr-2 text-neutral-500 transition duration-150 ease-in-out hover:text-neutral-600 focus:text-neutral-600 disabled:text-black/30 lg:px-2 [&.active]:text-black/80"
                                    href="#!" data-te-nav-link-ref data-te-ripple-init
                                    data-te-ripple-color="light">Projects</a>
                             </li>
@@ -301,12 +301,12 @@
                     <!-- Right elements -->
                     <div class="my-1 flex items-center lg:my-0 lg:ml-auto">
                         <button type="button"
-                                class="mr-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-primary-400 dark:hover:bg-neutral-700 dark:hover:bg-opacity-60 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
+                                class="mr-2 inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700"
                                 data-te-ripple-init data-te-ripple-color="light">
                             Login
                         </button>
                         <button type="button"
-                                class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                                class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
                                 data-te-ripple-init data-te-ripple-color="light">
                             Sign up for free
                         </button>
@@ -393,10 +393,10 @@
                         {{-- active:bg-neutral-200  --}}
                         {{-- active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)]  --}}
 
-                        {{-- dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)]  --}}
-                        {{-- dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]  --}}
-                        {{-- dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]  --}}
-                        {{-- dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]                         --}}
+                        {{--  --}}
+                        {{--  --}}
+                        {{--  --}}
+                        {{--                         --}}
 
                         "
                                data-te-ripple-init data-te-ripple-color="light"
@@ -448,7 +448,7 @@
                             <img
                                 {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
                                 src="/phpcat/img/ya7.jpg"
-                                class="w-full rounded-lg shadow-lg dark:shadow-black/20" alt=""/>
+                                class="w-full rounded-lg shadow-lg" alt=""/>
                         </div>
                     </div>
                 @endif

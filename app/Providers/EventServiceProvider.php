@@ -18,8 +18,12 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+//            SendEmailVerificationNotification::class,
 //            UslugiSendTelegaFromBackwordNotification::class,
+        ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... Другие провайдеры
+            \SocialiteProviders\VKontakte\VKontakteExtendSocialite::class.'@handle',
         ],
     ];
 

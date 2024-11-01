@@ -34,25 +34,25 @@
                     <div class="grid items-right gap-x-6 lg:grid-cols-2">
                         <div class="mb-10 lg:mb-0">
                             <img src="/phpcat/img/cap.jpg" class="xfloat-left pr-3" style="max-height: 6rem;"/>
-{{--                            <h2 class="text-3xl font-bold dark:text-white">--}}
+{{--                            <h2 class="text-3xl font-bold">--}}
 {{--                                Do not miss any updates.--}}
 {{--                                <br />--}}
-{{--                                <span class="text-primary dark:text-primary-400">Subscribe to the newsletter</span>--}}
+{{--                                <span class="text-primary">Subscribe to the newsletter</span>--}}
 {{--                            </h2>--}}
                         </div>
 
                         <div class="mb-6 flex-row md:mb-0 md:flex">
 {{--                            <div class="relative mb-3 w-full md:mr-3 md:mb-0 xl:w-96" data-te-input-wrapper-init>--}}
 {{--                                <input type="text"--}}
-{{--                                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"--}}
+{{--                                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"--}}
 {{--                                       id="exampleFormControlInput2" placeholder="Enter your email" />--}}
 {{--                                <label for="exampleFormControlInput2"--}}
-{{--                                       class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Enter--}}
+{{--                                       class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none">Enter--}}
 {{--                                    your email--}}
 {{--                                </label>--}}
 {{--                            </div>--}}
 {{--                            <button type="submit"--}}
-{{--                                    class="inline-block rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"--}}
+{{--                                    class="inline-block rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"--}}
 {{--                                    data-te-ripple-init data-te-ripple-color="light">--}}
 {{--                                Subscribe--}}
 {{--                            </button>--}}
@@ -82,7 +82,7 @@
         <!-- Section: Design Block -->
         <section class="mb-32">
             <div
-                class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
 
                 <div class="flex flex-wrap items-center">
 
@@ -105,7 +105,7 @@
                             <h2 class="mb-6 pb-2 text-4xl font-bold">
                                 Коллекция кружек!
                             </h2>
-                            <p class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
+                            <p class="mb-6 pb-2 text-[1.5rem] text-brown-500">
                                             Собираю коллекцию кружек со всех стран и городов, пить горячий сладкий кофе с молоком.<br/>
                                             Добавте свою частичку в коллекцию, было бы здорово!<br/>
                                             <a href="https://кружки.сергейсб.рф" class="text-blue-500 hover:underline" target="_blank">кружки.СергейСБ.рф</a>
@@ -119,7 +119,7 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Support
                                         24/7
                                     </p>
@@ -128,7 +128,7 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Analytics
                                     </p>
                                 </div>
@@ -136,14 +136,14 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Components
                                     </p>
                                 </div>
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Updates
                                     </p>
                                 </div>
@@ -151,7 +151,7 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Reports
                                     </p>
                                 </div>
@@ -159,14 +159,14 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Mobile
                                     </p>
                                 </div>
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Modules
                                     </p>
                                 </div>
@@ -174,7 +174,7 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Blocks
                                     </p>
                                 </div>
@@ -182,7 +182,7 @@
                                 <div class="mb-6">
                                     <p class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                             stroke="currentColor" class="mr-3 h-6 w-6 text-neutral-900">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Templates
                                     </p>
                                 </div>

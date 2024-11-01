@@ -15,6 +15,7 @@ class News extends Component
 
     public function render()
     {
+        dd(12);
         return view('livewire.phpcat.news',[
             // 'data' => PhpcatNews::all()
             'items' => PhpcatNews::paginate(5)

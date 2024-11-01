@@ -84,7 +84,7 @@
                     <img
                         {{-- src="https://tecdn.b-cdn.net/img/new/ecommerce/horizontal/048.jpg" --}}
                         src="/phpcat/img/ya7.jpg"
-                        class=" rounded-lg shadow-lg dark:shadow-black/20" alt=""
+                        class=" rounded-lg shadow-lg" alt=""
                         style="max-height: 150px; margin: 0 auto;"
                     />
                 </div>

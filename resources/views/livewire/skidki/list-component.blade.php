@@ -34,9 +34,9 @@
                         class="min-w-full text-left
             xtext-sm
             text-xl
-            font-light text-surface dark:text-white">
+            font-light text-surface">
                         <thead
-                            class="border-b border-neutral-200 font-medium dark:border-white/10">
+                            class="border-b border-neutral-200 font-medium">
                         <tr>
                             <th scope="col" class="px-6 py-4">ID</th>
                             <th scope="col" class="px-6 py-4">Дата</th>
@@ -53,7 +53,7 @@
 
                         {{--        {{ print_r($skidki_all,true) }}--}}
                         @foreach( $skidki_all ?? [] as $skidka)
-                            <tr class="border-b border-neutral-200 dark:border-white/10">
+                            <tr class="border-b border-neutral-200">
                                 <td class="whitespace-nowrap px-6 py-4">{{ $skidka->id }}</td>
                                 <td class="whitespace-nowrap px-6 py-4">
                                     {{ $skidka->date }}

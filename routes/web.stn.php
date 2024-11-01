@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\SocWebController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\StNews\StNewsModeration;
 use App\Livewire\StNews\ModerateNews;
@@ -10,6 +12,14 @@ use Nyos\Msg;
 
 //use App\Livewire\StNews\Create as StNewsCreate;
 //use App\Livewire\StNews\Show as StNewsShow;
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Models\User;
+//use Socialite;
+
+
+use App\Http\Controllers\VkAuthController;
+
 
 $d = function () {
     // Маршрут для главной страницы новостей
@@ -47,18 +57,49 @@ $d = function () {
 
     });
 
+
+//    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+//        Route::get('friends', \App\Livewire\Vk\FriendsComponent::class)->name('friends');
+//    });
+//
+//// Маршрут для авторизации через ВКонтакте
+//    Route::get('login/vk', [LoginController::class, 'redirectToProvider'])->name('login');
+//    Route::get('callback/vk', [LoginController::class, 'handleProviderCallback']);
+
+    Route::any('/vk/enter', [SocWebController::class, 'enter'])->name('vk-enter');
+    Route::any('/vk/call-back', [SocWebController::class, 'callBack'])->name('vk-callback');
+    Route::any('v', function(){
+        Auth::loginUsingId(3);
+        redirect()->to('/');
+    });
+
+
     // Фоллбэк на случай отсутствия других маршрутов
     Route::fallback(function () {
         return redirect('/');
     });
 };
 
+
+//Route::group([
+//    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
+//],
+//    function () {
+//        #Route::get('login/vk', [LoginController::class, 'redirectToProvider'])->name('login');
+//
+//        Route::get('login/vk', [VkAuthController::class, 'redirectToVk'])->name('login.vk');
+//        Route::get('callback/vk', [VkAuthController::class, 'handleVkCallback'])->name('vk.callback');
+//
+//    }
+//);
+
+
 // Группировка маршрутов для домена
 Route::group([
     'as' => 'stn.',
     'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
 ], $d);
-Route::group([
-    'as' => 'stn2.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'stn.dev.php-cat.com'
-], $d);
+//Route::group([
+//    'as' => 'stn2.',
+//    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'stn.dev.php-cat.com'
+//], $d);

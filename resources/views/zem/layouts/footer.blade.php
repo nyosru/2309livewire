@@ -2,7 +2,7 @@
     @if(1==2)
         <svg xmlns="http://www.w3.org/2000/svg" class="-mb-0.5 w-full" viewBox="0 0 1367.743 181.155">
             <path
-                class="fill-current text-gray-100 dark:text-gray-800"
+                class="fill-current text-gray-100"
                 id="wave"
                 data-name="wave"
                 d="M0,0S166.91-56.211,405.877-49.5,715.838,14.48,955.869,26.854,1366,0,1366,0V115H0Z"
@@ -11,20 +11,20 @@
         </svg>
     @endif
     <div class="pb-10 xbg-gradient-to-b xfrom-gray-100 xto-transparent xdark:from-gray-800 xdark:to-transparent pt-1">
-        {{--        <div class="container m-auto space-y-8 px-6 text-gray-600 dark:text-gray-400 md:px-12 lg:px-20">--}}
+        {{--        <div class="container m-auto space-y-8 px-6 text-gray-600 md:px-12 lg:px-20">--}}
         {{--            <div class="grid grid-cols-8 gap-6 md:gap-0">--}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-0">
 
-            {{--            <div  class="text-center xcol-span-8 border-r border-gray-100 dark:border-gray-800 xmd:col-span-2 xlg:col-span-3">--}}
+            {{--            <div  class="text-center xcol-span-8 border-r border-gray-100 xmd:col-span-2 xlg:col-span-3">--}}
             {{--                г.Тюмень--}}
             {{--            </div>--}}
             @if(1==2)
-                <div class="col-span-8 border-r border-gray-100 dark:border-gray-800 md:col-span-2 lg:col-span-3">
+                <div class="col-span-8 border-r border-gray-100 md:col-span-2 lg:col-span-3">
                     <div
-                        class="flex items-center justify-between gap-6 border-b border-white dark:border-gray-800 py-6 md:block md:space-y-6 md:border-none md:py-0"
+                        class="flex items-center justify-between gap-6 border-b border-white py-6 md:block md:space-y-6 md:border-none md:py-0"
                     >
                         <img src="images/logo.svg" alt="logo tailus" width="100" height="42"
-                             class="w-32 dark:brightness-200 dark:grayscale"/>
+                             class="w-32"/>
                         <div class="flex gap-6">
                             <a href="#" target="blank" aria-label="github" class="hover:text-cyan-600">
                                 <svg
@@ -78,7 +78,7 @@
                 <div class="grid grid-cols-2 gap-6 pb-16 sm:grid-cols-3 md:pl-16">
                     <div>
                         @if(1==2)
-                            <h6 class="text-lg font-medium text-gray-800 dark:text-gray-200">Company</h6>
+                            <h6 class="text-lg font-medium text-gray-800">Company</h6>
                             <ul class="mt-4 list-inside space-y-4">
                                 <li>
                                     <a href="#" class="transition hover:text-cyan-600">About</a>
@@ -100,7 +100,7 @@
                     </div>
                     <div>
                         @if(1==2)
-                            <h6 class="text-lg font-medium text-gray-800 dark:text-gray-200">Products</h6>
+                            <h6 class="text-lg font-medium text-gray-800">Products</h6>
                             <ul class="mt-4 list-inside space-y-4">
                                 <li>
                                     <a href="#" class="transition hover:text-cyan-600">About</a>
@@ -122,7 +122,7 @@
                     </div>
                     <div>
                         @if(1==2)
-                            <h6 class="text-lg font-medium text-gray-800 dark:text-gray-200">Ressources</h6>
+                            <h6 class="text-lg font-medium text-gray-800">Ressources</h6>
                             <ul class="mt-4 list-inside space-y-4">
                                 <li>
                                     <a href="#" class="transition hover:text-cyan-600">About</a>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
             @endif
-            {{--                    <div class="flex justify-between border-t border-gray-100 dark:border-gray-800 py-4 pb-8 md:pl-16">--}}
+            {{--                    <div class="flex justify-between border-t border-gray-100 py-4 pb-8 md:pl-16">--}}
             <div class="text-center">&copy; Все права защищены 2023 - <span id="year">{{ date('Y') }}</span></div>
             <div class="text-center">создание сервиса <a href="https://php-cat.com" target="_blank"
                                                          class="hover:text-blue-800 hover:bg-green-300 px-2 py-1 underline"><img

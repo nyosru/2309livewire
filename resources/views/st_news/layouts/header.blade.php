@@ -4,4 +4,19 @@
 
 <br/>
 
-{{--<a href="{{ route('stn.login.vk') }}" class="btn btn-primary">    Войти через ВКонтакте</a>--}}
+<a href="{{ route('stn.vk-enter') }}" class="btn btn-primary">    Войти через ВКонтакте</a>
+<br/>
+
+{{ $uuser ?? 'x-uuser' }}
+<br/>
+--- {{ __('Profile') }} ----
+@if (Route::has('login'))
+    7777
+    {{ $user ?? 'xx'}}
+@endif
+
+@if(isset($user))
+    Привет, {{ $user->name }}!
+@else
+    Вам необходимо авторизоваться.
+@endif

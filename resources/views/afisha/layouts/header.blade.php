@@ -12,16 +12,16 @@
 
             <a
                 class="inline-block
-                @if( Route::is('afisha.afisha.*') ) active bg-orange-300
+                @if( Route::is('afisha.*') ) active bg-orange-300
                 @else
                 hover:bg-orange-100 hover:text-neutral-700 focus:text-neutral-700
                 @endif
                 transition duration-150 ease-in-out
                 disabled:text-black/30
-                dark:hover:text-white dark:focus:text-white
+
                 lg:p-2 [&.active]:text-black/90
                 "
-                href="{{ route('afisha.afisha.index') }}" data-te-nav-link-ref data-te-ripple-init
+                href="{{ route('afisha.index') }}" data-te-nav-link-ref data-te-ripple-init
                 data-te-ripple-color="light"
                 wire:navigate
             >Афиша</a>
@@ -34,7 +34,7 @@
                 @endif
                 transition duration-150 ease-in-out
                 disabled:text-black/30
-                dark:hover:text-white dark:focus:text-white
+
                 lg:p-2 [&.active]:text-black/90
                 "
                 href="{{ route('afisha.holiday') }}" data-te-nav-link-ref data-te-ripple-init
@@ -42,11 +42,11 @@
                 wire:navigate
             >Праздники</a>
 
-            @if(1==2)
+            @if(1==1)
                 <a
                     class="inline-block
                 @if( Route::currentRouteName() == 'afisha.add' ) active bg-orange-100 @endif
-                transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:hover:text-white dark:focus:text-white lg:p-2 [&.active]:text-black/90"
+                transition duration-150 ease-in-out hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 lg:p-2 [&.active]:text-black/90"
                     href="{{ route('afisha.add') }}" data-te-nav-link-ref data-te-ripple-init
                     data-te-ripple-color="light"
                     wire:navigate

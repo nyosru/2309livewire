@@ -18,7 +18,7 @@
             <!-- Section: Design Block -->
             <section class="mb-32">
                 <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
 
                     <div class="flex flex-wrap items-center">
 
@@ -41,7 +41,7 @@
                                 <h2 class="mb-6 pb-2 text-4xl font-bold">
                                     Коллекция кружек!
                                 </h2>
-                                <p class="mb-6 pb-2 text-[1.5rem] text-brown-500 dark:text-brouwn-300">
+                                <p class="mb-6 pb-2 text-[1.5rem] text-brown-500">
                                     Собираю коллекцию кружек со всех стран и городов, пить горячий сладкий кофе с
                                     молоком.<br/>
                                     Добавте свою частичку в коллекцию, было бы здорово!<br/>
@@ -59,7 +59,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -73,7 +73,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -86,7 +86,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -98,7 +98,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -111,7 +111,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -124,7 +124,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -136,7 +136,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -149,7 +149,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>
@@ -162,7 +162,7 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke-width="2"
                                                      stroke="currentColor"
-                                                     class="mr-3 h-6 w-6 text-neutral-900 dark:text-neutral-100">
+                                                     class="mr-3 h-6 w-6 text-neutral-900">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                           d="M4.5 12.75l6 6 9-13.5"/>
                                                 </svg>

@@ -17,7 +17,7 @@
                       ease-linear focus:placeholder:opacity-100 peer-focus:text-primary
                       data-[twe-input-state-active]:placeholder:opacity-100
                       motion-reduce:transition-none
-                      dark:text-white dark:placeholder:text-neutral-300 dark:peer-focus:text-primary
+                     
                       [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
 
 {{--                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"--}}

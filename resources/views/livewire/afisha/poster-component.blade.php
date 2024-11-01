@@ -5,18 +5,24 @@
 
                 <span class="mb-2 text-xl bg-orange-100 p-1"
                       title="Дата проведения">
+
+                    {{ $poster->dn ?? '' }}
+
                     {{ date('d.m.Y', strtotime($poster->event_date)) }}
+
                     {{-- Проверка времени --}}
                     @if (date('H:i', strtotime($poster->event_time)) !== '00:00')
-                        {{ date('H:i', strtotime($poster->event_time)) }}
+                        в {{ date('H:i', strtotime($poster->event_time)) }}
                     @endif
                 </span>
                 <br/>
+                <br/>
 
-                <a href="{{ route('afisha.afisha.detail', ['posterId' => $poster->id]) }}" class="hover:underline">
+                <a href="{{ route('afisha.detail', ['posterId' => $poster->id]) }}" class="hover:underline">
                     <h3 class="mb-2 text-2xl font-semibold">{{ $poster->title }}</h3>
                 </a>
 
+                <div class="ml-4">
                 {{-- Отображаем первую картинку, если есть --}}
                 @if($poster->images && count($poster->images) > 0)
                     <div class="relative mt-1 mr-3 float-left max-w-[40%]">
@@ -25,14 +31,18 @@
                     </div>
                 @endif
 
-                <p class="text-gray-700">{!! nl2br(e($poster->description)) !!}</p>
+                <p class="text-gray-700 ">{!! nl2br(e($poster->description)) !!}</p>
 
                 @if($poster->end_date)
                     <p class="text-gray-600">Дата окончания: {{ date('d.m.Y', strtotime($poster->end_date)) }}</p>
                 @endif
 
-                <p><a href="{{ $poster->link }}" target="_blank" class="text-blue-500 hover:underline">Перейти к
-                        афише</a></p>
+                <p><a href="{{ $poster->link }}" target="_blank" class="text-blue-500 hover:underline">{{ $poster->link }}</a></p>
+
+                @if($poster->address)
+                    <p>Адрес проведения: <a href="https://2gis.ru/tyumen/search/{{ $poster->address }}" title="Посмотреть в 2гис" target="_blank" class="text-blue-500 hover:underline">{{ $poster->address }}</a>
+                    </p>
+                @endif
 
                 @if($poster->source_link)
                     <p><a href="{{ $poster->source_link }}" target="_blank" class="text-blue-500 hover:underline">Источник</a>
@@ -44,6 +54,7 @@
                     <p><a href="{{ $poster->buy_tickets_link }}" class="text-blue-500 hover:underline">Купить билеты</a>
                     </p>
                 @endif
+                </div>
 <br clear="all" />
             </li>
         @endforeach
