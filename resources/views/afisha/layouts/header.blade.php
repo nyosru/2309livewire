@@ -42,7 +42,7 @@
                 wire:navigate
             >Праздники</a>
 
-            @if(1==1)
+            @if(1==2)
                 <a
                     class="inline-block
                 @if( Route::currentRouteName() == 'afisha.add' ) active bg-orange-100 @endif
