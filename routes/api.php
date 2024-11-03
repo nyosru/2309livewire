@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Service\QrController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 //});
 
 require('api.stn.php');
+
+Route::get('qr', [QrController::class, 'create'])->name('qr.create');
