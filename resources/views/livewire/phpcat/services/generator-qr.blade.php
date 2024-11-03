@@ -13,7 +13,7 @@ bg-gradient-to-tr from-green-100 via-cyan-300 via-40% to-orange-400
         {{--        </div>--}}
         <div class="flex-1 text-center">
             <input type="text" wire:model="text"
-                   class="border border-[#3b71ca] w-[350px]"
+                   class="border border-[#3b71ca] w-[350px] px-2 py-1"
                    placeholder="Ссылка для кодирования (с https://)"
             /><br/>
             <button

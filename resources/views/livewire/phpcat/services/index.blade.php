@@ -1,7 +1,7 @@
 <div>
     <div class="block bg-blue-200">
         <div class="container mx-auto py-5">
-            <h1 class="text-[2rem] font-bold">Помощник, пользуйтесь с удовольствием!</h1>
+            <h1 class="text-[2rem] font-bold">Помощники, пользуйтесь с удовольствием!</h1>
         </div>
     </div>
 
