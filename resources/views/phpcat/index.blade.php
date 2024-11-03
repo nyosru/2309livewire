@@ -26,13 +26,24 @@
             {{-- пожертвование--}}
             <livewire:Phpcat.money />
 
-            <div class="block bg-blue-200">
-                <div class="container mx-auto py-5">
-                    <h1 class="text-[2rem] font-bold">Помошник, пользуйтесь с удовольствием!</h1>
-                </div>
-            </div>
 
-            <livewire:Phpcat.punny-converter />
+
+
+            <livewire:Phpcat.Services.index />
+
+{{--            --}}
+{{--            <div class="block bg-blue-200">--}}
+{{--                <div class="container mx-auto py-5">--}}
+{{--                    <h1 class="text-[2rem] font-bold">Помошник, пользуйтесь с удовольствием!</h1>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <livewire:Phpcat.punny-converter />--}}
+
+{{--            --}}
+
+
+
 
             {{--коллекция кружек--}}
             <livewire:Phpcat.caps />

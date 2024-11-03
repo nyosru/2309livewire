@@ -12,7 +12,6 @@ class News extends Component
     use WithPagination;
     // public $data = [];
 
-
     public function render()
     {
 //        dd(12);
