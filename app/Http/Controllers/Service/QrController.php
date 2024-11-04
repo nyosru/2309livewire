@@ -66,10 +66,10 @@ class QrController extends Controller
 		echo $result->getString();
 
 // Save it to a file
-		$result->saveToFile(__DIR__.'/qrcode.png');
+//		$result->saveToFile(__DIR__.'/qrcode.png');
 
 // Generate a data URI to include image data inline (i.e. inside an <img> tag)
-		$dataUri = $result->getDataUri();
+//		$dataUri = $result->getDataUri();
 
     }
 }
