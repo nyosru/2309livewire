@@ -10,6 +10,12 @@ $d = function () {
     Route::get('/', News::class)->name('index');
     Route::get('/develop/{item}', Develop::class)->name('develop');
     Route::any('/msg', MsgSendController::class)->name('msg.send');
+    Route::any('/f', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
+
+	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+		return \App\Livewire\Phpcat\VkFriends::getAccessToken($request->code);
+	});
+
 //    Route::get('services', News::class)->name('services');
 //    // Route::get('/', function () { return view('phpcat.index'); });
 ////    Route::get('news', News::class)->name('news');
@@ -17,6 +23,7 @@ $d = function () {
 ////    Route::get('money', News::class)->name('money');
 //    // Route::get('{.*}', News::class)->name('other');
     Route::get('go/{get}', RedirectController::class)->name('redirect');
+
     Route::fallback(function () {
         return redirect('/');
     });
