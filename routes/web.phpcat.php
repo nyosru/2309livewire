@@ -34,13 +34,17 @@ $d = function () {
 		return view('pages.friends', ['component' => new VkFriends()]);
 	});
 
+//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//		$vkFriendsComponent = app(VkFriends::class);
+//		$vkFriendsComponent->getAccessToken($request->code);
+//
+//		return redirect('/f');
+//	});
 	Route::get('/callback', function (\Illuminate\Http\Request $request) {
-		$vkFriendsComponent = app(VkFriends::class);
-		$vkFriendsComponent->getAccessToken($request->code);
+		session(['auth_code' => $request->code]);
 
 		return redirect('/f');
 	});
-
 
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {

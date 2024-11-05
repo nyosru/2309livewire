@@ -35,9 +35,18 @@ class VkFriends extends Component
 
 	public function getAccessToken($code = null)
 	{
-		if (!$code) {
-			return redirect($this->getAuthorizationUrl());
+		// Проверяем, есть ли код в сессии
+		if (!session()->has('auth_code')) {
+			if (!$code) {
+				return redirect($this->getAuthorizationUrl());
+			}
+
+			// Сохраняем код в сессию
+			session(['auth_code' => $code]);
 		}
+
+		// Используем код из сессии
+		$code = session('auth_code');
 
 		$response = Http::asForm()->post('https://oauth.vk.com/access_token', [
 			'client_id' => $this->clientId,
