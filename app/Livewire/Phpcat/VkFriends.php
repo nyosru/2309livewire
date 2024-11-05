@@ -35,6 +35,8 @@ class VkFriends extends Component
 
 	public function getAccessToken($code = null)
 	{
+		dd(session());
+		
 		// Проверяем, есть ли код в сессии
 		if (!session()->has('auth_code')) {
 			if (!$code) {

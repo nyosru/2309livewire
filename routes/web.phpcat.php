@@ -33,7 +33,6 @@ $d = function () {
 	Route::get('/f', function () {
 		return view('pages.friends', ['component' => new VkFriends()]);
 	});
-
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 //		$vkFriendsComponent = app(VkFriends::class);
 //		$vkFriendsComponent->getAccessToken($request->code);
@@ -42,7 +41,6 @@ $d = function () {
 //	});
 	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 		session(['auth_code' => $request->code]);
-
 		return redirect('/f');
 	});
 
