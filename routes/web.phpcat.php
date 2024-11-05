@@ -14,7 +14,9 @@ $d = function () {
 	Route::any('/f', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
 	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 		$e = new \App\Livewire\Phpcat\VkFriends();
-		return $e->getAccessToken($request->code);
+//		return $e->getAccessToken($request->code);
+		$e->getAccessToken($request->code);
+		return response()->json($e->getFriends());
 	});
 
 //    Route::get('services', News::class)->name('services');
