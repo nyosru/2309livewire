@@ -95,7 +95,8 @@ class VkFriends extends Component
 	public function deleteFriend($friendId)
 	{
 		// Удаление друга в подписчики
-		$response = Http::withToken($this->token)->post('https://api.vk.com/method/friends.delete', [
+//		$response = Http::withToken($this->token)->post('https://api.vk.com/method/friends.delete', [
+		$response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.delete', [
 			'user_id' => $friendId,
 			'v' => '5.131'
 		]);
