@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Phpcat;
 
+use http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -33,10 +34,10 @@ class VkFriends extends Component
 		return "https://oauth.vk.com/authorize?client_id={$this->clientId}&display=page&redirect_uri={$this->redirectUri}&scope={$this->scope}&response_type=code&v=5.131";
 	}
 
-	public function getAccessToken($code = null)
+	public function getAccessToken($code = null, Request $request )
 	{
-		dd(session());
-		
+		dd($request->session()->all());
+
 		// Проверяем, есть ли код в сессии
 		if (!session()->has('auth_code')) {
 			if (!$code) {
