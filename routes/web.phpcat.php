@@ -20,7 +20,7 @@ $d = function () {
 		$vkFriendsComponent->getAccessToken($request->code);
 
 		// Перенаправляем пользователя обратно на главную страницу
-		return redirect('/');
+		return redirect('/f');
 	});
 
 
