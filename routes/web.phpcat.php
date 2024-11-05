@@ -13,10 +13,15 @@ $d = function () {
 
 	Route::any('/f', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
 //	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
-	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
-//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
+	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 //		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
-//	});
+		$vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
+		$vkFriendsComponent->getAccessToken($request->code);
+
+		// Перенаправляем пользователя обратно на главную страницу
+		return redirect('/');
+	});
 
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
