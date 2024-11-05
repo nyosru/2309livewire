@@ -12,11 +12,11 @@ $d = function () {
     Route::any('/msg', MsgSendController::class)->name('msg.send');
 
 	Route::any('/f', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
-	Route::any('/f/{?code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
-//	Route::any('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
-	Route::get('/callback', function (\Illuminate\Http\Request $request) {
-		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
-	});
+//	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
+	Route::any('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
+//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
+//	});
 
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
