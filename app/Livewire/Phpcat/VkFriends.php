@@ -53,7 +53,8 @@ class VkFriends extends Component
 
 		$response = Http::asForm()->post('https://oauth.vk.com/access_token', [
 			'client_id' => $this->clientId,
-			'client_secret' => config('services.vk.secret'),
+//			'client_secret' => config('services.vk.secret'),
+			'client_secret' => env('VK_CLIENT_SECRET'),
 			'redirect_uri' => $this->redirectUri,
 			'code' => $code,
 		]);
