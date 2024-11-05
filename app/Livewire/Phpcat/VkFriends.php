@@ -8,9 +8,9 @@ class VkFriends extends Component
 {
 	public $friends = [];
 	public $token;
-	public $clientId;
-	public $redirectUri;
-	public $scope = 'friends';
+	static public $clientId;
+	static public $redirectUri;
+	static public $scope = 'friends';
 
 	protected $listeners = [
 		'refreshFriends' => '$refresh',
@@ -20,43 +20,43 @@ class VkFriends extends Component
 	public function mount()
 	{
 //		$this->clientId = $clientId;
-		$this->clientId = env('VK_CLIENT_ID' );
+		self::$clientId = env('VK_CLIENT_ID' );
 //		$this->redirectUri = $redirectUri;
-		$this->redirectUri = env('VK_REDIRECT_URI2');
-		$this->getAccessToken();
+		self::$redirectUri = env('VK_REDIRECT_URI2');
+		self::getAccessToken();
 	}
 
-	public function getAuthorizationUrl()
+	static public function getAuthorizationUrl()
 	{
-		return "https://oauth.vk.com/authorize?client_id={$this->clientId}&display=page&redirect_uri={$this->redirectUri}&scope={$this->scope}&response_type=code&v=5.131";
+		return 'https://oauth.vk.com/authorize?client_id='.self::$clientId.'&display=page&redirect_uri='.self::$redirectUri.'&scope='.self::$scope.'&response_type=code&v=5.131';
 	}
 
-	public function getAccessToken($code = null)
+	static public function getAccessToken($code = null)
 	{
 		if (!$code) {
-			return redirect($this->getAuthorizationUrl());
+			return redirect(self::getAuthorizationUrl());
 		}
 
 		$response = Http::asForm()->post('https://oauth.vk.com/access_token', [
-			'client_id' => $this->clientId,
-			'client_secret' => config('services.vk.secret'),
-			'redirect_uri' => $this->redirectUri,
+			'client_id' => self::$clientId,
+			'client_secret' => env('VK_CLIENT_SECRET'),
+			'redirect_uri' => self::$redirectUri,
 			'code' => $code,
 		]);
 
 		if ($response->successful()) {
 			$data = $response->json();
-			$this->token = $data['access_token'];
-			$this->getFriends();
+			self::$token = $data['access_token'];
+			self::getFriends();
 		} else {
 			session()->flash('error', 'Ошибка получения токена.');
 		}
 	}
 
-	public function getFriends()
+	static public function getFriends()
 	{
 		// Получаем список друзей через API VK
-		$response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.get', [
+		$response = Http::withToken(self::$token)->get('https://api.vk.com/method/friends.get', [
 			'order' => 'hints',
 			'fields' => 'nickname,photo_100',
 			'v' => '5.131'
@@ -70,7 +70,7 @@ class VkFriends extends Component
 				$friend['last_name'] = $friend['last_name'];
 				$friend['photo_url'] = $friend['photo_100'];
 			}
-			$this->friends = $data;
+			self::$friends = $data;
 		} else {
 			session()->flash('error', 'Не удалось получить список друзей.');
 		}
