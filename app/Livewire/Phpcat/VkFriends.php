@@ -36,7 +36,7 @@ class VkFriends extends Component
 
 	public function getAccessToken($code = null )
 	{
-		dd(session()->all());
+//		dd(session()->all());
 
 		// Проверяем, есть ли код в сессии
 		if (!session()->has('auth_code')) {
@@ -61,7 +61,7 @@ class VkFriends extends Component
 		if ($response->successful()) {
 			$data = $response->json();
 			$this->token = $data['access_token'];
-			$this->getFriends();
+			return response()->json($this->getFriends());
 		} else {
 			session()->flash('error', 'Ошибка получения токена.');
 		}
