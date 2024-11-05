@@ -59,7 +59,7 @@ class VkFriends extends Component
 			session()->flash('error', 'Ошибка получения токена.');
 		}
 	}
-
+	
 	public function getFriends()
 	{
 		// Получаем список друзей через API VK
