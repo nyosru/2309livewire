@@ -12,7 +12,7 @@ $d = function () {
     Route::get('/develop/{item}', Develop::class)->name('develop');
     Route::any('/msg', MsgSendController::class)->name('msg.send');
 
-//	Route::any('/f', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
+	Route::any('/f2', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
 //	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
 
 //	Route::get('/f', function () {

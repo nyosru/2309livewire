@@ -63,7 +63,7 @@ class VkFriends extends Component
 			$data = $response->json();
 			$this->token = $data['access_token'];
 			$this->getFriends();
-			dd($this->friends);
+//			dd($this->friends);
 		} else {
 			session()->flash('error', 'Ошибка получения токена.');
 		}
