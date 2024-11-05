@@ -20,15 +20,16 @@ $d = function () {
 //	});
 //
 ////	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
-//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 ////		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
-//		$vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
-//		$vkFriendsComponent->getAccessToken($request->code);
+		$vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
+		$e = $vkFriendsComponent->getAccessToken($request->code);
+		dd($e);
 //
 //		// Перенаправляем пользователя обратно на главную страницу
 //		return redirect('/f');
 //
-//	});
+	});
 
 	Route::get('/f', function () {
 		return view('pages.friends', ['component' => new VkFriends()]);
