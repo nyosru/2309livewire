@@ -24,13 +24,13 @@ class VkFriends extends Component
 	}
 
 //	public function mount($clientId, $redirectUri)
-	public function mount()
+	public function mount(\Illuminate\Http\Request $request)
 	{
 //		$this->clientId = $clientId;
 		$this->clientId = env('VK_CLIENT_ID' );
 //		$this->redirectUri = $redirectUri;
 		$this->redirectUri = env('VK_REDIRECT_URI2');
-		$this->getAccessToken();
+		$this->getAccessToken($request->code);
 	}
 
 	public function getAuthorizationUrl()
@@ -59,7 +59,7 @@ class VkFriends extends Component
 			session()->flash('error', 'Ошибка получения токена.');
 		}
 	}
-	
+
 	public function getFriends()
 	{
 		// Получаем список друзей через API VK
