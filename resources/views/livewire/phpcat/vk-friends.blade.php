@@ -16,7 +16,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Имя</th>
-            <th scope="col"></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

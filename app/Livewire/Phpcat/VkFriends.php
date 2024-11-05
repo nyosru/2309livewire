@@ -19,18 +19,13 @@ class VkFriends extends Component
 
 	public function __construct()
 	{
-		$this->clientId = env('VK_CLIENT_ID' );
+		$this->clientId = env('VK_CLIENT_ID');
 		$this->redirectUri = env('VK_REDIRECT_URI2');
 	}
 
-//	public function mount($clientId, $redirectUri)
-	public function mount(\Illuminate\Http\Request $request)
+	public function mount()
 	{
-//		$this->clientId = $clientId;
-		$this->clientId = env('VK_CLIENT_ID' );
-//		$this->redirectUri = $redirectUri;
-		$this->redirectUri = env('VK_REDIRECT_URI2');
-		$this->getAccessToken($request->code);
+		$this->getAccessToken();
 	}
 
 	public function getAuthorizationUrl()
@@ -99,8 +94,8 @@ class VkFriends extends Component
 		}
 	}
 
-    public function render()
-    {
-        return view('livewire.phpcat.vk-friends');
-    }
+	public function render()
+	{
+		return view('livewire.phpcat.vk-friends');
+	}
 }
