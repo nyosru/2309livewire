@@ -2,6 +2,10 @@
 
 @section('content')
 
+    @if( request()->query('t') == 'f' )
+        <livewire:Phpcat.vk-friends />
+    @endif
+
     @if( request()->query('tutu') == 'domains' )
 
         <livewire:Phpcat.domain/>
