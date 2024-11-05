@@ -100,9 +100,10 @@ class VkFriends extends Component
 			'v' => '5.131'
 		]);
 
-		if ($response->successful() && $response->json()['response']) {
-			session()->flash('message', 'Друг успешно удален.');
-			$this->emit('refreshFriends');
+//		if ($response->successful() && $response->json()['response']) {
+		if ($response->successful()) {
+			session()->flash('message', 'Друг успешно удален.'.serialize($response->json()));
+//			$this->emit('refreshFriends');
 		} else {
 			session()->flash('error', 'Произошла ошибка при удалении друга.');
 		}
