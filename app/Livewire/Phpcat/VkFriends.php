@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Phpcat;
 
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class VkFriends extends Component
