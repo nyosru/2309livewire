@@ -16,10 +16,13 @@ class VkFriends extends Component
 		'refreshFriends' => '$refresh',
 	];
 
-	public function mount($clientId, $redirectUri)
+//	public function mount($clientId, $redirectUri)
+	public function mount()
 	{
-		$this->clientId = $clientId;
-		$this->redirectUri = $redirectUri;
+//		$this->clientId = $clientId;
+		$this->clientId = env('VK_CLIENT_ID' );
+//		$this->redirectUri = $redirectUri;
+		$this->redirectUri = env('VK_REDIRECT_URI2');
 		$this->getAccessToken();
 	}
 
