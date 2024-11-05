@@ -17,6 +17,12 @@ class VkFriends extends Component
 		'refreshFriends' => '$refresh',
 	];
 
+	public function __construct()
+	{
+		$this->clientId = env('VK_CLIENT_ID' );
+		$this->redirectUri = env('VK_REDIRECT_URI2');
+	}
+
 //	public function mount($clientId, $redirectUri)
 	public function mount()
 	{
@@ -32,7 +38,7 @@ class VkFriends extends Component
 		return "https://oauth.vk.com/authorize?client_id={$this->clientId}&display=page&redirect_uri={$this->redirectUri}&scope={$this->scope}&response_type=code&v=5.131";
 	}
 
-	static public function getAccessToken($code = null)
+	public function getAccessToken($code = null)
 	{
 		if (!$code) {
 			return redirect($this->getAuthorizationUrl());
