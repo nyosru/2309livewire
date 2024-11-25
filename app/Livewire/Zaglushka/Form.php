@@ -9,7 +9,6 @@ class Form extends Component
 {
     public $show_form = false;
     public $domain = '';
-
     public $inputName = '';
     public $inputPhone = '';
     public $inputPrice = '10000';

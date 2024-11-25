@@ -12,6 +12,12 @@
 
 @elseif(
 	#IDN: тюменскаяафиша.рф
+    $_SERVER['HTTP_HOST'] == 'php-cat.ru' ||
+    $_SERVER['HTTP_HOST'] == 'phpcatru.local'
+    )
+    {{ $slot }}
+@elseif(
+	#IDN: тюменскаяафиша.рф
     $_SERVER['HTTP_HOST'] == 'xn--80aaarrjmj0bg3a3c0dua.xn--p1ai' ||
     $_SERVER['HTTP_HOST'] == 'afisha.local'
     )

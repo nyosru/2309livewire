@@ -86,6 +86,7 @@ require('web.timer.php');
 // земельный кадастр
 require('web.zem.php');
 require('web.phpcat.php');
+require('web.phpcat_ru.php');
 require('web.skidki.php');
 
 

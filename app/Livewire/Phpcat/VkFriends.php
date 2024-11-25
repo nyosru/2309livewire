@@ -12,7 +12,7 @@ class VkFriends extends Component
 	public $token;
 	public $clientId;
 	public $redirectUri;
-	public $scope = 'friends';
+	public $scope = 'friends,friends.delete';
 
 	protected $listeners = [
 		'refreshFriends' => '$refresh',
