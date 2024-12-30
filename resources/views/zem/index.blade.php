@@ -2,27 +2,24 @@
 
 @section('content')
 
-{{--    @include('zem.index_index')--}}
+    {{--    @include('zem.index_index')--}}
 
     <livewire:Zem.form/>
+    <br/>
+    <br/>
 
-    <br/>
-    <br/>
     {{--    <livewire:Zem.uslugi/>--}}
-
     {{--    @include('zem.map',['cooperatives' => $cooperatives ])--}}
 
     @include('zem.index_uslugi')
-
     <livewire:Zem.Mp3Pleer />
-
     @include('zem.map')
 
     {{--<br/>--}}
     {{--<br/>--}}
 
     <livewire:Zem.form/>
-
+    <livewire:Zem.BazaZnan/>
     <Br/>
     <Br/>
 
