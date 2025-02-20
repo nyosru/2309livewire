@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Phpcat\VkFriends;
 
 $d = function () {
+
     Route::get('/', News::class)->name('index');
     Route::get('/develop/{item}', Develop::class)->name('develop');
     Route::any('/msg', MsgSendController::class)->name('msg.send');
 
 	Route::any('/f2', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
+	Route::get('ai/token', [\App\Http\Controllers\Service\AiController::class,'getToken'])->name('ai.token');
 //	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
 
 //	Route::get('/f', function () {

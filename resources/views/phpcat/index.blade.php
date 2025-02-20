@@ -14,7 +14,6 @@
     @else
 
         @include('phpcat.index_index')
-
         <livewire:Phpcat.services/>
 
 {{--        <livewire:Phpcat.bitrix/>--}}
@@ -30,10 +29,6 @@
 
             {{-- пожертвование--}}
             <livewire:Phpcat.money />
-
-
-
-
             <livewire:Phpcat.Services.index />
 
 {{--            --}}

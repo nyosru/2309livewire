@@ -1,5 +1,5 @@
 <div class="
-bg-gradient-to-tr from-white via-red-100 via-40% to-orange-400
+bg-gradient-to-tr from-white via-red-100 via-40% to-orange-100
 ">
     <div class="w-full lg:w-8/12 mx-auto py-10">
         <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 pb-2">
