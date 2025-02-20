@@ -21,11 +21,7 @@ to-orange-100
         <input type="text" wire:model="msg"
         class="w-full border border-1 border-blue-400 px-2 py-1"
         />
-        @if($loading)
-            обработка
-        @else
         <button type="submit" class="bg-blue-400 rounded px-3 py-1 mt-1">Отправить</button>
-            @endif
     </form>
         </div>
         <div class="w-1/2">
