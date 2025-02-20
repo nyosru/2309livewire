@@ -21,12 +21,18 @@ to-orange-100
         <input type="text" wire:model="msg"
         class="w-full border border-1 border-blue-400 px-2 py-1"
         />
+        @if($loading)
+            обработка
+        @else
         <button type="submit" class="bg-blue-400 rounded px-3 py-1 mt-1">Отправить</button>
+            @endif
     </form>
         </div>
         <div class="w-1/2">
             <b>Смотрим что напишет</b>
-
+            <div wire:loading class="bg-yellow-400 p-2">
+                Обрабатываю, шестерёнки на максимум...
+            </div>
             <div class="border p-3 rounded bg-white">
                 {{ $answer['result']['alternatives'][0]['message']['text'] ?? '-' }}
 {{--                <br/>--}}
