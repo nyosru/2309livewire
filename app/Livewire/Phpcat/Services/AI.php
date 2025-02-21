@@ -10,7 +10,6 @@ class AI extends Component
 {
     public $msg;
     public $answer;
-
     public function send()
     {
 
@@ -25,7 +24,6 @@ class AI extends Component
         MsgAlias::sendTelegramm('msg в AI: ответ: '.( $r['result']['alternatives'][0]['message']['text'] ?? serialize($r) ) );
 
     }
-
     public function render()
     {
         return view('livewire.phpcat.services.a-i');

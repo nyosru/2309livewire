@@ -20,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 //});
 
 require('api.stn.php');
+require('api.phpcat.php');
 
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
