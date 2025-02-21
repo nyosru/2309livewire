@@ -19,7 +19,7 @@
         {{--        show_id: {{ $show_id  }}--}}
 
         @if(!empty($show_id))
-                <livewire:Phpcat.develop-item-full :item="$item"/>
+            <livewire:Phpcat.develop-item-full :item="$item"/>
         @else
 
             {{--            <div wire:transition.out.opacity.duration.200ms>--}}
@@ -42,17 +42,19 @@
                 @foreach ($items as $i)
 
                     <a
-{{--                        wire:navigate--}}
-{{--                        href="/develop/{{ $i->id }}"--}}
+                        {{--                        wire:navigate--}}
+                        {{--                        href="/develop/{{ $i->id }}"--}}
                         href="#"
-                       class="block" target="_blank"
-                       wire:click.prevent="setShowId({{$i->id}})"
+                        class="block" target="_blank"
+                        wire:click.prevent="setShowId({{$i->id}})"
                     >
 
                         <div class="flex-1">
-
-                            <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
-
+                            @if( strpos($i->img_url,'placeholder.com') )
+                                <div class="inline-block float-left mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
+                            @else
+                                <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
+                            @endif
                             {{--                    id: {{$i['id'] }}--}}
                             {{-- {{ print_r($post) }} --}}
                             <h2 class="
@@ -62,7 +64,7 @@
 
                             <p class="text-blue-500 text-[1.5rem] hover:underline">{{ $i->link_title }}</p>
                             <p>{{ $i->opis }}</p>
-                            <Br clear="all" />
+                            <Br clear="all"/>
 
                             @if(1==2)
                                 <div

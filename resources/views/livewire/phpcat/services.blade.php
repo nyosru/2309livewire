@@ -21,31 +21,35 @@
             {{-- {{ $data }} --}}
 
             @foreach ($items as $i)
-                <a href="{{ $i->link }}" class="block" target="_blank" >
-                <div class="flex-1">
+                <a href="{{ $i->link }}" class="block" target="_blank">
+                    <div class="flex-1">
 
-                    <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
+                        @if( strpos($i->img_url,'placeholder.com') )
+                            <div class="inline-block mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
+                        @else
+                            <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
+                        @endif
 
-{{--                    id: {{$i['id'] }}--}}
-                    {{-- {{ print_r($post) }} --}}
-                    <h2 class="
-                    background-radial-gradient
-                    xbg-green-100 pt-2 pb-2 text-[2rem]">{{ $i->title }}</h2>
-                    {{-- <p>{{ $post->photo }}</p> --}}
+                        {{--                    id: {{$i['id'] }}--}}
+                        {{-- {{ print_r($post) }} --}}
+                        <h2 class="
+background-radial-gradient
+xbg-green-100 pt-2 pb-2 text-[2rem]">{{ $i->title }}</h2>
+                        {{-- <p>{{ $post->photo }}</p> --}}
 
-                    <p class="text-blue-500 text-[1.5rem] hover:underline" >{{ $i->link_title }}</p>
-                    <p>{{ $i->opis }}</p>
-                    <Br/>
+                        <p class="text-blue-500 text-[1.5rem] hover:underline">{{ $i->link_title }}</p>
+                        <p>{{ $i->opis }}</p>
+                        <Br/>
 
-                    @if(1==2)
-                    <div
-                        style="max-height: 175px; overflow: auto; font-size: 12px; border: 1px solid green; padding: 3px;">
-                        {{ str_replace('"','" ',json_encode($i,true)) }}
+                        @if(1==2)
+                            <div
+                                style="max-height: 175px; overflow: auto; font-size: 12px; border: 1px solid green; padding: 3px;">
+                                {{ str_replace('"','" ',json_encode($i,true)) }}
+                            </div>
+                        @endif
+
+                        <br clear="all"/>
                     </div>
-                    @endif
-
-                <br clear="all" />
-                </div>
                 </a>
             @endforeach
 
