@@ -25,7 +25,7 @@
                     <div class="flex-1">
 
                         @if( strpos($i->img_url,'placeholder.com') )
-                            <div class="inline-block mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
+                            <div class="inline-block float-left mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
                         @else
                             <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
                         @endif
