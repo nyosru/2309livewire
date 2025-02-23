@@ -18,7 +18,7 @@
 {{--        <livewire:phpcat.services.converter-punny />--}}
         <livewire:phpcat.Services.converter-punny />
 {{--    @elseif ($selectedComponent === 'generator-qr')--}}
-        <livewire:Phpcat.Services.generator-qr />
+{{--        <livewire:Phpcat.Services.generator-qr />--}}
 {{--    @endif--}}
 
         <livewire:Phpcat.Services.a-i />
