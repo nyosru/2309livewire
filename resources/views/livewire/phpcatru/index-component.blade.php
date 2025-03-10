@@ -9,7 +9,7 @@
                 <a href="https://php-cat.com" target="_blank">
                     <img src="/phpcat/cat.png" class="float-left mr-2 max-h-[4rem]"/>
                 </a>
-                Основная дейтельность это создание сайтов и&nbsp;служб<br/>
+                создание сайтов и&nbsp;служб<br/>
                 <a href="https://php-cat.com" class="underline text-blue-600 text-2xl" target="_blank">
                     php-cat.com
                 </a>
@@ -43,6 +43,23 @@
 
             </div>
         </div>
+
+
+
+        <div class=" w-full md:w-1/2">
+            <div class="min-h-[5rem] m-1 px-4 py-6 rounded-xl
+                bg-gradient-to-br from-white to-orange-200
+                ">
+                <a href="https://www.ihc.ru/?ref=8557" target="_blank">
+                    <img src="/logo/ihc.png" class="float-left mr-2 max-h-[4rem] rounded"/>
+                </a>
+                Норм хостинг, vps <br/>
+                <a href="https://www.ihc.ru/?ref=8557" class="underline text-blue-600 text-2xl" target="_blank">
+                    ihc.ru
+                </a>
+            </div>
+        </div>
+
         {{--        </div>--}}
     </div>
 </div>

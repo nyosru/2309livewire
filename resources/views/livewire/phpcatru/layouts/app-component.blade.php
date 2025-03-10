@@ -41,7 +41,7 @@
                 background-position: 65% 100%;
             }
             100% {
-                background-position: 15% 20%;
+                background-position: 15% 90%;
             }
         }
     </style>
@@ -54,7 +54,7 @@
     180deg,
     rgba(255, 255, 255, 0.75),
     rgba(255,234,205,0.25) ),
-        url('tmn/photo1.jpg') center/cover;"
+        url('/tmn/photo1.jpg') center/cover;"
     class="
 {{--    bg-gradient-to-bl--}}
 {{--    from-white--}}
