@@ -1,8 +1,9 @@
-<footer class="sm:flex items-center justify-between h-24 w-full bg-gray-100 border-t border-gray-300"
+<footer class="sm:flex items-center justify-between
+{{--h-12 --}}
+w-full bg-gray-100 border-t border-gray-300 text-xs"
         style="position:fixed; bottom: 0; left: 0;">
     <div class="flex-1 flex items-center justify-center border-r border-gray-300 text-center">
-        Все права защищены © 1984-{{ date('Y') }}<br/>
-        Лучше не нарушать
+        Все права защищены © {{ date('Y') }}
     </div>
     <div class="flex-1 flex items-center justify-center">
         Создание сайта: <a href="https://php-cat.com" target="_blank"

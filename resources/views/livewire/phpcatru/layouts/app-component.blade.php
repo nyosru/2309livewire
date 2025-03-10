@@ -10,7 +10,7 @@
     <style>
         header,
         .background-radial-gradient {
-            min-height: 130px;
+            /*min-height: 130px;*/
             background-color: rgb(255, 211, 161);
             background-image: radial-gradient(
                 650px circle at 20% 20%,
@@ -49,9 +49,16 @@
     <link href="/css/output.css?v={{ filemtime(public_path('/css/output.css')) }}" rel="stylesheet" />
 
 </head>
-<body class="bg-gradient-to-b
-    from-[rgba(0,100,255,0.1)]
-    to-[rgba(0,255,255,0.1)]
+<body
+    style="background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.75),
+    rgba(255,234,205,0.25) ),
+        url('tmn/photo1.jpg') center/cover;"
+    class="
+{{--    bg-gradient-to-bl--}}
+{{--    from-white--}}
+{{--    to-gray-100--}}
     min-h-[100vh]
     ">
 @include('livewire.phpcatru.layouts.header')

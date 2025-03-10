@@ -2358,6 +2358,10 @@ select {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
 
+.bg-gradient-to-bl {
+  background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
+}
+
 .from-\[rgb\(77\2c 207\2c 223\)\] {
   --tw-gradient-from: rgb(77,207,223) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(77 207 223 / 0) var(--tw-gradient-to-position);
@@ -2560,6 +2564,10 @@ select {
 
 .to-orange-200 {
   --tw-gradient-to: #fed7aa var(--tw-gradient-to-position);
+}
+
+.to-gray-100 {
+  --tw-gradient-to: #f3f4f6 var(--tw-gradient-to-position);
 }
 
 .to-90\% {
@@ -2804,6 +2812,26 @@ select {
   padding-bottom: 5rem;
 }
 
+.px-\[20px\] {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.py-\[20px\] {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.py-\[40px\] {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.px-\[40px\] {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -2978,6 +3006,10 @@ select {
 
 .pt-\[40px\] {
   padding-top: 40px;
+}
+
+.pt-\[20px\] {
+  padding-top: 20px;
 }
 
 .text-left {
