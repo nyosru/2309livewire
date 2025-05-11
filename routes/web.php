@@ -110,6 +110,7 @@ Route::group([
 ], $d);
 
 require('web.stn.php');
+require('web.mannik.php');
 
 Route::fallback([\App\Http\Controllers\ZaglushkaController::class, 'show']);
 
