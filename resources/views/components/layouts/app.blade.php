@@ -116,6 +116,14 @@
 
     @include('skidki.index')
 
+@elseif(
+    $_SERVER['HTTP_HOST'] == 'mannik.local' ||
+// юраманник.рф
+    $_SERVER['HTTP_HOST'] == 'xn--80aayihhat9j.xn--p1ai'
+    )
+
+    @include('mannik.index')
+
 @else
 
     <!DOCTYPE html>
