@@ -8,10 +8,37 @@ on:
 env:
   VPS_IP: 91.218.230.97
   VPS_USERNAME: root
+  VPS_USER: root
   DIR: /home/2309livewire
   GIT_BRANCH: origin/cicd_to_ihc_docker24
 
 jobs:
+
+
+  deploy1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          #ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ env.VPS_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VPS
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ env.VPS_IP }} << EOF
+            cd ${{ env.DIR }}
+            # git pull origin cicd_to_ihc_docker24
+            # Добавьте команды для сборки, перезапуска сервисов, например:
+            # docker-compose down
+            # docker-compose up -d --build
+          EOF
 
   deploy:
     runs-on: ubuntu-latest
@@ -23,6 +50,7 @@ jobs:
           host: ${{ env.VPS_IP }}
           username: ${{ env.VPS_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
+          #password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ env.DIR }}
             git fetch --all
@@ -35,6 +63,7 @@ jobs:
           host: ${{ env.VPS_IP }}
           username: ${{ env.VPS_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
+          #password: ${{ secrets.PASSWORD }}
           script: |
             docker exec 2309livewire composer i --no-dev
             docker exec 2309livewire php artisan migrate
