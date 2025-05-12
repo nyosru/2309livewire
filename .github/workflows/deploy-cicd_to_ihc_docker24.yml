@@ -32,8 +32,10 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh ${{ secrets.VPS_USER }}@${{ env.VPS_IP }} << EOF
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_IP }} << EOF
             cd ${{ env.DIR }}
+            git fetch --all
+            git reset --hard ${{ env.GIT_BRANCH }}
             # git pull origin cicd_to_ihc_docker24
             # Добавьте команды для сборки, перезапуска сервисов, например:
             # docker-compose down
