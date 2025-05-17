@@ -4,6 +4,8 @@
 
 <br/>
 
+@if(1==2)
+
 <a href="{{ route('stn.vk-enter') }}" class="btn btn-primary">    Войти через ВКонтакте</a>
 <br/>
 
@@ -19,4 +21,5 @@
     Привет, {{ $user->name }}!
 @else
     Вам необходимо авторизоваться.
+@endif
 @endif

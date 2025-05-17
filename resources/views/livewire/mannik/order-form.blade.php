@@ -12,15 +12,14 @@ bg-blue-100
 container mx-auto
 ">
         <div class="w-full md:w-[350px] mx-auto">
-            @if ($successMessage)
-                <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
-                    {{ $successMessage }}
-                </div>
-            @endif
-
             <h2 class="text-2xl font-bold mb-4">Отправить заявку</h2>
 
-            <form wire:submit.prevent="submit" novalidate>
+            @if ($successMessage)
+                <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+                    {!! $successMessage !!}
+                </div>
+@else
+                <form wire:submit.prevent="submit" novalidate>
                 <label for="phone" class="block mb-2 font-semibold">укажите свой телефон, позвоним уточнить детали</label>
                 <input
                     type="text"
@@ -40,6 +39,9 @@ container mx-auto
                     Отправить
                 </button>
             </form>
+            @endif
+
+
         </div>
 {{--        <div class="w-1/2">--}}
 {{--        </div>--}}
