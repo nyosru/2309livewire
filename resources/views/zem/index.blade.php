@@ -4,6 +4,17 @@
 
     {{--    @include('zem.index_index')--}}
 
+    @if(request()->get('show') == 'page1')
+        <div class="bg-gradient-to-br from-gray-300 to-blue-300 p-[3rem]">
+            <div class="container mx-auto ">
+                <div class="shadow-2xl rounded-2xl p-4 bg-white">
+                    <livewire:Zem.page.step1/>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
     <livewire:Zem.form/>
     <br/>
     <br/>
@@ -12,7 +23,7 @@
     {{--    @include('zem.map',['cooperatives' => $cooperatives ])--}}
 
     @include('zem.index_uslugi')
-    <livewire:Zem.Mp3Pleer />
+    <livewire:Zem.Mp3Pleer/>
     @include('zem.map')
 
     {{--<br/>--}}
