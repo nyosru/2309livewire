@@ -32,7 +32,8 @@
                 <a
                     class="underline text-blue-500"
                     href="https://uslugi.admtyumen.ru/"
-                                                                       target="_blank">uslugi.admtyumen.ru</a>
+                                                                       target="_blank"
+                >uslugi.admtyumen.ru</a>
                 <br/>
                 <br/>
                 2.2 ) находим услугу
@@ -57,6 +58,12 @@
     </div>
     <h2 class="bg-green-300 p-2 mt-4 text-2xl">Как получили ответ</h2>
     <p class="p-2">
-    напишите мне в телеграм <a href="https://t.me/phpcatcom">@phpcatcom</a> или позвоните <a href="tel:+79222622289">89-222-6-222-89</a></h2>
+    напишите мне в телеграм <a
+            class="underline text-blue-500"
+            target="_blank"
+            href="https://t.me/phpcatcom">@phpcatcom</a> или позвоните <a
+            class="underline text-blue-500"
+            target="_blank"
+            href="tel:+79222622289">89-222-6-222-89</a></h2>
     </p>
 </div>
