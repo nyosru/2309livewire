@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+
     <h2 class="bg-green-300 p-2 mt-4 text-2xl">Как получили ответ</h2>
     <p class="p-2">
     напишите мне в телеграм <a

@@ -1,6 +1,6 @@
 <div class="w-full md:container mx-auto">
     <div class="flex flex-col md:flex-row md:flex-wrap border">
-        <div class="w-full md:w-1/2 p-2">
+        <div class="w-full md:w-1/2 p-5">
             <img src="/mannik/photo/p5.jpg" class="h-[150px] rounded mr-4
             float-left
 {{--            flex-shrink-0--}}
@@ -10,7 +10,7 @@
                 достоинства делают его любимым десертом во многих семьях.</p>
         </div>
 
-        <div class="w-full md:w-1/2 p-2
+        <div class="w-full md:w-1/2 p-5
 {{--        flex--}}
         ">
             <img src="/mannik/photo/p6.jpg" class="h-[150px] rounded mr-4
@@ -25,7 +25,7 @@
 
         </div>
 
-        <div class="w-full md:w-1/2 p-2
+        <div class="w-full md:w-1/2 p-5
 {{--        flex--}}
         ">
             <img src="/mannik/photo/p7.jpeg" class="h-[150px] rounded mr-4
@@ -39,7 +39,7 @@
 
         </div>
 
-        <div class="w-full md:w-1/2 p-2
+        <div class="w-full md:w-1/2 p-5
 {{--        flex--}}
         ">
             <img src="/mannik/photo/p9.jpg" class="h-[150px] rounded mr-4
@@ -55,7 +55,7 @@
     </div>
 
 {{--    <div class="w-full flex flex-col md:flex-row mt-6">--}}
-{{--        <div class="w-full md:w-1/2 p-2 text-center">Заказать манник</div>--}}
-{{--        <div class="w-full md:w-1/2 p-2 text-center">Звоните</div>--}}
+{{--        <div class="w-full md:w-1/2 p-5 text-center">Заказать манник</div>--}}
+{{--        <div class="w-full md:w-1/2 p-5 text-center">Звоните</div>--}}
 {{--    </div>--}}
 </div>
