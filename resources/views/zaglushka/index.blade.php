@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>--}}
 
 {{--    <script src="https://cdn.tailwindcss.com/3.3.0"></script>--}}
 {{--    <script>--}}
@@ -116,7 +116,7 @@
 </head>
 
 <body class="antialiased">
-<div style="z-index:5000;">{{ $nn }}</div>
+
 @if(1==2)
     <header class="bg-gray-400">
         @if(1==2)
@@ -140,9 +140,7 @@
         </div>
 
 
-        <button id="fullscreen-btn" style="z-index:10; position: fixed; left: 10px; top: 10px;">Развернуть на весь
-            экран
-        </button>
+        <button id="fullscreen-btn" style="z-index:10; position: fixed; left: 10px; top: 10px;" >(v1.1) Развернуть на весь экран</button>
 
         <script>
             document.getElementById('fullscreen-btn').addEventListener('click', function() {
