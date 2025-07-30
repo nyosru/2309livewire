@@ -4452,8 +4452,8 @@
                     const diff = blockHeight - viewportHeight;
                     topValue = diff > 0 ? -(diff + offsetBottom) : 0;
                     block.style.top = `${topValue}px`;
-                    console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
-                    console.log(`скрол topValue: ${topValue}`);
+                    // console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
+                    // console.log(`скрол topValue: ${topValue}`);
                 }
 
                 let scrollTopPrev = window.pageYOffset || document.documentElement.scrollTop; // начальное значение
