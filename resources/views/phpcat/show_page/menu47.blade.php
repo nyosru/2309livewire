@@ -4433,35 +4433,37 @@
 
 
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        // Отступ от нижней границы экрана
-        const offsetBottom = 30;
-        const block = document.querySelector('.catalog-product-main'); // ищем по классу
+    if( window.innerWidth > 991 ) {
+        window.addEventListener('DOMContentLoaded', () => {
+            // Отступ от нижней границы экрана
+            const offsetBottom = 30;
+            const block = document.querySelector('.catalog-product-main'); // ищем по классу
 
-        if (!block) {
-            console.log('Блок с классом .catalog-product-main не найден');
-        } else {
-
-            function updateTopValue() {
-                const blockHeight = block.offsetHeight;
-                const viewportHeight = window.innerHeight;
-                const diff = blockHeight - viewportHeight;
-                const topValue = diff > 0 ? -(diff + offsetBottom) : 0;
-                block.style.top = `${topValue}px`;
-                //console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
-            }
-
-            window.addEventListener('load', updateTopValue);
-            window.addEventListener('resize', updateTopValue);
-
-            if ('ResizeObserver' in window) {
-                const resizeObserver = new ResizeObserver(updateTopValue);
-                resizeObserver.observe(block);
+            if (!block) {
+                console.log('Блок с классом .catalog-product-main не найден');
             } else {
-                console.warn('ResizeObserver не поддерживается в вашем браузере');
+
+                function updateTopValue() {
+                    const blockHeight = block.offsetHeight;
+                    const viewportHeight = window.innerHeight;
+                    const diff = blockHeight - viewportHeight;
+                    const topValue = diff > 0 ? -(diff + offsetBottom) : 0;
+                    block.style.top = `${topValue}px`;
+                    //console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
+                }
+
+                window.addEventListener('load', updateTopValue);
+                window.addEventListener('resize', updateTopValue);
+
+                if ('ResizeObserver' in window) {
+                    const resizeObserver = new ResizeObserver(updateTopValue);
+                    resizeObserver.observe(block);
+                } else {
+                    console.warn('ResizeObserver не поддерживается в вашем браузере');
+                }
             }
-        }
-    });
+        });
+    }
 </script>
 
 
