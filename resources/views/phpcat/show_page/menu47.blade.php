@@ -46,48 +46,69 @@
             flex-wrap: wrap; /* разрешает перенос на новую строку при малом экране */
             gap: 20px; /* отступ между колонками */
         }
+
         .column1 {
             padding: 3px;
             flex: 0 0 150px; /* Не растягивается, не сжимается, ширина 150px */
             box-sizing: border-box;
         }
+
         .column2 {
             flex: 1 1 auto; /* Занимает всё доступное пространство */
             box-sizing: border-box;
         }
     </style>
 
+    @if(1==2)
+        <script>
+            // window.addEventListener('DOMContentLoaded', () => {
+            //     // Отступ от нижней границы экрана
+            //     const offsetBottom = 30;
+            //     const block = document.querySelector('.catalog-product-main');
+            //     if (!block) {
+            //         console.log('Блок не найден');
+            //         return;
+            //     }
+            //     const screenHeight = window.innerHeight;
+            //     const blockHeight = block.offsetHeight;
+            //     const diff = blockHeight - screenHeight;
+            //     const topValue = diff > 0 ? -(diff+offsetBottom) : 0;
+            //     block.style.top = `${topValue}px`;
+            // });
 
-    <script>
-
-        window.addEventListener('DOMContentLoaded', () => {
-
-            // Отступ от нижней границы экрана
-            const offsetBottom = 30;
-
-            // const block = document.getElementById('block_menu');
+            //const block = document.getElementById('catalogProductMain');
             const block = document.querySelector('.catalog-product-main');
-            if (!block) {
-                console.log('Блок не найден');
-                return;
+            const inner = document.getElementById('innerBlock');
+
+            function updateTopValue() {
+                const blockHeight = block.offsetHeight;
+                const viewportHeight = window.innerHeight;
+
+                const diff = blockHeight - viewportHeight;
+                const topValue = diff > 0 ? -diff : 0;
+
+                inner.style.top = `${topValue}px`;
+
+                console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
             }
 
-            const screenHeight = window.innerHeight;
-            console.log('Высота видимой части окна:', screenHeight);
+            // Пересчёт при загрузке страницы
+            window.addEventListener('load', updateTopValue);
+            // Пересчёт при изменении размера окна
+            window.addEventListener('resize', updateTopValue);
 
-            const blockHeight = block.offsetHeight;
-            console.log('Высота блока:', blockHeight);
-
-            const diff = blockHeight - screenHeight;
-            console.log('Разница (blockHeight - screenHeight):', diff);
-
-            const topValue = diff > 0 ? -(diff+offsetBottom) : 0;
-            console.log('Установка top:', topValue);
-
-            block.style.top = `${topValue}px`;
-        });
-    </script>
-
+            // Отслеживаем изменения размера блока через ResizeObserver
+            if ('ResizeObserver' in window) {
+                const resizeObserver = new ResizeObserver(() => {
+                    updateTopValue();
+                });
+                resizeObserver.observe(block);
+            } else {
+                // Фолбэк: можно периодически проверять (например, setInterval) или использовать MutationObserver (не так точно)
+                console.warn('ResizeObserver не поддерживается в этом браузере.');
+            }
+        </script>
+    @endif
 </head>
 <body>
 
@@ -4491,4 +4512,39 @@
 {{--</script>--}}
 
 </body>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // Отступ от нижней границы экрана
+        const offsetBottom = 30;
+        const block = document.querySelector('.catalog-product-main'); // ищем по классу
+
+        if (!block) {
+            console.log('Блок с классом .catalog-product-main не найден');
+        } else {
+
+            function updateTopValue() {
+                const blockHeight = block.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                const diff = blockHeight - viewportHeight;
+                const topValue = diff > 0 ? -(diff + offsetBottom) : 0;
+                block.style.top = `${topValue}px`;
+                //console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
+            }
+
+            window.addEventListener('load', updateTopValue);
+            window.addEventListener('resize', updateTopValue);
+
+            if ('ResizeObserver' in window) {
+                const resizeObserver = new ResizeObserver(updateTopValue);
+                resizeObserver.observe(block);
+            } else {
+                console.warn('ResizeObserver не поддерживается в вашем браузере');
+            }
+        }
+    });
+</script>
+
+
 </html>
