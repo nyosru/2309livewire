@@ -62,6 +62,8 @@
 </head>
 <body>
 
+<header style="height:120px; background-color: #fef08a; padding: 10px;">header</header>
+
 <div class="block1">
     <div class="column1">
         <div class="catalog-product-main" style="position: sticky; padding-left: 10px;
@@ -82,6 +84,7 @@
     </div>
 </div>
 
+<footer style="height:120px; background-color: #fef08a; padding: 10px;">footer</footer>
 
 @if(1==2)
     <!-- Yandex.Metrika counter -->
