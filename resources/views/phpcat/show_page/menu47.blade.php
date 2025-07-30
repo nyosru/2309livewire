@@ -4433,11 +4433,14 @@
 
 
 <script>
-    if( window.innerWidth > 991 ) {
+    if (window.innerWidth > 991) {
         window.addEventListener('DOMContentLoaded', () => {
+
             // Отступ от нижней границы экрана
             const offsetBottom = 30;
+
             const block = document.querySelector('.catalog-product-main'); // ищем по классу
+            let topValue = 0;
 
             if (!block) {
                 console.log('Блок с классом .catalog-product-main не найден');
@@ -4447,13 +4450,41 @@
                     const blockHeight = block.offsetHeight;
                     const viewportHeight = window.innerHeight;
                     const diff = blockHeight - viewportHeight;
-                    const topValue = diff > 0 ? -(diff + offsetBottom) : 0;
+                    topValue = diff > 0 ? -(diff + offsetBottom) : 0;
                     block.style.top = `${topValue}px`;
-                    //console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
+                    console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
+                    console.log(`скрол topValue: ${topValue}`);
                 }
+
+                let scrollTopPrev = window.pageYOffset || document.documentElement.scrollTop; // начальное значение
+
+
+                function handleScroll() {
+                    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (scrollTopPrev === undefined) {
+                        scrollTopPrev = scrollY;
+                    }
+
+                    if (scrollY < scrollTopPrev) {
+                        if (topValue < 0) {
+                            const scrollDiff = scrollTopPrev - scrollY;
+                            topValue += scrollDiff;
+
+                            if (topValue > 0) {
+                                topValue = 0; // Не допускаем положительное значение
+                            }
+                            block.style.top = `${topValue}px`;
+                        }
+                    }
+
+                    scrollTopPrev = scrollY;
+                }
+
 
                 window.addEventListener('load', updateTopValue);
                 window.addEventListener('resize', updateTopValue);
+                window.addEventListener('scroll', handleScroll);
 
                 if ('ResizeObserver' in window) {
                     const resizeObserver = new ResizeObserver(updateTopValue);
@@ -4462,6 +4493,7 @@
                     console.warn('ResizeObserver не поддерживается в вашем браузере');
                 }
             }
+
         });
     }
 </script>
