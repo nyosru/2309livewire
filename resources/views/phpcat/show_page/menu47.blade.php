@@ -4446,18 +4446,15 @@
                 console.log('Блок с классом .catalog-product-main не найден');
             } else {
 
+                let scrollTopPrev = window.pageYOffset || document.documentElement.scrollTop; // начальное значение
+
                 function updateTopValue() {
                     const blockHeight = block.offsetHeight;
                     const viewportHeight = window.innerHeight;
                     const diff = blockHeight - viewportHeight;
                     topValue = diff > 0 ? -(diff + offsetBottom) : 0;
                     block.style.top = `${topValue}px`;
-                    // console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
-                    // console.log(`скрол topValue: ${topValue}`);
                 }
-
-                let scrollTopPrev = window.pageYOffset || document.documentElement.scrollTop; // начальное значение
-
 
                 function handleScroll() {
                     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -4466,21 +4463,20 @@
                         scrollTopPrev = scrollY;
                     }
 
+                    console.log(`+++ ${scrollY} / ${scrollTopPrev}`);
+                    if (scrollY > scrollTopPrev) {
+                        updateTopValue();
+                    }
                     if (scrollY < scrollTopPrev) {
                         if (topValue < 0) {
                             const scrollDiff = scrollTopPrev - scrollY;
                             topValue += scrollDiff;
-
-                            if (topValue > 0) {
-                                topValue = 0; // Не допускаем положительное значение
-                            }
                             block.style.top = `${topValue}px`;
                         }
                     }
 
                     scrollTopPrev = scrollY;
                 }
-
 
                 window.addEventListener('load', updateTopValue);
                 window.addEventListener('resize', updateTopValue);
