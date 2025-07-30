@@ -66,7 +66,7 @@
     <div class="column1">
         <div class="catalog-product-main" style="position: sticky; padding-left: 10px;
         ">
-            @foreach (range(1, 50) as $i)
+            @foreach (range(1, 150) as $i)
                 меню {{ $i }}<br/>
             @endforeach
         </div>
