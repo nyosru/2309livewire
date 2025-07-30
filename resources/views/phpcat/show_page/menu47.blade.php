@@ -4452,7 +4452,7 @@
                     const blockHeight = block.offsetHeight;
                     const viewportHeight = window.innerHeight;
                     const diff = blockHeight - viewportHeight;
-                    topValue = diff > 0 ? -(diff + offsetBottom) : 0;
+                    topValue = diff > 0 ? -( diff + offsetBottom ) : 0;
                     block.style.top = `${topValue}px`;
                 }
 
@@ -4462,12 +4462,10 @@
                     if (scrollTopPrev === undefined) {
                         scrollTopPrev = scrollY;
                     }
-
-                    console.log(`+++ ${scrollY} / ${scrollTopPrev}`);
                     if (scrollY > scrollTopPrev) {
                         updateTopValue();
                     }
-                    if (scrollY < scrollTopPrev) {
+                    else if (scrollY < scrollTopPrev) {
                         if (topValue < 0) {
                             const scrollDiff = scrollTopPrev - scrollY;
                             topValue += scrollDiff;
