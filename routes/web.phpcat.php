@@ -13,8 +13,8 @@ $d = function () {
     Route::get('/develop/{item}', Develop::class)->name('develop');
     Route::any('/msg', MsgSendController::class)->name('msg.send');
 
-	Route::any('/f2', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
-	Route::get('ai/token', [\App\Http\Controllers\Service\AiController::class,'getToken'])->name('ai.token');
+    Route::any('/f2', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
+    Route::get('ai/token', [\App\Http\Controllers\Service\AiController::class, 'getToken'])->name('ai.token');
 //	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
 
 //	Route::get('/f', function () {
@@ -22,30 +22,41 @@ $d = function () {
 //	});
 //
 ////	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
-	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+    Route::get('/callback', function (\Illuminate\Http\Request $request) {
 ////		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
-		$vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
-		$e = $vkFriendsComponent->getAccessToken($request->code);
-		dd($e);
+        $vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
+        $e = $vkFriendsComponent->getAccessToken($request->code);
+        dd($e);
 //
 //		// Перенаправляем пользователя обратно на главную страницу
 //		return redirect('/f');
 //
-	});
+    });
 
-	Route::get('/f', function () {
-		return view('pages.friends', ['component' => new VkFriends()]);
-	});
+    Route::get('/f', function () {
+        return view('pages.friends', ['component' => new VkFriends()]);
+    });
+
+    Route::get('/show_page/{page}', function ($page) {
+        $viewPath = "phpcat.show_page.{$page}";
+
+        if (view()->exists($viewPath)) {
+            return view($viewPath);
+        }
+
+        abort(404, 'Шаблон не найден');
+    });
+
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 //		$vkFriendsComponent = app(VkFriends::class);
 //		$vkFriendsComponent->getAccessToken($request->code);
 //
 //		return redirect('/f');
 //	});
-	Route::get('/callback', function (\Illuminate\Http\Request $request) {
-		session(['auth_code' => $request->code]);
-		return redirect('/f');
-	});
+    Route::get('/callback', function (\Illuminate\Http\Request $request) {
+        session(['auth_code' => $request->code]);
+        return redirect('/f');
+    });
 
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
