@@ -59,68 +59,15 @@
         }
     </style>
 
-    @if(1==2)
-        <script>
-            // window.addEventListener('DOMContentLoaded', () => {
-            //     // Отступ от нижней границы экрана
-            //     const offsetBottom = 30;
-            //     const block = document.querySelector('.catalog-product-main');
-            //     if (!block) {
-            //         console.log('Блок не найден');
-            //         return;
-            //     }
-            //     const screenHeight = window.innerHeight;
-            //     const blockHeight = block.offsetHeight;
-            //     const diff = blockHeight - screenHeight;
-            //     const topValue = diff > 0 ? -(diff+offsetBottom) : 0;
-            //     block.style.top = `${topValue}px`;
-            // });
-
-            //const block = document.getElementById('catalogProductMain');
-            const block = document.querySelector('.catalog-product-main');
-            const inner = document.getElementById('innerBlock');
-
-            function updateTopValue() {
-                const blockHeight = block.offsetHeight;
-                const viewportHeight = window.innerHeight;
-
-                const diff = blockHeight - viewportHeight;
-                const topValue = diff > 0 ? -diff : 0;
-
-                inner.style.top = `${topValue}px`;
-
-                console.log(`Высота блока: ${blockHeight}px, Высота окна: ${viewportHeight}px, Установка top: ${topValue}px`);
-            }
-
-            // Пересчёт при загрузке страницы
-            window.addEventListener('load', updateTopValue);
-            // Пересчёт при изменении размера окна
-            window.addEventListener('resize', updateTopValue);
-
-            // Отслеживаем изменения размера блока через ResizeObserver
-            if ('ResizeObserver' in window) {
-                const resizeObserver = new ResizeObserver(() => {
-                    updateTopValue();
-                });
-                resizeObserver.observe(block);
-            } else {
-                // Фолбэк: можно периодически проверять (например, setInterval) или использовать MutationObserver (не так точно)
-                console.warn('ResizeObserver не поддерживается в этом браузере.');
-            }
-        </script>
-    @endif
 </head>
 <body>
 
 <div class="block1">
     <div class="column1">
-        {{--        <div style="position: sticky; top: 0;">--}}
-        <div class="catalog-product-main" style="position: sticky;
-        /*top: -800px;*/
-        /*bottom: 0;*/
+        <div class="catalog-product-main" style="position: sticky; padding-left: 10px;
         ">
             @foreach (range(1, 50) as $i)
-                меню <br/>
+                меню {{ $i }}<br/>
             @endforeach
         </div>
         {{--        </div>--}}
@@ -4478,38 +4425,6 @@
         </div>
     </div>
 @endif
-
-
-
-{{--<script>--}}
-{{--    const block = document.getElementById('block_menu');--}}
-{{--    const inner = document.getElementById('block_menu2');--}}
-
-{{--    function updateTopValue() {--}}
-{{--        const blockHeight = block.offsetHeight;--}}
-{{--        const viewportHeight = window.innerHeight;--}}
-
-{{--        const diff = blockHeight - viewportHeight;--}}
-{{--        const topValue = diff > 0 ? -diff : 0;--}}
-
-{{--        inner.style.top = topValue + 'px';--}}
-
-{{--        console.log(`Высота блока: ${blockHeight}px, Высота экрана: ${viewportHeight}px, top: ${topValue}px`);--}}
-{{--    }--}}
-
-{{--    // Пересчитать при загрузке страницы--}}
-{{--    window.addEventListener('load', updateTopValue);--}}
-{{--    // При изменении размера окна--}}
-{{--    window.addEventListener('resize', updateTopValue);--}}
-
-{{--    // Отслеживаем изменение размера блока с помощью ResizeObserver--}}
-{{--    if (window.ResizeObserver) {--}}
-{{--        const resizeObserver = new ResizeObserver(() => {--}}
-{{--            updateTopValue();--}}
-{{--        });--}}
-{{--        resizeObserver.observe(block);--}}
-{{--    }--}}
-{{--</script>--}}
 
 </body>
 
