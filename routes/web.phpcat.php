@@ -85,6 +85,11 @@ Route::group([
 ], $d);
 
 Route::group([
+    'as' => 'phpcat2.',
+    'domain' => 'seotel.ru'
+], $d);
+
+Route::group([
     'as' => 'phpcat1.',
     'domain' => (env('APP_ENV', 'local') == 'local') ? '1.php-cat.local' : '1.php-cat.com'
 ], $d);
