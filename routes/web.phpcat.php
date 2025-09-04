@@ -44,7 +44,7 @@ $d = function () {
             return view($viewPath);
         }
 
-        abort(404, 'Шаблон не найден');
+        abort(404, 'нет! нет!! нет!!! не найден');
     });
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
