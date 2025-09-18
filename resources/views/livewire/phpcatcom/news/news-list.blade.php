@@ -1,4 +1,9 @@
-<div class="container mx-auto px-4 py-8">
+<div class="
+{{--bg-gradient-to-bl from-blue-200 to-white--}}
+">
+<div class="container mx-auto px-4 py-8
+
+">
 
     <!-- Заголовок -->
     <div class="mb-8 text-center">
@@ -108,4 +113,5 @@
             </p>
         </div>
     @endif
+</div>
 </div>
