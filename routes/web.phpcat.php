@@ -15,13 +15,7 @@ $d = function () {
 
     Route::any('/f2', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends');
     Route::get('ai/token', [\App\Http\Controllers\Service\AiController::class, 'getToken'])->name('ai.token');
-//	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
 
-//	Route::get('/f', function () {
-//		return view('pages.friends', ['component' => new VkFriends()]);
-//	});
-//
-////	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
     Route::get('/callback', function (\Illuminate\Http\Request $request) {
 ////		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
         $vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
@@ -58,6 +52,13 @@ $d = function () {
         return redirect('/f');
     });
 
+    Route::get('go/{get}', RedirectController::class)->name('redirect');
+
+    Route::fallback(function () {
+        return redirect('/');
+    });
+
+
 
 //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
 //		$e = new \App\Livewire\Phpcat\VkFriends();
@@ -72,16 +73,22 @@ $d = function () {
 ////    Route::get('torrent', News::class)->name('torrent');
 ////    Route::get('money', News::class)->name('money');
 //    // Route::get('{.*}', News::class)->name('other');
-    Route::get('go/{get}', RedirectController::class)->name('redirect');
 
-    Route::fallback(function () {
-        return redirect('/');
-    });
+//	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
+
+//	Route::get('/f', function () {
+//		return view('pages.friends', ['component' => new VkFriends()]);
+//	});
+//
+////	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
+
+
 };
+
 
 Route::group([
     'as' => 'phpcat.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'php-cat.local' : 'php-cat.com'
+    'domain' => (env('APP_ENV', 'local') == 'local') ? 'phpcat.local' : 'php-cat.com'
 ], $d);
 
 Route::group([

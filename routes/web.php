@@ -89,7 +89,6 @@ require('web.phpcat.php');
 require('web.phpcat_ru.php');
 require('web.skidki.php');
 
-
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
@@ -108,6 +107,31 @@ Route::group([
     'as' => 'as.php-cat.com.',
     'domain' => (env('APP_ENV', 'x') == 'local') ? 'as.php-cat.com.local' : 'as.php-cat.com'
 ], $d);
+
+
+
+
+
+
+use App\Livewire\Phpcatcom\News\NewsList;
+use App\Livewire\Phpcatcom\News\NewsShow;
+
+$d = function () {
+    Route::get('/', \App\Livewire\Cfa\Index::class)->name('index');
+    // Новости
+    Route::get('/news', NewsList::class)->name('news.index');
+    Route::get('/news/{slug}', NewsShow::class)->name('news.show');
+
+};
+Route::group([
+    'as' => 'cfa.',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa.php-cat.com'
+], $d);
+
+
+
+
+
 
 require('web.stn.php');
 require('web.mannik.php');

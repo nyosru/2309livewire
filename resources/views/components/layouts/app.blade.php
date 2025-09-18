@@ -5,12 +5,21 @@
     $_SERVER['HTTP_HOST'] == 'seotel.ru' ||
     $_SERVER['HTTP_HOST'] == '1.php-cat.com' ||
     $_SERVER['HTTP_HOST'] == 'php-cat.local' ||
+    $_SERVER['HTTP_HOST'] == 'phpcat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.local' ||
     $_SERVER['HTTP_HOST'] == 'livewire.php-cat.com'
     )
 
     @include('phpcat.index')
 
+@elseif(
+	#IDN: тюменскаяафиша.рф
+    $_SERVER['HTTP_HOST'] == 'cfa-center.ru' ||
+    $_SERVER['HTTP_HOST'] == 'cfa.php-cat.com' ||
+    $_SERVER['HTTP_HOST'] == 'cfa.local' ||
+    $_SERVER['HTTP_HOST'] == 'cfa2.local'
+    )
+    {{ $slot }}
 @elseif(
 	#IDN: тюменскаяафиша.рф
     $_SERVER['HTTP_HOST'] == 'php-cat.ru' ||
