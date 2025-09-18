@@ -1,10 +1,14 @@
-<div class="bg-gray-300 py-3">
-    <footer>
+<div>
+    <footer >
 
-        <div class="mx-auto container ">
-            <div class="flex flex-row py-3">
+        <div class="bg-gray-300 py-3" >
 
-                <div class="w-1/4">
+        <div class="mx-auto container
+
+        ">
+            <div class="flex flex-col text-center md:text-left md:flex-row py-3 items-top justify-center">
+
+                <div class="w-full md:w-1/4">
                     <div class="flex items-center mb-4">
 
                         {{--                        <div class="bg-blue-600 text-white p-2 rounded-lg mr-2">--}}
@@ -27,13 +31,14 @@
                     ">Ваши решения, наш опыт, скорость и точность.</p>
                 </div>
 
-                <div class="w-1/4">
+                <div class="w-full md:w-1/4">
                     <h4 class="font-bold text-lg mb-4">
                         Центр
                     </h4>
                     <ul class="space-y-2">
-{{--                        <li><a href="{{ route('datar.list') }}" class="block p-1 hover:bg-blue-200" >База знаний</a></li>--}}
-{{--                        <li><a href="{{ route('news.index') }}" class="block p-1 hover:bg-blue-200" >Новости</a></li>--}}
+                        <li><a href="{{ route('cfa.datar.list') }}" class="block p-1 hover:bg-blue-200">База знаний</a>
+                        </li>
+                        <li><a href="{{ route('cfa.news.index') }}" class="block p-1 hover:bg-blue-200">Новости</a></li>
 
 
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Возможности</a></li>--}}
@@ -43,7 +48,8 @@
                     </ul>
                 </div>
 
-                <div class="w-1/4">
+                @if(1==2)
+                <div class="w-full md:w-1/4">
                     <h4 class="font-bold text-lg mb-4">Поддержка</h4>
                     <ul class="space-y-2">
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Помощь</a></li>--}}
@@ -52,20 +58,28 @@
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Контакты</a></li>--}}
                     </ul>
                 </div>
-                <div class="w-1/4">
-                    <h4 class="font-bold text-lg mb-4">Компания</h4>
-                    <ul class="space-y-2">
+                @endif
+                @if(1==2)
+                    <div class="w-full md:w-1/4">
+                        <h4 class="font-bold text-lg mb-4">Компания</h4>
+                        <ul class="space-y-2">
 
-                        <li><a href="#" class="text-gray-400 hover:text-white">О нас</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">О нас</a></li>
 
-                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Блог</a></li>--}}
-                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Вакансии</a></li>--}}
-                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Партнеры</a></li>--}}
-                    </ul>
-                </div>
+                            {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Блог</a></li>--}}
+                            {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Вакансии</a></li>--}}
+                            {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Партнеры</a></li>--}}
+                        </ul>
+                    </div>
+                @endif
+
             </div>
         </div>
-        <div class="bg-gray-300 py-3">
+            </div>
+
+        <div class="
+        bg-gray-300
+         py-3 text-xs">
             <div class="mx-auto container ">
                 <div class="flex flex-col space-y-3  ">
                     <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row">

@@ -115,12 +115,15 @@ Route::group([
 
 use App\Livewire\Phpcatcom\News\NewsList;
 use App\Livewire\Phpcatcom\News\NewsShow;
+use App\Livewire\Phpcatcom\Datar2\DatarList;
 
 $d = function () {
     Route::get('/', \App\Livewire\Cfa\Index::class)->name('index');
     // Новости
     Route::get('/news', NewsList::class)->name('news.index');
     Route::get('/news/{slug}', NewsShow::class)->name('news.show');
+
+    Route::get('/datar', DatarList::class)->name('datar.list');
 
 };
 Route::group([

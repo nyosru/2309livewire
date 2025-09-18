@@ -15,6 +15,7 @@ class DatarList extends Component
     public $search = '';
     public $perPage = 10;
     public $isLoading = false;
+    public $layout = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -23,6 +24,8 @@ class DatarList extends Component
 
     public function mount()
     {
+        $this->layout = 'livewire.cfa.app.body';
+
         // При загрузке компонента проверяем, есть ли выбранный родитель
         if ($this->selectedParentId) {
             $this->loadSelectedParent();
@@ -91,8 +94,11 @@ class DatarList extends Component
             ->orderBy('title')
             ->paginate($this->perPage);
 
-        return view('livewire.phpcatcom.datar2.datar-list', [
+        $view = view('livewire.phpcatcom.datar2.datar-list', [
             'parents' => $parents,
         ]);
+
+        return $this->layout ? $view->layout($this->layout) : $view;
+
     }
 }
