@@ -125,7 +125,11 @@ $d = function () {
 };
 Route::group([
     'as' => 'cfa.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa.php-cat.com'
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
+], $d);
+Route::group([
+    'as' => 'cfa2.',
+    'domain' => 'cfa.php-cat.com'
 ], $d);
 
 
