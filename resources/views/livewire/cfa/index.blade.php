@@ -2,7 +2,7 @@
 
     @auth
     <livewire:tech.menu type="cfa" />
-    @endauths
+    @endauth
 
     <livewire:baner.up-full1/>
     <livewire:Phpcatcom.Datar2.Datar-list />
