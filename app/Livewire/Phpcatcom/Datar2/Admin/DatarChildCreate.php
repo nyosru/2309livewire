@@ -23,12 +23,15 @@ class DatarChildCreate extends Component
         'is_active' => 'boolean'
     ];
 
+    public $layout = '';
+
     public function mount()
     {
         $this->parents = DatarParent::active()
             ->orderBy('order')
             ->orderBy('title')
             ->get();
+        $this->layout = 'livewire.cfa.app.body';
     }
 
     public function save()
@@ -43,8 +46,8 @@ class DatarChildCreate extends Component
             'is_active' => $this->is_active
         ]);
 
-        session()->flash('success', 'Дочерний элемент успешно создан!');
-        return redirect()->route('datar2.admin', ['activeTab' => 'children']);
+        session()->flash('datar_child_success', 'Дочерний элемент успешно создан!');
+        return redirect()->route('tech.datar2', ['activeTab' => 'children']);
     }
 
     public function cancel()
@@ -54,6 +57,7 @@ class DatarChildCreate extends Component
 
     public function render()
     {
-        return view('livewire.phpcatcom.datar2.admin.datar-child-create');
+        $view = view('livewire.phpcatcom.datar2.admin.datar-child-create');
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

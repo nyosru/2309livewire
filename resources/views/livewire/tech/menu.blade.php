@@ -6,7 +6,7 @@ space-x-1 my-6 justify-center ">
     @if( $type == 'cfa' )
 
         <a
-            {{--        href="{{route('home')}}"--}}
+                    href="{{route('tech.datar2')}}"
             wire:navigate
             class="
                    hover:bg-gradient-to-tr

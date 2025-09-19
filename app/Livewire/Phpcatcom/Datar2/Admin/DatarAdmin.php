@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Phpcatcom\Datar2\Admin;
 
-use App\Models\DatarParent;
 use App\Models\Datar2;
+use App\Models\DatarParent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,103 +13,61 @@ class DatarAdmin extends Component
 
     public $search = '';
     public $perPage = 10;
-    public $activeTab = 'parents';
-    public $selectedParent = null;
-    public $confirmingDeletion = false;
-    public $itemToDelete = null;
-    public $deleteType = null; // 'parent' or 'child'
+    public $layout = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'activeTab' => ['except' => 'parents'],
         'page' => ['except' => 1]
     ];
+
+    public function mount()
+    {
+        $this->layout = 'livewire.cfa.app.body';
+    }
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function switchTab($tab)
+    public function toggleStatusParent($id)
     {
-        $this->activeTab = $tab;
-        $this->resetPage();
-    }
+        $parent = DatarParent::find($id);
 
-    public function confirmDelete($type, $id)
-    {
-        $this->deleteType = $type;
-        $this->itemToDelete = $id;
-        $this->confirmingDeletion = true;
-    }
-
-    public function deleteItem()
-    {
-        if ($this->deleteType === 'parent') {
-            $parent = DatarParent::find($this->itemToDelete);
-            if ($parent) {
-                // Удаляем всех детей перед удалением родителя
-                $parent->children()->delete();
-                $parent->delete();
-            }
-        } elseif ($this->deleteType === 'child') {
-            $child = Datar2::find($this->itemToDelete);
-            if ($child) {
-                $child->delete();
-            }
+        if ($parent) {
+            $parent->update(['is_active' => !$parent->is_active]);
+            $this->dispatch('item-updated');
         }
-
-        $this->confirmingDeletion = false;
-        $this->itemToDelete = null;
-        $this->deleteType = null;
-
-        $this->dispatch('item-deleted');
     }
 
-    public function toggleStatus($type, $id)
+    public function toggleStatusChild($id)
     {
-        if ($type === 'parent') {
-            $item = DatarParent::find($id);
-        } else {
-            $item = Datar2::find($id);
-        }
+        $child = Datar2::find($id);
 
-        if ($item) {
-            $item->update(['is_active' => !$item->is_active]);
+        if ($child) {
+            $child->update(['is_active' => !$child->is_active]);
             $this->dispatch('item-updated');
         }
     }
 
     public function render()
     {
-        $parents = [];
-        $children = [];
+        $parents = DatarParent::query()
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            })
+            ->with(['children' => function ($query) {
+                $query->orderBy('order')->orderBy('title');
+            }])
+            ->orderBy('order')
+            ->orderBy('title')
+            ->paginate($this->perPage);
 
-        if ($this->activeTab === 'parents') {
-            $parents = DatarParent::query()
-                ->when($this->search, function ($query) {
-                    $query->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%');
-                })
-                ->withCount('children')
-                ->orderBy('order')
-                ->orderBy('title')
-                ->paginate($this->perPage);
-        } else {
-            $children = Datar2::query()
-                ->when($this->search, function ($query) {
-                    $query->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%');
-                })
-                ->with('parent')
-                ->orderBy('order')
-                ->orderBy('title')
-                ->paginate($this->perPage);
-        }
-
-        return view('livewire.phpcatcom.datar2.admin.datar-admin', [
+        $view = view('livewire.phpcatcom.datar2.admin.datar-admin', [
             'parents' => $parents,
-            'children' => $children,
         ]);
+
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

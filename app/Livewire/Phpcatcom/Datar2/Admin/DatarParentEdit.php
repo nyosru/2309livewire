@@ -20,6 +20,8 @@ class DatarParentEdit extends Component
         'is_active' => 'boolean'
     ];
 
+    public $layout = '';
+
     public function mount($id)
     {
         $this->parent = DatarParent::findOrFail($id);
@@ -27,6 +29,7 @@ class DatarParentEdit extends Component
         $this->content = $this->parent->content;
         $this->order = $this->parent->order;
         $this->is_active = $this->parent->is_active;
+        $this->layout = 'livewire.cfa.app.body';
     }
 
     public function save()
@@ -51,8 +54,9 @@ class DatarParentEdit extends Component
 
     public function render()
     {
-        return view('livewire.phpcatcom.datar2.admin.datar-parent-edit', [
+        $view = view('livewire.phpcatcom.datar2.admin.datar-parent-edit', [
             'parentItem' => $this->parent
         ]);
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

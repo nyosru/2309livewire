@@ -27,10 +27,13 @@ class DatarParentCreate extends Component
         ];
     }
 
+    public $layout = '';
+
     public function mount()
     {
         // Загрузить доступные родители для выбора
         $this->parents = DatarParent::orderBy('name')->get()->toArray();
+        $this->layout = 'livewire.cfa.app.body';
     }
 
     public function save()
@@ -53,6 +56,7 @@ class DatarParentCreate extends Component
 
     public function render()
     {
-        return view('phpcatcom.datar2.admin.datar-parent-create');
+        $view = view('phpcatcom.datar2.admin.datar-parent-create');
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

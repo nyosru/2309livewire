@@ -24,6 +24,8 @@ class DatarChildEdit extends Component
         'is_active' => 'boolean'
     ];
 
+    public $layout = '';
+
     public function mount($id)
     {
         $this->child = Datar2::with('parent')->findOrFail($id);
@@ -37,6 +39,8 @@ class DatarChildEdit extends Component
             ->orderBy('order')
             ->orderBy('title')
             ->get();
+
+        $this->layout = 'livewire.cfa.app.body';
     }
 
     public function save()
@@ -62,8 +66,9 @@ class DatarChildEdit extends Component
 
     public function render()
     {
-        return view('livewire.phpcatcom.datar2.admin.datar-child-edit', [
+        $view = view('livewire.phpcatcom.datar2.admin.datar-child-edit', [
             'childItem' => $this->child
         ]);
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

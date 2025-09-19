@@ -1,5 +1,22 @@
 <form wire:submit.prevent="save" class="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
-    @if (session()->has('message'))
+
+
+
+    <livewire:app.breadcrumb :menu="[
+        [ 'name' => 'Тех. отдел',
+         'link'=>'no' ],
+        [ 'name' => 'База знаний',
+        'route' => 'tech.datar2',
+         ],
+        [ 'name' => 'Добавить группу',
+        'route' => 'tech.datar2.parents.create',
+         ],
+    ]" />
+    {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'='no' ],--}}
+
+
+
+@if (session()->has('message'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
             {{ session('message') }}
         </div>
