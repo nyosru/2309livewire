@@ -17,7 +17,7 @@ class DatarChildCreate extends Component
 
     protected $rules = [
         'title' => 'required|string|min:3|max:255',
-        'content' => 'required|string|min:10',
+        'content' => 'nullable|string|min:10',
         'parent_id' => 'required|exists:datar_parents,id',
         'order' => 'required|integer|min:0',
         'is_active' => 'boolean'

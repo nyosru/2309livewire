@@ -8,7 +8,7 @@
         ">
             <div class="flex flex-col text-center md:text-left md:flex-row py-3 items-top justify-center">
 
-                <div class="w-full md:w-1/4">
+                <div class="w-full md:w-1/2">
                     <div class="flex items-center mb-4">
 
                         {{--                        <div class="bg-blue-600 text-white p-2 rounded-lg mr-2">--}}
