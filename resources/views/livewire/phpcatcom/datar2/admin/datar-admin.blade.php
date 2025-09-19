@@ -59,6 +59,12 @@
         </div>
     @endif
 
+    @if (session()->has('error'))
+        <div class="bg-red-300 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
 
     <!-- Список родителей и детей -->
     <div class="space-y-6">
@@ -102,6 +108,7 @@
 
                         <button
                             {{--                            wire:click="confirmDelete('child', {{ $parent->id }})"--}}
+                            wire:confirm="Вы действительно хотите удалить запись?"
                             wire:click="confirmDelete('parent', {{ $parent->id }})"
                             class="text-red-600 hover:text-red-900"
                             title="Удалить"
@@ -153,7 +160,8 @@
                                 </a>
 
                                 <button
-                                    wire:click="confirmDelete('child', {{ $parent->id }})"
+                                    wire:confirm="Вы действительно хотите удалить запись?"
+                                    wire:click="confirmDelete('children', {{ $child->id }})"
                                     {{--                                    wire:click="confirmDelete('parent', {{ $parent->id }})"--}}
                                     class="text-red-600 hover:text-red-900"
                                     title="Удалить"

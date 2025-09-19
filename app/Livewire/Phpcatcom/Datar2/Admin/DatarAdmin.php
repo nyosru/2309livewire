@@ -39,6 +39,28 @@ class DatarAdmin extends Component
             $this->dispatch('item-updated');
         }
     }
+public function confirmDelete(string $type, int $id)
+{
+    if ($type === 'parent') {
+        $deleted = DatarParent::where('id', $id)->delete();
+
+        if ($deleted) {
+            session()->flash('parent_success', 'Группа удалена');
+        } else {
+            session()->flash('error', 'Группа не найдена или не удалена');
+        }
+
+    } elseif ($type === 'children') {
+        $deleted = Datar2::where('id', $id)->delete();
+
+        if ($deleted) {
+            session()->flash('parent_success', 'Запись удалена');
+        } else {
+            session()->flash('error', 'Запись не найдена или не удалена');
+        }
+    }
+}
+
 
     public function toggleStatusChild($id)
     {

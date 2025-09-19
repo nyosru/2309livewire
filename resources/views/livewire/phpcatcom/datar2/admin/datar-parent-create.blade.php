@@ -1,6 +1,19 @@
 <div >
 
 
+    <livewire:app.breadcrumb :menu="[
+        [ 'name' => 'Тех. отдел',
+         'link'=>'no' ],
+        [ 'name' => 'База знаний',
+        'route' => 'tech.datar2',
+         ],
+        [ 'name' => 'Добавить запись', 'link'=>'no'
+         ],
+    ]" />
+    {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
+
+
+
 
 @if (session()->has('message'))
         <div class="alert alert-success">{{ session('message') }}</div>

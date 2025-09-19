@@ -1,5 +1,21 @@
 <div class="max-w-4xl mx-auto p-4 bg-white shadow rounded-lg">
-    @if (session()->has('success'))
+
+
+    <livewire:app.breadcrumb :menu="[
+        [ 'name' => 'Тех. отдел',
+         'link'=>'no' ],
+        [ 'name' => 'База знаний',
+        'route' => 'tech.datar2',
+         ],
+        [ 'name' => 'Редактирум группу', 'link'=>'no'
+         ],
+    ]" />
+    {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
+
+
+
+
+@if (session()->has('success'))
         <div class="bg-green-200 text-green-800 p-3 rounded mb-4">
             {{ session('success') }}
         </div>
