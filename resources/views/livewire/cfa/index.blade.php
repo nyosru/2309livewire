@@ -1,6 +1,8 @@
 <div class="min-h-[60vh] w-full">
 
+    @auth
     <livewire:tech.menu type="cfa" />
+    @endauths
 
     <livewire:baner.up-full1/>
     <livewire:Phpcatcom.Datar2.Datar-list />
