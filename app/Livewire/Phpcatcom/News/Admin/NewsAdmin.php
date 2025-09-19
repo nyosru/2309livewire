@@ -24,6 +24,14 @@ class NewsAdmin extends Component
         'search' => ['except' => ''],
         'page' => ['except' => 1]
     ];
+    public $layout = '';
+    public $type = '';
+
+    public function mount()
+    {
+        $this->layout = 'livewire.cfa.app.body';
+    }
+
 
     public function updatingSearch()
     {
@@ -75,8 +83,11 @@ class NewsAdmin extends Component
             ->latest()
             ->paginate($this->perPage);
 
-        return view('livewire.phpcatcom.news.admin.news-admin', [
+        $view = view('livewire.phpcatcom.news.admin.news-admin', [
             'news' => $news,
         ]);
+
+        return $this->layout ? $view->layout($this->layout) : $view;
+
     }
 }

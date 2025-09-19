@@ -39,7 +39,6 @@ require __DIR__ . '/auth.php';
 require('web.afisha.php');
 
 
-
 ////Route::get('{.*}',function () {
 ////    return response( $_SERVER['HTTP_HOST'] ?? 'x' );
 //////    return redirect('/');
@@ -109,8 +108,10 @@ Route::group([
 ], $d);
 
 
+use App\Livewire\Auth\Vk;
 
-
+Route::get('/auth/vk', [Vk::class, 'redirect'])->name('auth.vk');
+Route::get('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.callback');
 
 
 use App\Livewire\Phpcatcom\News\NewsList;
@@ -119,6 +120,7 @@ use App\Livewire\Phpcatcom\Datar2\DatarList;
 
 $d = function () {
     Route::get('/', \App\Livewire\Cfa\Index::class)->name('index');
+    Route::get('/aa/', \App\Livewire\Cfa\Index::class)->name('index2');
     // Новости
     Route::get('/news', NewsList::class)->name('news.index');
     Route::get('/news/{slug}', NewsShow::class)->name('news.show');
@@ -128,12 +130,27 @@ $d = function () {
 };
 Route::group([
     'as' => 'cfa.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa.local' : 'cfa-center.ru'
 ], $d);
 Route::group([
     'as' => 'cfa2.',
     'domain' => 'cfa.php-cat.com'
 ], $d);
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('tech')->name('tech.')->group(function () {
+        // Админка новостей
+        Route::prefix('admin/news')->as('news.admin')->group(function () {
+            Route::get('/', \App\Livewire\Phpcatcom\News\Admin\NewsAdmin::class)->name('');
+            Route::get('/create', \App\Livewire\Phpcatcom\News\Admin\NewsCreate::class)->name('.create');
+            Route::get('/edit/{id}', \App\Livewire\Phpcatcom\News\Admin\NewsEdit::class)->name('.edit');
+        });
+    });
+});
+
+
+
 
 
 

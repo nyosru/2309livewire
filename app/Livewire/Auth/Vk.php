@@ -138,7 +138,8 @@ class Vk extends Component
 //            $vkController = new \App\Http\Controllers\VkMessageController();
 //            $vkController->sendNotification($user, $message);
 
-            return redirect()->route('tech.index');
+            return redirect()->to('/');
+//            return redirect()->route('tech.index');
 //            return redirect()->route('board.list');
 //            return redirect()->intended('/dashboard');
 

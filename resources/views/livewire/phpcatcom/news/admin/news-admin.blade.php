@@ -1,3 +1,9 @@
+<div>
+
+    @if( $type == 'cfa')
+        <livewire:tech.menu type="cfa" />
+    @endif
+
 <div class="container mx-auto px-4 py-8">
     <!-- Заголовок и кнопка создания -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
@@ -154,4 +160,5 @@
             {{ session('success') }}
         </div>
     @endif
+</div>
 </div>

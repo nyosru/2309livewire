@@ -30,6 +30,7 @@ class NewsEdit extends Component
         'is_published' => 'boolean',
         'published_at' => 'nullable|date'
     ];
+    public $layout = '';
 
     public function mount($id)
     {
@@ -40,7 +41,11 @@ class NewsEdit extends Component
         $this->currentImage = $this->news->image;
         $this->is_published = $this->news->is_published;
         $this->published_at = $this->news->published_at?->format('Y-m-d\TH:i');
+        $this->layout = 'livewire.cfa.app.body';
     }
+
+
+
 
     public function save()
     {
@@ -76,7 +81,8 @@ class NewsEdit extends Component
         $this->news->update($newsData);
 
         session()->flash('success', 'Новость успешно обновлена!');
-        return redirect()->route('news.admin');
+        return redirect()->back();
+//        return redirect()->route('news.admin');
     }
 
     public function cancel()
@@ -86,8 +92,9 @@ class NewsEdit extends Component
 
     public function render()
     {
-        return view('livewire.phpcatcom.news.admin.news-edit', [
+        $view = view('livewire.phpcatcom.news.admin.news-edit', [
             'newsItem' => $this->news
         ]);
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

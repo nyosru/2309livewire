@@ -27,6 +27,13 @@ class NewsCreate extends Component
         'is_published' => 'boolean',
         'published_at' => 'nullable|date'
     ];
+    public $layout = '';
+
+
+    public function mount()
+    {
+        $this->layout = 'livewire.cfa.app.body';
+    }
 
     public function save()
     {
@@ -60,6 +67,7 @@ class NewsCreate extends Component
 
     public function render()
     {
-        return view('livewire.phpcatcom.news.admin.news-create');
+        $view = view('livewire.phpcatcom.news.admin.news-create');
+        return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

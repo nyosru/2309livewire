@@ -8,7 +8,7 @@ w-full
 space-x-1
 justify-center
 ">
-
+type {{ $type }}
     {{--        <div>--}}
 
     {{--        первая--}}

@@ -72,7 +72,7 @@
                  x-show="!showHeader"
                  x-transition.opacity.duration.300ms
             ><a href="/">
-                <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>
+                    <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>
                 </a>
             </div>
             <div class="flex flex-col flex-1 items-center ">
@@ -89,10 +89,12 @@
             </div>
 
 
-            @if(1==2)
+            @if(1==1)
 
                 @guest
+                    @if(request()->routeIs('cfa.index2'))
                     <livewire:auth.vk/>
+                        @endif
                 @else
                     <div>
                         <div x-data="{ open: false }">
@@ -102,18 +104,16 @@
                             <div x-show="open" @click.away="open = false" class="absolute  border-2 border-gray-500 rounded
                          rounded shadow-lg z-10">
                                 <div class="flex flex-col w-[150px] ">
-                                    <div class="">
-                                        <a href="{{ route('lk.profile') }}"
-                                           class="block bg-white px-4 py-2
-                                        hover:bg-orange-200 hover:underline
-                                        "
-                                        >
-                                            Профиль
-                                        </a>
-                                    </div>
-                                    <div
-
-                                    >
+{{--                                    <div class="">--}}
+{{--                                        <a href="{{ route('lk.profile') }}"--}}
+{{--                                           class="block bg-white px-4 py-2--}}
+{{--                                        hover:bg-orange-200 hover:underline--}}
+{{--                                        "--}}
+{{--                                        >--}}
+{{--                                            Профиль--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+                                    <div>
                                         <a
                                             href="#"
                                             class=" bg-white px-4 py-2 hover:underline block
