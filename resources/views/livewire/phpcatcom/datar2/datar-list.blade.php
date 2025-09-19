@@ -28,6 +28,7 @@ bg-gray-200
         @endif
 
 
+
         <!-- Заголовок -->
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу

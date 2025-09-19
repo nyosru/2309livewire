@@ -45,6 +45,7 @@ class DatarChildEdit extends Component
 
     public function save()
     {
+
         $this->validate();
 
         $this->child->update([
@@ -55,8 +56,9 @@ class DatarChildEdit extends Component
             'is_active' => $this->is_active
         ]);
 
-        session()->flash('success', 'Дочерний элемент успешно обновлен!');
-        return redirect()->route('datar2.admin', ['activeTab' => 'children']);
+        session()->flash('children_success', 'Запись успешно обновлена');
+        return redirect()->route('tech.datar2');
+
     }
 
     public function cancel()

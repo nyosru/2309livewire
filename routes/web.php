@@ -59,7 +59,9 @@ Route::middleware(['auth'])->group(function () {
             // Родители
             Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
 //                Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentCreate::class)->name('.parents.create');
+
             Route::get('/parents/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.edit');
+
 //                // Дети
             Route::get('/children/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildCreate::class)->name('.children.create');
             Route::get('/children/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildEdit::class)->name('.children.edit');
@@ -71,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/create', \App\Livewire\Phpcatcom\News\Admin\NewsCreate::class)->name('.create');
             Route::get('/edit/{id}', \App\Livewire\Phpcatcom\News\Admin\NewsEdit::class)->name('.edit');
         });
+
     });
 });
 

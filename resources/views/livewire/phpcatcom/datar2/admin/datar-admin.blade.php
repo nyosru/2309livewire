@@ -35,15 +35,30 @@
         </div>
     </div>
 
-    <!-- Поиск -->
-    <div class="mb-6">
-        <input
-            type="text"
-            wire:model.live="search"
-            placeholder="Поиск по заголовку или содержанию..."
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-    </div>
+{{--    <!-- Поиск -->--}}
+{{--    <div class="mb-6">--}}
+{{--        <input--}}
+{{--            type="text"--}}
+{{--            wire:model.live="search"--}}
+{{--            placeholder="Поиск по заголовку или содержанию..."--}}
+{{--            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"--}}
+{{--        >--}}
+{{--    </div>--}}
+
+
+
+    @if (session()->has('parent_success'))
+        <div class="bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+            {{ session('parent_success') }}
+        </div>
+    @endif
+
+    @if (session()->has('children_success'))
+        <div class="bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+            {{ session('children_success') }}
+        </div>
+    @endif
+
 
     <!-- Список родителей и детей -->
     <div class="space-y-6">

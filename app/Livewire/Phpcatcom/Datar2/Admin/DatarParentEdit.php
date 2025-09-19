@@ -2,61 +2,63 @@
 
 namespace App\Livewire\Phpcatcom\Datar2\Admin;
 
-use App\Models\DatarParent;
 use Livewire\Component;
+use App\Models\DatarParent;
 
 class DatarParentEdit extends Component
 {
-    public $parent;
+    public DatarParent $datarParent;
+
     public $title;
     public $content;
     public $order;
     public $is_active;
+    public $id;
 
     protected $rules = [
-        'title' => 'required|string|min:3|max:255',
-        'content' => 'required|string|min:10',
-        'order' => 'required|integer|min:0',
-        'is_active' => 'boolean'
+        'title' => 'required|string|max:255',
+        'content' => 'nullable|string',
+        'order' => 'required|integer',
+        'is_active' => 'boolean',
     ];
 
     public $layout = '';
 
     public function mount($id)
     {
-        $this->parent = DatarParent::findOrFail($id);
-        $this->title = $this->parent->title;
-        $this->content = $this->parent->content;
-        $this->order = $this->parent->order;
-        $this->is_active = $this->parent->is_active;
         $this->layout = 'livewire.cfa.app.body';
+
+//        dd($id);
+
+        $this->datarParent = DatarParent::where('id', $id)->first();
+//        $this->datarParent = $datarParent;
+//dd($datarParent);
+        // Инициализация полей формы текущими значениями модели
+        $this->title = $this->datarParent->title;
+        $this->content = $this->datarParent->content;
+        $this->order = $this->datarParent->order;
+        $this->is_active = $this->datarParent->is_active;
     }
 
     public function save()
     {
         $this->validate();
 
-        $this->parent->update([
+        $this->datarParent->update([
             'title' => $this->title,
             'content' => $this->content,
             'order' => $this->order,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
         ]);
 
-        session()->flash('success', 'Родительский элемент успешно обновлен!');
-        return redirect()->route('datar2.admin');
-    }
+        session()->flash('parent_success', 'Группа изменена.');
+        return redirect()->route('tech.datar2');
 
-    public function cancel()
-    {
-        return redirect()->route('datar2.admin');
     }
 
     public function render()
     {
-        $view = view('livewire.phpcatcom.datar2.admin.datar-parent-edit', [
-            'parentItem' => $this->parent
-        ]);
+        $view = view('livewire.phpcatcom.datar2.admin.datar-parent-edit');
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }
