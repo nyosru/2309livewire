@@ -20,6 +20,14 @@ bg-gray-200
      }"
          @scroll-to-content.window="scrollToContent()">
 
+
+        @if (session()->has('send_tel_message'))
+            <div class="bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+                {{ session('send_tel_message') }}
+            </div>
+        @endif
+
+
         <!-- Заголовок -->
         <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу
@@ -94,6 +102,7 @@ bg-gray-200
                 <!-- Детальный вид родителя с детьми -->
                 <div class="p-6">
                     <div class="mb-6">
+                        <span class="float-right bg-yellow-100 border border-2 border-blue-600 p-2 rounded"><livewire:phpcatcom.backword.link1-modal-form /></span>
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $selectedParent->title }}</h2>
                         <div class="prose max-w-none text-gray-700">
                             {{--                        {!! nl2br(e($selectedParent->content)) !!}--}}
