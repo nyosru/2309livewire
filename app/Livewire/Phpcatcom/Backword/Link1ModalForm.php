@@ -9,6 +9,7 @@ class Link1ModalForm extends Component
 {
     public bool $isOpen = false;
     public string $phone = '';
+    public string $class = '';
 
     protected $rules = [
         'phone' => 'required|string|min:10|max:20',

@@ -4,9 +4,10 @@
      showBlock: true,
      lastScrollPosition: 0 }"
 
-    x-on:scroll.window.throttle.200ms="() => {
+{{--    x-on:scroll.window.throttle.200ms="() => {--}}
+    x-on:scroll.window="() => {
         const currentScroll = window.scrollY;
-         const isMobile = window.innerWidth < 600;
+        const isMobile = window.innerWidth < 600;
 
          showBlock = currentScroll < 100
 
@@ -25,12 +26,29 @@
 {{--     @endguest--}}
      "
 >
-
-    <div class="bg-gray-200 text-center w-full"
-         x-show="showBlock"
-    >
-        Москва Питер Оренбург Екатеринбург Челябинск Пермь
+<div class="bg-gray-200 text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
+     x-show="showBlock"
+>
+    <div class="px-3 py-1 ">
+        Москва
     </div>
+    <div class="px-3 py-1 ">
+        Питер
+    </div>
+    <div class="px-3 py-1 ">
+        Оренбург
+    </div>
+    <div class="px-3 py-1 ">
+        Екатеринбург
+    </div>
+    <div class="px-3 py-1 ">
+        Челябинск
+    </div>
+    <div class="px-3 py-1 ">
+        Пермь
+    </div>
+</div>
+
 
     <div class="flex flex-col sm:w-full sm:flex-row space-y-2 pb-3"
     >

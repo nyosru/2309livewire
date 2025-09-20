@@ -2,7 +2,7 @@
     <!-- Ссылка, открывающая модальное окно -->
     <a href="#"
        wire:click.prevent="openModal"
-       class="text-blue-600 hover:text-blue-800 underline cursor-pointer"
+       class="{{ !empty($class) ? $class : 'text-blue-600 hover:text-blue-800 underline cursor-pointer' }}"
     >
         Записаться на консультацию
     </a>
