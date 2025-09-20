@@ -24,6 +24,7 @@
 {{--     @guest() --}}
      sticky top-0
 {{--     @endguest--}}
+shadow-lg
      "
 >
 <div class="bg-gray-200 text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
@@ -33,7 +34,7 @@
         Москва
     </div>
     <div class="px-3 py-1 ">
-        Питер
+        Санкт-Петербург
     </div>
     <div class="px-3 py-1 ">
         Оренбург
@@ -69,7 +70,8 @@
 
                 <div class="flex flex-row">
                     <div class="flex-1 items-center align-middle">
-                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>
+{{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
+                        <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>
                     </div>
                     <div class="flex flex-col pl-2 text-[20px] ">
                         <div class="p-0 m-0">
