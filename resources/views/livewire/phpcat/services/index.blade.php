@@ -21,5 +21,6 @@
 {{--        <livewire:Phpcat.Services.generator-qr />--}}
 {{--    @endif--}}
 
-        <livewire:Phpcat.Services.a-i />
+{{--        <livewire:Phpcat.Services.a-i />--}}
+        <livewire:Phpcat.Services.ai-gigachat />
 </div>
