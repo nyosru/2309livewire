@@ -84,7 +84,7 @@
 {{--         text-xs--}}
          ">
             <div class="mx-auto container ">
-                <div class="flex flex-col space-y-3  ">1233
+                <div class="flex flex-col space-y-3  ">
 
                     <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row">
                         <div class="w-full sm:w-1/2 text-center items-center justify-center">
