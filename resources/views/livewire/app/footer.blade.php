@@ -49,10 +49,40 @@
                     </ul>
                 </div>
 
-                @if(1==2)
                 <div class="w-full md:w-1/4">
-                    <h4 class="font-bold text-lg mb-4">Поддержка</h4>
+                    <h4 class="font-bold text-lg mb-4">
+                        Контакт
+                    </h4>
                     <ul class="space-y-2">
+                        <li>Телефон:<Br/><a href="#" class="block p-1 hover:bg-blue-200">8-999-888-77-66</a></li>
+                        <li class="flex flex-row items-center">
+                            <a href="#" class="p-1 hover:bg-blue-200"><img src="/icon/Telegram.png" class="max-h-[32px]"/></a>
+                            <a href="#" class="p-1 hover:bg-blue-200"><img src="/icon/VK.png" class="max-h-[32px]"/></a>
+                            <a href="#" class="p-1 hover:bg-blue-200"><img src="/icon/WhatsApp.png" class="max-h-[32px]"/></a>
+                        </li>
+{{--                        <li><a href="#" class="block p-1 hover:bg-blue-200">Макс: 8-999-888-77-66</a></li>--}}
+{{--                        <li><a href="#" class="block p-1 hover:bg-blue-200">WathsApp: 8-999-888-77-66</a></li>--}}
+
+{{--                        <li><a href="{{ route('cfa.news.index') }}" class="block p-1 hover:bg-blue-200">Новости</a></li>--}}
+
+
+                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Возможности</a></li>--}}
+                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Тарифы</a></li>--}}
+                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Интеграции</a></li>--}}
+                        {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Безопасность</a></li>--}}
+                    </ul>
+                </div>
+
+                @if(1==1)
+                <div class="w-full md:w-1/4">
+                    <h4 class="font-bold text-lg mb-4">Города Присутствия</h4>
+                    <ul class="space-y-1">
+                        <li>Москва</li>
+                        <li>Санкт-Петербург</li>
+                        <li>Екатеринбург</li>
+                        <li>Оренбург</li>
+                        <li>Челябинск</li>
+                        <li>Пермь</li>
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Помощь</a></li>--}}
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Сообщество</a></li>--}}
                         {{--                        <li><a href="#" class="text-gray-400 hover:text-white">База знаний</a></li>--}}

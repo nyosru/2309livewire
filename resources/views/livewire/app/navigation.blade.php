@@ -1,11 +1,15 @@
 <nav
     x-data="{ open: false ,
      showHeader: true,
+     showBlock: true,
      lastScrollPosition: 0 }"
 
     x-on:scroll.window.throttle.200ms="() => {
         const currentScroll = window.scrollY;
          const isMobile = window.innerWidth < 600;
+
+         showBlock = currentScroll < 100
+
          if (isMobile) {
         if (currentScroll > 100) {
             showHeader = false;
@@ -22,6 +26,11 @@
      "
 >
 
+    <div class="bg-gray-200 text-center w-full"
+         x-show="showBlock"
+    >
+        Москва Питер Оренбург Екатеринбург Челябинск Пермь
+    </div>
 
     <div class="flex flex-col sm:w-full sm:flex-row space-y-2 pb-3"
     >
@@ -93,8 +102,8 @@
 
                 @guest
                     @if(request()->routeIs('cfa.index2'))
-                    <livewire:auth.vk/>
-                        @endif
+                        <livewire:auth.vk/>
+                    @endif
                 @else
                     <div>
                         <div x-data="{ open: false }">
@@ -104,15 +113,15 @@
                             <div x-show="open" @click.away="open = false" class="absolute  border-2 border-gray-500 rounded
                          rounded shadow-lg z-10">
                                 <div class="flex flex-col w-[150px] ">
-{{--                                    <div class="">--}}
-{{--                                        <a href="{{ route('lk.profile') }}"--}}
-{{--                                           class="block bg-white px-4 py-2--}}
-{{--                                        hover:bg-orange-200 hover:underline--}}
-{{--                                        "--}}
-{{--                                        >--}}
-{{--                                            Профиль--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
+                                    {{--                                    <div class="">--}}
+                                    {{--                                        <a href="{{ route('lk.profile') }}"--}}
+                                    {{--                                           class="block bg-white px-4 py-2--}}
+                                    {{--                                        hover:bg-orange-200 hover:underline--}}
+                                    {{--                                        "--}}
+                                    {{--                                        >--}}
+                                    {{--                                            Профиль--}}
+                                    {{--                                        </a>--}}
+                                    {{--                                    </div>--}}
                                     <div>
                                         <a
                                             href="#"
