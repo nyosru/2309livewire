@@ -1,6 +1,6 @@
-<form wire:submit.prevent="save" class="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
+<form wire:submit.prevent="save" class="max-w-xl mx-auto pb-6 bg-white rounded-lg shadow-md space-y-6">
 
-
+    <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
         [ 'name' => 'Тех. отдел',

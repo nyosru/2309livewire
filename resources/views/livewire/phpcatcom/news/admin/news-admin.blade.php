@@ -1,8 +1,6 @@
 <div>
 
-    @if( $type == 'cfa')
-        <livewire:tech.menu type="cfa" />
-    @endif
+    <livewire:tech.menu type="cfa" />
 
 <div class="container mx-auto px-4 py-8">
     <!-- Заголовок и кнопка создания -->

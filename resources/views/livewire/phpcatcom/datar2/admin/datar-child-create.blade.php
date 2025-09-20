@@ -1,6 +1,6 @@
-<div class="container mx-auto">
+<div class="w-full md:w-[400px] mx-auto">
 
-
+    <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
         [ 'name' => 'Тех. отдел',
@@ -12,8 +12,6 @@
          ],
     ]" />
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
-
-
 
 @if (session()->has('message'))
         <div class="alert alert-success mb-4">{{ session('message') }}</div>

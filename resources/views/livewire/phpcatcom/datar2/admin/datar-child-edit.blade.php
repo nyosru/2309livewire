@@ -1,6 +1,6 @@
-<div class="max-w-4xl mx-auto p-4 bg-white shadow rounded-lg">
+<div class="max-w-4xl mx-auto pb-4 bg-white shadow rounded-lg">
 
-
+    <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
         [ 'name' => 'Тех. отдел',

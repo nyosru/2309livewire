@@ -1,12 +1,18 @@
 <div class="flex flex-wrap
-{{--space-y-1 --}}
-space-x-1 my-6 justify-center ">
+
+{{--bg-gray-300--}}
+{{--fixed top-0 left-[30%]--}}
+{{--my-6--}}
+{{--mt-[-50px]--}}
+{{--py-1--}}
+space-x-1
+justify-center ">
     {{--        <pre>{{ print_r($links) }}</pre>--}}
 
     @if( $type == 'cfa' )
 
         <a
-                    href="{{route('tech.datar2')}}"
+            href="/"
             wire:navigate
             class="
                    hover:bg-gradient-to-tr
@@ -16,6 +22,20 @@ bg-cyan-300
 {{--                   {{ Request::routeIs($v['route']) ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
                      px-2 py-1 whitespace-nowrap
                      rounded"
+        >Сайт</a>
+
+        <a
+                    href="{{route('tech.datar2')}}"
+            wire:navigate
+            class="
+                   hover:bg-gradient-to-tr
+                   hover:from-orange-300
+                   hover:to-bg-cyan-300
+{{--bg-cyan-300--}}
+                   {{ str_starts_with(request()->route()->getName(), 'tech.datar2') ? 'bg-orange-300' : 'bg-cyan-300' }}
+{{--                   {{ Request::routeIs('tech.datar2') ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
+                     px-2 py-1 whitespace-nowrap
+                     rounded"
         >База знаний</a>
         <a href="{{ route('tech.news.admin',['type'=>$type]) }}"
            wire:navigate
@@ -23,9 +43,11 @@ bg-cyan-300
                    hover:bg-gradient-to-tr
                    hover:from-orange-300
                    hover:to-bg-cyan-300
-bg-cyan-300
+{{--bg-cyan-300--}}
 {{--                   {{ Request::routeIs($v['route']) ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
-                     px-2 py-1 whitespace-nowrap
+                   {{ str_starts_with(request()->route()->getName(), 'tech.news') ? 'bg-orange-300' : 'bg-cyan-300' }}
+
+                                        px-2 py-1 whitespace-nowrap
                      rounded"
         >Новости</a>
 

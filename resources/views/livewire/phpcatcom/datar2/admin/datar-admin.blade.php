@@ -1,4 +1,6 @@
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 pb-8">
+
+        <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
         [ 'name' => 'Тех. отдел',
@@ -9,8 +11,6 @@
          ],
     ]" />
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
-
-
 
 
     <!-- Заголовок -->

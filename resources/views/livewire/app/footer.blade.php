@@ -6,7 +6,8 @@
         <div class="mx-auto container
 
         ">
-            <div class="flex flex-col text-center md:text-left md:flex-row py-3 items-top justify-center">
+            <div class="flex flex-col text-center
+                md:text-left md:flex-row py-3 items-top justify-center">
 
                 <div class="w-full md:w-1/2">
                     <div class="flex items-center mb-4">
@@ -79,9 +80,12 @@
 
         <div class="
         bg-gray-300
-         py-3 text-xs">
+         py-3
+{{--         text-xs--}}
+         ">
             <div class="mx-auto container ">
-                <div class="flex flex-col space-y-3  ">
+                <div class="flex flex-col space-y-3  ">1233
+
                     <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row">
                         <div class="w-full sm:w-1/2 text-center items-center justify-center">
                             &copy; Все права защищены 2005-{{ date('Y') }}
