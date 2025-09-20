@@ -22,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
+        \Illuminate\Support\Facades\Http::globalOptions([
+            'verify' => false // для полного отключения
+        ]);
+
         // проверка разрешений
         Blade::if('permission', function ($permission) {
             $user = Auth::user();
