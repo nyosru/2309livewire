@@ -88,9 +88,12 @@
                     {{--            <button class="bg-blue-300 p-1 rounded text-lg">Бесплатная консультация</button>--}}
                     {{--            <button class="bg-blue-300 p-1 rounded text-lg">Бесплатная консультация</button>--}}
                     <div
-                        class="mx-auto w-full max-w-[300px] float-right bg-blue-900 border border-blue-900 p-2 rounded shadow-lg hover:bg-blue-800 transition duration-200">
-    <livewire:phpcatcom.backword.link1-modal-form class="text-white cursor-pointer rounded text-xl"/>
-</div>
+                        class="mx-auto w-full max-w-[300px] float-right
+{{--                        bg-blue-900 --}}
+                            bg-[#042274]
+                            border border-blue-900 p-2 rounded shadow-lg hover:bg-blue-800 transition duration-200">
+                        <livewire:phpcatcom.backword.link1-modal-form class="text-white cursor-pointer rounded text-xl"/>
+                    </div>
                 </div>
             </div>
             {{--            <div class="flex flex-col w-full md:w-1/4--}}

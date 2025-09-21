@@ -36,22 +36,28 @@
                 </li>
             </ul>
         </div>
-        <div class="w-full md:w-1/2 bg-gray-900 text-white px-12 py-12 flex items-center">
-            <form wire:submit.prevent="submit" class="w-full space-y-6">
-                @if(session()->has('success'))
-                    <div class="bg-green-500 text-white p-2 rounded">{!! session('success') !!}</div>
-                @endif
-                <div>
-                    <input type="text" wire:model="name" placeholder="Ваше имя" required
-                           class="w-full bg-transparent border-b border-gray-500 focus:outline-none py-2">
-                    @error('name') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
-                </div>
-                <div>
-                    <input type="text" wire:model="phone" placeholder="+7 (___) ___-__-__" required
-                           class="w-full bg-transparent border-b border-gray-500 focus:outline-none py-2">
-                    @error('phone') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
-                </div>
-                <div>
+        <div class="w-full md:w-1/2">
+            <div class="w-full
+                w-[90%] my-[5%] mx-auto
+                rounded-lg
+                bg-gradient-to-br from-[#042274] to-[#2442a4]
+{{--         border border-l border-l-3 bodred-l-[#042274]--}}
+                 text-white px-12 py-12 flex items-center">
+                <form wire:submit.prevent="submit" class="w-full space-y-6">
+                    @if(session()->has('success'))
+                        <div class="bg-green-500 text-white p-2 rounded">{!! session('success') !!}</div>
+                    @endif
+                    <div>
+                        <input type="text" wire:model="name" placeholder="Ваше имя" required
+                               class="w-full bg-transparent border-b border-gray-500 focus:outline-none py-2">
+                        @error('name') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
+                        <input type="text" wire:model="phone" placeholder="+7 (___) ___-__-__" required
+                               class="w-full bg-transparent border-b border-gray-500 focus:outline-none py-2">
+                        @error('phone') <span class="text-red-400 text-xs">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
                     <textarea wire:model.live="message" placeholder="Ваше сообщение"
                               @if( empty($message) )
                                   rows="2"
@@ -59,20 +65,22 @@
                                   rows="6"
                               @endif
                               class="w-full bg-transparent border-b border-gray-500 focus:outline-none py-2"></textarea>
-                </div>
-                <div class="flex items-center">
-                    <input type="checkbox" wire:model.live="privacy" class="mr-2" required>
-                    <span class="text-xs">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" wire:model.live="privacy" class="mr-2" required>
+                        <span class="text-xs">
                     Нажимая кнопку <span class="font-bold">«Отправить заявку»</span>, я&nbsp;принимаю условия Политики конфиденциальности и&nbsp;<span
-                            class="font-bold">даю</span> Согласие на&nbsp;обработку персональных данных.
+                                class="font-bold">даю</span> Согласие на&nbsp;обработку персональных данных.
                 </span>
-                </div>
-                <button type="submit" class="w-full bg-gray-300 text-blue-600 cursor-pointer py-2 rounded opacity-90"
+                    </div>
+                    <button type="submit"
+                            class="w-full bg-gray-300 text-blue-600 cursor-pointer py-2 rounded opacity-90"
 
-                >
-                    Отправить заявку
-                </button>
-            </form>
+                    >
+                        Отправить заявку
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

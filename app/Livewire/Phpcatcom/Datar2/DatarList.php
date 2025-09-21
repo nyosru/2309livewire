@@ -32,6 +32,20 @@ class DatarList extends Component
         }
     }
 
+
+    protected $listeners = ['select-parent' => 'onSelectParent'];
+
+    public function onSelectParent($payload)
+    {
+        $parentId = $payload['parentId'] ?? null;
+        if ($parentId) {
+            $this->selectParent($parentId);
+        }
+    }
+
+
+
+
     protected function loadSelectedParent()
     {
         $this->isLoading = true;

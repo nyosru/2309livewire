@@ -31,8 +31,7 @@ bg-gray-200
 
         <!-- Заголовок -->
         <div class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу
-                и&nbsp;управлению</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу,&nbsp;управлению и судебным аспектам</h1>
             {{--        <p class="text-gray-600"></p>--}}
         </div>
 
@@ -63,6 +62,7 @@ bg-gray-200
                         Найдено: {{ $parents->total() }} записей
                     </div>
                 @endif
+
             </div>
         </div>
 
@@ -103,7 +103,24 @@ bg-gray-200
                 <!-- Детальный вид родителя с детьми -->
                 <div class="p-6">
                     <div class="mb-6">
-                        <span class="float-right bg-yellow-100 border border-2 border-blue-600 p-2 rounded"><livewire:phpcatcom.backword.link1-modal-form /></span>
+
+                        <div
+                            class="mx-auto w-full max-w-[300px] float-right
+{{--                        bg-blue-900 --}}
+{{--bg-[#2442a4]--}}
+{{--hover:bg-[#042274]--}}
+hover:bg-blue-200
+                        border border-blue-900
+
+                        p-2 rounded shadow-lg
+{{--                        hover:bg-blue-800 --}}
+                        transition duration-200">
+                            <livewire:phpcatcom.backword.link1-modal-form class="
+{{--                        text-white --}}
+                        text-[#042274]
+                        cursor-pointer rounded text-xl"/>
+                        </div>
+
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $selectedParent->title }}</h2>
                         <div class="prose max-w-none text-gray-700">
                             {{--                        {!! nl2br(e($selectedParent->content)) !!}--}}
@@ -152,6 +169,9 @@ bg-gray-200
                 <!-- Список родителей -->
                 <div class="divide-y divide-gray-200">
                     @forelse($parents as $parent)
+
+                        <livewire:phpcatcom.datar2.datar-list-head-item :parent="$parent" />
+
                         <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer"
                              wire:click="selectParent({{ $parent->id }})"
                              wire:key="parent-{{ $parent->id }}"
@@ -167,6 +187,7 @@ bg-gray-200
                                         {{ $parent->active_children_count }} подразделов
                                     </span>
                                     @endif
+
                                 </div>
                                 <div class="ml-4 flex-shrink-0">
                                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
