@@ -2955,6 +2955,12 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-\[\#898989\] {
+  --tw-gradient-from: #898989 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(137 137 137 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-10\% {
   --tw-gradient-from-position: 10%;
 }
@@ -3083,6 +3089,18 @@ select {
 
 .to-\[\#2442a4\] {
   --tw-gradient-to: #2442a4 var(--tw-gradient-to-position);
+}
+
+.to-\[\#a9a9a9\] {
+  --tw-gradient-to: #a9a9a9 var(--tw-gradient-to-position);
+}
+
+.to-\[\#e9e9e9\] {
+  --tw-gradient-to: #e9e9e9 var(--tw-gradient-to-position);
+}
+
+.to-\[\#b9b9b9\] {
+  --tw-gradient-to: #b9b9b9 var(--tw-gradient-to-position);
 }
 
 .to-90\% {

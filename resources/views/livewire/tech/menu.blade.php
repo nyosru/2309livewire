@@ -1,12 +1,13 @@
 <div class="flex flex-wrap
 
-{{--bg-gray-300--}}
+bg-gray-600
 {{--fixed top-0 left-[30%]--}}
 {{--my-6--}}
 {{--mt-[-50px]--}}
-{{--py-1--}}
+py-1
 space-x-1
 justify-center ">
+
     {{--        <pre>{{ print_r($links) }}</pre>--}}
 
     @if( $type == 'cfa' )

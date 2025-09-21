@@ -27,7 +27,10 @@
 shadow-lg
      "
 >
-<div class="bg-gray-200 text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
+<div class="
+bg-gray-200
+{{--bg-gradient-to-br from-[#898989] to-[#b9b9b9]--}}
+text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
      x-show="showBlock"
 >
     <div class="px-3 py-1 ">
