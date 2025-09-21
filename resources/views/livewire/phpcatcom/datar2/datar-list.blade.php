@@ -172,6 +172,7 @@ hover:bg-blue-200
 
                         <livewire:phpcatcom.datar2.datar-list-head-item :parent="$parent" />
 
+                        @if(1==2)
                         <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer"
                              wire:click="selectParent({{ $parent->id }})"
                              wire:key="parent-{{ $parent->id }}"
@@ -198,6 +199,8 @@ hover:bg-blue-200
                                 </div>
                             </div>
                         </div>
+                        @endif
+
                     @empty
                         <div class="p-6 text-center text-gray-500">
                             @if($search)
