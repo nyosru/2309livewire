@@ -106,12 +106,12 @@ shadow-lg
             </div>
             <div class="flex flex-col flex-1 items-center ">
                 <div>
-                    <a href="tel:+79324818910" target="_blank">
-                        <img src="/icon/svg/Light/Calling.svg" class="h-[20px] inline"/> 8(932)481-89-10
+                    <a href="tel:+79324818910" target="_blank" class=" hover:underline">
+                        <img src="/icon/svg/Light/Calling.svg" class="h-[20px] inline "/> 8(932)481-89-10
                     </a>
                 </div>
                 <div>
-                    <a href="https://t.me/Nadi_Zhdanova" target="_blank">
+                    <a href="https://t.me/Nadi_Zhdanova" target="_blank" class=" hover:underline">
                         <img src="/icon/Telegram.png" class="h-[20px] inline"/> @Nadi_Zhdanova
                     </a>
                 </div>
@@ -122,10 +122,12 @@ shadow-lg
 
                 @guest
                     @if(request()->routeIs('cfa.index2'))
+                        <div class="flex-1">
                         <livewire:auth.vk/>
+                        </div>
                     @endif
                 @else
-                    <div>
+                    <div class="flex-1">
                         <div x-data="{ open: false }">
                             <button @click="open = !open" class="inline xw-full text-start">
                                 {{ auth()->user()->name ?? '-' }}
