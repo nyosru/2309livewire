@@ -98,16 +98,32 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
         </div>
         <div class="sm:w-1/2 flex justify-center items-center ">
 
-            <div class="flex flex-col
+{{--            <div class="flex flex-col--}}
+{{--            flex-1--}}
+{{--w-1/2--}}
+{{--             items-end--}}
+{{--             items-center--}}
 {{--            w-[150px] --}}
-            text-right "
-                 x-show="!showHeader"
-                 x-transition.opacity.duration.300ms
-            ><a href="/">
-                    <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>
-                </a>
-            </div>
-            <div class="flex flex-col flex-1 items-center ">
+{{--            text-right --}}
+{{--            "--}}
+{{--                 x-show="!showHeader"--}}
+{{--                 x-transition.opacity.duration.300ms--}}
+{{--            ><a href="/">--}}
+{{--                    <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+
+            <img x-show="!showHeader" src="/cfa/img/logo.jpg" alt="logo"
+                 class="float-left"
+                 style="height:40px; width: 80px;"/>
+
+            <div class="flex flex-col
+            w-2/4
+{{--            flex-1 --}}
+            items-center
+{{--            items-start--}}
+             ">
+
                 <div>
                     <a href="tel:+79324818910" target="_blank" class=" hover:underline">
                         <img src="/icon/svg/Light/Calling.svg" class="h-[20px] inline "/> 8(932)481-89-10

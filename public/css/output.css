@@ -1696,6 +1696,10 @@ select {
   width: 90%;
 }
 
+.w-2\/4 {
+  width: 50%;
+}
+
 .min-w-\[3rem\] {
   min-width: 3rem;
 }
@@ -1995,6 +1999,10 @@ select {
 
 .items-start {
   align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
