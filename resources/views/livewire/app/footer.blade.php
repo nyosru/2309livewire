@@ -41,7 +41,7 @@
                                         <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>
                                     </a>
                                 </div>
-                                <div class="flex flex-col pl-2 text-[20px] ">
+                                <div class="flex text-left font-bold flex-col pl-2 text-[20px] ">
                                     <div class="p-0 m-0">
                                         ЦЕНТР
                                     </div>
@@ -174,17 +174,31 @@
                             {{--                                href="mailto:support@php-cat.com">support@php-cat.com</a>--}}
                             <div class="text-xs">
                                 ООО "ЦЕНТР ФИНАНСОВОЙ АНАЛИТИКИ", ИНН: 6670529344
-{{--                                Мы используем файлы cookies, чтобы улучшить работу и повысить эффективность сайта, а--}}
-{{--                                также для определения предпочтений пользователей. Продолжая пользоваться сайтом, вы--}}
-{{--                                соглашаетесь с условиями использования сайта и обработкой нами и нашими партнерами--}}
-{{--                                cookie-файлов на сайте подробнее об условиях использования.--}}
+                                {{--                                Мы используем файлы cookies, чтобы улучшить работу и повысить эффективность сайта, а--}}
+                                {{--                                также для определения предпочтений пользователей. Продолжая пользоваться сайтом, вы--}}
+                                {{--                                соглашаетесь с условиями использования сайта и обработкой нами и нашими партнерами--}}
+                                {{--                                cookie-файлов на сайте подробнее об условиях использования.--}}
                             </div>
                         </div>
                         <div class="w-full sm:w-1/4 text-center items-center justify-center text-xs">
-                            Создание сайта <a href="https://php-cat.com"
-                                              class="whitespace-nowrap text-blue-600 hover:underline"
-                                              target="_blank"><img src="/phpcat/cat.png" class="inline-block h-[3rem]"/>
-                                php-cat.com</a>
+                            <div class="flex flex-row items-center justify-center">
+                                <div>
+                                    <a href="https://php-cat.com"
+                                       class="whitespace-nowrap text-blue-600 hover:underline"
+                                       target="_blank">
+                                        <img src="/phpcat/cat.png" class="inline-block h-[3rem]"/>
+                                    </a>
+                                </div>
+                                <div>
+                                    Создание сайта<br/>
+                                    <a href="https://php-cat.com"
+                                       class="whitespace-nowrap text-blue-600 hover:underline"
+                                       target="_blank">
+                                        php-cat.com
+                                    </a>
+                                </div>
+                            </div>
+
 
                             {{--                            <br/>--}}
                             {{--                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>--}}

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Nyos\Msg as MsgAlias;
 
 class AiGigachat extends Component
 {
@@ -47,7 +48,10 @@ class AiGigachat extends Component
                 throw new \Exception('Не удалось получить access token');
             }
 
-            $response = $this->sendToGigaChat($this->question, $accessToken);
+            $msg = $this->question;
+            MsgAlias::sendTelegramm('msg в AI: отправили: '.$msg );
+            $response = $this->sendToGigaChat($msg, $accessToken);
+
             $this->answer = $response;
             $this->showDemoWarning = false;
 
@@ -158,10 +162,14 @@ class AiGigachat extends Component
             if ($response->status() === 401) {
                 // Токен устарел, очищаем кэш
                 Cache::forget('gigachat_access_token');
-                throw new \Exception('Токен устарел. Попробуйте еще раз.');
+                $msg = 'Токен устарел. Попробуйте еще раз.';
+                MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg );
+                throw new \Exception($msg);
             }
 
-            throw new \Exception('Ошибка API GigaChat: ' . $response->status());
+            $msg = $response->status();
+            MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg );
+            throw new \Exception('Ошибка API GigaChat: ' . $msg );
         }
 
         $data = $response->json();
@@ -171,7 +179,9 @@ class AiGigachat extends Component
             throw new \Exception('Неожиданный формат ответа от GigaChat');
         }
 
-        return $data['choices'][0]['message']['content'];
+        $msg = $data['choices'][0]['message']['content'];
+        MsgAlias::sendTelegramm('msg в AI: ответ: '.$msg );
+        return $msg;
     }
 
     private function getMockResponse($question)

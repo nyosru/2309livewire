@@ -40,10 +40,15 @@ $d = function () {
     });
 
 };
+// Route::group([
+//    'as' => 'cfa.',
+// //    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
+//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa.local' : 'cfa-center.ru'
+//], $d);
+
 Route::group([
     'as' => 'cfa.',
-//    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa.local' : 'cfa-center.ru'
+    'domain' => ( (request()->getHost() === 'cfa.local') ? 'cfa.local' : 'cfa-center.ru' )
 ], $d);
 Route::group([
     'as' => 'cfa2.',

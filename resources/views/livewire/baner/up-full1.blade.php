@@ -63,12 +63,17 @@
         <div class="
 {{--        bg-gradient-to-tr from-black/60 to-transparent  --}}
 {{--gradient-animation--}}
-        w-full flex flex-row-reverse">
+        w-full flex
+{{--        flex-row-reverse--}}
+        flex-row
+        ">
 
             <div class="
             flex flex-col
                 w-full md:w-1/2
-                mr-0 md:mr-4
+                mr-0
+{{--                md:mr-4--}}
+                md:ml-4
                  justify-center min-h-[500px] h-full">
 
                 <div class="bg-gradient-to-br from-[rgba(0,0,0,0.6)] to-[rgba(0,0,0,0.3)]
