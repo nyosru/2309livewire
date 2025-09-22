@@ -1740,6 +1740,10 @@ select {
   max-width: 320px;
 }
 
+.max-w-\[20\%\] {
+  max-width: 20%;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -4340,6 +4344,11 @@ select {
 .hover\:bg-yellow-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-\[\#042274\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(4 34 116 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-opacity-10:hover {

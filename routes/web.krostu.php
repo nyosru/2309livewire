@@ -43,8 +43,9 @@ Route::group([
 
 
 Route::domain('www.krostu.com')->group(function () {
-    Route::get('{any}', function () {
+//    Route::get('{any}', function () {
         return redirect('https://krostu.com', 301);
-    })->where('any', '.*');
+//    })->where('any', '.*')
+//;
 });
 

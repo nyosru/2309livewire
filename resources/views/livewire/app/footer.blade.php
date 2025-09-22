@@ -74,10 +74,10 @@
                             Аналитика
                         </h4>
                         <ul class="xspace-y-1">
-                            <li><a href="{{ route('cfa.datar.list') }}" class="block p-1 hover:bg-blue-200">База
+                            <li><a href="{{ route('cfa.datar.list') }}" class="block p-1 hover:underline">База
                                     знаний</a>
                             </li>
-                            <li><a href="{{ route('cfa.news.index') }}" class="block p-1 hover:bg-blue-200">Новости</a>
+                            <li><a href="{{ route('cfa.news.index') }}" class="block p-1 hover:underline">Новости</a>
                             </li>
 
 
@@ -113,7 +113,9 @@
                                 <a href="#"
                                    title="Телеграм"
                                    class="p-1 hover:bg-blue-200"><img
-                                        src="/icon/Telegram.png" class="max-h-[32px]"/></a>
+                                        src="/icon/Telegram.png" class="
+                                        max-h-[32px]
+                                        "/></a>
                                 <a href="#"
                                    title="Вконтакте"
                                    class="p-1 hover:bg-blue-200"><img
