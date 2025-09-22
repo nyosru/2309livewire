@@ -41,7 +41,37 @@
 {{--     @endguest--}}
 shadow-lg
      "
+
+
+    style="
+            background: linear-gradient(45deg,
+                rgba(205, 205, 205, 0.7),
+                rgba(100, 100, 100, 0.7),
+                rgba(150, 150, 150, 0.7),
+                rgba(220, 220, 220, 0.7));
+            background-size: 300% 300%;
+            animation: gradientShift2 30s ease infinite;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        "
+
 >
+
+
+    <style>
+        @keyframes gradientShift2 {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+
     <div class="
 bg-gray-200
 {{--bg-gradient-to-br from-[#898989] to-[#b9b9b9]--}}
