@@ -41,11 +41,16 @@ Route::group([
     'domain' => ( (request()->getHost() === 'krostu.local') ? 'krostu.local' : 'www.krostu.com' )
 ], $d);
 
+Route::group([
+    'as' => 'krostu2.',
+    'domain' => 'www.krostu.com'
+], $d);
 
-Route::domain('krostu.com')->group(function () {
-//    Route::get('{any}', function () {
-        return redirect('https://www.krostu.com', 301);
-//    })->where('any', '.*')
-//;
-});
+
+//Route::domain('krostu.com')->group(function () {
+////    Route::get('{any}', function () {
+//        return redirect('https://www.krostu.com', 301);
+////    })->where('any', '.*')
+////;
+//});
 
