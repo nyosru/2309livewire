@@ -45,10 +45,10 @@ shadow-lg
 
     style="
             background: linear-gradient(45deg,
-                rgba(205, 205, 205, 0.7),
-                rgba(100, 100, 100, 0.7),
-                rgba(150, 150, 150, 0.7),
-                rgba(220, 220, 220, 0.7));
+                /*rgba(205, 205, 205, 0.7) 10%,*/
+                rgba(180, 180, 250, 0.6) 11%,
+                rgba(220, 220, 220, 0.6) 80%,
+                rgba(120, 120, 220, 0.6)) 81%;
             background-size: 300% 300%;
             animation: gradientShift2 30s ease infinite;
             backdrop-filter: blur(6px);
