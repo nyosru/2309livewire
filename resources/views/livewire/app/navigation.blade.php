@@ -1,24 +1,39 @@
 <nav
+
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 transform -translate-y-5"
+    x-transition:enter-end="opacity-100 transform translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 transform translate-y-0"
+    x-transition:leave-end="opacity-0 transform -translate-y-5"
+
     x-data="{ open: false ,
      showHeader: true,
      showBlock: true,
      lastScrollPosition: 0 }"
 
-{{--    x-on:scroll.window.throttle.200ms="() => {--}}
+    {{--    x-on:scroll.window.throttle.200ms="() => {--}}
     x-on:scroll.window="() => {
         const currentScroll = window.scrollY;
         const isMobile = window.innerWidth < 600;
 
-         showBlock = currentScroll < 100
+            if (lastScrollPosition < currentScroll && currentScroll > 100) {
+                showBlock = false
+            } else if (lastScrollPosition > currentScroll && currentScroll < 100) {
+                showBlock = true
+            }
 
          if (isMobile) {
-        if (currentScroll > 100) {
-            showHeader = false;
-        } else {
-            showHeader = true;
-        }
-        lastScrollPosition = currentScroll;
-         } }"
+            if (currentScroll > 100) {
+                showHeader = false;
+            } else {
+                showHeader = true;
+            }
+         }
+
+         lastScrollPosition = currentScroll;
+
+         }"
 
     class="bg-white border-b border-gray-100
 {{--     @guest() --}}
@@ -27,31 +42,40 @@
 shadow-lg
      "
 >
-<div class="
+    <div class="
 bg-gray-200
 {{--bg-gradient-to-br from-[#898989] to-[#b9b9b9]--}}
 text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
-     x-show="showBlock"
->
-    <div class="px-3 py-1 ">
-        Москва
+         x-show="showBlock"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform -translate-y-5"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-5"
+    >
+        <div class="px-3 py-1 ">
+            Москва
+        </div>
+        <div class="px-3 py-1 ">
+            Санкт-Петербург
+        </div>
+        <div class="px-3 py-1 ">
+            Оренбург
+        </div>
+        <div class="px-3 py-1 ">
+            Екатеринбург
+        </div>
+        <div class="px-3 py-1 ">
+            Тюмень
+        </div>
+        <div class="px-3 py-1 ">
+            Челябинск
+        </div>
+        <div class="px-3 py-1 ">
+            Пермь
+        </div>
     </div>
-    <div class="px-3 py-1 ">
-        Санкт-Петербург
-    </div>
-    <div class="px-3 py-1 ">
-        Оренбург
-    </div>
-    <div class="px-3 py-1 ">
-        Екатеринбург
-    </div>
-    <div class="px-3 py-1 ">
-        Челябинск
-    </div>
-    <div class="px-3 py-1 ">
-        Пермь
-    </div>
-</div>
 
 
     <div class="flex flex-col sm:w-full sm:flex-row space-y-2 pb-3"
@@ -73,7 +97,7 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
 
                 <div class="flex flex-row">
                     <div class="flex-1 items-center align-middle">
-{{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
+                        {{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
                         <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>
                     </div>
                     <div class="flex flex-col pl-2 text-[20px] ">
@@ -98,20 +122,20 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
         </div>
         <div class="sm:w-1/2 flex justify-center items-center ">
 
-{{--            <div class="flex flex-col--}}
-{{--            flex-1--}}
-{{--w-1/2--}}
-{{--             items-end--}}
-{{--             items-center--}}
-{{--            w-[150px] --}}
-{{--            text-right --}}
-{{--            "--}}
-{{--                 x-show="!showHeader"--}}
-{{--                 x-transition.opacity.duration.300ms--}}
-{{--            ><a href="/">--}}
-{{--                    <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>--}}
-{{--                </a>--}}
-{{--            </div>--}}
+            {{--            <div class="flex flex-col--}}
+            {{--            flex-1--}}
+            {{--w-1/2--}}
+            {{--             items-end--}}
+            {{--             items-center--}}
+            {{--            w-[150px] --}}
+            {{--            text-right --}}
+            {{--            "--}}
+            {{--                 x-show="!showHeader"--}}
+            {{--                 x-transition.opacity.duration.300ms--}}
+            {{--            ><a href="/">--}}
+            {{--                    <img src="/cfa/img/logo.jpg" alt="logo" style="height:40px; width: 80px;"/>--}}
+            {{--                </a>--}}
+            {{--            </div>--}}
 
             <img x-show="!showHeader" src="/cfa/img/logo.jpg" alt="logo"
                  class="float-left"
@@ -142,7 +166,7 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
                 @guest
                     @if(request()->routeIs('cfa.index2'))
                         <div class="flex-1">
-                        <livewire:auth.vk/>
+                            <livewire:auth.vk/>
                         </div>
                     @endif
                 @else
