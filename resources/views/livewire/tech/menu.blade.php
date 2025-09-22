@@ -1,6 +1,8 @@
 <div class="flex flex-wrap
 
-bg-gray-600
+{{--bg-gray-600--}}
+{{--bg-gradient-to-br from-[#042274] to-gray-200--}}
+bg-gradient-to-br from-gray-400 to-gray-200
 {{--fixed top-0 left-[30%]--}}
 {{--my-6--}}
 {{--mt-[-50px]--}}
@@ -13,27 +15,32 @@ justify-center ">
     @if( $type == 'cfa' )
 
         <a
-            href="/"
-            wire:navigate
-            class="
+                href="/"
+                wire:navigate
+                class="
                    hover:bg-gradient-to-tr
                    hover:from-orange-300
                    hover:to-bg-cyan-300
-bg-cyan-300
+{{--bg-cyan-300--}}
+                bg-gradient-to-br from-[#042274] to-[#2442a4]
+                text-white
 {{--                   {{ Request::routeIs($v['route']) ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
                      px-2 py-1 whitespace-nowrap
                      rounded"
         >Сайт</a>
 
         <a
-                    href="{{route('tech.datar2')}}"
-            wire:navigate
-            class="
+                href="{{route('tech.datar2')}}"
+                wire:navigate
+                class="
                    hover:bg-gradient-to-tr
                    hover:from-orange-300
                    hover:to-bg-cyan-300
 {{--bg-cyan-300--}}
-                   {{ str_starts_with(request()->route()->getName(), 'tech.datar2') ? 'bg-orange-300' : 'bg-cyan-300' }}
+                   {{ str_starts_with(request()->route()->getName(), 'tech.datar2') ? 'bg-orange-300' :
+//'bg-cyan-300'
+'bg-gradient-to-br from-[#042274] to-[#2442a4] text-white'
+ }}
 {{--                   {{ Request::routeIs('tech.datar2') ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
                      px-2 py-1 whitespace-nowrap
                      rounded"
@@ -46,7 +53,10 @@ bg-cyan-300
                    hover:to-bg-cyan-300
 {{--bg-cyan-300--}}
 {{--                   {{ Request::routeIs($v['route']) ? 'bg-orange-300' : 'bg-cyan-300' }}--}}
-                   {{ str_starts_with(request()->route()->getName(), 'tech.news') ? 'bg-orange-300' : 'bg-cyan-300' }}
+                   {{ str_starts_with(request()->route()->getName(), 'tech.news') ? 'bg-orange-300' :
+//'bg-cyan-300'
+'bg-gradient-to-br from-[#042274] to-[#2442a4] text-white'
+}}
 
                                         px-2 py-1 whitespace-nowrap
                      rounded"

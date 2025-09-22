@@ -1,4 +1,4 @@
-<form wire:submit.prevent="save" class="max-w-xl mx-auto pb-6 bg-white rounded-lg shadow-md space-y-6">
+<div class="w-full">
 
     <livewire:tech.menu type="cfa" />
 
@@ -15,6 +15,8 @@
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'='no' ],--}}
 
 
+
+    <form wire:submit.prevent="save" class="max-w-xl mx-auto pb-6 bg-white rounded-lg shadow-md space-y-6">
 
 @if (session()->has('message'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
@@ -67,3 +69,4 @@
         Создать
     </button>
 </form>
+</div>

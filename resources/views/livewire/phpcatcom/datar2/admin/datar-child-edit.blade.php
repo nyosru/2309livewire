@@ -1,6 +1,6 @@
-<div class="max-w-4xl mx-auto pb-4 bg-white shadow rounded-lg">
-
+<div>
     <livewire:tech.menu type="cfa" />
+    <div class="max-w-4xl mx-auto pb-4 bg-white shadow rounded-lg">
 
     <livewire:app.breadcrumb :menu="[
         [ 'name' => 'Тех. отдел',
@@ -51,4 +51,5 @@
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
         </div>
     </form>
+</div>
 </div>

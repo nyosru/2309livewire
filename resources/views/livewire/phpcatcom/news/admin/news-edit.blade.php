@@ -1,6 +1,7 @@
-<div class="container mx-auto px-4 py-8 max-w-4xl">
-
+<div>
     <livewire:tech.menu type="cfa" />
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
 
     <!-- Заголовок -->
     <div class="mb-8">
@@ -131,4 +132,5 @@
             </button>
         </div>
     </form>
+</div>
 </div>

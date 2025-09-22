@@ -1,5 +1,4 @@
-<div class="w-full md:w-[400px] mx-auto">
-
+<div>
     <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
@@ -13,7 +12,10 @@
     ]" />
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
 
-@if (session()->has('message'))
+    <div class="w-full md:w-[400px] mx-auto">
+
+
+    @if (session()->has('message'))
         <div class="alert alert-success mb-4">{{ session('message') }}</div>
     @endif
 
@@ -63,4 +65,5 @@
             Создать
         </button>
     </form>
+</div>
 </div>

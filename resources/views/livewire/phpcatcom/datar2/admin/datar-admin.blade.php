@@ -1,5 +1,4 @@
-<div class="container mx-auto px-4 pb-8">
-
+<div>
         <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[
@@ -12,6 +11,8 @@
     ]" />
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
 
+
+    <div class="container mx-auto px-4 pb-8">
 
     <!-- Заголовок -->
     <div class="flex justify-between items-center mb-8">
@@ -188,4 +189,5 @@
             {{ $parents->links() }}
         </div>
     @endif
+</div>
 </div>

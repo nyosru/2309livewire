@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto pb-4 bg-white shadow rounded-lg">
+<div>
 
     <livewire:tech.menu type="cfa" />
 
@@ -14,6 +14,8 @@
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
 
 
+
+    <div class="max-w-4xl mx-auto pb-4 bg-white shadow rounded-lg">
 
 
 @if (session()->has('success'))
@@ -35,11 +37,11 @@
             @error('content') <span class="text-red-600">{{ $message }}</span> @enderror
         </div>
 
-        <div>
-            <label for="order" class="block font-medium text-gray-700">Order</label>
-            <input type="number" id="order" wire:model.defer="order" class="mt-1 block w-full border rounded p-2" />
-            @error('order') <span class="text-red-600">{{ $message }}</span> @enderror
-        </div>
+{{--        <div>--}}
+{{--            <label for="order" class="block font-medium text-gray-700">Order</label>--}}
+{{--            <input type="number" id="order" wire:model.defer="order" class="mt-1 block w-full border rounded p-2" />--}}
+{{--            @error('order') <span class="text-red-600">{{ $message }}</span> @enderror--}}
+{{--        </div>--}}
 
         <div class="flex items-center">
             <input type="checkbox" id="is_active" wire:model.defer="is_active" class="mr-2" />
@@ -51,4 +53,5 @@
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
         </div>
     </form>
+</div>
 </div>
