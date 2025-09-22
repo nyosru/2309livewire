@@ -48,8 +48,15 @@
     <meta name="application-name" content="Центр Финансовой Аналитики">
     <meta name="msapplication-config" content="/cfa/favicons/browserconfig.xml">
 
+    <style>
+        html {
+            font-size: 120%;
+        }
+    </style>
 </head>
-<body style="font-size: 130%;">
+<body
+{{--    style="font-size: 130%;"--}}
+>
 
 <livewire:app.navigation/>
 

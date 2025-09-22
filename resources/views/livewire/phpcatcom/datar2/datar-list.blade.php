@@ -105,7 +105,7 @@ bg-gray-200
                     <div class="mb-6">
 
                         <div
-                            class="mx-auto w-full max-w-[300px] float-right
+                            class="mx-auto w-full max-w-[320px] float-right
 {{--                        bg-blue-900 --}}
 {{--bg-[#2442a4]--}}
 {{--hover:bg-[#042274]--}}
@@ -118,7 +118,7 @@ hover:bg-blue-200
                             <livewire:phpcatcom.backword.link1-modal-form class="
 {{--                        text-white --}}
                         text-[#042274]
-                        cursor-pointer rounded text-xl"/>
+                        cursor-pointer rounded text-lg"/>
                         </div>
 
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $selectedParent->title }}</h2>

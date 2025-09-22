@@ -4,7 +4,7 @@
        wire:click.prevent="openModal"
        class="{{ !empty($class) ? $class : 'text-blue-600 hover:text-blue-800 underline cursor-pointer' }}"
     >
-        Записаться на консультацию
+        Записаться на&nbsp;консультацию
     </a>
 
     <!-- Само модальное окно -->
@@ -32,7 +32,7 @@
                     &times;
                 </button>
 
-                <h2 class="text-xl font-semibold mb-4">Записаться на консультацию</h2>
+                <h2 class="text-xl font-semibold mb-4">Записаться на&nbsp;консультацию</h2>
 
 
                 @if (session()->has('datar_child_success'))

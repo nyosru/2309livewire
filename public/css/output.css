@@ -1732,6 +1732,10 @@ select {
   max-width: 36rem;
 }
 
+.max-w-\[320px\] {
+  max-width: 320px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
