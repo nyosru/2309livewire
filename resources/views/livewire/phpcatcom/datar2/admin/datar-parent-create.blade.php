@@ -23,16 +23,16 @@
     <form wire:submit.prevent="save">
 
 
-        <div>
-            <label>Родитель</label>
-            <select wire:model.defer="parent_id">
-                <option value="">Выберите родителя</option>
-                @foreach($parents as $parent)
-                    <option value="{{ $parent['id'] }}">{{ $parent['name'] ?? $parent['title'] ?? 'Родитель #'.$parent['id'] }}</option>
-                @endforeach
-            </select>
-            @error('parent_id') <span class="error">{{ $message }}</span> @enderror
-        </div>
+{{--        <div>--}}
+{{--            <label>Родитель</label>--}}
+{{--            <select wire:model.defer="parent_id">--}}
+{{--                <option value="">Выберите родителя</option>--}}
+{{--                @foreach($parents as $parent)--}}
+{{--                    <option value="{{ $parent['id'] }}">{{ $parent['name'] ?? $parent['title'] ?? 'Родитель #'.$parent['id'] }}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--            @error('parent_id') <span class="error">{{ $message }}</span> @enderror--}}
+{{--        </div>--}}
 
         <div>
             <label>Заголовок</label>
@@ -47,11 +47,11 @@
         </div>
 
 
-        <div>
-            <label>Порядок</label>
-            <input type="number" min="0" wire:model.defer="order">
-            @error('order') <span class="error">{{ $message }}</span> @enderror
-        </div>
+{{--        <div>--}}
+{{--            <label>Порядок</label>--}}
+{{--            <input type="number" min="0" wire:model.defer="order">--}}
+{{--            @error('order') <span class="error">{{ $message }}</span> @enderror--}}
+{{--        </div>--}}
 
         <div>
             <label>

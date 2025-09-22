@@ -3,13 +3,19 @@
 
         <div class="bg-gray-300 py-3">
 
-            <div class="mx-auto container
-
+            <div class="
+            mx-auto container
+{{--w-full--}}
         ">
                 <div class="flex flex-col
+{{--                gap-x-6--}}
                 flex-wrap
-                text-center
-                md:text-left md:flex-row py-3 items-top justify-center">
+
+                md:text-left md:flex-row py-3 items-top
+                text-center justify-center
+{{--                space-x-3--}}
+ px-1
+                ">
 
                     {{--                    лого лозунг--}}
                     <div class="w-full md:w-1/2 lg:w-1/4 mb-4">
@@ -38,7 +44,7 @@
                                     {{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
                                     <a href="/" class="text-xl font-bold hover:underline"
                                        title="Центр финансовой аналитики">
-                                        <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>
+                                        <img src="/cfa/img/logo.svg" alt="logo" class="h-[3rem] inline mt-[0.5rem]"/>
                                     </a>
                                 </div>
                                 <div class="flex text-left font-bold flex-col pl-2 text-[20px] ">
@@ -59,9 +65,13 @@
                     ">Ваши&nbsp;решения,<br/>наш&nbsp;опыт, скорость<br/>и&nbsp;точность.</p>
                     </div>
 
-                    <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4">
+                    <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4
+                     px-1
+                     justify-center
+                     text-center
+                     ">
                         <h4 class="font-bold text-lg mb-4">
-                            Финансовая аналитика
+                            Аналитика
                         </h4>
                         <ul class="xspace-y-1">
                             <li><a href="{{ route('cfa.datar.list') }}" class="block p-1 hover:bg-blue-200">База
@@ -78,34 +88,42 @@
                         </ul>
                     </div>
 
-                    <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4">
+                    <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4
+                     px-1
+{{--                    lg:justify-start --}}
+                    justify-center
+                    text-center
+                    space-y-2
+                    ">
                         <h4 class="font-bold text-lg mb-4">
                             Контакты
                         </h4>
-                        <ul class="space-y-2">
-                            <li>
-                                <a href="#" class="p-1 hover:underline cursor-pointer" title="Позвонить"><img
-                                        src="/icon/Phone.png" class="inline pr-2 max-h-[36px]"/>8-999-888-77-66</a></li>
-                            <div
-                                {{--                                class="flex flex-row flex-wrap text-center"--}}
-                            >
-                                <div class="w-full flex flex-wrap
-                                md:justify-start justify-center
+
+                        <div>
+                            <a href="#" class="p-1 hover:underline cursor-pointer" title="Позвонить"><img
+                                    src="/icon/Phone.png" class="inline pr-2 max-h-[36px]"/>8-999-888-77-66</a>
+                        </div>
+                        <div
+                            {{--                                class="flex flex-row flex-wrap text-center"--}}
+                        >
+                            <div class="w-full flex flex-wrap
+{{--                                lg:justify-start --}}
+                                justify-center
                                 space-x-1 ">
-                                    <a href="#"
-                                       title="Телеграм"
-                                       class="p-1 hover:bg-blue-200"><img
-                                            src="/icon/Telegram.png" class="max-h-[32px]"/></a>
-                                    <a href="#"
-                                       title="Вконтакте"
-                                       class="p-1 hover:bg-blue-200"><img
-                                            src="/icon/VK.png" class="max-h-[32px]"/></a>
-                                    <a href="#"
-                                       title="WhatsApp"
-                                       class="p-1 hover:bg-blue-200"><img
-                                            src="/icon/WhatsApp.png" class="max-h-[32px]"/></a>
-                                </div>
-                                </li>
+                                <a href="#"
+                                   title="Телеграм"
+                                   class="p-1 hover:bg-blue-200"><img
+                                        src="/icon/Telegram.png" class="max-h-[32px]"/></a>
+                                <a href="#"
+                                   title="Вконтакте"
+                                   class="p-1 hover:bg-blue-200"><img
+                                        src="/icon/VK.png" class="max-h-[32px]"/></a>
+                                <a href="#"
+                                   title="WhatsApp"
+                                   class="p-1 hover:bg-blue-200"><img
+                                        src="/icon/WhatsApp.png" class="max-h-[32px]"/></a>
+                            </div>
+
                             {{--                        <li><a href="#" class="block p-1 hover:bg-blue-200">Макс: 8-999-888-77-66</a></li>--}}
                             {{--                        <li><a href="#" class="block p-1 hover:bg-blue-200">WathsApp: 8-999-888-77-66</a></li>--}}
 
@@ -116,17 +134,20 @@
                             {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Тарифы</a></li>--}}
                             {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Интеграции</a></li>--}}
                             {{--                        <li><a href="#" class="text-gray-400 hover:text-white">Безопасность</a></li>--}}
-                        </ul>
+                        </div>
                     </div>
 
+{{--                    города--}}
                     @if(1==1)
 
-                        <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4">
+                        <div class="w-full md:w-1/2 md:mt-3 lg:w-1/4 mb-4 px-1
+                        text-center">
                             <h4 class="font-bold text-lg mb-4">Города присутствия</h4>
                             <ul class="space-y-1">
                                 <li>Москва</li>
                                 <li>Санкт-Петербург</li>
                                 <li>Екатеринбург</li>
+                                <li>Тюмень</li>
                                 <li>Оренбург</li>
                                 <li>Челябинск</li>
                                 <li>Пермь</li>

@@ -1408,6 +1408,10 @@ select {
   height: 100%;
 }
 
+.h-\[3\.5rem\] {
+  height: 3.5rem;
+}
+
 .max-h-\[100px\] {
   max-height: 100px;
 }
@@ -5416,6 +5420,10 @@ select {
 
   .lg\:w-8\/12 {
     width: 66.666667%;
+  }
+
+  .lg\:w-1\/5 {
+    width: 20%;
   }
 
   .lg\:max-w-5xl {

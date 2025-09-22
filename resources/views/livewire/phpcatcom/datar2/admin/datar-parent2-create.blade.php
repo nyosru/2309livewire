@@ -36,24 +36,24 @@
         @error('content') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
     </div>
 
-    <div>
-        <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-1">Родитель</label>
-        <select id="parent_id" wire:model.defer="parent_id"
-                class="w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            <option value="">Выберите родителя</option>
-            @foreach($parents as $parent)
-                <option value="{{ $parent['id'] }}">{{ $parent['name'] ?? $parent['title'] ?? 'Родитель #' . $parent['id'] }}</option>
-            @endforeach
-        </select>
-        @error('parent_id') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
-    </div>
+{{--    <div>--}}
+{{--        <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-1">Родитель</label>--}}
+{{--        <select id="parent_id" wire:model.defer="parent_id"--}}
+{{--                class="w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">--}}
+{{--            <option value="">Выберите родителя</option>--}}
+{{--            @foreach($parents as $parent)--}}
+{{--                <option value="{{ $parent['id'] }}">{{ $parent['name'] ?? $parent['title'] ?? 'Родитель #' . $parent['id'] }}</option>--}}
+{{--            @endforeach--}}
+{{--        </select>--}}
+{{--        @error('parent_id') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror--}}
+{{--    </div>--}}
 
-    <div>
-        <label for="order" class="block text-sm font-medium text-gray-700 mb-1">Порядок</label>
-        <input id="order" type="number" min="0" wire:model.defer="order"
-               class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-        @error('order') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
-    </div>
+{{--    <div>--}}
+{{--        <label for="order" class="block text-sm font-medium text-gray-700 mb-1">Порядок</label>--}}
+{{--        <input id="order" type="number" min="0" wire:model.defer="order"--}}
+{{--               class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />--}}
+{{--        @error('order') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror--}}
+{{--    </div>--}}
 
     <div class="flex items-center space-x-2">
         <input id="is_active" type="checkbox" wire:model.defer="is_active"

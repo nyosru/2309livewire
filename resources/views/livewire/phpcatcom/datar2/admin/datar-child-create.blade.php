@@ -44,11 +44,11 @@
         </div>
 
 
-        <div>
-            <label class="block font-semibold mb-1">Порядок</label>
-            <input type="number" min="0" wire:model.defer="order" class="w-full px-3 py-2 border rounded" />
-            @error('order') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-        </div>
+{{--        <div>--}}
+{{--            <label class="block font-semibold mb-1">Порядок</label>--}}
+{{--            <input type="number" min="0" wire:model.defer="order" class="w-full px-3 py-2 border rounded" />--}}
+{{--            @error('order') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror--}}
+{{--        </div>--}}
 
         <div class="flex items-center space-x-2">
             <input id="is_active" type="checkbox" wire:model.defer="is_active" class="rounded" />
