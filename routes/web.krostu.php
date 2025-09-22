@@ -38,13 +38,13 @@ $d = function () {
 
 Route::group([
     'as' => 'krostu.',
-    'domain' => ( (request()->getHost() === 'krostu.local') ? 'krostu.local' : 'www.krostu.com' )
+    'domain' => ( (request()->getHost() === 'krostu.local') ? 'krostu.local' : 'krostu.com' )
 ], $d);
 
-Route::group([
-    'as' => 'krostu2.',
-    'domain' => 'www.krostu.com'
-], $d);
+//Route::group([
+//    'as' => 'krostu2.',
+//    'domain' => 'www.krostu.com'
+//], $d);
 
 
 //Route::domain('krostu.com')->group(function () {
