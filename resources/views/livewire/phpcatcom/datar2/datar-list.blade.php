@@ -31,7 +31,7 @@ bg-gray-200
 
         <!-- Заголовок -->
         <div class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу,&nbsp;управлению и судебным аспектам</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">База знаний по&nbsp;финансовому анализу,&nbsp;управлению и&nbsp;судебным&nbsp;аспектам</h1>
             {{--        <p class="text-gray-600"></p>--}}
         </div>
 
