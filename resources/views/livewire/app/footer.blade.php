@@ -208,7 +208,7 @@ bg-gradient-to-br from-[#898989] to-[#b9b9b9]
                             <div class="flex flex-row items-center justify-center">
                                 <div>
                                     <a href="https://php-cat.com"
-                                       class="whitespace-nowrap text-blue-600 hover:underline"
+                                       class="whitespace-nowrap hover:underline"
                                        target="_blank">
                                         <img src="/phpcat/cat.png" class="inline-block h-[3rem]"/>
                                     </a>
@@ -216,7 +216,7 @@ bg-gradient-to-br from-[#898989] to-[#b9b9b9]
                                 <div>
                                     Создание сайта<br/>
                                     <a href="https://php-cat.com"
-                                       class="whitespace-nowrap text-blue-600 hover:underline"
+                                       class="whitespace-nowrap text-[#042274] hover:underline"
                                        target="_blank">
                                         php-cat.com
                                     </a>
