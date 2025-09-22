@@ -89,6 +89,14 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
              x-show="showHeader"
              x-transition.opacity.duration.300ms
 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform -translate-y-5"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-5"
+
+
         >
             <a href="/" class=" text-2xl pl-4 font-bold">
 
@@ -137,7 +145,16 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
             {{--                </a>--}}
             {{--            </div>--}}
 
-            <img x-show="!showHeader" src="/cfa/img/logo.jpg" alt="logo"
+            <img x-show="!showHeader"
+
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform -translate-y-5"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-5"
+
+                 src="/cfa/img/logo.jpg" alt="logo"
                  class="float-left"
                  style="height:40px; width: 80px;"/>
 
@@ -175,7 +192,17 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
                             <button @click="open = !open" class="inline xw-full text-start">
                                 {{ auth()->user()->name ?? '-' }}
                             </button>
-                            <div x-show="open" @click.away="open = false" class="absolute  border-2 border-gray-500 rounded
+                            <div x-show="open"
+
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform -translate-y-5"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                                 x-transition:leave-end="opacity-0 transform -translate-y-5"
+
+
+                                 @click.away="open = false" class="absolute  border-2 border-gray-500 rounded
                          rounded shadow-lg z-10">
                                 <div class="flex flex-col w-[150px] ">
                                     {{--                                    <div class="">--}}
