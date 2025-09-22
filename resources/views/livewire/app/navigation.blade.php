@@ -46,7 +46,9 @@ shadow-lg
     style="
             background: linear-gradient(45deg,
                 /*rgba(205, 205, 205, 0.7) 10%,*/
-                rgba(180, 180, 250, 0.6) 11%,
+                rgba(250, 250, 250, 0.6) 40%,
+                rgba(180, 180, 250, 0.6) 50%,
+                rgba(250, 250, 250, 0.6) 70%,
                 rgba(220, 220, 220, 0.6) 80%,
                 rgba(120, 120, 220, 0.6)) 81%;
             background-size: 300% 300%;
