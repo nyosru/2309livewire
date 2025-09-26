@@ -1,0 +1,35 @@
+<style>
+
+body .product-dropdown[data-brand='1'] .category_products {
+    column-count: 3; /* Значение по умолчанию */
+    column-gap: 20px;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+body .product-dropdown[data-brand='1'] .category_products a {
+    display: block;
+}
+
+/* От 991px до 1199px – 5 столбцов */
+@media (min-width: 991px) and (max-width: 1199px) {
+    body .product-dropdown[data-brand='1'] .category_products  {
+        column-count: 5;
+    }
+}
+
+/* От 1200px до 1399px – 6 столбцов */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    body .product-dropdown[data-brand='1'] .category_products  {
+        column-count: 6;
+    }
+}
+
+/* От 1400px и выше – 7 столбцов */
+@media (min-width: 1400px) {
+    body .product-dropdown[data-brand='1'] .category_products  {
+        column-count: 7;
+    }
+}
+
+</style>

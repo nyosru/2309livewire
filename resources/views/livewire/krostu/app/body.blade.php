@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Центр Финансовой Аналитики</title>
+    <title>Маркетинг в бизнес! kRostu!</title>
 
 {{--    <link href="/krostu/animate.min.css" rel="stylesheet">--}}
 {{--    <link href="/krostu/bootstrap.min.css" rel="stylesheet">--}}
