@@ -20,7 +20,7 @@
                             <br/>
                             <a href="https://www.tinkoff.ru/rm/baklanov.sergey34/i4J5b154"
                                class="bg-blue-300 px-4 py-2
-                                   rounded
+                                   rounded-xl
                                    text-blue-800 hover:bg-blue-400" target="_blank">Отправить с карты</a>
                         </p>
                     </div>
