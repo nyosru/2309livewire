@@ -149,7 +149,7 @@
                         <br><br>
                         Младший помощник программиста, Програмист, IT&nbsp;архитектор и&nbsp;IT&nbsp;космонавт&nbsp;
                         <br><br>
-                        Использую PHP, Laravel, Битрикс, Symfony, js, LiveWire, Vue3, Python, Docker и&nbsp;всякие&nbsp;другие&nbsp;штуки
+                        Использую PHP, Laravel<sup>❤️</sup>, Yii2, Битрикс, Symfony, js, LiveWire, Vue3, Python, Git, Docker и&nbsp;всякие&nbsp;другие&nbsp;штуки
 
 {{--                        <br><br> Работаю удалённо--}}
 
