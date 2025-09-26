@@ -1,3 +1,39 @@
+
+<footer class="bg-white mt-16 py-6 shadow-inner flex flex-row">
+    <div class="
+{{--    max-w-7xl mx-auto --}}
+w-1/2
+    px-4 text-center text-gray-500 text-sm
+    ">
+        © 2025 Маркетинговые услуги. Все права защищены.
+    </div>
+    <div class="w-1/2" >
+
+        <div class="flex flex-row items-center justify-center
+    text-gray-500 text-sm
+    ">
+            <div>
+                <a href="https://php-cat.com"
+                   class="whitespace-nowrap text-blue-600 hover:underline"
+                   target="_blank">
+                    <img src="/phpcat/cat.png" class="inline-block h-[3rem]"/>
+                </a>
+            </div>
+            <div class="text-center">
+                Создание сайта<br/>
+                <a href="https://php-cat.com"
+                   class="whitespace-nowrap text-blue-600 hover:underline"
+                   target="_blank">
+                    php-cat.com
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</footer>
+
+@if(1==2)
 <div>
     <footer>
         @if(1==2)
@@ -218,3 +254,4 @@ bg-gradient-to-br from-[#898989] to-[#b9b9b9]
         </div>
     </footer>
 </div>
+@endif
