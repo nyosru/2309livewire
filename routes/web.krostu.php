@@ -41,6 +41,13 @@ Route::group([
     'domain' => ( (request()->getHost() === 'krostu.local') ? 'krostu.local' : 'krostu.com' )
 ], $d);
 
+
+# кросту.рф
+Route::group([
+    'as' => 'krostu2.',
+    'domain' => 'xn--j1aifffg.xn--p1ai'
+], $d);
+
 //Route::group([
 //    'as' => 'krostu2.',
 //    'domain' => 'www.krostu.com'
