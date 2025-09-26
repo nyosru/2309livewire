@@ -58,6 +58,21 @@
         </div>
     </div>
 
+
+
+    <div class="container
+{{--    max-w-7xl --}}
+mb-8
+    mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900">Что такое рост ?</h1>
+        <div class="ml-4" >
+        <p class="mt-2 text-gray-600">1) Мониторинг - фиксировать текущие показатели (например сервис <a href="https://процессмастер.рф" class="text-blue-700 hover:underline" target="_blank" >ПроцессМастер.рф</a>)</p>
+        <p class="mt-2 text-gray-600">2) Вносим изменение в бизнес процесс и наблюдаем за тем как изменились показатели</p>
+        <p class="mt-2 text-gray-600">3) Планируем и принимаем решение о откате/изменении</p>
+        <p class="mt-2 text-gray-600">4) <b>Перейти к пункту №1</b> пока есть силы (или наёмные специалисты)</p>
+        </div>
+    </div>
+
     <livewire:phpcat.money/>
 
     @if(1==2)
