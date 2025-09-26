@@ -66,12 +66,13 @@
         <meta property="vk:image"  content="https://php-cat.com/krostu/preview_link_for_vk.jpg" />
 
         <!-- Twitter Meta Tags -->
-{{--        <meta name="twitter:card" content="summary_large_image">--}}
+
         <meta property="twitter:domain" content="krostu.com">
         <meta property="twitter:url" content="https://kRostu.com">
-{{--        <meta name="twitter:title" content="php-cat.com Сергей Бакланов программист">--}}
-{{--        <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">--}}
-        <meta name="twitter:image" content="https://php-cat.com/krostu/preview_link_for_vk.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="kRostu.com сервис маркетолога Сергея Бакланова">
+        <meta name="twitter:description" content="Производим осмотр бизнеса, соц.сетей и сайта, формируем советы, контролируем их реализованность">
+        <meta name="twitter:image" content="https://php-cat.com/krostu/preview_link_for_fb.jpg">
 
 
     @endif
