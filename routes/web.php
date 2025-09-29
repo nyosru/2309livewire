@@ -163,6 +163,7 @@ Route::get('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.
 
 
 
+require('web.blank.php');
 require('web.stn.php');
 require('web.mannik.php');
 
