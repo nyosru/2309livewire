@@ -18,17 +18,17 @@
     @livewireStyles
 
     <!-- Meta -->
-    <meta property="og:url" content="https://php-cat.com">
+    <meta property="og:url" content="https://{{ $domain_ru  }}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="php-cat.com Сергей Бакланов программист">
-    <meta property="og:description" content="Домашняя страничка Сергея Бакланова программиста">
+    <meta property="og:title" content="Сайт скоро будет">
+    <meta property="og:description" content="">
     <meta property="og:image" content="https://php-cat.com/zaglushka/preview_link_for_fb.jpg">
     <meta property="vk:image" content="https://php-cat.com/zaglushka/preview_link_for_vk.jpg"/>
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="php-cat.com">
-    <meta property="twitter:url" content="https://php-cat.com">
-    <meta name="twitter:title" content="php-cat.com Сергей Бакланов программист">
-    <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">
+    <meta property="twitter:domain" content="">
+    <meta property="twitter:url" content="https://{{ $domain_ru  }}">
+    <meta name="twitter:title" content="Сайт скоро будет">
+    <meta name="twitter:description" content="">
     <meta name="twitter:image" content="https://php-cat.com/zaglushka/preview_link_for_vk.jpg">
 
 </head>
