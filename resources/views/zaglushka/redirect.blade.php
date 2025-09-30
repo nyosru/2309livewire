@@ -22,14 +22,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="php-cat.com Сергей Бакланов программист">
     <meta property="og:description" content="Домашняя страничка Сергея Бакланова программиста">
-    <meta property="og:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_fb.jpg">
-    <meta property="vk:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg"/>
+    <meta property="og:image" content="https://php-cat.com/zaglushka/preview_link_for_fb.jpg">
+    <meta property="vk:image" content="https://php-cat.com/zaglushka/preview_link_for_vk.jpg"/>
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="php-cat.com">
     <meta property="twitter:url" content="https://php-cat.com">
     <meta name="twitter:title" content="php-cat.com Сергей Бакланов программист">
     <meta name="twitter:description" content="Домашняя страничка Сергея Бакланова программиста">
-    <meta name="twitter:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_vk.jpg">
+    <meta name="twitter:image" content="https://php-cat.com/zaglushka/preview_link_for_vk.jpg">
 
 </head>
 
@@ -47,6 +47,7 @@ text-blue-900 text-center
 px-8 py-6 rounded-lg shadow-xl
 min-w-[320px]
 ">
+        {{ $domain_ru  }}
         <h1 class="text-xl font-bold mb-2">Сайт временно недоступен</h1>
         <p class="mb-4">Через <span id="timer" class="font-mono font-bold text-red-600">10</span> секунд вы будете
             автоматически перенаправлены<br>на наш рабочий сайт <a href="https://{{ $domainRedirect }}"
@@ -57,8 +58,8 @@ min-w-[320px]
     </div>
 </div>
 
-<script src="/zaglushka/three.r134.min.js"></script>
-<script src="/zaglushka/vanta.clouds.min.js"></script>
+<script src="/bg/cloud01/three.r134.min.js"></script>
+<script src="/bg/cloud01/vanta.clouds.min.js"></script>
 <script>
     VANTA.CLOUDS({
         el: "#cloud111",

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-
+use Symfony\Polyfill\Intl\Idn\Idn;
 
 class ZaglushkaController extends Controller
 {
@@ -66,7 +66,12 @@ class ZaglushkaController extends Controller
         $currentDomain = request()->getHost();
         $domainRedirect = $this->checkRedirect($currentDomain);
         if (!empty($domainRedirect)) {
-            return view('zaglushka.redirect', ['domain' => $currentDomain, 'domainRedirect' => $domainRedirect]);
+            return view('zaglushka.redirect', [
+                'domain' => $currentDomain,
+                'domain_ru' => (function_exists('idn_to_utf8')) ? idn_to_utf8($currentDomain, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46) : $currentDomain,
+//                'domainRedirect' => $domainRedirect
+                'domainRedirect' =>  (function_exists('idn_to_utf8')) ? idn_to_utf8($domainRedirect, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46) : $domainRedirect,
+            ]);
         } // если редиректа нет, то показываем страницу заглушки
         else {
 
