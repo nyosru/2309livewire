@@ -47,7 +47,7 @@ text-blue-900 text-center
 px-8 py-6 rounded-lg shadow-xl
 min-w-[320px]
 ">
-        {{ $domain_ru  }}
+{{--        {{ $domain_ru  }}--}}
         <h1 class="text-xl font-bold mb-2">Сайт временно недоступен</h1>
         <p class="mb-4">Через <span id="timer" class="font-mono font-bold text-red-600">10</span> секунд вы будете
             автоматически перенаправлены<br>на наш рабочий сайт <a href="https://{{ $domainRedirect }}"
