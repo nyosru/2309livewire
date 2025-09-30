@@ -80,29 +80,54 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
 
 {{--                        логотип--}}
 
-                        KRostu.com <sup>маркетолог в компанию</sup>
+                        @php
+                            $host = request()->getHost();
+
+                            // Определяем нужный домен
+                            switch ($host) {
+                                case 'krostu.local':
+                                    $domain = 'krostu.local';
+                                    break;
+                                case 'xn--j1aifffg.xn--p1ai':
+                                    $domain = 'кРосту.рф';
+                                    break;
+                                case 'krostu.com':
+                                    $domain = 'krostu.com';
+                                    break;
+                                default:
+                                    $domain = 'krostu';
+                            }
+
+
+                        @endphp
+
+{{--                        <a href="https://{{ $domain }}" class="text-blue-600 hover:underline">--}}
+                            {{ $domain }}
+{{--                        </a>--}}
+
+                        <sup>маркетолог в компанию</sup>
 
                         @if(1==2)
-                        <div class="flex flex-row">
+                            <div class="flex flex-row">
 
 
-                            <div class="flex-1 items-center align-middle">
-                                {{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
-{{--                                <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
+                                <div class="flex-1 items-center align-middle">
+                                    {{--                        <img src="/cfa/img/logo.jpg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
+                                    {{--                                <img src="/cfa/img/logo.svg" alt="logo" class="h-[4rem] inline mt-[0.5rem]"/>--}}
 
+                                </div>
+                                <div class="flex flex-col pl-2 text-[20px] ">
+                                    <div class="p-0 m-0">
+                                        ЦЕНТР
+                                    </div>
+                                    <div class="p-0 my-[-0.4rem]">
+                                        ФИНАНСОВОЙ
+                                    </div>
+                                    <div class="p-0 m-0">
+                                        АНАЛИТИКИ
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex flex-col pl-2 text-[20px] ">
-                                <div class="p-0 m-0">
-                                    ЦЕНТР
-                                </div>
-                                <div class="p-0 my-[-0.4rem]">
-                                    ФИНАНСОВОЙ
-                                </div>
-                                <div class="p-0 m-0">
-                                    АНАЛИТИКИ
-                                </div>
-                            </div>
-                        </div>
                         @endif
 
                     </a>
@@ -118,11 +143,11 @@ text-center w-full flex flex-wrap justify-center space-x-1 md:space-x-4"
                             items-center
                              ">
 
-{{--                        <div>--}}
-{{--                            <a href="tel:+79324818910" target="_blank" class=" hover:underline">--}}
-{{--                                <img src="/icon/svg/Light/Calling.svg" class="h-[20px] inline "/> 8(932)481-89-10--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
+                        {{--                        <div>--}}
+                        {{--                            <a href="tel:+79324818910" target="_blank" class=" hover:underline">--}}
+                        {{--                                <img src="/icon/svg/Light/Calling.svg" class="h-[20px] inline "/> 8(932)481-89-10--}}
+                        {{--                            </a>--}}
+                        {{--                        </div>--}}
                         <div>
                             <a href="https://t.me/phpcatcom" target="_blank" class=" hover:underline">
                                 <img src="/icon/Telegram.png" class="h-[20px] inline"/> @PhpCatCom

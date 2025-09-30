@@ -19,36 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 require('web.krostu.php');
 
+// земельный кадастр
+require('web.zem.php');
+require('web.phpcat.php');
+require('web.phpcat_ru.php');
+
+
+
+
 require('web.cfa.php');
-// для cfa
-Route::middleware(['auth'])->group(function () {
-    Route::prefix('tech')->name('tech.')->group(function () {
-
-        // Админка Datar
-        Route::prefix('datar2')->as('datar2')->group(function () {
-            Route::get('/', \App\Livewire\Phpcatcom\Datar2\Admin\DatarAdmin::class)->name('');
-            // Родители
-            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
-//                Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentCreate::class)->name('.parents.create');
-
-            Route::get('/parents/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.edit');
-
-//                // Дети
-            Route::get('/children/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildCreate::class)->name('.children.create');
-            Route::get('/children/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildEdit::class)->name('.children.edit');
-        });
-
-        // Админка новостей
-        Route::prefix('admin/news')->as('news.admin')->group(function () {
-            Route::get('/', \App\Livewire\Phpcatcom\News\Admin\NewsAdmin::class)->name('');
-            Route::get('/create', \App\Livewire\Phpcatcom\News\Admin\NewsCreate::class)->name('.create');
-            Route::get('/edit/{id}', \App\Livewire\Phpcatcom\News\Admin\NewsEdit::class)->name('.edit');
-        });
-
-    });
-});
-
-
 
 
 
@@ -127,10 +106,6 @@ require('web.phpcat.files.php');
 require('web.ar.php');
 //            таймер.сергейсб.рф
 require('web.timer.php');
-// земельный кадастр
-require('web.zem.php');
-require('web.phpcat.php');
-require('web.phpcat_ru.php');
 require('web.skidki.php');
 
 $d = function () {

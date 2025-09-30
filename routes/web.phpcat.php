@@ -88,7 +88,7 @@ $d = function () {
 
 Route::group([
     'as' => 'phpcat.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'phpcat.local' : 'php-cat.com'
+    'domain' => ( (request()->getHost() === 'phpcat.local') ? 'phpcat.local' : 'php-cat.com' )
 ], $d);
 
 Route::group([
