@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+require('web.concept-mebel.php');
 require('web.krostu.php');
 
 // земельный кадастр
