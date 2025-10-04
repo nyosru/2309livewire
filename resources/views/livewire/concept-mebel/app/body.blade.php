@@ -85,9 +85,10 @@
 
     @endif
 </head>
-<body style="font-size: 130%;">
-
-
+<body
+{{--    style="font-size: 130%;"--}}
+    class="overflow-hidden"
+>
 
 
 <div id="cloud111" class="z-20 absolute inset-0">&nbsp;
