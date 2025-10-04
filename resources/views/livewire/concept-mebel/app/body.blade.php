@@ -87,10 +87,47 @@
 </head>
 <body style="font-size: 130%;">
 
+
+
+
+<div id="cloud111" class="z-20 absolute inset-0">&nbsp;
+    <div class=" z-50 min-h-[100vh] w-screen flex items-center justify-center">
+        {{ $slot }}
+    </div>
+
+</div>
+
+<script src="/bg/cloud01/three.r134.min.js"></script>
+<script src="/bg/cloud01/vanta.clouds.min.js"></script>
+<script>
+    VANTA.CLOUDS({
+        el: "#cloud111",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 600.00,
+        minWidth: 800.00
+    });
+
+    {{--let seconds = 10;--}}
+    {{--const timerEl = document.getElementById("timer");--}}
+    {{--const interval = setInterval(() => {--}}
+    {{--    seconds--;--}}
+    {{--    timerEl.textContent = seconds;--}}
+    {{--    if (seconds <= 0) {--}}
+    {{--        clearInterval(interval);--}}
+
+    {{--        if ('{{ $domainRedirect }}') {--}}
+    {{--            window.location.href = 'https://' + '{{ $domainRedirect }}';--}}
+    {{--        }--}}
+
+    {{--    }--}}
+    {{--}, 1000);--}}
+</script>
+
+
 {{--<livewire:krostu.app.navigation/>--}}
 {{--<livewire:krostu.app.header/>--}}
-
-{{ $slot }}
 
 {{--<livewire:krostu.app.footer/>--}}
 
