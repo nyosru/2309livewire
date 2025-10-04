@@ -932,6 +932,10 @@ select {
   top: 8.3rem;
 }
 
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -2718,6 +2722,10 @@ select {
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[rgba\(255\2c 255\2c 255\2c 0\.4\)\] {
+  background-color: rgba(255,255,255,0.4);
 }
 
 .bg-opacity-50 {
