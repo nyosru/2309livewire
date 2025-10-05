@@ -53,6 +53,29 @@
             font-size: 120%;
         }
     </style>
+
+
+
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://CFA-Center.ru">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Центр Финансовой Аналитики">
+    <meta property="og:description" content="Москва Санкт-Петербург Оренбург Екатеринбург Тюмень Челябинск Пермь">
+
+    <meta property="og:image" content="https://php-cat.com/cfa/preview_link_for_fb.jpg">
+
+    <!-- VK Meta Tags -->
+    <meta property="vk:image"  content="https://php-cat.com/cfa/preview_link_for_vk.jpg" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="CFA-Center.ru">
+    <meta property="twitter:url" content="https://CFA-Center.ru">
+    <meta name="twitter:title" content="Центр Финансовой Аналитики">
+    <meta name="twitter:description" content="Москва Санкт-Петербург Оренбург Екатеринбург Тюмень Челябинск Пермь">
+    <meta name="twitter:image" content="https://php-cat.com/cfa/preview_link_for_vk.jpg">
+
 </head>
 <body
 {{--    style="font-size: 130%;"--}}
