@@ -4,8 +4,8 @@
     есть 2 варианта
     <br/>
     <br/>
-    <div class="flex flex-row">
-        <div class="w-1/2">
+    <div class="flex flex-col sm:flex-row">
+        <div class="w-full sm:w-1/2">
             <h2 class="text-2xl mb-2">
             1) подать заявление в МФЦ</h2>
             <br/>
@@ -22,7 +22,7 @@
             <br/>
             4) ждём ответ
         </div>
-        <div class="w-1/2">
+        <div class="w-full sm:w-1/2">
 
             <h2 class="text-2xl mb-2">
             2) подать заявление с помощью госуслуг.
