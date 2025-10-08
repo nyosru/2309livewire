@@ -20,7 +20,10 @@
 
 {{--        @include('phpcat.bitrix')--}}
 
-        <livewire:Phpcat.develop/>
+{{--        <livewire:Phpcat.develop/>--}}
+
+        <livewire:Phpcat.services-dop />
+
 
         <div
             {{--        class="container my-24 mx-auto md:px-6"--}}

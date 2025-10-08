@@ -856,6 +856,10 @@ select {
   bottom: 0px;
 }
 
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
 .bottom-4 {
   bottom: 1rem;
 }
@@ -930,10 +934,6 @@ select {
 
 .top-\[8\.3rem\] {
   top: 8.3rem;
-}
-
-.bottom-3 {
-  bottom: 0.75rem;
 }
 
 .z-0 {
@@ -2441,6 +2441,10 @@ select {
   background-color: rgba(200,120,0,0.4);
 }
 
+.bg-\[rgba\(255\2c 255\2c 255\2c 0\.4\)\] {
+  background-color: rgba(255,255,255,0.4);
+}
+
 .bg-blue-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
@@ -2724,10 +2728,6 @@ select {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
 
-.bg-\[rgba\(255\2c 255\2c 255\2c 0\.4\)\] {
-  background-color: rgba(255,255,255,0.4);
-}
-
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -2811,6 +2811,12 @@ select {
 .from-gray-100 {
   --tw-gradient-from: #f3f4f6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(243 244 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-gray-200 {
+  --tw-gradient-from: #e5e7eb var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(229 231 235 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -2998,6 +3004,10 @@ select {
   --tw-gradient-to: #9333ea var(--tw-gradient-to-position);
 }
 
+.to-red-200 {
+  --tw-gradient-to: #fecaca var(--tw-gradient-to-position);
+}
+
 .to-red-300 {
   --tw-gradient-to: #fca5a5 var(--tw-gradient-to-position);
 }
@@ -3012,6 +3022,10 @@ select {
 
 .to-yellow-100 {
   --tw-gradient-to: #fef9c3 var(--tw-gradient-to-position);
+}
+
+.to-red-100 {
+  --tw-gradient-to: #fee2e2 var(--tw-gradient-to-position);
 }
 
 .to-90\% {
@@ -3301,6 +3315,16 @@ select {
 .py-\[5rem\] {
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.py-\[3vh\] {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.py-\[5vh\] {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 }
 
 .pb-1 {
