@@ -109,6 +109,14 @@ require('web.ar.php');
 require('web.timer.php');
 require('web.skidki.php');
 
+
+
+require('web.blank.php');
+require('web.stn.php');
+require('web.mannik.php');
+
+
+
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
 //    Route::get('/develop/{item}', Develop::class)->name('develop');
@@ -138,10 +146,6 @@ Route::get('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.
 
 
 
-
-require('web.blank.php');
-require('web.stn.php');
-require('web.mannik.php');
 
 Route::fallback([\App\Http\Controllers\ZaglushkaController::class, 'show']);
 
