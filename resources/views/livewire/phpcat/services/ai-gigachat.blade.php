@@ -1,5 +1,10 @@
-<div class="ai-gigachat-container max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-    <div class="flex items-center justify-center mb-6">
+<div class="bg-gradient-to-br from-blue-50 to-blue-100">
+<div class="ai-gigachat-container max-w-4xl mx-auto py-[7vh] px-6
+{{--bg-white rounded-lg shadow-lg--}}
+">
+    <div class="flex items-center justify-center
+    mb-6
+    ">
         <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-3">
             <span class="text-white font-bold text-xl">AI</span>
         </div>
@@ -7,7 +12,9 @@
     </div>
 
     @if(!$this->hasValidCredentials())
-        <div class="mb-6 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md">
+        <div class="
+{{--        mb-6 --}}
+        p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md">
             <div class="flex items-start">
                 <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
@@ -166,7 +173,7 @@
 
 <style>
     .ai-gigachat-container {
-        min-height: 500px;
+        /*min-height: 500px;*/
     }
 
     .prose {
@@ -186,4 +193,5 @@
         to { transform: rotate(360deg); }
     }
 </style>
+</div>
 </div>

@@ -2886,6 +2886,12 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-blue-50 {
+  --tw-gradient-from: #eff6ff var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(239 246 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-10\% {
   --tw-gradient-from-position: 10%;
 }
@@ -3325,6 +3331,16 @@ select {
 .py-\[5vh\] {
   padding-top: 5vh;
   padding-bottom: 5vh;
+}
+
+.py-\[10vh\] {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+
+.py-\[7vh\] {
+  padding-top: 7vh;
+  padding-bottom: 7vh;
 }
 
 .pb-1 {
