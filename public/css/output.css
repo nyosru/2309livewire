@@ -1446,6 +1446,18 @@ select {
   height: 100vh;
 }
 
+.h-\[80px\] {
+  height: 80px;
+}
+
+.h-\[120px\] {
+  height: 120px;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
 .max-h-\[100px\] {
   max-height: 100px;
 }
@@ -1520,6 +1532,22 @@ select {
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[100px\] {
+  min-height: 100px;
+}
+
+.min-h-\[150px\] {
+  min-height: 150px;
+}
+
+.min-h-\[120px\] {
+  min-height: 120px;
+}
+
+.min-h-\[110px\] {
+  min-height: 110px;
 }
 
 .w-1 {

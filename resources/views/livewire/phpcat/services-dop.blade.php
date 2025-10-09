@@ -13,6 +13,8 @@
     <div class=" py-[5vh] bg-gradient-to-bl from-gray-100 to-red-100">
         <div class="container mx-auto xpy-5">
             <div class="flex flex-col space-y-2">
+
+
                 <div class="flex flex-row space-x-2">
                     <div class="p-4">
                         <a href="https://lk.finuslugi.ru/registration" class="text-blue-800 underline" target="_blank">
@@ -28,20 +30,20 @@
                         <b>
                             <u id="promo-code">RF2KXV9FX</u>
                             <sup>
-                            <button
-                                onclick="copyPromoCode()"
-                                class="px-1 py-0.5
+                                <button
+                                    onclick="copyPromoCode()"
+                                    class="px-1 py-0.5
 {{--                                bg-white shadows--}}
                                 rounded
 {{--                                hover:bg-gray-400--}}
                                 "
-                                title="Скопировать промо код"
-                            >
-                                <img src="/icon/copy.svg" width="16" height="16">
-                            </button>
+                                    title="Скопировать промо код"
+                                >
+                                    <img src="/icon/copy.svg" width="16" height="16">
+                                </button>
                             </sup>
                         </b>
-                        и получите бонус — <b>до 2 000 ₽</b>.
+                        и получите бонус: <b>до + 2 000 ₽</b>.
                         <br/>
                         Войти на Финуслуги:
                         <a href="https://lk.finuslugi.ru/registration" class="text-blue-800 underline" target="_blank">
@@ -52,6 +54,34 @@
                         выдадут!
                     </div>
                 </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class=" py-[5vh] bg-gradient-to-l from-gray-200 to-blue-100">
+        <div class="container mx-auto xpy-5">
+            <div class="flex flex-col space-y-2">
+
+                <div class="flex flex-row space-x-2">
+                    <div class="p-4">
+                        <a href="https://lk.finuslugi.ru/registration" class="text-blue-800 underline" target="_blank">
+                            <img src="/logo/vtb.svg" class="min-h-[110px]"/>
+                        </a>
+                    </div>
+                    <div class="text-lg">
+                        <b>Банк ВТБ</b>
+                        <br/>
+                        Регистрируете первую карту (привезут) тратите 5тр в первый месяц и получаете бонус деньгами <b>+
+                            1 000 ₽</b>.
+                        <br/>
+                        <a href="https://vtb.ru/l/8px4mk50" class="text-blue-800 underline" target="_blank">
+                            VTB.ru регистрация карты
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
             {{--        <div id="copy-message" class="text-green-700 font-semibold mt-2" style="display:none;">--}}
             {{--            Промо код скопирован--}}
