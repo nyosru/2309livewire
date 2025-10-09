@@ -11,7 +11,7 @@ $d = function () {
 //    Route::get('/', function () {
 //        return view('ring');
 //    });
-//    Route::fallback(function () { return redirect('/'); });
+    Route::fallback(function () { return redirect('/'); });
 };
 
 $inRoute = [
