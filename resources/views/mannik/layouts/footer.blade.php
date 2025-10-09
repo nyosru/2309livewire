@@ -153,15 +153,39 @@
         </div>
     </div>
     @endif
+
     <!--Copyright section-->
-    <div class="bg-neutral-200 p-6 text-center flex flex-row justify-center items-center">
-        <div class="w-1/2 text-center">
+    <div class="bg-neutral-200 p-6 text-center flex flex-col sm:flex-row justify-center items-center">
+
+        <div class="w-full  sm:w-1/2 text-center">
         <span>© {{ date('Y') }} Все права защищены</span>
         </div>
-        <div class="w-1/2 text-center">
-            Создание сайта: <a href="https://php-cat.com/"
-                               title="создание сайтов php-cat.com"
-                               target="_blank" class="hover:underline xfont-semibold text-neutral-600">php-cat.com</a>
+        <div class="w-full sm:w-1/2 pt-6 sm:pt-0 text-center">
+{{--            Создание сайта: <a href="https://php-cat.com/"--}}
+{{--                               title="создание сайтов php-cat.com"--}}
+{{--                               target="_blank" class="hover:underline xfont-semibold text-neutral-600">php-cat.com</a>--}}
+
+            <div class="flex flex-row items-center justify-center">
+
+                <div>
+                    <a href="https://php-cat.com"
+                       class="whitespace-nowrap hover:underline"
+                       target="_blank">
+                        <img src="/phpcat/cat.png" class="inline-block h-[3rem]"/>
+                    </a>
+                </div>
+
+                <div>
+                    Создание сайта<br/>
+                    <a href="https://php-cat.com"
+                       class="whitespace-nowrap text-[#042274] hover:underline"
+                       target="_blank">
+                        php-cat.com
+                    </a>
+                </div>
+
+            </div>
+
         </div>
         {{-- <a
       class="font-semibold text-neutral-600"
