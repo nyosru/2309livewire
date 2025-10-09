@@ -29,6 +29,7 @@ require('web.phpcat_ru.php');
 
 
 require('web.cfa.php');
+require('web.mannik.php');
 
 
 
@@ -113,7 +114,6 @@ require('web.skidki.php');
 
 require('web.blank.php');
 require('web.stn.php');
-require('web.mannik.php');
 
 
 

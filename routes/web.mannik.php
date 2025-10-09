@@ -17,7 +17,7 @@ $d = function () {
 $inRoute = [
     [
         'as' => 'm.',
-        'domain' => (env('APP_ENV', 'local') == 'local') ?
+        'domain' => (request()->getHost() === 'mannik.local') ?
             'mannik.local' :
 //            юраманник.рф
             'xn--80aayihhat9j.xn--p1ai'
