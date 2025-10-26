@@ -1,44 +1,49 @@
-<section class="py-16
-    bg-gradient-to-tr from-green-700 to-green-500
-    text-white">
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="w-full">
 
-        <!-- Форма -->
-        <div class="md:w-1/2">
-            <form wire:submit.prevent="submit" class="max-w-md mx-auto space-y-4">
-                <div>
-                    <input
-                        type="text"
-                        wire:model="phone"
-                        placeholder="Ваш номер телефона"
-                        class="w-full p-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    >
-                    @error('phone') <span class="text-red-400 text-sm">{{ $message }}</span> @enderror
+    <div
+        class="
+        ">
+        <div class="flex
+             items-center
+            min-h-[650px]
+            bg-cover bg-no-repeat
+            bg-center
+            "
+             style="background-image: url('/ttt/img/bar777-ball-colorful-photo-lg.jpeg');"
+        >
+
+            <form wire:submit.prevent="sendMsg">
+                <div id="a7" class="w-[300px]
+                    bg-gradient-to-bl from-yellow-200 to-orange-500 rounded-xl p-4
+                     mx-auto
+                     md:mr-[5vw]
+                     md:ml-[5vw]
+                    flex flex-col space-y-2">
+                    @if(session('message_ok'))
+                        <div class="bg-green-100
+                        text-center
+                        border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                             role="alert">
+                            {{ session('message_ok') }}
+                        </div>
+                    @else
+                        <div class="font-bold text-center">
+                            Записаться на обучение игре в&nbsp;бильярд
+                        </div>
+                        <div class="">
+                            <input type="text" wire:model="phone" placeholder="Ваш телефон" class="w-full"/>
+                        </div>
+                        <div class="">
+                            <button
+                                type="submit"
+                                class="bg-gradient-to-bl from-blue-200 to-blue-400 w-full font-bold rounded-xl px-2 py-1">
+                                Отправить
+                            </button>
+                        </div>
+                    @endif
                 </div>
-                <button
-                    type="submit"
-                    class="w-full bg-yellow-400 text-green-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition"
-                >
-                    Отправить
-                </button>
-                @if (session()->has('message'))
-                    <div class="text-green-200 text-center">{{ session('message') }}</div>
-                @endif
             </form>
         </div>
-
-        <!-- Текст предложения -->
-        <div class="md:w-1/2 text-center md:text-left">
-            <h2 class="text-3xl font-bold mb-4 text-black bg-yellow-500">
-                курс Мастер! <sup>(пол года)</sup>
-                <br/>
-                Скидка 20%
-            </h2>
-            <h2 class="text-3xl font-bold mb-4">22 занятия и 2 недели паузы</h2>
-            <h2 class="text-3xl font-bold">4`000р</h2>
-            <strike class="font-normal text-[20px] text-gray-100">6`000р</strike>
-
-        </div>
-
     </div>
-</section>
+
+</div>
