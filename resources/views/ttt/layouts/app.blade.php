@@ -4,17 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Тактика Техника Точность, обучение бильярду у Коновалова Александра Борисовича!</title>
-
     <link type="image/x-icon" href="/phpcat/favcat.ico" rel="shortcut icon" />
-
-    <!-- Fonts -->
+{{--    <!-- Fonts -->--}}
 {{--    <link rel="preconnect" href="https://fonts.bunny.net">--}}
 {{--    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />--}}
 {{--    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />--}}
 {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />--}}
-    <link rel="stylesheet" href="/css/output.css?v=1" />
+{{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
+    <link href="/css/output.css?v={{ filemtime(public_path('/css/output.css')) }}" rel="stylesheet">
 {{--    <script src="https://cdn.tailwindcss.com/3.4.16"></script>--}}
 {{--    <script src="https://cdn.tailwindcss.com/3.4.16"></script>--}}
 {{--    <script>--}}
@@ -59,6 +57,12 @@
     <meta name="twitter:image" content="https://xn--80aayihhat9j.xn--p1ai/mannik/preview_link_for_vk.jpg">
     @endif
 
+    <style>
+        html{
+            font-size: 130%;
+        }
+    </style>
+
 </head>
 
 <body class="antialiased">
@@ -89,14 +93,11 @@
 {{--    </script>--}}
 {{--    <noscript><div><img src="https://mc.yandex.ru/watch/76358443" style="position:absolute; left:-9999px;" alt="" /></div></noscript>--}}
 {{--    <!-- /Yandex.Metrika counter -->--}}
-
 </body>
 
 {{--<script src="/bg/three.min.js"></script>--}}
 {{--<script src="/bg/bg-22.js"></script>--}}
-
 {{--<script src="/app0.js"></script>--}}
-
 {{--<script src="/bg/bg-24.js"></script>--}}
 {{--<script src="/bg/bg-42.js"></script>--}}
 {{--<style>#bg-42 {--}}

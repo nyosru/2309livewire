@@ -1,5 +1,15 @@
 <!-- Footer container -->
-<footer class="bg-neutral-100 text-center text-neutral-600 lg:text-left">
+<footer class="
+
+    bg-gradient-to-tl
+    from-gray-100
+    to-gray-400
+    {{--bg-gray-500--}}
+    {{--bg-black--}}
+
+
+
+    text-center text-neutral-600 lg:text-left">
 
     @if (1 == 2)
         <div
@@ -155,7 +165,9 @@
     @endif
 
     <!--Copyright section-->
-    <div class="bg-neutral-200 p-6 text-center flex flex-col sm:flex-row justify-center items-center">
+    <div class="
+{{--    bg-neutral-400 --}}
+    p-6 text-center flex flex-col sm:flex-row justify-center items-center">
 
         <div class="w-full  sm:w-1/2 text-center">
         <span>© {{ date('Y') }} Все права защищены</span>

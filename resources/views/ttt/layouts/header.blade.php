@@ -1,10 +1,21 @@
 {{--<div class="text-center pb-3">--}}
-<a href="/" class="p-3 m-0 block text-center"><h1 style="font-size: 3rem;">
-{{--        <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />--}}
-        <div class="font-bold">ТТТ72.рф</div>
-        <div class="text-[2rem]">Тактика Техника Точность<br/>
-            обучение бильярду у Александра Коновалова</div>
-    </h1></a>
+<a href="/" class="p-3 m-0 block text-center">
+    <h1 class="w-full justify-center flex">
+        {{--        <img src="/phpcat/cat.png" style="display:inline-block; max-height: 5rem;" />--}}
+
+            <div class=" flex flex-col space-x-2 sm:flex-row text-[3rem] text-left">
+{{--                <div class="" title="Тактика Техника Точность">--}}
+{{--                    <div class="bg-green-300 rounded-xl px-2 py-1">--}}
+{{--                    ТТТ72.рф--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+                <div class="text-xl md:text-4xl text-center">
+                    Школа бильярда Александра&nbsp;Коновалова
+                </div>
+            </div>
+
+    </h1>
+</a>
 @if(1==2)
     {{--    <br/>--}}
     {{--    </div>--}}
