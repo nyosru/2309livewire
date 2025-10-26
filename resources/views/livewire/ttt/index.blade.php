@@ -95,6 +95,63 @@
 
     <livewire:spa.form2-action1 />
 
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Обучение бильярду",
+          "description": "Индивидуальные и курсовые занятия по бильярду в Тюмени. Тренировки с инструктором, техника, стратегия и практика игры.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Школа бильярда Александра Коновалова - TTT72",
+            "url": "https://ttt72.ru",
+            "telephone": "+7 900 123-45-67",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Тюмень",
+              "addressRegion": "Тюменская область",
+              "addressCountry": "RU"
+            }
+          },
+          "areaServed": {
+            "@type": "AdministrativeArea",
+            "name": "Тюмень"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Цены на занятия по бильярду",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "1 занятие по бильярду",
+                "description": "Индивидуальное занятие с тренером (2 часа) + оплата стола отдельно",
+                "price": "1000",
+                "priceCurrency": "RUB",
+                "url": "https://ttt72.ru"
+              },
+              {
+                "@type": "Offer",
+                "name": "Курс 2 месяца",
+                "description": "6 занятий по 2 часа + оплата стола отдельно",
+                "price": "5500",
+                "priceCurrency": "RUB",
+                "url": "https://ttt72.ru"
+              },
+              {
+                "@type": "Offer",
+                "name": "Курс 6 месяцев",
+                "description": "18 занятий по 2 часа + оплата стола отдельно",
+                "price": "15000",
+                "priceCurrency": "RUB",
+                "url": "https://ttt72.ru"
+              }
+            ]
+          }
+        }
+    </script>
+
+
 </div>
 {{--@endsection--}}
 
