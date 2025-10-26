@@ -106,7 +106,7 @@
             "@type": "LocalBusiness",
             "name": "Школа бильярда Александра Коновалова - TTT72",
             "url": "https://ttt72.ru",
-            "telephone": "+7 900 123-45-67",
+            "telephone": "+7-922-263-06-18",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Тюмень",
