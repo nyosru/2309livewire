@@ -32,7 +32,8 @@ Route::group([
 ], $d);
 Route::group([
     'as' => 'ttt2.',
-    'domain' => 'ттт72.рф'
+//    'domain' => 'ттт72.рф'
+    'domain' => 'xn--72-qmcaa.xn--p1ai'
 ], $d);
 
 
