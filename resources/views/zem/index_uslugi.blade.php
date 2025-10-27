@@ -91,7 +91,7 @@
             <h2 class="text-3xl">Срок: <span class="bg-orange-200 font-bold px-2 py-1">2-3 месяца</span></h2>
             <br/>
             <br/>
-            <h2 class="text-3xl">Стоимость: <span class="bg-orange-200 font-bold px-2 py-1">13 тр</span></h2>
+            <h2 class="text-3xl">Стоимость: <span class="bg-orange-200 font-bold px-2 py-1">15 тр</span></h2>
             <br/>
             <br/>
             <h2 class="text-3xl">Условия для приватизации:</h2>
