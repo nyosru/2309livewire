@@ -93,6 +93,7 @@
 {{--    </script>--}}
 {{--    <noscript><div><img src="https://mc.yandex.ru/watch/76358443" style="position:absolute; left:-9999px;" alt="" /></div></noscript>--}}
 {{--    <!-- /Yandex.Metrika counter -->--}}
+
 </body>
 
 {{--<script src="/bg/three.min.js"></script>--}}

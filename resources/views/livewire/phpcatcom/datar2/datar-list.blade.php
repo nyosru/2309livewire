@@ -135,7 +135,8 @@ hover:bg-blue-200
                                 @foreach($selectedParent->activeChildren as $child)
                                     <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
                                         <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ $child->title }}</h4>
-                                        <p class="text-gray-700">{!! nl2br(e($child->content)) !!}</p>
+{{--                                        <p class="text-gray-700">{!! nl2br(e($child->content)) !!}</p>--}}
+                                        {!! $child->content !!}
                                     </div>
                                 @endforeach
                             </div>

@@ -1,4 +1,6 @@
 <div>
+
+
         <livewire:tech.menu type="cfa" />
 
     <livewire:app.breadcrumb :menu="[

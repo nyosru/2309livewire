@@ -10,7 +10,8 @@ class DatarChildEdit extends Component
 {
     public $child;
     public $title;
-    public $content;
+//    public $content;
+    public string $content = '';
     public $parent_id;
     public $order;
     public $is_active;
