@@ -69,7 +69,10 @@ hover:bg-blue-200
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $parent->title }}</h3>
                     <p class="text-gray-600
 {{--                    line-clamp-2--}}
-                    pl-3 mb-3">{!! str_replace('<br />','</p><p class="text-gray-600 pl-3 mb-3">',$parent->content)  !!}</p>
+                    pl-3 mb-3">
+{{--                        {!! str_replace('<br />','</p><p class="text-gray-600 pl-3 mb-3">',$parent->content)  !!}--}}
+                        {!! $parent->content !!}
+                    </p>
                     {{--                    {{ $parent->content  }}--}}
                     {{--                    <br/>--}}
 
