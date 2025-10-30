@@ -40,11 +40,64 @@
             @error('title') <span class="error">{{ $message }}</span> @enderror
         </div>
 
+        @if(1==2)
         <div>
             <label>Контент</label>
             <textarea wire:model.defer="content"></textarea>
             @error('content') <span class="error">{{ $message }}</span> @enderror
         </div>
+        @else
+
+            <div wire:ignore>
+                <label class="block mb-1 font-medium">Контент</label>
+                <textarea id="editor" class="w-full border rounded p-2" rows="10">
+                {!! $content !!}
+            </textarea>
+            </div>
+            @error('content') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+
+            @push('scripts')
+
+                <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+                <script>
+                    document.addEventListener('livewire:navigated', initEditor);
+                    document.addEventListener('livewire:load', initEditor);
+
+                    function initEditor() {
+                        if (window.editorInitialized) return; // чтобы не инициализировать повторно
+                        window.editorInitialized = true;
+
+                        const textarea = document.getElementById('editor');
+                        if (!textarea) return;
+
+                        const editor = CKEDITOR.replace('editor', {
+                            height: 300,
+                            removePlugins: 'elementspath',
+                            resize_enabled: false,
+                            licenseKey: 'GPL',
+                        });
+
+                        // При изменении контента — обновляем свойство Livewire
+                        editor.on('change', function () {
+                        @this.set('content', editor.getData())
+                            ;
+                        });
+
+                        // После рендера вставляем начальное значение
+                        Livewire.hook('message.processed', (message, component) => {
+                            if (editor.getData() !== @this.get('content')) {
+                                editor.setData(@this.get('content') ?? '');
+                            }
+                        });
+
+                        // В первый раз тоже вставляем данные
+                        editor.setData(@this.get('content') ?? '');
+                    }
+                </script>
+            @endpush
+
+        @endif
 
 
 {{--        <div>--}}

@@ -1,4 +1,4 @@
-<div class="w-full">
+<div >
 
     <livewire:tech.menu type="cfa"/>
 
@@ -30,87 +30,60 @@
             @error('title') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
-        <div>
-
-            <div
-                x-data="{
-        content: @entangle('content').defer,
-        format(cmd) {
-            document.execCommand(cmd, false, null);
-            this.update();
-        },
-        update() {
-            this.content = $refs.editor.innerHTML;
-        }
-    }"
-                class="space-y-2"
-            >
-                <label class="block text-sm font-medium text-gray-700 mb-1">Контент</label>
-
-                <!-- Панель инструментов -->
-                <div class="flex space-x-2 border rounded-md p-2 bg-gray-50">
-                    <button type="button" @click="format('bold')" class="px-2 py-1 rounded hover:bg-gray-200 font-bold">
-                        Ж
-                    </button>
-                    <button type="button" @click="format('italic')" class="px-2 py-1 rounded hover:bg-gray-200 italic">
-                        К
-                    </button>
-                    <button type="button" @click="format('underline')"
-                            class="px-2 py-1 rounded hover:bg-gray-200 underline">Ч
-                    </button>
-                </div>
-
-                <!-- Поле редактирования -->
-                <div
-                    x-ref="editor"
-                    contenteditable="true"
-                    @input="update"
-                    x-html="content"
-                    class="min-h-[150px] border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-                ></div>
-
-                @error('content')
-                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
 
 
-        </div>
-
-        @if(1==2)
             <div wire:ignore>
-                <label for="editor" class="block text-sm font-medium text-gray-700 mb-1">Контент</label>
-                <textarea
-                    {{--            id="content" --}}
-                    rows="4"
-                    wire:model.defer="content"
-                    id="editor"
-                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                ></textarea>
-                @error('content') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                <label class="block mb-1 font-medium">Контент</label>
+                <textarea id="editor" class="w-full border rounded p-2" rows="10">
+                {!! $content !!}
+            </textarea>
             </div>
-        @endif
+            @error('content') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
 
-        {{--    <div>--}}
-        {{--        <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-1">Родитель</label>--}}
-        {{--        <select id="parent_id" wire:model.defer="parent_id"--}}
-        {{--                class="w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">--}}
-        {{--            <option value="">Выберите родителя</option>--}}
-        {{--            @foreach($parents as $parent)--}}
-        {{--                <option value="{{ $parent['id'] }}">{{ $parent['name'] ?? $parent['title'] ?? 'Родитель #' . $parent['id'] }}</option>--}}
-        {{--            @endforeach--}}
-        {{--        </select>--}}
-        {{--        @error('parent_id') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror--}}
-        {{--    </div>--}}
+            @push('scripts')
 
-        {{--    <div>--}}
-        {{--        <label for="order" class="block text-sm font-medium text-gray-700 mb-1">Порядок</label>--}}
-        {{--        <input id="order" type="number" min="0" wire:model.defer="order"--}}
-        {{--               class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />--}}
-        {{--        @error('order') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror--}}
-        {{--    </div>--}}
+                <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
-        <div class="flex items-center space-x-2">
+                <script>
+                    document.addEventListener('livewire:navigated', initEditor);
+                    document.addEventListener('livewire:load', initEditor);
+
+                    function initEditor() {
+                        if (window.editorInitialized) return; // чтобы не инициализировать повторно
+                        window.editorInitialized = true;
+
+                        const textarea = document.getElementById('editor');
+                        if (!textarea) return;
+
+                        const editor = CKEDITOR.replace('editor', {
+                            licenseKey: 'GPL',
+                            height: 300,
+                            removePlugins: 'elementspath',
+                            resize_enabled: false,
+                        });
+
+                        // При изменении контента — обновляем свойство Livewire
+                        editor.on('change', function () {
+                        @this.set('content', editor.getData())
+                            ;
+                        });
+
+                        // После рендера вставляем начальное значение
+                        Livewire.hook('message.processed', (message, component) => {
+                            if (editor.getData() !== @this.get('content')) {
+                                editor.setData(@this.get('content') ?? '');
+                            }
+                        });
+
+                        // В первый раз тоже вставляем данные
+                        editor.setData(@this.get('content') ?? '');
+                    }
+                </script>
+            @endpush
+
+
+
+            <div class="flex items-center space-x-2">
             <input id="is_active" type="checkbox" wire:model.defer="is_active"
                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"/>
             <label for="is_active" class="text-sm font-medium text-gray-700">Активен</label>
