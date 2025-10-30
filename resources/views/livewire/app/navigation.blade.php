@@ -19,7 +19,8 @@
 
             if (lastScrollPosition < currentScroll && currentScroll > 100) {
                 showBlock = false
-            } else if (lastScrollPosition > currentScroll && currentScroll < 100) {
+{{--            } else if (lastScrollPosition > currentScroll && currentScroll < 100) {--}}
+            } else if (currentScroll == 0 ) {
                 showBlock = true
             }
 

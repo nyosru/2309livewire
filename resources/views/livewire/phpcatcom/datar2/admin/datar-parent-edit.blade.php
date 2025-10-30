@@ -3,25 +3,27 @@
     <livewire:tech.menu type="cfa"/>
 
     <livewire:app.breadcrumb :menu="[
-        [ 'name' => 'Тех. отдел',
-         'link'=>'no' ],
-        [ 'name' => 'База знаний',
+        [
+        'name' => 'Тех. отдел',
+        'link'=>'no'
+        ],
+        [
+        'name' => 'База знаний',
         'route' => 'tech.datar2',
-         ],
-        [ 'name' => 'Редактируем группу', 'link'=>'no'
-         ],
+        ],
+        [ 'name' => $action_name .' группу', 'link'=>'no' ],
     ]"/>
     {{--        [ 'name' => '', 'route' => '',  'route-var' => [], 'link'=>'no' ],--}}
 
 
     <div class="container mx-auto pb-4 bg-white shadow rounded-lg">
 
-
         @if (session()->has('success'))
             <div class="bg-green-200 text-green-800 p-3 rounded mb-4">
                 {{ session('success') }}
             </div>
         @endif
+
         {{--title: {{ $title }}--}}
         <form wire:submit.prevent="save" class="space-y-6">
             <div>

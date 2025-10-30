@@ -46,8 +46,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('datar2')->as('datar2')->group(function () {
             Route::get('/', \App\Livewire\Phpcatcom\Datar2\Admin\DatarAdmin::class)->name('');
             // Родители
-            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
 //                Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentCreate::class)->name('.parents.create');
+//            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
+            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.create');
 
             Route::get('/parents/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.edit');
 

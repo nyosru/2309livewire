@@ -30,8 +30,6 @@
             @error('title') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
-
-
             <div wire:ignore>
                 <label class="block mb-1 font-medium">Контент</label>
                 <textarea id="editor" class="w-full border rounded p-2" rows="10">
