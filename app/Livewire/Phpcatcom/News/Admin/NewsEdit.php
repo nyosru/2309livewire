@@ -80,9 +80,9 @@ class NewsEdit extends Component
 
         $this->news->update($newsData);
 
-        session()->flash('success', 'Новость успешно обновлена!');
+        session()->flash('success', 'Новость успешно изменена!');
         return redirect()->back();
-//        return redirect()->route('news.admin');
+//        return redirect()->route('tech.news.admin');
     }
 
     public function cancel()

@@ -32,14 +32,15 @@
                     <img
                         src="{{ asset('storage/' . $newsItem->image) }}"
                         alt="{{ $newsItem->title }}"
-                        class="w-full h-64 md:h-96 object-cover rounded-lg shadow-md mb-6"
+                        class="w-full h-32 md:h-64 object-cover bg-center rounded-lg shadow-md mb-6"
                     >
                 @endif
             </header>
 
             <!-- Контент -->
             <div class="prose prose-lg max-w-none text-gray-700 mb-8">
-                {!! nl2br(e($newsItem->content)) !!}
+{{--                {!! nl2br(e($newsItem->content)) !!}--}}
+                {!! $newsItem->content !!}
             </div>
 
             <!-- Дополнительная информация -->

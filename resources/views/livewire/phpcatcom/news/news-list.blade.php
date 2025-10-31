@@ -38,7 +38,11 @@
                 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
 
 
-                    @if($item->image)
+
+                    <a
+                        href="{{ route('cfa.news.show', $item->slug) }}"
+                    >
+                        @if($item->image)
                         <img
                             src="{{ asset('storage/' . $item->image) }}"
                             alt="{{ $item->title }}"
@@ -56,6 +60,7 @@
                             </svg>
                         </div>
                     @endif
+                    </a>
 
                     <div class="p-6">
                         <div class="flex items-center text-sm text-gray-500 mb-3">

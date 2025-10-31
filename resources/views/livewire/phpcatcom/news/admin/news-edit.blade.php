@@ -30,6 +30,7 @@
             <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">
                 Краткое описание
             </label>
+
             <textarea
                 id="excerpt"
                 wire:model="excerpt"
@@ -44,6 +45,7 @@
             <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
                 Содержание новости *
             </label>
+            @if(1==2)
             <textarea
                 id="content"
                 wire:model="content"
@@ -51,6 +53,58 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             ></textarea>
             @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                @endif
+
+
+            <div wire:ignore>
+                <label class="block mb-1 font-medium">Контент</label>
+                <textarea id="editor" wire:model="content" class="w-full border rounded p-2" rows="10">
+                {!! $content !!}
+            </textarea>
+            </div>
+            @error('content') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+
+            @push('scripts')
+
+                <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+                <script>
+                    document.addEventListener('livewire:navigated', initEditor);
+                    document.addEventListener('livewire:load', initEditor);
+
+                    function initEditor() {
+                        if (window.editorInitialized) return; // чтобы не инициализировать повторно
+                        window.editorInitialized = true;
+
+                        const textarea = document.getElementById('editor');
+                        if (!textarea) return;
+
+                        const editor = CKEDITOR.replace('editor', {
+                            licenseKey: 'GPL',
+                            height: 300,
+                            removePlugins: 'elementspath',
+                            resize_enabled: false,
+                        });
+
+                        // При изменении контента — обновляем свойство Livewire
+                        editor.on('change', function () {
+                        @this.set('content', editor.getData())
+                            ;
+                        });
+
+                        // После рендера вставляем начальное значение
+                        Livewire.hook('message.processed', (message, component) => {
+                            if (editor.getData() !== @this.get('content')) {
+                                editor.setData(@this.get('content') ?? '');
+                            }
+                        });
+
+                        // В первый раз тоже вставляем данные
+                        editor.setData(@this.get('content') ?? '');
+                    }
+                </script>
+            @endpush
+
         </div>
 
         <!-- Изображение -->
@@ -130,6 +184,15 @@
             >
                 Обновить новость
             </button>
+
+
+            @if (session()->has('success'))
+                <div class="bg-green-300 border border-green-400 text-green-700 px-4 py-3 rounded" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
         </div>
     </form>
 </div>
