@@ -45,7 +45,9 @@ class DatarParentEdit extends Component
                     'id' => $this->datarParent->id,
                     'title' => $this->title,
                 ]);
-                Debugbar::info('Загружена запись DatarParent', $this->datarParent);
+                if (class_exists(\Barryvdh\Debugbar\Facades\Debugbar::class)) {
+                    Debugbar::info('Загружена запись DatarParent', $this->datarParent);
+                }
                 $this->action_name = 'Редактируем';
             } catch (\Exception $e) {
                 Log::warning('[DatarParentEdit] Ошибка загрузки, создаём новую запись', [
@@ -85,14 +87,18 @@ class DatarParentEdit extends Component
             );
 
             Log::info('[DatarParentEdit] Запись успешно сохранена', ['id' => $record->id]);
-            Debugbar::success('Запись сохранена', $record);
+            if (class_exists(\Barryvdh\Debugbar\Facades\Debugbar::class)) {
+                Debugbar::success('Запись сохранена', $record);
+            }
 
             session()->flash('parent_success', 'Группа изменена.');
             return redirect()->route('tech.datar2');
 
         } catch (\Exception $e) {
             Log::error('[DatarParentEdit] Ошибка при сохранении', ['error' => $e->getMessage()]);
-            Debugbar::error('Ошибка при сохранении', $e);
+            if (class_exists(\Barryvdh\Debugbar\Facades\Debugbar::class)) {
+                Debugbar::error('Ошибка при сохранении', $e);
+            }
             session()->flash('parent_error', 'Ошибка при сохранении: ' . $e->getMessage());
         }
     }
