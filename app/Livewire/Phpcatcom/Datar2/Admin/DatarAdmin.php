@@ -14,6 +14,7 @@ class DatarAdmin extends Component
     public $search = '';
     public $perPage = 10;
     public $layout = '';
+    protected $listeners = ['datar-parent-should-refresh' => '$refresh'];
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -30,47 +31,6 @@ class DatarAdmin extends Component
         $this->resetPage();
     }
 
-    public function toggleStatusParent($id)
-    {
-        $parent = DatarParent::find($id);
-
-        if ($parent) {
-            $parent->update(['is_active' => !$parent->is_active]);
-            $this->dispatch('item-updated');
-        }
-    }
-public function confirmDelete(string $type, int $id)
-{
-    if ($type === 'parent') {
-        $deleted = DatarParent::where('id', $id)->delete();
-
-        if ($deleted) {
-            session()->flash('parent_success', 'Группа удалена');
-        } else {
-            session()->flash('error', 'Группа не найдена или не удалена');
-        }
-
-    } elseif ($type === 'children') {
-        $deleted = Datar2::where('id', $id)->delete();
-
-        if ($deleted) {
-            session()->flash('parent_success', 'Запись удалена');
-        } else {
-            session()->flash('error', 'Запись не найдена или не удалена');
-        }
-    }
-}
-
-
-    public function toggleStatusChild($id)
-    {
-        $child = Datar2::find($id);
-
-        if ($child) {
-            $child->update(['is_active' => !$child->is_active]);
-            $this->dispatch('item-updated');
-        }
-    }
 
     public function render()
     {
@@ -92,4 +52,5 @@ public function confirmDelete(string $type, int $id)
 
         return $this->layout ? $view->layout($this->layout) : $view;
     }
+
 }

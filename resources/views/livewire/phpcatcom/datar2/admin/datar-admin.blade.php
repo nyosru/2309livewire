@@ -72,6 +72,9 @@
     <!-- Список родителей и детей -->
     <div class="space-y-6">
         @foreach($parents as $parent)
+            <livewire:Phpcatcom.Datar2.Admin.Datar-admin-item :parent="$parent" :key="$parent->id" />
+            @if(1==2)
+
             <div class="p-4 border rounded shadow-sm
 
 {{--            {{ $parent->is_active ? ' bg-white ' : ' bg-gray-300 ' }}--}}
@@ -182,6 +185,7 @@
                     @endforelse
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
 
