@@ -2,24 +2,39 @@
 {{--            {{ $parent->is_active ? ' bg-white ' : ' bg-gray-300 ' }}--}}
             ">
     <div class="flex justify-between items-center mb-3">
-        <div>
+        <div x-data="{ expanded: false }" x-cloak>
             <h3 class="text-xl font-semibold">{{ $parent->title }}</h3>
-            <div x-data="{ expanded: false }" class="relative">
-                <div
-                    :class="{ 'line-clamp-4 h-auto': expanded }"
-                    class="max-h-[50px] overflow-auto text-gray-600 border border-gray-300 rounded p-3 line-clamp-4"
-                    style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;"
-                >
-                    {!! $parent->content !!}
-                    @if(strlen(strip_tags($parent->content)) > 300)
-                        <button
-                            type="button"
-                            @click="expanded = !expanded"
-                            class="mt-2 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
-                            x-text="expanded ? 'Скрыть' : 'Показать полностью'"
-                        ></button>
-                    @endif
-                </div>
+            <div class="relative">
+
+
+                @if(strlen(strip_tags($parent->content)) > 200)
+                    <div
+                        x-show="!expanded"
+                        class="h-12 overflow-hidden text-gray-600 border border-gray-300 rounded p-3"
+                        style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
+                    >
+                        {!! $parent->content !!}
+                    </div>
+
+                    <div
+                        x-show="expanded"
+                        class="text-gray-600 border border-gray-300 rounded p-3"
+                    >
+                        {!! $parent->content !!}
+                    </div>
+
+                    <button
+                        type="button"
+                        @click="expanded = !expanded"
+                        class="mt-2 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
+                        x-text="expanded ? 'Скрыть' : 'Показать полностью'"
+                    ></button>
+                @else
+                    <div class="text-gray-600 border border-gray-300 rounded p-3">
+                        {!! $parent->content !!}
+                    </div>
+                @endif
+
             </div>
         </div>
         <div class="flex space-x-2">
