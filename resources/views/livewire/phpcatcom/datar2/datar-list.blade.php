@@ -8,17 +8,18 @@ bg-gray-200
          x-data="{
          scrollToContent() {
              // Находим элемент контента и прокручиваем к нему
-             const contentElement = document.getElementById('content-block');
+             const contentElement = document.getElementById('page-title');
              if (contentElement) {
-                 const offsetTop = contentElement.offsetTop - 150;
+                 const offsetTop = contentElement.offsetTop - 50;
                  window.scrollTo({
                      top: offsetTop,
                      behavior: 'smooth'
                  });
+                 }
              }
-         }
-     }"
-         @scroll-to-content.window="scrollToContent()">
+         }"
+         @scroll-to-content.window="scrollToContent()"
+    >
 
 
         @if (session()->has('send_tel_message'))
@@ -222,38 +223,38 @@ hover:bg-blue-200
             @endif
         </div>
 
-        <!-- Alpine.js скрипт для обработки начальной прокрутки -->
-        <script>
-            // Прокрутка при загрузке страницы с выбранным родителем
-            document.addEventListener('livewire:init', () => {
-                @if($selectedParentId && $selectedParent)
-                // Ждем полной загрузки компонента
-                setTimeout(() => {
-                    const contentElement = document.getElementById('content-block');
-                    if (contentElement) {
-                        const offsetTop = contentElement.offsetTop - 150;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 300);
-                @endif
-            });
+{{--        <!-- Alpine.js скрипт для обработки начальной прокрутки -->--}}
+{{--        <script>--}}
+{{--            // Прокрутка при загрузке страницы с выбранным родителем--}}
+{{--            document.addEventListener('livewire:init', () => {--}}
+{{--                @if($selectedParentId && $selectedParent)--}}
+{{--                // Ждем полной загрузки компонента--}}
+{{--                setTimeout(() => {--}}
+{{--                    const contentElement = document.getElementById('content-block');--}}
+{{--                    if (contentElement) {--}}
+{{--                        const offsetTop = contentElement.offsetTop - 150;--}}
+{{--                        window.scrollTo({--}}
+{{--                            top: offsetTop,--}}
+{{--                            behavior: 'smooth'--}}
+{{--                        });--}}
+{{--                    }--}}
+{{--                }, 300);--}}
+{{--                @endif--}}
+{{--            });--}}
 
-            // Обработка кнопок браузера "назад/вперед"
-            window.addEventListener('popstate', function () {
-                setTimeout(() => {
-                    const contentElement = document.getElementById('content-block');
-                    if (contentElement) {
-                        const offsetTop = contentElement.offsetTop - 150;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                }, 100);
-            });
-        </script>
+{{--            // Обработка кнопок браузера "назад/вперед"--}}
+{{--            window.addEventListener('popstate', function () {--}}
+{{--                setTimeout(() => {--}}
+{{--                    const contentElement = document.getElementById('content-block');--}}
+{{--                    if (contentElement) {--}}
+{{--                        const offsetTop = contentElement.offsetTop - 150;--}}
+{{--                        window.scrollTo({--}}
+{{--                            top: offsetTop,--}}
+{{--                            behavior: 'smooth'--}}
+{{--                        });--}}
+{{--                    }--}}
+{{--                }, 100);--}}
+{{--            });--}}
+{{--        </script>--}}
     </div>
 </div>
