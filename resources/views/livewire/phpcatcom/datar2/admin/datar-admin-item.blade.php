@@ -88,4 +88,18 @@
             <p class="text-gray-500 text-sm">Дочерних элементов нет</p>
         @endforelse
     </div>
+
+
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:navigated', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.addEventListener('livewire:updated', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    @endpush
+
 </div>
