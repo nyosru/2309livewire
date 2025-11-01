@@ -32,7 +32,10 @@
                     <img
                         src="{{ asset('storage/' . $newsItem->image) }}"
                         alt="{{ $newsItem->title }}"
-                        class="w-full h-32 md:h-64 object-cover bg-center rounded-lg shadow-md mb-6"
+                        class="max-w-[25%] w-[200px]
+                        float-left mr-2
+{{--                        h-32 md:h-64 --}}
+                        object-cover bg-center rounded-lg shadow-md mb-6"
                     >
                 @endif
             </header>
@@ -44,12 +47,13 @@
             </div>
 
             <!-- Дополнительная информация -->
-            <footer class="border-t pt-6">
-                <div class="flex items-center justify-between text-sm text-gray-500">
-                    <span>Опубликовано: {{ $newsItem->published_at->diffForHumans() }}</span>
-                    <span>Просмотров: {{ $newsItem->views }}</span>
-                </div>
-            </footer>
+{{--            <footer class="border-t pt-6">--}}
+{{--                <div class="flex items-center justify-between text-sm text-gray-500">--}}
+{{--                    <span>Опубликовано: {{ $newsItem->published_at->diffForHumans() }}</span>--}}
+{{--                    <span>Просмотров: {{ $newsItem->views }}</span>--}}
+{{--                </div>--}}
+{{--            </footer>--}}
+            <br clear="all" />
         </article>
 
     @else

@@ -1832,6 +1832,14 @@ select {
   max-width: 36rem;
 }
 
+.max-w-\[15\%\] {
+  max-width: 15%;
+}
+
+.max-w-\[25\%\] {
+  max-width: 25%;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
