@@ -197,6 +197,17 @@
     @endif
 </div>
 
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:updated', () => {
+                const el = document.getElementById('page-title');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        </script>
+    @endpush
+
 {{--    @push('scripts')--}}
 {{--        <script>--}}
 {{--            document.addEventListener('livewire:navigated', () => {--}}
