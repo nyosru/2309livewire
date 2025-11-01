@@ -93,11 +93,11 @@
     @push('scripts')
         <script>
             document.addEventListener('livewire:navigated', () => {
-                window.scrollTo({ top: -50, behavior: 'smooth' });
+                window.scrollTo({ top: 250, behavior: 'smooth' });
             });
 
             document.addEventListener('livewire:updated', () => {
-                window.scrollTo({ top: -50, behavior: 'smooth' });
+                window.scrollTo({ top: 250, behavior: 'smooth' });
             });
         </script>
     @endpush
