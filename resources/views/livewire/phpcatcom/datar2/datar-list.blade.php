@@ -5,20 +5,20 @@ bg-gray-200
 ">
     <div class="container mx-auto px-4 py-8
 "
-         x-data="{
-         scrollToContent() {
-             // Находим элемент контента и прокручиваем к нему
-             const contentElement = document.getElementById('page-title');
-             if (contentElement) {
-                 const offsetTop = contentElement.offsetTop - 50;
-                 window.scrollTo({
-                     top: offsetTop,
-                     behavior: 'smooth'
-                 });
-                 }
-             }
-         }"
-         @scroll-to-content.window="scrollToContent()"
+{{--         x-data="{--}}
+{{--         scrollToContent() {--}}
+{{--             // Находим элемент контента и прокручиваем к нему--}}
+{{--             const contentElement = document.getElementById('page-title');--}}
+{{--             if (contentElement) {--}}
+{{--                 const offsetTop = contentElement.offsetTop - 50;--}}
+{{--                 window.scrollTo({--}}
+{{--                     top: offsetTop,--}}
+{{--                     behavior: 'smooth'--}}
+{{--                 });--}}
+{{--                 }--}}
+{{--             }--}}
+{{--         }"--}}
+{{--         @scroll-to-content.window="scrollToContent()"--}}
     >
 
 
@@ -230,9 +230,9 @@ hover:bg-blue-200
 {{--                @if($selectedParentId && $selectedParent)--}}
 {{--                // Ждем полной загрузки компонента--}}
 {{--                setTimeout(() => {--}}
-{{--                    const contentElement = document.getElementById('content-block');--}}
+{{--                    const contentElement = document.getElementById('page-title');--}}
 {{--                    if (contentElement) {--}}
-{{--                        const offsetTop = contentElement.offsetTop - 150;--}}
+{{--                        const offsetTop = contentElement.offsetTop - 190;--}}
 {{--                        window.scrollTo({--}}
 {{--                            top: offsetTop,--}}
 {{--                            behavior: 'smooth'--}}
@@ -245,7 +245,7 @@ hover:bg-blue-200
 {{--            // Обработка кнопок браузера "назад/вперед"--}}
 {{--            window.addEventListener('popstate', function () {--}}
 {{--                setTimeout(() => {--}}
-{{--                    const contentElement = document.getElementById('content-block');--}}
+{{--                    const contentElement = document.getElementById('page-title');--}}
 {{--                    if (contentElement) {--}}
 {{--                        const offsetTop = contentElement.offsetTop - 150;--}}
 {{--                        window.scrollTo({--}}
@@ -256,5 +256,35 @@ hover:bg-blue-200
 {{--                }, 100);--}}
 {{--            });--}}
 {{--        </script>--}}
+
+
+            @push('scripts')
+                <script>
+                    document.addEventListener('livewire:init', () => {
+
+                        // 🔹 Срабатывает при переходе по wire:navigate
+                        Livewire.hook('navigated', () => {
+                            const el = document.getElementById('page-title');
+                            if (el) {
+                                const offsetTop = el.offsetTop - 180;
+                                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                            }
+                        });
+
+                        // 🔹 Срабатывает при обновлении данных в компоненте
+                        Livewire.hook('morph.updated', () => {
+                            const el = document.getElementById('page-title');
+                            if (el) {
+                                const offsetTop = el.offsetTop - 180;
+                                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                            }
+                        });
+
+                    });
+                </script>
+            @endpush
+
+
+
     </div>
 </div>
