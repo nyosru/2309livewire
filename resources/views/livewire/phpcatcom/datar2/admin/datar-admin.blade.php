@@ -196,4 +196,19 @@
         </div>
     @endif
 </div>
+
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:navigated', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.addEventListener('livewire:updated', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    @endpush
+
+
+
 </div>
