@@ -32,7 +32,7 @@
             <!-- Программа на 1 год -->
             <div class="border rounded-lg p-6 shadow hover:shadow-lg transition">
                 <h3 class="text-xl font-bold mb-4">Программа на 1 год</h3>
-                <p class="mb-2">Цена: <span class="font-semibold">200`000 ₽</span></p>
+{{--                <p class="mb-2">Цена: <span class="font-semibold">200`000 ₽</span></p>--}}
                 <p class="mb-4 text-sm">Письмо раз в 2 недели с текущими делами и рекомендациями. Изучаем что да как
                     снаружи, готовим рекомендации, присылаем их и проверяем их готовность с отчётами руководителю
                     заказчика (кого определите).</p>
@@ -42,7 +42,7 @@
             <!-- Программа по быстрому -->
             <div class="border rounded-lg p-6 shadow hover:shadow-lg transition">
                 <h3 class="text-xl font-bold mb-4">Программа по быстрому</h3>
-                <p class="mb-2">Цена: <span class="font-semibold">50`000 ₽</span></p>
+{{--                <p class="mb-2">Цена: <span class="font-semibold">50`000 ₽</span></p>--}}
                 <p class="mb-4 text-sm">Изучаем что да как снаружи, готовим рекомендации — 1-2 месяца.</p>
                 {{--                <livewire:contact-form program="Программа по быстрому" price="25 000 ₽" />--}}
             </div>
@@ -50,7 +50,7 @@
             <!-- Осмотр и диагноз -->
             <div class="border rounded-lg p-6 shadow hover:shadow-lg transition">
                 <h3 class="text-xl font-bold mb-4">Осмотр и диагноз</h3>
-                <p class="mb-2">Цена: <span class="font-semibold">15`000 ₽</span></p>
+{{--                <p class="mb-2">Цена: <span class="font-semibold">15`000 ₽</span></p>--}}
                 <p class="mb-4 text-sm">Изучаем что да как по анкете (20 элементов) и отправляем отчёт с выявленными
                     слабыми местами — 1 месяц.</p>
                 {{--                <livewire:contact-form program="Осмотр и диагноз" price="15 000 ₽" />--}}
