@@ -11,11 +11,11 @@
             "
              style="background-image: url('/ttt/img/bar777-ball-colorful-photo-lg.jpeg');"
         >
-            $telegram_bot_token_config {{ $telegram_bot_token_config ?? 'xx' }}
-            <br/>
-            $telegram_bot_token {{ $telegram_bot_token ?? 'x' }}
-            <br/>
-            <br/>
+{{--            $telegram_bot_token_config {{ $telegram_bot_token_config ?? 'xx' }}--}}
+{{--            <br/>--}}
+{{--            $telegram_bot_token {{ $telegram_bot_token ?? 'x' }}--}}
+{{--            <br/>--}}
+{{--            <br/>--}}
 
             <form wire:submit.prevent="sendMsg">
                 <div id="a7" class="w-[300px]

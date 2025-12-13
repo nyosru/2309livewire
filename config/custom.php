@@ -1,6 +1,7 @@
 <?php
 
 $e = [
+
     'BOT_TELEGA_ORDER' => env('BOT_TELEGA_ORDER'),
     'TELEGRAM_BOT_ORDER_TOKEN' => env('TELEGRAM_BOT_ORDER_TOKEN'),
     'BOT_TELEGA_TOKEN_URALWEBINFO' => env('BOT_TELEGA_TOKEN_URALWEBINFO'),
@@ -10,6 +11,7 @@ $e = [
     'AI_HUGFACE_TOKEN' => env('AI_HUGFACE_TOKEN'),
     'YANDEX_OAUTH' => env('YANDEX_OAUTH'),
     'YANDEX_IAM' => env('YANDEX_IAM'),
+
 ];
 
 for ($i = 1; $i <= 10; $i++) {
