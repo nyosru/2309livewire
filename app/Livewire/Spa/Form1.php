@@ -11,7 +11,8 @@ class Form1 extends Component
     public $phone;
 
     public function sendMsg(){
-        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 2, config( 'custom.BOT_TELEGA_ORDER' ) );
+//        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 2, config( 'custom.BOT_TELEGA_ORDER' ) );
+        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 1, config( 'custom.BOT_TELEGA_ORDER' ) );
         // Устанавливаем флаг в сессию
         session()->flash('message_ok', 'Сообщение отправлено');
     }
