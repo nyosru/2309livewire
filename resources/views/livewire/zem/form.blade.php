@@ -4,7 +4,7 @@
             <div class="container m-auto px-6 text-center md:px-12 lg:px-20">
 
                 <h2 class="mb-8 text-4xl font-bold text-white md:text-4xl">
-                    Начнём процес приватизации?
+                    Начнём процесс приватизации?
                 </h2>
 
                 @if( !$show_form && 1 == 2)
