@@ -78,7 +78,8 @@ class Form extends Component {
 
         // serhio на тиньков
         // '5960307100:AAHshaEf6WXw4rKbDg-JCeAyOEsFoHqZmNA' //bot OrderUraBot
-        MsgAlias::sendTelegramm($str, 5152088168, null, '5960307100:AAHshaEf6WXw4rKbDg-JCeAyOEsFoHqZmNA');
+//        MsgAlias::sendTelegramm($str, 5152088168, null, '5960307100:AAHshaEf6WXw4rKbDg-JCeAyOEsFoHqZmNA');
+        MsgAlias::sendTelegramm($str, null, 2, env('TOKEN_WARN_TELEGA') );
 
         $this->show_res_ok = true;
     }
