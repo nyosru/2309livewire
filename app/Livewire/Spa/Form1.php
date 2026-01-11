@@ -12,12 +12,20 @@ class Form1 extends Component
 
     public function sendMsg(){
 
-        $msg = 'Заказ '.PHP_EOL.'указали телефон: '.$this->phone;
+        $msg = 'Заказ с сайта!!'.PHP_EOL.'указали телефон: '.$this->phone;
 
 //        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 2, config( 'custom.BOT_TELEGA_ORDER' ) );
 //        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 1, config( 'custom.BOT_TELEGA_ORDER' ) );
 //        Msg::sendTelegramm($msg,null, 2, env('BOT_TELEGA_ORDER') );
 //        Msg::sendTelegramm($msg,360209578, 2, env('TOKEN_WARN_TELEGA') );
+
+//        \Illuminate\Support\Facades\Log::debug(
+//            'Send to Telegram:', [
+//            'message' => $msg,
+//            'chat_id' => 2,
+//            'token_set' => env('TOKEN_WARN_TELEGA'),
+//        ]);
+
         Msg::sendTelegramm($msg,null, 2, env('TOKEN_WARN_TELEGA') );
 //        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 1, env( 'BOT_TELEGA_ORDER' ) );
 //        Msg::sendTelegramm('Заказ '.PHP_EOL.'указали телефон: '.$this->phone,null, 1, env( 'BOT_TELEGA_ORDER' ) );
