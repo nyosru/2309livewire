@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         // Запускаем команду каждые 15 минут
-        $schedule->command('StNews:news-download-photo')->everyFifteenMinutes();
+//        $schedule->command('StNews:news-download-photo')->everyFifteenMinutes();
+
 //        $schedule->command('StNews:news-download-photo')->everySecond();
 //        $schedule->command('app:send-status')->everyFiveSeconds();
 
