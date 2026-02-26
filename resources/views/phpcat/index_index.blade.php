@@ -147,9 +147,9 @@
 
                     <p class="text-center text-xl font-bold md:text-2xl xl:text-3xl"> Я&nbsp;Сергей&nbsp;Бакланов
                         <br><br>
-                        Младший помощник программиста, Програмист, IT&nbsp;архитектор и&nbsp;IT&nbsp;космонавт&nbsp;
+                        Младший помощник программиста, Програмист, IT&nbsp;архитектор, IT&nbsp;космонавт и&nbsp;Ковбой&nbsp;ИИ&nbsp;сетей )
                         <br><br>
-                        Использую PHP, Laravel<sup>❤️</sup>, Yii2, Битрикс, Symfony, js, LiveWire, Vue3, Python, Git, Docker и&nbsp;всякие&nbsp;другие&nbsp;штуки
+                        Использую PHP, Laravel<sup>❤️</sup>, ИИ, Yii2, Битрикс, Symfony, js, LiveWire, Vue3, Python, Git, Docker и&nbsp;вообще
 
 {{--                        <br><br> Работаю удалённо--}}
 
