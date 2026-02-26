@@ -18,7 +18,7 @@
                 <h2 class="alert alert-warning text-center"> {{ date('Y') }}&nbsp;год самое&nbsp;время реализовать вашу&nbsp;идею!
                 </h2>
                 <p class="text-center"> Я&nbsp;Сергей&nbsp;Бакланов <br><br> Младший помощник программиста, Програмист,
-                    IT архитектор и IT космонавт )
+                    IT&nbsp;архитектор, IT&nbsp;космонавт и&nbsp;Ковбой&nbsp;ИИ&nbsp;сетей )
                     <br><br>
                     Наиболее активно используемые технологии Laravel + vue3 <br><br> Работаю удалённо,
                     нахожусь&nbsp;в&nbsp;Тюмени
