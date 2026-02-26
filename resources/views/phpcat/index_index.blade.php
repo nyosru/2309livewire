@@ -149,7 +149,36 @@
 
                     <p class="text-center text-xl font-bold md:text-2xl xl:text-3xl"> Я&nbsp;Сергей&nbsp;Бакланов
                         <br><br>
-                        <span class="bg-yellow-700 text-md p-1 rounded">Ищу проект которым можно заняться, напишите мне</span>
+                        <a class="
+                        inline-block
+                        px-12
+                        pt-4
+                        pb-3.5
+
+                        text-xl
+                        font-bold
+
+
+                        rounded
+                        uppercase
+
+                        leading-normal
+                        transition
+                        duration-150
+                        ease-in-out
+
+                        bg-blue-300
+                        hover:bg-blue-500
+                        hover:text-white
+
+                        "
+
+                           data-te-ripple-init data-te-ripple-color="light"
+                           href="https://t.me/phpcatcom"
+                           target="_blank"
+                           role="button"
+
+                        >Ищу проект в котором можно поработать, напишите&nbsp;мне</a>
                         <br><br>
 
                         Младший помощник программиста, Програмист, IT&nbsp;архитектор, IT&nbsp;космонавт и&nbsp;Ковбой&nbsp;ИИ&nbsp;сетей )
