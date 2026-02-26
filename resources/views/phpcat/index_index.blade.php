@@ -17,7 +17,9 @@
             <div class="col-12 col-md-6">
                 <h2 class="alert alert-warning text-center"> {{ date('Y') }}&nbsp;год самое&nbsp;время реализовать вашу&nbsp;идею!
                 </h2>
-                <p class="text-center"> Я&nbsp;Сергей&nbsp;Бакланов <br><br> Младший помощник программиста, Програмист,
+                <p class="text-center"> Я&nbsp;Сергей&nbsp;Бакланов <br><br>
+
+                    Младший помощник программиста, Програмист,
                     IT&nbsp;архитектор, IT&nbsp;космонавт и&nbsp;Ковбой&nbsp;ИИ&nbsp;сетей )
                     <br><br>
                     Наиболее активно используемые технологии Laravel + vue3 <br><br> Работаю удалённо,
@@ -147,6 +149,9 @@
 
                     <p class="text-center text-xl font-bold md:text-2xl xl:text-3xl"> Я&nbsp;Сергей&nbsp;Бакланов
                         <br><br>
+                        <span class="bg-yellow-700 text-md p-1 rounded">Ищу проект которым можно заняться, напишите мне</span>
+                        <br><br>
+
                         Младший помощник программиста, Програмист, IT&nbsp;архитектор, IT&nbsp;космонавт и&nbsp;Ковбой&nbsp;ИИ&nbsp;сетей )
                         <br><br>
                         Использую PHP, Laravel<sup>❤️</sup>, ИИ, Yii2, Битрикс, Symfony, js, LiveWire, Vue3, Python, Git, Docker и&nbsp;вообще
