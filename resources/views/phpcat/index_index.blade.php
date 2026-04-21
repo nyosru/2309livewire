@@ -278,6 +278,45 @@
 
                     >Написать в телеграм @phpcatcom</a>
 
+                    <a class="
+                        inline-block
+                        px-12
+                        pt-4
+                        pb-3.5
+
+                        text-xl
+                        font-bold
+
+                        rounded
+                        uppercase
+
+                        leading-normal
+                        transition
+                        duration-150
+                        ease-in-out
+
+                        bg-red-200
+                        {{-- text-neutral-50  --}}
+
+                        {{-- hover:bg-neutral-500  --}}
+                        hover:bg-blue-500
+                        {{-- hover:bg-opacity-10  --}}
+                        {{-- hover:text-neutral-200  --}}
+                        hover:text-white
+
+                        {{-- focus:text-neutral-200  --}}
+                        {{-- focus:outline-none  --}}
+                        {{-- focus:ring-0  --}}
+                        {{-- active:text-neutral-300 --}}
+                        "
+
+                       data-te-ripple-init data-te-ripple-color="light"
+                       href="https://vk.com/phpcatcom"
+                       target="_blank"
+                       role="button"
+
+                    >Написать в vk @phpcatcom</a>
+
                 </div>
                 <div class="mb-12 lg:mb-0">
                     {{--                    <a href="/phpcat/img/ya7.jpg" target="_blank" >/storage/phpcat/img/ya7.jpg</a>--}}
