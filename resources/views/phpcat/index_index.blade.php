@@ -136,6 +136,10 @@
         <!-- Navbar -->
     @endif
 
+<div class="text-center p-2" >
+    <iframe src="https://vkvideo.ru/video_ext.php?oid=-169467193&id=456239017&hash=1d44088ef08e5f99&hd=1" width="640" height="360" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+</div>
+
     <!-- Jumbotron -->
     <div class="px-6 py-12 text-center md:px-12 lg:text-left">
         <div class="w-100 mx-auto sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
