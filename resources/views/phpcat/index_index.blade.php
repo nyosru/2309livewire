@@ -136,8 +136,8 @@
         <!-- Navbar -->
     @endif
 
-<div class="text-center p-2" >
-    <iframe src="https://vkvideo.ru/video_ext.php?oid=-169467193&id=456239017&hash=1d44088ef08e5f99&hd=1" width="640" height="360" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+<div class="p-2" >
+    <iframe class="mx-auto" src="https://vkvideo.ru/video_ext.php?oid=-169467193&id=456239017&hash=1d44088ef08e5f99&hd=1" width="640" height="360" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
 </div>
 
     <!-- Jumbotron -->
