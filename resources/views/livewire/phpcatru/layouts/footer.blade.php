@@ -1,12 +1,17 @@
-<footer class="sm:flex items-center justify-between
-{{--h-12 --}}
-w-full bg-gray-100 border-t border-gray-300 text-xs"
-        style="position:fixed; bottom: 0; left: 0;">
-    <div class="flex-1 flex items-center justify-center border-r border-gray-300 text-center">
-        Все права защищены © {{ date('Y') }}
-    </div>
-    <div class="flex-1 flex items-center justify-center">
-        Создание сайта: <a href="https://php-cat.com" target="_blank"
-                           class="underline text-blue-600 p-2 hover:bg-yellow-200" title="php-cat.com">php-cat.com</a>
-    </div>
+<footer class="w-full py-3 text-center text-gray-500 text-xs font-medium"
+        style="
+            background: linear-gradient(90deg, #e5e7eb, #d1d5db, #e5e7eb, #d1d5db);
+            background-size: 300% 100%;
+            animation: moveGradient 10s ease-in-out infinite;
+        ">
+    Все права защищены &copy; {{ date('Y') }} | Создание сайта: <a href="https://php-cat.com" target="_blank"
+        class="underline hover:text-gray-700 transition">php-cat.com</a>
+
+    <style>
+        @keyframes moveGradient {
+            0% { background-position: 0% 0; }
+            50% { background-position: 100% 0; }
+            100% { background-position: 0% 0; }
+        }
+    </style>
 </footer>
