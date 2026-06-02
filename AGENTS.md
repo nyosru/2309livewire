@@ -1,0 +1,84 @@
+# 2309livewire — AGENTS.md
+
+## Overview
+Laravel 10 + Livewire 3 + Volt multi-site monolith running in Docker. Routes for different domains are split across `routes/web.*.php` files and loaded from `routes/web.php`. Host-based routing is done via `Route::group(['domain' => ...])` closures.
+
+докер контейнер: `2309livewire`
+
+## Quick commands
+
+```bash
+# Lint (Pint)
+make linter                    # fix all
+make linter-show               # dry-run, show issues
+make linter-file-show FILE=X   # dry-run on one file
+make linter-file-fix FILE=X    # fix one file
+
+# Docker
+make bash                      # docker exec -it 2309livewire bash
+
+# Tailwind (inside container)
+make tailwind                  # watches resources/css/app.css → public/css/output.css
+
+# Dev server (via Vite, outside Docker)
+npm run dev                    # vite
+npm run build                  # vite build
+
+# Tests
+php artisan test               # PHPUnit (Feature + Unit)
+# DB tests are NOT configured by default — sqlite config is commented out in phpunit.xml
+
+# Artisan
+docker exec 2309livewire php artisan <command>
+```
+
+## Architecture
+
+- **Livewire components**: `app/Livewire/` — organized by sub-project (Phpcat/, StNews/, Auth/, etc.)
+- **Controllers**: `app/Http/Controllers/` — organized by sub-project
+- **Models**: `app/Models/` — mostly separate Eloquent models per domain
+- **Route files**: Each sub-site has its own `routes/web.{name}.php`, loaded via `require()` in `routes/web.php`
+- **Custom Blade directives**: `@permission` and `@anyPermission` defined in `AppServiceProvider` — uses Spatie Permission, with hardcoded email bypasses (`1@php-cat.com`, `nyos@rambler.ru`)
+- **SSL verify disabled globally**: `Http::globalOptions(['verify' => false])` in `AppServiceProvider::boot()`
+
+## Key dependencies
+
+- `livewire/livewire` ^3.4 — components in `App\Livewire` namespace
+- `livewire/volt` ^1.0 — Volt functional components
+- `spatie/laravel-permission` ^6.21 — RBAC
+- `laravel/socialite` + `socialiteproviders/vkontakte` — VK OAuth
+- `endroid/qr-code` — QR generation
+- `vkcom/vk-php-sdk` — VK API
+- `nyos/msg` — custom/private package for Telegram messaging
+
+## Console commands
+
+| Signature | File | Scheduled |
+|---|---|---|
+| `app:send-status` | `SendStatus.php` | Every 15s (with 3s time limit) |
+| `StNews:news-parse` | `NewsParse.php` | No |
+| `StNews:news-download-photo` | `NewsDownloadPhoto.php` | No |
+| `app:news-auto-moderate` | `NewsAutoModerate.php` | No |
+
+## CI/CD
+
+| Branch | Server | Workflow |
+|---|---|---|
+| `main` | 45.12.72.4 | `deploy-main.yml` — `git fetch --hard reset` + `composer i` + `migrate` |
+| `cicd_to_ihc_docker24` | 91.218.230.97 | same via `deploy-cicd_to_ihc_docker24.yml`, uses `composer i --no-dev` + `view:clear`, `cache:clear`, `config:cache` |
+
+Deployment sends Telegram notifications to chat ID `360209578`.
+
+## Config quirks
+
+- `config/custom.php` — loads `REDIRECT_DOMAIN{1..10}` env vars for domain-level redirects
+- `config/telegram.php` — loads `TELEGRAM_BOT_TOKEN_FOR_BACKWORD` + `TELEGRAM_ID_{1..10}`
+- `config/services.php` — VK OAuth and GigaChat credentials
+- Livewire `class_namespace` is `App\Livewire`, `view_path` is `resources/views/livewire`
+- `.env.example` shows all expected env vars
+
+## Testing
+
+- PHPUnit 10, tests in `tests/Feature/` and `tests/Unit/`
+- DB tests require uncommenting sqlite in `phpunit.xml` — not set up by default
+- `php artisan test` to run all

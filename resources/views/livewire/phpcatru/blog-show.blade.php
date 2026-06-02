@@ -11,10 +11,12 @@
 
     <div class="container mx-auto px-4 py-12">
         <article class="max-w-3xl mx-auto">
-            <div class="prose prose-lg max-w-none space-y-6">
-                @foreach ($post['content'] as $paragraph)
-                    <p class="text-gray-700 text-lg leading-relaxed">{{ $paragraph }}</p>
-                @endforeach
+            <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm">
+                <div class="prose prose-lg max-w-none space-y-6">
+                    @foreach ($post['content'] as $paragraph)
+                        <p class="text-gray-700 text-lg leading-relaxed">{{ $paragraph }}</p>
+                    @endforeach
+                </div>
             </div>
 
             <div class="mt-12 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-2xl p-10 text-center border border-orange-100">

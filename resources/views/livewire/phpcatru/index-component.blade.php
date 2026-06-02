@@ -109,6 +109,9 @@
         </div>
     </div>
 
+    {{-- Блог --}}
+    <livewire:Phpcatru.blog-informer />
+
     {{-- Рекламный блок 2: Аудит безопасности --}}
     <div class="container mx-auto px-4 py-12">
         <div class="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-red-600 to-rose-700 text-white flex flex-col sm:flex-row-reverse items-center">
