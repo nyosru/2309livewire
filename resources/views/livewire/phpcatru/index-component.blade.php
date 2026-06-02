@@ -16,7 +16,7 @@
                     Смотреть услуги
                 </a>
                 <a href="/contacts"
-                   class="px-10 py-5 bg-white/20 hover:bg-white/30 text-white font-bold text-xl rounded-xl backdrop-blur-sm border border-white/30 transition">
+                   class="px-10 py-5 bg-gray-700/20 hover:bg-gray-900/30 text-black hover:text-white  font-bold text-xl rounded-xl shadow-lg transition transform hover:scale-105">
                     Бесплатная консультация
                 </a>
             </div>
@@ -35,7 +35,7 @@
                 <div class="text-base sm:text-lg text-gray-600">довольных клиентов</div>
             </div>
             <div>
-                <div class="text-4xl sm:text-5xl font-black text-orange-500">1 день</div>
+                <div class="text-4xl sm:text-5xl font-black text-orange-500">2 дня</div>
                 <div class="text-base sm:text-lg text-gray-600">средний срок запуска</div>
             </div>
             <div>
@@ -48,18 +48,18 @@
     {{-- Рекламный блок 1: ChatGPT / GigaChat --}}
     <div class="container mx-auto px-4 py-12">
         <div class="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex flex-col sm:flex-row items-center">
-            <div class="sm:w-1/2 p-8 sm:p-12">
+            <div class="sm:w-2/3 p-8 sm:p-12">
                 <div class="text-6xl mb-4">🤖</div>
-                <h2 class="text-3xl sm:text-4xl font-black mb-3">ChatGPT, GigaChat, YandexGPT</h2>
-                <p class="text-xl text-white/80 mb-6">Подключим и настроим любые нейросети под ваши задачи. Работает из коробки.</p>
+                <h2 class="text-3xl sm:text-4xl font-black mb-3">DeepSeek, ChatGPT, GigaChat, YandexGPT</h2>
+                <p class="text-xl text-white/80 mb-6">Подключим и настроим любые нейросети (бесплатные в том числе) под ваши задачи. Работает из коробки.</p>
                 <a href="/services"
                    class="inline-block px-8 py-4 bg-white text-blue-700 font-bold text-lg rounded-xl hover:bg-gray-100 transition shadow-lg">
                     Выбрать модель →
                 </a>
             </div>
-            <div class="sm:w-1/2 h-64 sm:h-80 w-full bg-cover bg-center"
-                 style="background-image: url('https://placehold.co/800x600/2563eb/ffffff?text=AI+Models');">
-            </div>
+{{--            <div class="sm:w-1/2 h-64 sm:h-80 w-full bg-cover bg-center"--}}
+{{--                 style="background-image: url('https://placehold.co/800x600/2563eb/ffffff?text=AI+Models');">--}}
+{{--            </div>--}}
         </div>
     </div>
 
