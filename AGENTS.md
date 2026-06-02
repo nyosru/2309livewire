@@ -129,6 +129,18 @@ curl -X POST https://php-cat.ru/api/blog \
 ### UI
 Форма добавления: `https://php-cat.ru/blog/admin/create`
 
+## Git commit workflow
+
+When the user asks to make a commit:
+
+1. Show current changes with `git diff --staged` and `git diff --stat`
+2. If no files are staged, run `git add -A` and show the diff again (новые файлы тоже добавляй)
+3. Analyze the changes and write a descriptive commit message in Conventional Commits format (`type(scope): description`) на русском языке
+4. Execute `git commit -m "<message>"`
+5. Show the commit result
+
+Common types: feat, fix, chore, docs, refactor, test, style, perf
+
 ## Testing
 
 - PHPUnit 10, tests in `tests/Feature/` and `tests/Unit/`
