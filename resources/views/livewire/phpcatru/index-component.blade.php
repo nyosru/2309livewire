@@ -57,9 +57,7 @@
                     Выбрать модель →
                 </a>
             </div>
-{{--            <div class="sm:w-1/2 h-64 sm:h-80 w-full bg-cover bg-center"--}}
-{{--                 style="background-image: url('https://placehold.co/800x600/2563eb/ffffff?text=AI+Models');">--}}
-{{--            </div>--}}
+
         </div>
     </div>
 
@@ -124,7 +122,7 @@
                 </a>
             </div>
             <div class="sm:w-1/2 h-64 sm:h-80 w-full bg-cover bg-center"
-                 style="background-image: url('https://placehold.co/800x600/dc2626/ffffff?text=Security+Audit');">
+                 style="background-image: url('/phpcat/img/security-audit.jpg');">
             </div>
         </div>
     </div>

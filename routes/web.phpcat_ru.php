@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
-$d = function () {
+$routes = function () {
 
     Route::get('/', \App\Livewire\Phpcatru\IndexComponent::class)->name('index');
     Route::get('/services', \App\Livewire\Phpcatru\ServicesList::class)->name('services');
@@ -15,9 +16,13 @@ $d = function () {
     Route::fallback(function () {
         return redirect('/');
     });
+
 };
+
+$domain = App::environment('local') ? 'phpcatru.local' : 'php-cat.ru';
 
 Route::group([
     'as' => 'phpcat.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'phpcatru.local' : 'php-cat.ru'
-], $d);
+    'domain' => $domain
+], $routes);
+
