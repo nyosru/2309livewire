@@ -13,7 +13,10 @@ $d = function () {
     });
 };
 
+$domain = ( request()->getHost() === 'news.local') ? 'news.local' : 'news.api.php-cat.ru' ;
+//env('APP_ENV', 'local') == 'local' ? 'news.local' : 'news.api.php-cat.ru'
+
 Route::group([
     'as' => 'news-storage.',
-    'domain' => env('APP_ENV', 'local') == 'local' ? 'news.local' : 'news.api.php-cat.ru',
+    'domain' => $domain ,
 ], $d);
