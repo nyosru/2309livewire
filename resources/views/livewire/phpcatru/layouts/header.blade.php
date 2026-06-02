@@ -7,12 +7,12 @@
             </h1>
         </a>
         <nav class="flex flex-wrap items-center gap-3 text-base sm:text-lg">
-            <a href="/" class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Главная</a>
-            <a href="/services" class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Услуги</a>
-            <a href="/cases" class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Кейсы</a>
-            <a href="/blog" class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Блог</a>
+            <a href="/" wire:navigate class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Главная</a>
+            <a href="/services" wire:navigate class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Услуги</a>
+            <a href="/cases" wire:navigate class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Кейсы</a>
+            <a href="/blog" wire:navigate class="px-3 py-1.5 rounded hover:bg-white/20 text-gray-900 font-semibold transition">Блог</a>
             <a href="/contacts"
-               class="px-5 py-1.5 rounded bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold transition">
+               wire:navigate class="px-5 py-1.5 rounded bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold transition">
                 Заказать
             </a>
         </nav>

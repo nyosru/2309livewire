@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /old230916
 /public/vendor/
+/.playwright-cli
