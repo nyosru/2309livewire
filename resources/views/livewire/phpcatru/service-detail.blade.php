@@ -9,18 +9,20 @@
 
     <div class="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div>
-            <h2 class="text-3xl font-bold mb-4">О услуге</h2>
-            <p class="text-gray-700 text-lg leading-relaxed mb-6">{{ $service['full_desc'] }}</p>
-            <h3 class="text-2xl font-bold mb-3">Что вы получаете:</h3>
-            <ul class="space-y-3">
-                @foreach ($service['benefits'] as $b)
-                    <li class="flex items-start gap-2">
-                        <span class="text-green-500 mt-0.5 text-xl">✓</span>
-                        <span class="text-gray-700 text-lg">{{ $b }}</span>
-                    </li>
-                @endforeach
-            </ul>
-            <div class="mt-8 text-4xl font-black text-gray-800">{{ $service['price'] }}</div>
+            <div class="bg-white rounded-2xl p-10 border border-gray-200">
+                <h2 class="text-3xl font-bold mb-4">О услуге</h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">{{ $service['full_desc'] }}</p>
+                <h3 class="text-2xl font-bold mb-3">Что вы получаете:</h3>
+                <ul class="space-y-3">
+                    @foreach ($service['benefits'] as $b)
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-500 mt-0.5 text-xl">✓</span>
+                            <span class="text-gray-700 text-lg">{{ $b }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="mt-8 text-4xl font-black text-gray-800">{{ $service['price'] }}</div>
+            </div>
         </div>
 
         <div>
