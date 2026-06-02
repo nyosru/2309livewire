@@ -1,10 +1,10 @@
 <div>
     <div class="background-radial-gradient py-16">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl font-black text-white mb-3" style="text-shadow: 3px 3px 10px rgba(0,0,0,0.3);">
+            <h1 class="title_head">
                 Блог об ИИ
             </h1>
-            <p class="text-2xl text-white/80 max-w-xl mx-auto">
+            <p class="opis_head">
                 Статьи, гайды и новости из мира искусственного интеллекта
             </p>
         </div>

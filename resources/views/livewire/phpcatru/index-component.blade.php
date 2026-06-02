@@ -1,13 +1,13 @@
 <div>
 
     {{-- Hero --}}
-    <div class="background-radial-gradient py-20 sm:py-32">
+    <div class="background-radial-gradient py-10 sm:py-15">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl sm:text-7xl font-black text-white mb-6" style="text-shadow: 3px 3px 12px rgba(0,0,0,0.3);">
-                Внедряем ИИ в ваш бизнес<br/>
+            <h1 class="title_head">
+                Внедряем ИИ<br/>
                 <span class="text-yellow-300">за 1 день</span>
             </h1>
-            <p class="text-2xl sm:text-3xl text-white/90 max-w-3xl mx-auto mb-10" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
+            <p class="opis_head">
                 Вы получаете готового ИИ-ассистента, который работает 24/7 без зарплаты, отпусков и больничных
             </p>
             <div class="flex flex-wrap justify-center gap-4">
@@ -27,8 +27,8 @@
     <div class="bg-white py-10 shadow-inner">
         <div class="container mx-auto px-4 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             <div>
-                <div class="text-4xl sm:text-5xl font-black text-orange-500">50+</div>
-                <div class="text-base sm:text-lg text-gray-600">внедрений ИИ</div>
+                <div class="text-4xl sm:text-5xl font-black text-orange-500">3</div>
+                <div class="text-base sm:text-lg text-gray-600">потока на старте</div>
             </div>
             <div>
                 <div class="text-4xl sm:text-5xl font-black text-orange-500">97%</div>
@@ -39,7 +39,7 @@
                 <div class="text-base sm:text-lg text-gray-600">средний срок запуска</div>
             </div>
             <div>
-                <div class="text-4xl sm:text-5xl font-black text-orange-500">40%</div>
+                <div class="text-4xl sm:text-5xl font-black text-orange-500">30%</div>
                 <div class="text-base sm:text-lg text-gray-600">рост эффективности</div>
             </div>
         </div>

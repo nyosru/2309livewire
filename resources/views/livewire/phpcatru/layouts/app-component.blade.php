@@ -8,6 +8,39 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
+
+        .title_head {
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.8);
+        }
+        @media (min-width: 640px) {
+            .title_head {
+                font-size: 3.5rem;
+                line-height: 1;
+            }
+        }
+
+        .opis_head {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2.5rem;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        }
+        @media (min-width: 640px) {
+            .opis_head {
+                font-size: 1.875rem;
+                line-height: 2.25rem;
+            }
+        }
+
         header,
         .background-radial-gradient {
             /*min-height: 130px;*/
@@ -15,16 +48,16 @@
             background-image: radial-gradient(
                 650px circle at 20% 20%,
                 rgb(255, 196, 133) 15%,
-                    /* hsl(218, 41%, 30%) 35%, */ /* hsl(218, 41%, 20%) 75%, */ rgb(218, 170, 141) 15%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(146, 223, 223) 40%,
-                    /* hsl(218, 41%, 35%) 15%, */ rgb(176, 142, 197) 75%,
+                     rgb(218, 170, 141) 15%,
+                     rgb(146, 223, 223) 40%,
+                     rgb(176, 142, 197) 75%,
                 transparent 100%
             ),
             radial-gradient(1250px circle at 80% 80%,
-                    /* hsl(218, 41%, 45%) 15%, */ rgb(129, 216, 255) 15%,
-                    /* hsl(218, 41%, 30%) 35%, */ rgb(255, 190, 139) 35%,
-                    /* hsl(218, 41%, 20%) 75%, */ rgb(240, 250, 255) 65%,
-                    /* hsl(218, 41%, 19%) 80%, */ rgb(140, 255, 137) 90%,
+                     rgb(129, 216, 255) 15%,
+                     rgb(255, 190, 139) 35%,
+                     rgb(240, 250, 255) 65%,
+                     rgb(140, 255, 137) 90%,
                 transparent 100%
             );
 
