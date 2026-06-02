@@ -115,6 +115,7 @@ require('web.skidki.php');
 
 require('web.blank.php');
 require('web.stn.php');
+require('web.news_storage.php');
 
 
 

@@ -25,3 +25,8 @@ require('api.phpcat.php');
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
 
 Route::post('blog', [\App\Http\Controllers\Api\BlogApiController::class, 'store'])->name('api.blog.store');
+
+Route::prefix('news-storage')->group(function () {
+    Route::post('news', [\App\Http\Controllers\Api\NewsStorageController::class, 'store'])->name('api.news-storage.store');
+    Route::patch('news/{id}/status', [\App\Http\Controllers\Api\NewsStorageController::class, 'updateStatus'])->name('api.news-storage.status');
+});

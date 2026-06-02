@@ -12,6 +12,7 @@ $e = [
     'YANDEX_OAUTH' => env('YANDEX_OAUTH'),
     'YANDEX_IAM' => env('YANDEX_IAM'),
     'BLOG_API_KEY' => env('BLOG_API_KEY'),
+    'NEWSSTORAGE_API_KEY' => env('NEWSSTORAGE_API_KEY'),
 
 ];
 
