@@ -22,7 +22,19 @@ class NewsStorageController extends Controller
         }
 
         $validated = $request->validate([
-            'source_id' => 'required|integer|exists:newsstorage_sources,id',
+            'source_id' => [
+                'required',
+                'integer',
+                function ($attribute, $value, $fail) {
+                    $exists = \DB::connection('newsstorage')
+                        ->table('newsstorage_sources')
+                        ->where('id', $value)
+                        ->exists();
+                    if (!$exists) {
+                        $fail('The selected source_id is invalid.');
+                    }
+                },
+            ],
             'url' => 'required|string|max:2048',
             'title' => 'required|string|max:255',
             'summary' => 'nullable|string',
