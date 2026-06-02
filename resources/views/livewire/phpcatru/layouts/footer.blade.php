@@ -6,6 +6,9 @@
         ">
     Все права защищены &copy; {{ date('Y') }} | Создание сайта: <a href="https://php-cat.com" target="_blank"
         class="underline hover:text-gray-700 transition">php-cat.com</a>
+    <br/>
+    Сервис CRM / летопись для вдения бищнес и личных дел : <a href="https://процессмастер.рф" target="_blank"
+        class="underline hover:text-gray-700 transition">ПроцессМастер.рф</a>
 
     <style>
         @keyframes moveGradient {
