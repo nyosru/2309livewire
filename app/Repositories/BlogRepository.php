@@ -21,4 +21,9 @@ class BlogRepository
     {
         return PhpcatruBlog::published()->latestNews()->take($limit)->get();
     }
+
+    public function create(array $data): PhpcatruBlog
+    {
+        return PhpcatruBlog::create($data);
+    }
 }

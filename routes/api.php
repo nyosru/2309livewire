@@ -23,3 +23,5 @@ require('api.stn.php');
 require('api.phpcat.php');
 
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
+
+Route::post('blog', [\App\Http\Controllers\Api\BlogApiController::class, 'store'])->name('api.blog.store');

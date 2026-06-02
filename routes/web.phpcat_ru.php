@@ -10,6 +10,7 @@ $routes = function () {
     Route::get('/service/{slug}', \App\Livewire\Phpcatru\ServiceDetail::class)->name('service.detail');
     Route::get('/cases', \App\Livewire\Phpcatru\Cases::class)->name('cases');
     Route::get('/blog', \App\Livewire\Phpcatru\BlogList::class)->name('blog');
+    Route::get('/blog/admin/create', \App\Livewire\Phpcatru\BlogCreate::class)->name('blog.create');
     Route::get('/blog/{slug}', \App\Livewire\Phpcatru\BlogShow::class)->name('blog.show');
     Route::get('/contacts', \App\Livewire\Phpcatru\ContactForm::class)->name('contacts');
 

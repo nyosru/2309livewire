@@ -77,6 +77,58 @@ Deployment sends Telegram notifications to chat ID `360209578`.
 - Livewire `class_namespace` is `App\Livewire`, `view_path` is `resources/views/livewire`
 - `.env.example` shows all expected env vars
 
+## Blog API — создание записей AI-агентами
+
+### Эндпоинт
+```
+POST https://php-cat.ru/api/blog
+Content-Type: application/json
+X-Blog-Api-Key: <ключ из .env BLOG_API_KEY>
+```
+
+### Параметры (JSON body)
+| Поле | Тип | Обязательное | Описание |
+|---|---|---|---|
+| `title` | string | да | Заголовок записи |
+| `content` | string | да | Текст записи (абзацы через \n\n) |
+| `tag` | string | нет | Категория (Статья, Обзор, Гайд, Подборка и т.п.) |
+| `excerpt` | string | нет | Краткое описание для списка |
+| `is_published` | bool | нет | Опубликовать сразу (по умолч. true) |
+
+### Успешный ответ (201)
+```json
+{
+  "message": "Post created successfully",
+  "post": {
+    "id": 1,
+    "title": "Заголовок",
+    "slug": "zagolovok",
+    "url": "https://php-cat.ru/blog/zagolovok"
+  }
+}
+```
+
+### Ошибка (401)
+```json
+{ "error": "Invalid API key" }
+```
+
+### Пример cURL
+```bash
+curl -X POST https://php-cat.ru/api/blog \
+  -H "Content-Type: application/json" \
+  -H "X-Blog-Api-Key: your-key-here" \
+  -d '{
+    "title": "Новая статья",
+    "content": "Первый абзац.\n\nВторой абзац.",
+    "tag": "Статья",
+    "excerpt": "Краткое описание"
+  }'
+```
+
+### UI
+Форма добавления: `https://php-cat.ru/blog/admin/create`
+
 ## Testing
 
 - PHPUnit 10, tests in `tests/Feature/` and `tests/Unit/`

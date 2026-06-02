@@ -11,6 +11,7 @@ $e = [
     'AI_HUGFACE_TOKEN' => env('AI_HUGFACE_TOKEN'),
     'YANDEX_OAUTH' => env('YANDEX_OAUTH'),
     'YANDEX_IAM' => env('YANDEX_IAM'),
+    'BLOG_API_KEY' => env('BLOG_API_KEY'),
 
 ];
 
