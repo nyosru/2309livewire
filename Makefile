@@ -22,4 +22,5 @@ bash:
 	docker exec -it 2309livewire bash
 
 tailwind:
+	docker exec 2309livewire npm install -g npx
 	docker exec -it 2309livewire npx tailwindcss -i ./resources/css/app.css -o ./public/css/output.css --watch
