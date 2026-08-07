@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Phpcatru;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class IndexComponent extends Component
 {
@@ -31,11 +31,15 @@ class IndexComponent extends Component
         $this->validate();
 
         $text = "Новая заявка с php-cat.ru\n"
-            . "Имя: {$this->name}\n"
-            . "Телефон: {$this->phone}\n"
-            . "Услуга: " . ($this->service ?: 'Не указана');
+            ."Имя: {$this->name}\n"
+            ."Телефон: {$this->phone}\n"
+            .'Услуга: '.($this->service ?: 'Не указана');
 
         \Nyos\Msg::sendTelegramm($text, null, 2, env('TOKEN_WARN_TELEGA'));
+
+        $to_vk_id = '5903492';
+        \Nyos\Msg::sendVkFromGroup($text, $to_vk_id, 'notification');
+
 
         $this->sendToVk($text);
 
@@ -59,7 +63,7 @@ class IndexComponent extends Component
                 'random_id' => random_int(1, 999999),
             ]);
         } catch (\Throwable $e) {
-            \Nyos\Msg::sendTelegramm('VK send error: ' . $e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
+            \Nyos\Msg::sendTelegramm('VK send error: '.$e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
         }
     }
 
@@ -67,7 +71,7 @@ class IndexComponent extends Component
     {
         return view('livewire.phpcatru.index-component')
             ->layout('livewire.phpcatru.layouts.app-component', [
-                'title' => 'Внедрение ИИ в бизнес — php-cat.ru'
+                'title' => 'Внедрение ИИ в бизнес — php-cat.ru',
             ]);
     }
 }

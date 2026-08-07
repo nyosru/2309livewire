@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
 
 $routes = function () {
 
@@ -24,6 +24,5 @@ $domain = App::environment('local') ? 'phpcatru.local' : 'php-cat.ru';
 
 Route::group([
     'as' => 'phpcat.',
-    'domain' => $domain
+    'domain' => $domain,
 ], $routes);
-

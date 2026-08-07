@@ -2932,16 +2932,16 @@
         },
         {
             "name": "nyos/msg",
-            "version": "1.20.0",
+            "version": "1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nyosru/composer_nyos_msg.git",
-                "reference": "85b056ecd7fa878309db1c2b37070caa8ae23203"
+                "reference": "92b4025b2b6f391cd1a369bcc0f3f95d6b270aaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nyosru/composer_nyos_msg/zipball/85b056ecd7fa878309db1c2b37070caa8ae23203",
-                "reference": "85b056ecd7fa878309db1c2b37070caa8ae23203",
+                "url": "https://api.github.com/repos/nyosru/composer_nyos_msg/zipball/92b4025b2b6f391cd1a369bcc0f3f95d6b270aaf",
+                "reference": "92b4025b2b6f391cd1a369bcc0f3f95d6b270aaf",
                 "shasum": ""
             },
             "require": {
@@ -2950,7 +2950,8 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/class.php"
+                    "src/class.php",
+                    "src/vk.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2966,18 +2967,19 @@
                 }
             ],
             "description": "Пакет функций nyos\\msg\\** для работы с сообщениями ( vk telegram )",
-            "homepage": "https://uralweb.info/php/#classes",
+            "homepage": "https://php-cat.ru",
             "keywords": [
                 "api",
                 "nyos",
+                "php-cat.com",
                 "telegram",
                 "uralweb.info"
             ],
             "support": {
                 "issues": "https://github.com/nyosru/composer_nyos_msg/issues",
-                "source": "https://github.com/nyosru/composer_nyos_msg/tree/1.20.0"
+                "source": "https://github.com/nyosru/composer_nyos_msg/tree/v1.33.0"
             },
-            "time": "2025-09-12T13:28:05+00:00"
+            "time": "2026-08-01T21:21:33+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -9528,5 +9530,5 @@
         "php": "^8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
