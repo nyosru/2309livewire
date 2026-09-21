@@ -18,7 +18,7 @@ class PhpcatNewsFactory extends Factory
     {
         return [
             'title' => $this->faker->name(),
-            'opis' => $this->faker->text(500)
+            'opis' => $this->faker->text(500),
         ];
     }
 }

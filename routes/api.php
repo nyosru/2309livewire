@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
-//});
+// });
 
-require('api.stn.php');
-require('api.phpcat.php');
+require 'api.stn.php';
+require 'api.phpcat.php';
 
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
 

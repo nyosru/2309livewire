@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('zem_orders', function (Blueprint $table) {
-            $table->string('promo_code' )->nullable();
+            $table->string('promo_code')->nullable();
         });
     }
 

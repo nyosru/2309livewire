@@ -8,14 +8,16 @@ use Livewire\WithPagination;
 
 class Files extends Component
 {
-
     use WithPagination;
 
     public $count = 0;
+
     public $results = [];
+
     #[Url]
     public $filterBig = 0;
-//    #[Url(as:'search',keep: true,history: true)]
+
+    //    #[Url(as:'search',keep: true,history: true)]
     #[Url(history: true)]
     public $searchTxt = '';
 
@@ -26,18 +28,18 @@ class Files extends Component
 
     public function getSearch($str, $count = 120, $offset = 0)
     {
-        $res2 = \http_build_query(//'https://api.vk.com/method/docs.search',
+        $res2 = \http_build_query(// 'https://api.vk.com/method/docs.search',
             [
                 'q' => $str,
                 'count' => $count,
                 'offset' => $offset,
-                'access_token' => "bffa2309366c61386640da74e3eeb489acae5ee7dc815bb832f49caae67956d6e5920f0c15605e8464830",
+                'access_token' => 'bffa2309366c61386640da74e3eeb489acae5ee7dc815bb832f49caae67956d6e5920f0c15605e8464830',
                 'v' => '5.154']);
 
-        $res = file_get_contents('https://api.vk.com/method/docs.search?' . $res2);
-//        $res70 = json_decode($res, true);
+        $res = file_get_contents('https://api.vk.com/method/docs.search?'.$res2);
+        //        $res70 = json_decode($res, true);
         $res70 = json_decode($res);
-//        dd($res70);
+        //        dd($res70);
 
         try {
             $in = [];
@@ -64,7 +66,7 @@ class Files extends Component
     {
 
         $searchNow = $this->searchTxt;
-//        $res = [];
+        //        $res = [];
         $this->results =
         $res = $this->getSearch($searchNow);
         if ($res->response->count > 360) {
@@ -72,7 +74,7 @@ class Files extends Component
             $res3 = $this->getSearch($searchNow, 120, 240);
             $res4 = $this->getSearch($searchNow, 120, 360);
             $res = array_merge($res->response->items, $res2->response->items, $res3->response->items, $res4->response->items);
-        } else if ($res->response->count > 240) {
+        } elseif ($res->response->count > 240) {
             $res2 = $this->getSearch($searchNow, 120, 120);
             $res3 = $this->getSearch($searchNow, 120, 240);
             $res = array_merge($res->response->items, $res2->response->items, $res3->response->items);
@@ -95,6 +97,7 @@ class Files extends Component
             $filtered = $collection->filter(function ($value, $key) {
                 return $value->size > $this->filterBig * 1024 * 1024;
             });
+
             return $filtered->all();
         }
 
@@ -103,20 +106,21 @@ class Files extends Component
 
     public function render()
     {
-//        $res = [];
-//        $res = $this->getSearch($this->search);
-//        $res2 = collect()
+        //        $res = [];
+        //        $res = $this->getSearch($this->search);
+        //        $res2 = collect()
 
-        if (!empty($this->searchTxt))
-            $resShow = $this->getFullResult($this->searchTxt);//->paginate(50)
+        if (! empty($this->searchTxt)) {
+            $resShow = $this->getFullResult($this->searchTxt);
+        }// ->paginate(50)
 
         return view('livewire.phpcat.files',
             [
-//                'search2' => $this->search,
-//                'resultsSearch' => $res
-//                'resultsSearch' => $this->getSearch($this->search)
+                //                'search2' => $this->search,
+                //                'resultsSearch' => $res
+                //                'resultsSearch' => $this->getSearch($this->search)
                 'resultsSearch' => $resShow ?? [],
-//                'searchTxt2' => $this->searchTxt
+                //                'searchTxt2' => $this->searchTxt
             ]
         );
     }

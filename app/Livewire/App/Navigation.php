@@ -3,7 +3,6 @@
 namespace App\Livewire\App;
 
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -14,6 +13,7 @@ class Navigation extends Component
         Auth::guard('web')->logout();
         Session::invalidate();
         Session::regenerateToken();
+
         return redirect('/');
     }
 

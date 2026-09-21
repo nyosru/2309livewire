@@ -22,9 +22,10 @@ class MsgSendController extends Controller
                 continue;
             }
 
-            $msg .= $k . ': ' . $v . PHP_EOL;
+            $msg .= $k.': '.$v.PHP_EOL;
         }
-        Msg::sendTelegramm('шлюз msg:' . PHP_EOL . $msg, null, 1);
+        Msg::sendTelegramm('шлюз msg:'.PHP_EOL.$msg, null, 1);
+
         return 'OK';
     }
 }

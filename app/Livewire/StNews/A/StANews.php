@@ -9,9 +9,9 @@ class StANews extends Component
 {
     public $list_news = [];
 
-    function mount()
+    public function mount()
     {
-        $this->list_news = StNews::with('site','photos')
+        $this->list_news = StNews::with('site', 'photos')
             ->whereSite_id(4)
             ->get();
     }

@@ -17,5 +17,4 @@ class Cooperative extends Model
         'status',
         'is_visible',
     ];
-
 }

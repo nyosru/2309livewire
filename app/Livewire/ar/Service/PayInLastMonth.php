@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Ar\Service;
 
-use Livewire\Component;
 use Carbon\Carbon;
+use Livewire\Component;
 
 class PayInLastMonth extends Component
 {
     public $date_pay;
+
     public $diff = false;
 
     public function mount($date_pay)

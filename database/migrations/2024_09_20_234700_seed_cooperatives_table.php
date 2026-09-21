@@ -2,8 +2,6 @@
 
 use App\Models\Cooperative;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -18,7 +16,7 @@ return new class extends Migration
             'coordinate_y' => 65.594607,
             'description' => 'Приватизация проходит норм.',
             'status' => 'green',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
 
         Cooperative::create([
@@ -27,7 +25,7 @@ return new class extends Migration
             'coordinate_y' => 65.593498,
             'description' => 'Приватизация проходит норм.',
             'status' => 'green',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
 
         Cooperative::create([
@@ -36,7 +34,7 @@ return new class extends Migration
             'coordinate_y' => 65.586492,
             'description' => 'Тут уже объявлено КРТ, приватизация строения через суд, землю делаем по гаражной амнистии, выделяется бесплатно.',
             'status' => 'yellow',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
 
         Cooperative::create([
@@ -45,7 +43,7 @@ return new class extends Migration
             'coordinate_y' => 65.603835,
             'description' => 'Приватизация проходит норм.',
             'status' => 'green',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
 
         Cooperative::create([
@@ -54,7 +52,7 @@ return new class extends Migration
             'coordinate_y' => 65.602964,
             'description' => 'Приватизация проходит норм.',
             'status' => 'green',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
         Cooperative::create([
             'name' => 'Алитет',
@@ -62,7 +60,7 @@ return new class extends Migration
             'coordinate_y' => 65.611721,
             'description' => 'Приватизация проходит норм.',
             'status' => 'green',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
         Cooperative::create([
             'name' => 'Дзержинец',
@@ -70,7 +68,7 @@ return new class extends Migration
             'coordinate_y' => 65.527741,
             'description' => 'Приватизация не проходит, есть ряд нерешённых юридических моментов',
             'status' => 'red',
-            'is_visible' => true
+            'is_visible' => true,
         ]);
     }
 

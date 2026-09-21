@@ -3,12 +3,12 @@
 namespace App\Livewire\Phpcatcom\Datar2\Admin;
 
 use App\Models\Datar2;
-use App\Models\DatarParent;
 use Livewire\Component;
 
 class DatarAdminItemItem extends Component
 {
     public $parent;
+
     public $child;
 
     public function confirmDelete(string $type, int $id)
@@ -22,7 +22,7 @@ class DatarAdminItemItem extends Component
             session()->flash('error', 'Запись не найдена или не удалена');
         }
         $this->dispatch('datar-children-should-refresh');
-//        $this->child = Datar2::find($id);
+        //        $this->child = Datar2::find($id);
     }
 
     public function toggleStatusChild($id)
@@ -30,10 +30,10 @@ class DatarAdminItemItem extends Component
         $child = Datar2::find($id);
 
         if ($child) {
-            $child->update(['is_active' => !$child->is_active]);
+            $child->update(['is_active' => ! $child->is_active]);
             $this->child = Datar2::find($id);
-//            $this->dispatch('item-updated');
-//            $this->dispatch('datar-children-should-refresh');
+            //            $this->dispatch('item-updated');
+            //            $this->dispatch('datar-children-should-refresh');
         }
 
     }

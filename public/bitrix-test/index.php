@@ -7,7 +7,7 @@
 <body>
 	<div id="name">
 		<?php
-		require_once (__DIR__.'/crest.php');
+        require_once __DIR__.'/crest.php';
 
 		$result = CRest::call('user.current');
 

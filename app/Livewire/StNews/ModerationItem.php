@@ -1,12 +1,14 @@
 <?php
+
 namespace App\Livewire\StNews;
 
-use Livewire\Component;
 use App\Models\StNews;
+use Livewire\Component;
 
 class ModerationItem extends Component
 {
     public $newsItem;  // Экземпляр новости
+
     public $decision;  // Решение по модерации ("approve" или "reject")
 
     public function mount(StNews $newsItem)

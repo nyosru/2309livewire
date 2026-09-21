@@ -7,12 +7,16 @@ use Livewire\Component;
 
 class ObjectItemAddForm extends Component
 {
-
     public $nomer;
+
     public $adres;
+
     public $adres_list;
+
     public $opis;
+
     public $showForm = false; // Добавляем переменную состояния
+
     public $uniqueAddresses;
 
     protected $rules = [
@@ -23,7 +27,7 @@ class ObjectItemAddForm extends Component
 
     public function toggleForm()
     {
-        $this->showForm = !$this->showForm; // Метод для переключения видимости формы
+        $this->showForm = ! $this->showForm; // Метод для переключения видимости формы
     }
 
     public function submit()
@@ -47,11 +51,11 @@ class ObjectItemAddForm extends Component
         $this->uniqueAddresses = ArObject::select('adres')->distinct()->orderBy('adres', 'desc')->get();
     }
 
-//    public function render()
-//    {
-//        return view('livewire.ar.object-add-form');
-//    }
-//
+    //    public function render()
+    //    {
+    //        return view('livewire.ar.object-add-form');
+    //    }
+    //
     public function render()
     {
         return view('livewire.ar.object-item-add-form');

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class PhpcatAiToken extends Model
 {
     use HasFactory;
-
     use HasFactory;
 
     protected $fillable = ['name', 'value', 'expires_at'];
@@ -33,5 +32,4 @@ class PhpcatAiToken extends Model
 
         return $token ? $token->value : null;
     }
-
 }

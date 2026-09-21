@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::rename('afisha_posters', 'temp7');
-//        Schema::dropIfExists('temp7');
-//        Schema::dropIfExists('afisha_posters');
-
+        //        Schema::rename('afisha_posters', 'temp7');
+        //        Schema::dropIfExists('temp7');
+        //        Schema::dropIfExists('afisha_posters');
 
         Schema::create('afisha_posters', function (Blueprint $table) {
             $table->id();

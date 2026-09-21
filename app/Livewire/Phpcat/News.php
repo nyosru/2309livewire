@@ -8,16 +8,15 @@ use Livewire\WithPagination;
 
 class News extends Component
 {
-
     use WithPagination;
     // public $data = [];
 
     public function render()
     {
-//        dd(12);
-        return view('livewire.phpcat.news',[
+        //        dd(12);
+        return view('livewire.phpcat.news', [
             // 'data' => PhpcatNews::all()
-            'items' => PhpcatNews::paginate(5)
+            'items' => PhpcatNews::paginate(5),
         ]);
     }
 }

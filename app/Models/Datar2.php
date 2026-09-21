@@ -17,12 +17,12 @@ class Datar2 extends Model
         'content',
         'parent_id',
         'order',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'order' => 'integer'
+        'order' => 'integer',
     ];
 
     /**

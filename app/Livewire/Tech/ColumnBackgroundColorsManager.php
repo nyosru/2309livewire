@@ -7,10 +7,18 @@ use Livewire\Component;
 
 class ColumnBackgroundColorsManager extends Component
 {
-
     public $colors;
-    public $name, $html_code, $tailwind_classes, $style_string;
+
+    public $name;
+
+    public $html_code;
+
+    public $tailwind_classes;
+
+    public $style_string;
+
     public $colorId = null;
+
     public $isEditing = false;
 
     protected $rules = [
@@ -75,8 +83,6 @@ class ColumnBackgroundColorsManager extends Component
         $this->resetInput();
         $this->loadColors();
     }
-
-
 
     public function render()
     {

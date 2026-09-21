@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use VK\Client\VKApiClient;
-#use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use VK\Client\VKApiClient;
 
 class VkAuthController extends Controller
 {
     public function redirectToVk()
     {
-        $apiClient = new VKApiClient();
+        $apiClient = new VKApiClient;
         $oauthUrl = $apiClient->oauth()->getAuthorizeUrl(
             config('vk.app_id'),
             route('vk.callback'),
@@ -25,14 +24,14 @@ class VkAuthController extends Controller
 
     public function handleVkCallback(Request $request)
     {
-        if (!$request->has('code')) {
+        if (! $request->has('code')) {
             return redirect()->route('login')->withErrors(['error' => 'Authorization failed.']);
         }
 
         $code = $request->input('code');
 
         try {
-            $apiClient = new VKApiClient();
+            $apiClient = new VKApiClient;
             $accessTokenResponse = $apiClient->oauth()
                 ->getAccessToken(config('vk.app_id'), config('vk.secret_key'), urlencode(route('vk.callback')), $code);
 
@@ -45,9 +44,9 @@ class VkAuthController extends Controller
             $vkUser = $userInfo[0];
             $localUser = User::where('email', $vkUser['email'])->first();
 
-            if (!$localUser) {
+            if (! $localUser) {
                 $localUser = new User;
-                $localUser->name = $vkUser['first_name'] . ' ' . $vkUser['last_name'];
+                $localUser->name = $vkUser['first_name'].' '.$vkUser['last_name'];
                 $localUser->email = $vkUser['email'];
                 $localUser->password = bcrypt(str_random(16)); // Генерируем случайный пароль
                 $localUser->save();
@@ -58,6 +57,7 @@ class VkAuthController extends Controller
             return redirect()->intended('/'); // Переадресация на главную страницу после успешной авторизации
         } catch (\Exception $e) {
             report($e);
+
             return back()->withErrors(['message' => trans('auth.failed')]);
         }
     }

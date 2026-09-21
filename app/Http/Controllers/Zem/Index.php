@@ -11,7 +11,7 @@ class Index extends Controller
     public function show(Request $request)
     {
         $in = [
-            'cooperatives' => Cooperative::where('is_visible', '=', true)->get()
+            'cooperatives' => Cooperative::where('is_visible', '=', true)->get(),
         ];
 
         return view('zem.index', $in);

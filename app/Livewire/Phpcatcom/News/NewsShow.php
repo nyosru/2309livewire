@@ -8,7 +8,9 @@ use Livewire\Component;
 class NewsShow extends Component
 {
     public $news;
+
     public $slug;
+
     public $layout;
 
     public function mount($slug)

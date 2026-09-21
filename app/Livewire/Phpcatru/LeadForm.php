@@ -2,14 +2,17 @@
 
 namespace App\Livewire\Phpcatru;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class LeadForm extends Component
 {
     public $name = '';
+
     public $email = '';
+
     public $phone = '';
+
     public $sent = false;
 
     protected $rules = [
@@ -23,9 +26,9 @@ class LeadForm extends Component
         $this->validate();
 
         $text = "Скачали чек-лист с php-cat.ru\n"
-            . "Имя: {$this->name}\n"
-            . "Email: {$this->email}\n"
-            . "Телефон: {$this->phone}";
+            ."Имя: {$this->name}\n"
+            ."Email: {$this->email}\n"
+            ."Телефон: {$this->phone}";
 
         \Nyos\Msg::sendTelegramm($text, null, 2, env('TOKEN_WARN_TELEGA'));
 
@@ -39,7 +42,7 @@ class LeadForm extends Component
     {
         $token = env('VK_GROUP_TOKEN');
         $groupId = env('VK_GROUP_ID');
-        if (!$token || !$groupId) {
+        if (! $token || ! $groupId) {
             return;
         }
         try {
@@ -51,7 +54,7 @@ class LeadForm extends Component
                 'random_id' => random_int(1, 999999),
             ]);
         } catch (\Throwable $e) {
-            \Nyos\Msg::sendTelegramm('VK send error: ' . $e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
+            \Nyos\Msg::sendTelegramm('VK send error: '.$e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
         }
     }
 

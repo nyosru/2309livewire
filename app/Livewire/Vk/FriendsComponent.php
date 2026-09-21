@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Vk;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use VK\Client\VKApiClient;
-use Illuminate\Support\Facades\Auth;
 
 class FriendsComponent extends Component
 {
@@ -14,7 +14,7 @@ class FriendsComponent extends Component
 
     public function mount()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 
@@ -23,7 +23,7 @@ class FriendsComponent extends Component
 
         if ($accessToken) {
             try {
-                $client = new VKApiClient();
+                $client = new VKApiClient;
                 $response = $client->friends()->get([
                     'user_id' => Auth::id(),
                     'fields' => ['first_name', 'last_name', 'photo_100'],

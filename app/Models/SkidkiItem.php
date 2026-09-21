@@ -17,5 +17,4 @@ class SkidkiItem extends Model
         'phone',
         'author',
     ];
-
 }

@@ -10,6 +10,7 @@ class NewsModerationController extends Controller
     public function index()
     {
         $news = StNews::where('moderation', 'pending')->paginate(10);
+
         return view('moderation.index', compact('news'));
     }
 

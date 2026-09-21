@@ -12,10 +12,10 @@ class Services extends Component
 
     public function render()
     {
-        return view('livewire.phpcat.services',[
-//            'items' => PhpcatServices::paginate(5)
-//            'items' => PhpcatServices::all()
-            'items' => PhpcatServices::whereOnoff('on')->get()
+        return view('livewire.phpcat.services', [
+            //            'items' => PhpcatServices::paginate(5)
+            //            'items' => PhpcatServices::all()
+            'items' => PhpcatServices::whereOnoff('on')->get(),
         ]);
     }
 }

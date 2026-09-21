@@ -6,14 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     /**
      * The database connection that should be used by the migration.
      *
      * @var string
      */
-//    protected $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
-
+    //    protected $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
 
     /**
      * Run the migrations.

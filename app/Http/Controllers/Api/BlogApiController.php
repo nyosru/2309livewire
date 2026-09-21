@@ -44,7 +44,7 @@ class BlogApiController extends Controller
                 'id' => $post->id,
                 'title' => $post->title,
                 'slug' => $post->slug,
-                'url' => url('/blog/' . $post->slug),
+                'url' => url('/blog/'.$post->slug),
             ],
         ], 201);
     }

@@ -8,7 +8,7 @@
                 <span class="text-yellow-300">за 1 день</span>
             </h1>
             <p class="opis_head">
-                Вы получаете готового ИИ-ассистента, который работает 24/7 без зарплаты, отпусков и больничных
+                Вы получаете готового ИИ-ассистента, который работает 24/7
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="/services"
@@ -23,8 +23,8 @@
         </div>
     </div>
 
-    {{-- Соцдоказательство --}}
-    <div class="bg-white py-10 shadow-inner">
+
+    <div class="bg-white py-[5rem] shadow-inner">
         <div class="container mx-auto px-4 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             <div>
                 <div class="text-4xl sm:text-5xl font-black text-orange-500">3</div>
@@ -35,22 +35,26 @@
                 <div class="text-base sm:text-lg text-gray-600">довольных клиентов</div>
             </div>
             <div>
-                <div class="text-4xl sm:text-5xl font-black text-orange-500">2 дня</div>
+                <div class="text-4xl sm:text-5xl font-black text-orange-500">5 дней</div>
                 <div class="text-base sm:text-lg text-gray-600">средний срок запуска</div>
             </div>
             <div>
-                <div class="text-4xl sm:text-5xl font-black text-orange-500">30%</div>
+                <div class="text-4xl sm:text-5xl font-black text-orange-500">+30%</div>
                 <div class="text-base sm:text-lg text-gray-600">рост эффективности</div>
             </div>
         </div>
     </div>
 
     {{-- Рекламный блок 1: ChatGPT / GigaChat --}}
-    <div class="container mx-auto px-4 py-12">
-        <div class="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white flex flex-col sm:flex-row items-center">
+    <div class="container mx-auto px-4 py-[5rem] ">
+        <div class="rounded-2xl overflow-hidden shadow-xl
+{{--        background-radial-gradient --}}
+        bg-gradient-to-r from-blue-600 to-indigo-700
+        text-white
+        flex flex-col sm:flex-row items-center">
             <div class="sm:w-2/3 p-8 sm:p-12">
                 <div class="text-6xl mb-4">🤖</div>
-                <h2 class="text-3xl sm:text-4xl font-black mb-3">DeepSeek, ChatGPT, GigaChat, YandexGPT</h2>
+                <h2 class="text-3xl sm:text-4xl font-black mb-3">DeepSeek, ChatGPT, GigaChat, YandexGPT, китайские модели</h2>
                 <p class="text-xl text-white/80 mb-6">Подключим и настроим любые нейросети (бесплатные в том числе) под ваши задачи. Работает из коробки.</p>
                 <a href="/services"
                    class="inline-block px-8 py-4 bg-white text-blue-700 font-bold text-lg rounded-xl hover:bg-gray-100 transition shadow-lg">
@@ -62,7 +66,7 @@
     </div>
 
     {{-- Блок услуг --}}
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-[5rem] ">
         <h2 class="text-4xl font-bold text-center mb-3">Ваши выгоды от внедрения ИИ</h2>
         <p class="text-xl text-center text-gray-600 mb-10">Выберите подходящий формат сотрудничества</p>
 
@@ -86,7 +90,7 @@
     </div>
 
     {{-- "Почему мы №1" --}}
-    <div class="bg-gradient-to-r from-orange-50 to-yellow-50 py-12">
+    <div class="bg-gradient-to-r from-orange-50 to-yellow-50 py-12 py-[5rem]  ">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-10">Почему выбирают нас</h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
@@ -133,7 +137,7 @@
     {{-- Lead Magnet --}}
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-2xl mx-auto bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl p-10 text-center text-white shadow-xl">
-            <h2 class="text-4xl font-bold mb-3">🎯 Чек-лист внедрения ИИ за 7 дней</h2>
+            <h2 class="text-4xl font-bold mb-3">🎯 Чек-лист внедрения ИИ за&nbsp;7&nbsp;дней</h2>
             <p class="text-xl mb-6 text-white/90">Скачайте бесплатный чек-лист и узнайте, с чего начать внедрение ИИ в вашем бизнесе</p>
 
             @if (!$sent)

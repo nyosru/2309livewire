@@ -24,8 +24,8 @@ class NewsAutoModerate extends Command
      */
     public function handle()
     {
-       $service = new AutoModerationNewsServices();
-       $result = $service->autoModerateNews();
+        $service = new AutoModerationNewsServices;
+        $result = $service->autoModerateNews();
 
         // Выводим сообщение о завершении работы команды
         $this->info('News auto moderation completed. '.PHP_EOL.

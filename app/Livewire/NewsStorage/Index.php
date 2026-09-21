@@ -10,8 +10,24 @@ class Index extends Component
 {
     use WithPagination;
 
+    const STATUSES = [
+        'new' => 'Новая',
+        'published' => 'Опубликовано',
+        'archived' => 'В архиве',
+    ];
+
+    const STATUSES_SHOW = [
+        'надо рассказать' => 'Надо рассказать',
+        'рассказал' => 'Рассказал',
+    ];
+
     public string $search = '';
+
     public string $statusFilter = '';
+
+    public string $statusShowFilter = '';
+
+    public ?string $toastMessage = null;
 
     public function updatingSearch()
     {
@@ -21,6 +37,27 @@ class Index extends Component
     public function updatingStatusFilter()
     {
         $this->resetPage();
+    }
+
+    public function updatingStatusShowFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updateStatus($newsId, $status)
+    {
+        NewsStorageNews::findOrFail($newsId)->update(['status' => $status]);
+
+        $this->toastMessage = 'Статус обновлён';
+        $this->dispatch('toast-hide');
+    }
+
+    public function updateStatusShow($newsId, $statusShow)
+    {
+        NewsStorageNews::findOrFail($newsId)->update(['status_show' => $statusShow ?: null]);
+
+        $this->toastMessage = 'Статус показа обновлён';
+        $this->dispatch('toast-hide');
     }
 
     public function render()
@@ -39,20 +76,19 @@ class Index extends Component
             $query->where('status', $this->statusFilter);
         }
 
-        $newsList = $query->latest()->paginate(20);
+        if ($this->statusShowFilter) {
+            $query->where('status_show', $this->statusShowFilter);
+        }
 
-        $statuses = NewsStorageNews::query()
-            ->select('status')
-            ->distinct()
-            ->whereNotNull('status')
-            ->pluck('status');
+        $newsList = $query->latest()->paginate(20);
 
         return view('livewire.news-storage.index', [
             'newsList' => $newsList,
-            'statuses' => $statuses,
+            'statuses' => self::STATUSES,
+            'statusesShow' => self::STATUSES_SHOW,
         ])
             ->layout('livewire.news-storage.layouts.app-component', [
-                'title' => 'News Storage'
+                'title' => 'News Storage',
             ]);
     }
 }

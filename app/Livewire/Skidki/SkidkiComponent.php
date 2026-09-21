@@ -2,24 +2,30 @@
 
 namespace App\Http\Livewire\Skidki;
 
-use Livewire\Component;
 use App\Models\SkidkiItem as Skidki;
 use Carbon\Carbon;
+use Livewire\Component;
 
 class SkidkiComponent extends Component
 {
     public $date;
+
     public $type;
+
     public $phone;
+
     public $author;
+
     public $skidkis;
+
     public $skidki_all = [];
 
     public function render()
     {
         $this->skidki_all = Skidki::all();
-//        dd([111, $this->skidkis]);
-//        return view('livewire.skidki.skidki-component',['skidki_all' => $skidki_all]);
+
+        //        dd([111, $this->skidkis]);
+        //        return view('livewire.skidki.skidki-component',['skidki_all' => $skidki_all]);
         return view('livewire.skidki.skidki-component');
     }
 

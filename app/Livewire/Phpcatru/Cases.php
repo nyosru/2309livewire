@@ -41,7 +41,7 @@ class Cases extends Component
     {
         return view('livewire.phpcatru.cases')
             ->layout('livewire.phpcatru.layouts.app-component', [
-                'title' => 'Кейсы внедрения ИИ — php-cat.ru'
+                'title' => 'Кейсы внедрения ИИ — php-cat.ru',
             ]);
     }
 }

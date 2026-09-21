@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\News;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class NewsSeeder extends Seeder
 {

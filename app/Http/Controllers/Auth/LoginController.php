@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Routing\Controller;
-
-use Laravel\Socialite\Two\InvalidStateException;
-use Exception;
-
-use VK\Actions\Auth;
-use Psy\Util\Str;
-
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Exception;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+use Psy\Util\Str;
+use VK\Actions\Auth;
 
 class LoginController extends Controller
 {
@@ -24,7 +20,7 @@ class LoginController extends Controller
     public function redirectToProvider()
     {
         return Socialite::driver('vkontakte')->redirect();
-//        return Socialite::redirect();
+        //        return Socialite::redirect();
     }
 
     /**

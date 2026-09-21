@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Backword extends Model
 {
     use HasFactory;
-    protected $table = 'uprav_backwords';
-    protected $fillable = ['names', 'contact','message'];
 
+    protected $table = 'uprav_backwords';
+
+    protected $fillable = ['names', 'contact', 'message'];
 }

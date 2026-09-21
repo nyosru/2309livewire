@@ -8,10 +8,11 @@ use Livewire\Component;
 
 class Backword extends Component
 {
-
-//    public $loading = false;
+    //    public $loading = false;
     public $names = '';
+
     public $contact = '';
+
     public $message = '';
 
     public $warning = '';
@@ -19,8 +20,8 @@ class Backword extends Component
     public function save(Request $r)
     {
 
-//        $this->loading = true;
-//        dd($r->all());
+        //        $this->loading = true;
+        //        dd($r->all());
 
         $validated = $this->validate([
             'names' => 'required|min:3',
@@ -28,22 +29,22 @@ class Backword extends Component
             'message' => 'required|min:3',
         ]);
 
-//        BackwordAlias::create(
-//            $this->only(['name', 'contact','message'])
-//        );
+        //        BackwordAlias::create(
+        //            $this->only(['name', 'contact','message'])
+        //        );
 
         BackwordAlias::create($validated);
 
-//        return $this->redirect('/posts')
-//        return $this->redirect('/')
-//            ->with('status', 'Post successfully created.')
-//            ;
+        //        return $this->redirect('/posts')
+        //        return $this->redirect('/')
+        //            ->with('status', 'Post successfully created.')
+        //            ;
 
         $this->warning = 'Сообщение отправлено, спасибо';
         $this->names = '';
         $this->contact = '';
         $this->message = '';
-//        $this->loading = false;
+        //        $this->loading = false;
     }
 
     public function placeholder()

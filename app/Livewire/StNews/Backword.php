@@ -8,13 +8,21 @@ use Nyos\Msg;
 class Backword extends Component
 {
     public $showAdditionalFields = false;
+
     public $inputMsg = '';
+
     public $inputName = '';
+
     public $inputPhone = '';
+
     public $inputTelega = '';
+
     public $inputPromo = '';
+
     public $showBlock = false;
+
     public $loading = false;
+
     public $sentSuccessfully = false;
 
     protected $rules = [
@@ -54,17 +62,17 @@ class Backword extends Component
             $this->validate();
 
             // Логика отправки данных
-            $msg = 'msg: ' . $this->inputMsg;
+            $msg = 'msg: '.$this->inputMsg;
             $msg .= PHP_EOL;
-            $msg .= 'name: ' . $this->inputName;
+            $msg .= 'name: '.$this->inputName;
             $msg .= PHP_EOL;
-            $msg .= 'phone: ' . $this->inputPhone;
+            $msg .= 'phone: '.$this->inputPhone;
             $msg .= PHP_EOL;
-            $msg .= 'Telega: ' . $this->inputTelega;
+            $msg .= 'Telega: '.$this->inputTelega;
             $msg .= PHP_EOL;
-            $msg .= 'Promo: ' . $this->inputPromo;
+            $msg .= 'Promo: '.$this->inputPromo;
 
-            Msg::sendTelegramm($msg, 360209578, 2, env('TOKEN_TELEGA_NEWS') );
+            Msg::sendTelegramm($msg, 360209578, 2, env('TOKEN_TELEGA_NEWS'));
 
             // Сброс значений полей
             $this->reset(['inputMsg', 'inputName', 'inputPhone', 'inputTelega', 'inputPromo', 'showAdditionalFields']);

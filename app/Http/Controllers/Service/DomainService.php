@@ -3,40 +3,38 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-
-//use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
+class DomainService extends Controller
+{
+    public static function checkDomains($domains)
+    {
 
-class DomainService extends Controller {
-    public static function checkDomains($domains) {
-
-//        // Массив с доменами для проверки
-//        $domains = [
-//            'example.com',
-//            'google.com',
-//            'facebook.com',
-//            'stackoverflow.com',
-//            'github.com',
-//            'yahoo.com',
-//            'bing.com',
-//            'amazon.com',
-//            'microsoft.com',
-//            'twitter.com',
-//        ];
+        //        // Массив с доменами для проверки
+        //        $domains = [
+        //            'example.com',
+        //            'google.com',
+        //            'facebook.com',
+        //            'stackoverflow.com',
+        //            'github.com',
+        //            'yahoo.com',
+        //            'bing.com',
+        //            'amazon.com',
+        //            'microsoft.com',
+        //            'twitter.com',
+        //        ];
 
         $results = [];
 
-//$nn = 0;
+        // $nn = 0;
 
         // Проходимся по каждому домену
-        foreach($domains as $domain) {
+        foreach ($domains as $domain) {
 
-//            if( strpos($domain,'.local') )
-//                continue;
+            //            if( strpos($domain,'.local') )
+            //                continue;
 
             $httpResult = self::checkDomainProtocol($domain, 'http');
             $httpsResult = self::checkDomainProtocol($domain, 'https');
@@ -46,31 +44,34 @@ class DomainService extends Controller {
                 'https' => $httpsResult === true ? 'ok' : 'no',
             ];
 
-//            $nn++;
-//            if( $nn > 5 )
-//                break;
+            //            $nn++;
+            //            if( $nn > 5 )
+            //                break;
 
         }
 
         return $results;
-//        return response()->json($results);
+        //        return response()->json($results);
     }
 
-    private static function checkDomainProtocol($domain, $protocol) {
-        $client = new Client();
+    private static function checkDomainProtocol($domain, $protocol)
+    {
+        $client = new Client;
 
         try {
-            $response = $client->request('GET', $protocol . '://' . $domain, [
+            $response = $client->request('GET', $protocol.'://'.$domain, [
                 'timeout' => 5, // Установка таймаута в 1 секунду
             ]);
             $statusCode = $response->getStatusCode();
+
             return $statusCode >= 200 && $statusCode < 400;
-        } catch(GuzzleException $e) {
+        } catch (GuzzleException $e) {
             return false;
         }
     }
 
-    public static function getWhoisData($domain) {
+    public static function getWhoisData($domain)
+    {
         // Формируем команду для выполнения whois запроса
         $command = "whois $domain";
 
@@ -80,5 +81,4 @@ class DomainService extends Controller {
         // Возвращаем результат
         return $whois_output;
     }
-
 }

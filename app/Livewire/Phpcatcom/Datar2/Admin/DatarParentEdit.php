@@ -2,20 +2,25 @@
 
 namespace App\Livewire\Phpcatcom\Datar2\Admin;
 
-use Livewire\Component;
 use App\Models\DatarParent;
-use Illuminate\Support\Facades\Log;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Log;
+use Livewire\Component;
 
 class DatarParentEdit extends Component
 {
     public ?DatarParent $datarParent = null;
 
     public $title = '';
+
     public $content = '';
+
     public $order = 0;
+
     public $is_active = false;
+
     public $id;
+
     public $action_name;
 
     protected $rules = [
@@ -92,6 +97,7 @@ class DatarParentEdit extends Component
             }
 
             session()->flash('parent_success', 'Группа изменена.');
+
             return redirect()->route('tech.datar2');
 
         } catch (\Exception $e) {
@@ -99,13 +105,14 @@ class DatarParentEdit extends Component
             if (class_exists(\Barryvdh\Debugbar\Facades\Debugbar::class)) {
                 Debugbar::error('Ошибка при сохранении', $e);
             }
-            session()->flash('parent_error', 'Ошибка при сохранении: ' . $e->getMessage());
+            session()->flash('parent_error', 'Ошибка при сохранении: '.$e->getMessage());
         }
     }
 
     public function render()
     {
         $view = view('livewire.phpcatcom.datar2.admin.datar-parent-edit');
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

@@ -3,15 +3,19 @@
 namespace App\Livewire\Phpcatru;
 
 use App\Models\PhpcatruBlog;
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
 class BlogCreate extends Component
 {
     public $title = '';
+
     public $content = '';
+
     public $tag = '';
+
     public $excerpt = '';
+
     public $is_published = true;
 
     protected function rules()

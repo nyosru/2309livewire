@@ -3,8 +3,8 @@
 namespace App\Livewire\StNews;
 
 use App\Models\StNews;
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class FetchFreshNews extends Component
 {
@@ -14,15 +14,15 @@ class FetchFreshNews extends Component
         $rss = simplexml_load_string($rssFeed->body());
 
         foreach ($rss->channel->item as $item) {
-            $title = (string)$item->title;
-            $content = (string)$item->description;
-            $publishedAt = date('Y-m-d H:i:s', strtotime((string)$item->pubDate));
-            $sourceLink = (string)$item->link; // Ссылка на конкретную новость
+            $title = (string) $item->title;
+            $content = (string) $item->description;
+            $publishedAt = date('Y-m-d H:i:s', strtotime((string) $item->pubDate));
+            $sourceLink = (string) $item->link; // Ссылка на конкретную новость
 
             // Проверка на наличие новости с таким же заголовком и ссылкой, чтобы избежать дублирования
             $existingNews = StNews::where('source', $sourceLink)->first();
 
-            if (!$existingNews) {
+            if (! $existingNews) {
                 StNews::create([
                     'title' => $title,
                     'content' => $content,

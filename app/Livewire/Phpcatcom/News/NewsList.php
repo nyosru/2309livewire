@@ -11,14 +11,18 @@ class NewsList extends Component
     use WithPagination;
 
     public $view = ''; // start
+
     public $search = '';
+
     public $perPage = 9;
+
     public $category = '';
+
     public $layout;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'page' => ['except' => 1]
+        'page' => ['except' => 1],
     ];
 
     public function mount()
@@ -34,15 +38,14 @@ class NewsList extends Component
     public function render()
     {
 
-
         if ($this->view === 'start') {
             // Возвращаем только 3 самые новые записи без пагинации
             $news = News::query()
                 ->published()
                 ->latestNews()
                 ->when($this->search, function ($query) {
-                    $query->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%');
+                    $query->where('title', 'like', '%'.$this->search.'%')
+                        ->orWhere('content', 'like', '%'.$this->search.'%');
                 })
                 ->take(3)
                 ->get();
@@ -52,8 +55,8 @@ class NewsList extends Component
                 ->published()
                 ->latestNews()
                 ->when($this->search, function ($query) {
-                    $query->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%');
+                    $query->where('title', 'like', '%'.$this->search.'%')
+                        ->orWhere('content', 'like', '%'.$this->search.'%');
                 })
                 ->paginate($this->perPage);
         }
@@ -63,7 +66,6 @@ class NewsList extends Component
         ]);
 
         return $this->layout ? $view->layout($this->layout) : $view;
-
 
     }
 }

@@ -2,25 +2,35 @@
 
 namespace App\Livewire\Afisha;
 
+use App\Models\AfishaImage;
+use App\Models\AfishaPoster as Poster;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\AfishaPoster as Poster;
-use App\Models\AfishaImage;
 
 class AddForm extends Component
 {
     use WithFileUploads;
 
     public $title;
+
     public $description;
+
     public $link;
+
     public $event_date;
+
     public $event_time;
+
     public $end_date;
+
     public $source_link;
+
     public $extra_links = [];
+
     public $images = [];  // Для хранения загруженных файлов
+
     public $address;
+
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
@@ -34,7 +44,6 @@ class AddForm extends Component
         'images.*' => 'nullable|image|max:1024',
         'address' => 'nullable|string|max:255',  // Новое правило
     ];
-
 
     public function addPoster()
     {
@@ -56,7 +65,7 @@ class AddForm extends Component
         // Сохранение изображений и привязка их к афише
         foreach ($this->images as $image) {
             $imagePath = $image->store('afisha-img', 'public');  // Сохраняем изображения в нужную директорию
-//            dd($imagePath);
+            //            dd($imagePath);
             AfishaImage::create([
                 'poster_id' => $poster->id,
                 'path' => $imagePath,

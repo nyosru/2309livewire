@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\StNews;
 
 use App\Models\StNews;
@@ -44,6 +45,4 @@ class ModerateNews extends Component
 
         $this->mount(); // Обновляем список новостей после модерации
     }
-
-
 }

@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('st_news_parsing_category', function (Blueprint $table) {
             $table->id(); // Уникальный идентификатор записи
             $table->foreignId('site_id') // Внешний ключ на сайт
-            ->constrained('st_news_parsing_site')
-                ->onDelete('cascade')
-            ;
+                ->constrained('st_news_parsing_site')
+                ->onDelete('cascade');
             $table->string('category_name'); // Название каталога
             $table->string('category_url'); // Ссылка на каталог
             $table->timestamp('last_scan')->nullable(); // Дата и время последнего сканирования

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DateService extends Controller
 {
-    static function convertDateTime($input)
+    public static function convertDateTime($input)
     {
         // Массив для сопоставления русских названий месяцев с их числовыми значениями
         $months = [
@@ -23,7 +21,7 @@ class DateService extends Controller
             'сентября' => '09',
             'октября' => '10',
             'ноября' => '11',
-            'декабря' => '12'
+            'декабря' => '12',
         ];
 
         // Проверяем наличие года в строке через регулярное выражение
@@ -42,10 +40,8 @@ class DateService extends Controller
         $month = $months[mb_strtolower($month)];
 
         // Собираем финальную строку в формате Y-m-d H:i:s
-        $formattedDateTime = "$year-$month-" . sprintf('%02d', $day) . " $time:00";
+        $formattedDateTime = "$year-$month-".sprintf('%02d', $day)." $time:00";
 
         return $formattedDateTime;
     }
-
-
 }

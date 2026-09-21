@@ -2,23 +2,27 @@
 
 namespace App\Livewire\Phpcat\Services;
 
-use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Livewire\Component;
 use Nyos\Msg as MsgAlias;
 
 class AiGigachat extends Component
 {
     public $question = '';
+
     public $answer = '';
+
     public $isLoading = false;
+
     public $error = '';
+
     public $showDemoWarning = true;
 
     protected $rules = [
-        'question' => 'required|min:3|max:1000'
+        'question' => 'required|min:3|max:1000',
     ];
 
     public function render()
@@ -35,29 +39,30 @@ class AiGigachat extends Component
 
         try {
             // Проверяем наличие учетных данных
-            if (!$this->hasValidCredentials()) {
+            if (! $this->hasValidCredentials()) {
                 $this->answer = $this->getMockResponse($this->question);
                 $this->showDemoWarning = true;
                 $this->isLoading = false;
+
                 return;
             }
 
             $accessToken = $this->getAccessToken();
 
-            if (!$accessToken) {
+            if (! $accessToken) {
                 throw new \Exception('Не удалось получить access token');
             }
 
             $msg = $this->question;
-            MsgAlias::sendTelegramm('msg в AI: отправили: '.$msg );
+            MsgAlias::sendTelegramm('msg в AI: отправили: '.$msg);
             $response = $this->sendToGigaChat($msg, $accessToken);
 
             $this->answer = $response;
             $this->showDemoWarning = false;
 
         } catch (\Exception $e) {
-            $this->error = 'Ошибка: ' . $e->getMessage();
-            Log::error('GigaChat API error: ' . $e->getMessage());
+            $this->error = 'Ошибка: '.$e->getMessage();
+            Log::error('GigaChat API error: '.$e->getMessage());
 
             // Показываем демо-ответ при ошибке
             $this->answer = $this->getMockResponse($this->question);
@@ -72,7 +77,7 @@ class AiGigachat extends Component
         $clientId = config('services.gigachat.client_id');
         $clientSecret = config('services.gigachat.client_secret');
 
-        return !empty($clientId) && !empty($clientSecret) &&
+        return ! empty($clientId) && ! empty($clientSecret) &&
             $clientId !== 'your_client_id_here' &&
             $clientSecret !== 'your_client_secret_here';
     }
@@ -91,7 +96,7 @@ class AiGigachat extends Component
 
         // Согласно новой документации: https://developers.sber.ru/docs/redirect?uniq_id=getGigaAccessToken
         $response = Http::withHeaders([
-            'Authorization' => 'Basic ' . base64_encode($clientId . ':' . $clientSecret),
+            'Authorization' => 'Basic '.base64_encode($clientId.':'.$clientSecret),
             'RqUID' => $rqUid,
             'Content-Type' => 'application/x-www-form-urlencoded',
         ])->asForm()->post('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', [
@@ -103,7 +108,7 @@ class AiGigachat extends Component
             Log::error('GigaChat auth failed', [
                 'status' => $response->status(),
                 'body' => $response->body(),
-                'headers' => $response->headers()
+                'headers' => $response->headers(),
             ]);
 
             if ($response->status() === 400) {
@@ -114,12 +119,12 @@ class AiGigachat extends Component
                 throw new \Exception('Ошибка авторизации. Учетные данные недействительны.');
             }
 
-            throw new \Exception('Ошибка аутентификации: ' . $response->status());
+            throw new \Exception('Ошибка аутентификации: '.$response->status());
         }
 
         $data = $response->json();
 
-        if (!isset($data['access_token'])) {
+        if (! isset($data['access_token'])) {
             throw new \Exception('Access token не получен в ответе API');
         }
 
@@ -134,7 +139,7 @@ class AiGigachat extends Component
     {
         // Согласно документации GigaChat API
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $accessToken,
+            'Authorization' => 'Bearer '.$accessToken,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ])->timeout(30)->post('https://gigachat.devices.sberbank.ru/api/v1/chat/completions', [
@@ -142,8 +147,8 @@ class AiGigachat extends Component
             'messages' => [
                 [
                     'role' => 'user',
-                    'content' => $question
-                ]
+                    'content' => $question,
+                ],
             ],
             'temperature' => 0.7,
             'top_p' => 0.9,
@@ -156,31 +161,32 @@ class AiGigachat extends Component
         if ($response->failed()) {
             Log::error('GigaChat API request failed', [
                 'status' => $response->status(),
-                'body' => $response->body()
+                'body' => $response->body(),
             ]);
 
             if ($response->status() === 401) {
                 // Токен устарел, очищаем кэш
                 Cache::forget('gigachat_access_token');
                 $msg = 'Токен устарел. Попробуйте еще раз.';
-                MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg );
+                MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg);
                 throw new \Exception($msg);
             }
 
             $msg = $response->status();
-            MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg );
-            throw new \Exception('Ошибка API GigaChat: ' . $msg );
+            MsgAlias::sendTelegramm('msg в AI: ошибка: '.$msg);
+            throw new \Exception('Ошибка API GigaChat: '.$msg);
         }
 
         $data = $response->json();
 
-        if (!isset($data['choices'][0]['message']['content'])) {
+        if (! isset($data['choices'][0]['message']['content'])) {
             Log::error('GigaChat response format unexpected', ['response' => $data]);
             throw new \Exception('Неожиданный формат ответа от GigaChat');
         }
 
         $msg = $data['choices'][0]['message']['content'];
-        MsgAlias::sendTelegramm('msg в AI: ответ: '.$msg );
+        MsgAlias::sendTelegramm('msg в AI: ответ: '.$msg);
+
         return $msg;
     }
 
@@ -189,20 +195,20 @@ class AiGigachat extends Component
         $mockResponses = [
             'laravel' => [
                 'title' => 'Laravel Framework',
-                'content' => "Laravel - это современный PHP-фреймворк с элегантным синтаксисом. Он предоставляет:\n\n• MVC архитектуру\n• Eloquent ORM\n• Миграции баз данных\n• Blade шаблонизатор\n• Artisan CLI\n• Встроенную аутентификацию\n• Middleware\n• Тестирование\n\nLaravel значительно ускоряет разработку веб-приложений."
+                'content' => "Laravel - это современный PHP-фреймворк с элегантным синтаксисом. Он предоставляет:\n\n• MVC архитектуру\n• Eloquent ORM\n• Миграции баз данных\n• Blade шаблонизатор\n• Artisan CLI\n• Встроенную аутентификацию\n• Middleware\n• Тестирование\n\nLaravel значительно ускоряет разработку веб-приложений.",
             ],
             'livewire' => [
                 'title' => 'Laravel Livewire',
-                'content' => "Livewire - это полнофреймворк для Laravel, позволяющий создавать динамические интерфейсы без написания JavaScript.\n\nОсновные возможности:\n• Декларативные компоненты\n• Двусторонняя binding\n• Жизненный цикл компонентов\n• События\n• Валидация\n• Загрузка файлов\n• Пагинация\n\nLivewire идеален для разработчиков PHP, которые хотят создавать современные SPA-приложения."
+                'content' => "Livewire - это полнофреймворк для Laravel, позволяющий создавать динамические интерфейсы без написания JavaScript.\n\nОсновные возможности:\n• Декларативные компоненты\n• Двусторонняя binding\n• Жизненный цикл компонентов\n• События\n• Валидация\n• Загрузка файлов\n• Пагинация\n\nLivewire идеален для разработчиков PHP, которые хотят создавать современные SPA-приложения.",
             ],
             'php' => [
                 'title' => 'PHP Language',
-                'content' => "PHP - серверный язык программирования для веб-разработки.\n\nОсновные особенности:\n• Интерпретируемый язык\n• Широкая поддержка хостингов\n• Большое сообщество\n• Множество фреймворков\n• Интеграция с базами данных\n• Поддержка ООП\n\nPHP powers 79% всех веб-сайтов, включая WordPress, Facebook (изначально), и многие другие."
+                'content' => "PHP - серверный язык программирования для веб-разработки.\n\nОсновные особенности:\n• Интерпретируемый язык\n• Широкая поддержка хостингов\n• Большое сообщество\n• Множество фреймворков\n• Интеграция с базами данных\n• Поддержка ООП\n\nPHP powers 79% всех веб-сайтов, включая WordPress, Facebook (изначально), и многие другие.",
             ],
             'default' => [
                 'title' => 'Демо-ответ',
-                'content' => "Спасибо за ваш вопрос: \"{$question}\"\n\nЭто демонстрационный ответ. Для получения реальных ответов от GigaChat AI:\n\n1. Зарегистрируйтесь на https://sbercloud.ru/\n2. Получите Client ID и Client Secret\n3. Добавьте их в .env файл:\n\nGIGACHAT_CLIENT_ID=ваш_client_id\nGIGACHAT_CLIENT_SECRET=ваш_client_secret\n\nПосле настройки вы получите доступ к мощному AI-ассистенту от Sber."
-            ]
+                'content' => "Спасибо за ваш вопрос: \"{$question}\"\n\nЭто демонстрационный ответ. Для получения реальных ответов от GigaChat AI:\n\n1. Зарегистрируйтесь на https://sbercloud.ru/\n2. Получите Client ID и Client Secret\n3. Добавьте их в .env файл:\n\nGIGACHAT_CLIENT_ID=ваш_client_id\nGIGACHAT_CLIENT_SECRET=ваш_client_secret\n\nПосле настройки вы получите доступ к мощному AI-ассистенту от Sber.",
+            ],
         ];
 
         $questionLower = strtolower($question);
@@ -229,7 +235,7 @@ class AiGigachat extends Component
         $examples = [
             'laravel' => 'Расскажи о возможностях Laravel Framework',
             'livewire' => 'Что такое Laravel Livewire и как его использовать?',
-            'php' => 'Какие нововведения в последних версиях PHP?'
+            'php' => 'Какие нововведения в последних версиях PHP?',
         ];
 
         $this->question = $examples[$example] ?? $examples['laravel'];

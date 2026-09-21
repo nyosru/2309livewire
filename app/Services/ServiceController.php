@@ -7,29 +7,28 @@ use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
 {
-
     /**
      * Получить полный размер директории в байтах.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return int
      */
-    static function getFolderSizeFull($directory)
+    public static function getFolderSizeFull($directory)
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             $status = 'error';
             $msg = 'no dir';
         } else {
             $sizeInBytes = self::getFolderSizeUsingDu($directory);
 
-            if (!empty($sizeInBytes)) {
-                $sizeInMB = (int)$sizeInBytes;
+            if (! empty($sizeInBytes)) {
+                $sizeInMB = (int) $sizeInBytes;
                 $status = 'ok';
                 $msg = 'function getFolderSizeUsingDu';
             } else {
                 $sizeInBytes = self::getFolderSize($directory);
 
-                if (!empty($sizeInBytes)) {
+                if (! empty($sizeInBytes)) {
                     // Преобразуем размер в мегабайты для удобства
                     $sizeInMB = round($sizeInBytes / (1024 * 1024), 1);
                     $status = 'ok';
@@ -46,10 +45,10 @@ class ServiceController extends Controller
     /**
      * Получить полный размер директории в байтах.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return int
      */
-    static function getFolderSize($directory)
+    public static function getFolderSize($directory)
     {
         $size = 0;
 
@@ -61,22 +60,21 @@ class ServiceController extends Controller
         return $size;
     }
 
-
     /**
      * Получить размер директории с помощью команды du -sh
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return string|null
      */
-    static function getFolderSizeUsingDu($directory)
+    public static function getFolderSizeUsingDu($directory)
     {
         // Проверяем, существует ли директория
         if (is_dir($directory)) {
             // Выполняем команду du -sh
-            $output = shell_exec("du -sh " . escapeshellarg($directory));
+            $output = shell_exec('du -sh '.escapeshellarg($directory));
 
             // Если результат не пустой, возвращаем строку с размером
-            if (!empty($output)) {
+            if (! empty($output)) {
                 // Разделяем вывод по табуляции и возвращаем только размер
                 return explode("\t", $output)[0];
             }

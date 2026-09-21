@@ -8,12 +8,19 @@ use Livewire\Component;
 class PayAddForm extends Component
 {
     public $date = '';
+
     public $amount = 0;
+
     public $object_id = '';
+
     public $people_id = '';
+
     public $opis = '';
+
     public $show = false;
+
     public $show_ar = [];
+
     public $message = '';
 
     public function mount()
@@ -23,12 +30,12 @@ class PayAddForm extends Component
 
     public function toggle()
     {
-        $this->show = !$this->show;
+        $this->show = ! $this->show;
     }
 
     public function toggleShowAr($nomer = 1)
     {
-        $this->show_ar[$nomer] = isset($this->show_ar[$nomer]) ? !$this->show_ar[$nomer] : true;
+        $this->show_ar[$nomer] = isset($this->show_ar[$nomer]) ? ! $this->show_ar[$nomer] : true;
     }
 
     public function addPay()
@@ -49,7 +56,7 @@ class PayAddForm extends Component
                 }
             });
         </script>
-" );
+");
     }
 
     public function render()

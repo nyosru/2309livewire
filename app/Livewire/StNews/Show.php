@@ -2,8 +2,8 @@
 
 namespace App\Livewire\StNews;
 
-use Livewire\Component;
 use App\Models\StNews;
+use Livewire\Component;
 
 class Show extends Component
 {

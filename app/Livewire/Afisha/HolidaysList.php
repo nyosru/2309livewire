@@ -2,17 +2,20 @@
 
 namespace App\Livewire\Afisha;
 
-use Livewire\Component;
 use App\Models\Holiday;
-use Carbon\Carbon;
+use Livewire\Component;
 
 class HolidaysList extends Component
 {
     public $holidays;
+
     public $currentMonth = null;
+
     public $currentDay = null;
+
     public $lastDay = null;
-    public $new_day= false;
+
+    public $new_day = false;
 
     public function mount()
     {

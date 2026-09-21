@@ -3,20 +3,24 @@
 namespace App\Livewire\Phpcatcom\News\Admin;
 
 use App\Models\News;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class NewsCreate extends Component
 {
     use WithFileUploads;
 
     public $title;
+
     public $content;
+
     public $excerpt;
+
     public $image;
+
     public $is_published = false;
+
     public $published_at;
 
     protected $rules = [
@@ -25,10 +29,10 @@ class NewsCreate extends Component
         'excerpt' => 'nullable|string|max:300',
         'image' => 'nullable|image|max:2048',
         'is_published' => 'boolean',
-        'published_at' => 'nullable|date'
+        'published_at' => 'nullable|date',
     ];
-    public $layout = '';
 
+    public $layout = '';
 
     public function mount()
     {
@@ -45,7 +49,7 @@ class NewsCreate extends Component
             'content' => $this->content,
             'excerpt' => $this->excerpt,
             'is_published' => $this->is_published,
-            'published_at' => $this->is_published ? ($this->published_at ?? now()) : null
+            'published_at' => $this->is_published ? ($this->published_at ?? now()) : null,
         ];
 
         // Сохраняем изображение
@@ -57,6 +61,7 @@ class NewsCreate extends Component
         News::create($newsData);
 
         session()->flash('success', 'Новость успешно создана!');
+
         return redirect()->route('tech.news.admin');
     }
 
@@ -68,6 +73,7 @@ class NewsCreate extends Component
     public function render()
     {
         $view = view('livewire.phpcatcom.news.admin.news-create');
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

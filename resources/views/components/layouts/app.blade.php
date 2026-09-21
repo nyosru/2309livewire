@@ -13,6 +13,11 @@
     @include('phpcat.index')
 
 @elseif(
+    $_SERVER['HTTP_HOST'] == 'cups.php-cat.ru' ||
+    $_SERVER['HTTP_HOST'] == 'cups.local'
+    )
+    {{ $slot }}
+@elseif(
 	#IDN: тюменскаяафиша.рф
     $_SERVER['HTTP_HOST'] == 'cfa-center.ru' ||
     $_SERVER['HTTP_HOST'] == 'cfa.php-cat.com' ||

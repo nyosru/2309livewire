@@ -3,23 +3,31 @@
 namespace App\Livewire\Phpcatcom\News\Admin;
 
 use App\Models\News;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class NewsEdit extends Component
 {
     use WithFileUploads;
 
     public $news;
+
     public $title;
+
     public $content;
+
     public $excerpt;
+
     public $image;
+
     public $currentImage;
+
     public $is_published;
+
     public $published_at;
+
     public $removeImage = false;
 
     protected $rules = [
@@ -28,8 +36,9 @@ class NewsEdit extends Component
         'excerpt' => 'nullable|string|max:300',
         'image' => 'nullable|image|max:2048',
         'is_published' => 'boolean',
-        'published_at' => 'nullable|date'
+        'published_at' => 'nullable|date',
     ];
+
     public $layout = '';
 
     public function mount($id)
@@ -44,9 +53,6 @@ class NewsEdit extends Component
         $this->layout = 'livewire.cfa.app.body';
     }
 
-
-
-
     public function save()
     {
         $this->validate();
@@ -57,12 +63,12 @@ class NewsEdit extends Component
             'content' => $this->content,
             'excerpt' => $this->excerpt,
             'is_published' => $this->is_published,
-            'published_at' => $this->is_published ? ($this->published_at ?? now()) : null
+            'published_at' => $this->is_published ? ($this->published_at ?? now()) : null,
         ];
 
         // Обработка изображения
         if ($this->removeImage && $this->currentImage) {
-            Storage::delete('public/' . $this->currentImage);
+            Storage::delete('public/'.$this->currentImage);
             $newsData['image'] = null;
             $this->currentImage = null;
         }
@@ -70,7 +76,7 @@ class NewsEdit extends Component
         if ($this->image) {
             // Удаляем старое изображение если есть
             if ($this->currentImage) {
-                Storage::delete('public/' . $this->currentImage);
+                Storage::delete('public/'.$this->currentImage);
             }
 
             $imagePath = $this->image->store('news', 'public');
@@ -81,8 +87,9 @@ class NewsEdit extends Component
         $this->news->update($newsData);
 
         session()->flash('success', 'Новость успешно изменена!');
+
         return redirect()->back();
-//        return redirect()->route('tech.news.admin');
+        //        return redirect()->route('tech.news.admin');
     }
 
     public function cancel()
@@ -93,8 +100,9 @@ class NewsEdit extends Component
     public function render()
     {
         $view = view('livewire.phpcatcom.news.admin.news-edit', [
-            'newsItem' => $this->news
+            'newsItem' => $this->news,
         ]);
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

@@ -3,14 +3,11 @@
 namespace App\Livewire\AsPhpCatCom;
 
 use App\Models\WhoisDomain;
-use App\Models\WhoisDomains;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Domains extends Component
 {
-
-    public $domains0 = "
+    public $domains0 = '
 * 72rs.ru
 * 7ремёсел.рф (xn--7-jtbaydwj1k.xn--p1ai)
 * antifretting.ru
@@ -214,19 +211,19 @@ class Domains extends Component
 * шугарингтюмень.рф (xn--80afbinzfdvxe3d5cya.xn--p1ai)
 * экономикаприроды.рф (xn--80aikbhbmhibfknb1ora.xn--p1ai)
 * электросалон.рф (xn--80ajpcdmecoli2k.xn--p1ai)
-";
+';
 
     public $domains = [];
 
     public $history_whois = [];
 
-    function __construct()
+    public function __construct()
     {
         // Указываем имя подключения к базе данных
-//            $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
+        //            $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
         // Выполняем запрос с использованием указанного подключения
-//            $results = WhoisDB::connection($connection)->select('select * from table_whois_domains GROUP BY domain');
-//            $this->history_whois = $results;
+        //            $results = WhoisDB::connection($connection)->select('select * from table_whois_domains GROUP BY domain');
+        //            $this->history_whois = $results;
         $h = WhoisDomain::groupBy('domain')->get();
         foreach ($h as $hh) {
             $this->history_whois[$hh['domain']] = $hh;

@@ -16,12 +16,12 @@ class DatarParent extends Model
         'title',
         'content',
         'order',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'order' => 'integer'
+        'order' => 'integer',
     ];
 
     /**
@@ -55,7 +55,7 @@ class DatarParent extends Model
      */
     public function scopeWithChildren($query)
     {
-        return $query->with(['children' => function($q) {
+        return $query->with(['children' => function ($q) {
             $q->orderBy('order');
         }]);
     }

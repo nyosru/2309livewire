@@ -9,12 +9,18 @@ use Livewire\Component;
 class DatarChildEdit extends Component
 {
     public $child;
+
     public $title;
-//    public $content;
+
+    //    public $content;
     public string $content = '';
+
     public $parent_id;
+
     public $order;
+
     public $is_active;
+
     public $parents = [];
 
     protected $rules = [
@@ -22,7 +28,7 @@ class DatarChildEdit extends Component
         'content' => 'required|string|min:10',
         'parent_id' => 'required|exists:datar_parents,id',
         'order' => 'required|integer|min:0',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
     ];
 
     public $layout = '';
@@ -54,10 +60,11 @@ class DatarChildEdit extends Component
             'content' => $this->content,
             'parent_id' => $this->parent_id,
             'order' => $this->order,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
         ]);
 
         session()->flash('children_success', 'Запись успешно обновлена');
+
         return redirect()->route('tech.datar2');
 
     }
@@ -70,8 +77,9 @@ class DatarChildEdit extends Component
     public function render()
     {
         $view = view('livewire.phpcatcom.datar2.admin.datar-child-edit', [
-            'childItem' => $this->child
+            'childItem' => $this->child,
         ]);
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

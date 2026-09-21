@@ -1,8 +1,9 @@
 <?php
+
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\StNews;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StNewsFactory extends Factory
 {

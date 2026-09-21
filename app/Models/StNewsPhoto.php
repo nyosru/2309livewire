@@ -12,7 +12,7 @@ class StNewsPhoto extends Model
     protected $fillable = [
         'st_news_id',
         'image_path',
-        'local_photo' // Новое поле для локальной фотки
+        'local_photo', // Новое поле для локальной фотки
     ];
 
     public function news()

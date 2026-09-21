@@ -19,7 +19,7 @@ class StNewsParsingCategory extends Model
         'category_name',
         'category_url',
         'last_scan',
-        'scan_status'
+        'scan_status',
     ];
 
     // Связь с моделью StNews

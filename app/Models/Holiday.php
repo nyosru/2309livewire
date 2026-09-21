@@ -14,7 +14,7 @@ class Holiday extends Model
         'year',
         'title',
         'text',
-        'country'
+        'country',
     ];
 
     public $timestamps = false;
@@ -26,21 +26,20 @@ class Holiday extends Model
         'Международное' => '/flag/earth.png',
     ];
 
-
     public function getCountryStrAttribute()
     {
-        return !empty($this->CountrysImg[$this->country]) ? '<img title="' . $this->country . '" src="' . $this->CountrysImg[$this->country] . '" />' : $this->country ?? '';
+        return ! empty($this->CountrysImg[$this->country]) ? '<img title="'.$this->country.'" src="'.$this->CountrysImg[$this->country].'" />' : $this->country ?? '';
     }
 
     public function getCountryImgAttribute()
     {
-        return !empty($this->CountrysImg[$this->country]) ? $this->CountrysImg[$this->country] : '';
+        return ! empty($this->CountrysImg[$this->country]) ? $this->CountrysImg[$this->country] : '';
     }
 
     /**
      * Запрос для получения событий, которые происходят сегодня и в ближайшие 20 дней.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeUpcoming($query)
@@ -65,6 +64,4 @@ class Holiday extends Model
                         ->where('day', '<=', $endDate->day);
                 });
     }
-
-
 }

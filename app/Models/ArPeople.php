@@ -15,14 +15,13 @@ class ArPeople extends Model
     protected $fillable = [
         'name',
         'phone',
-        'opis'
+        'opis',
     ];
 
-
-//    public function payes()
-//    {
-//        return $this->hasMany(ArPay::class, 'ar_object_id', 'id')->orderBy('date', 'desc');
-//    }
+    //    public function payes()
+    //    {
+    //        return $this->hasMany(ArPay::class, 'ar_object_id', 'id')->orderBy('date', 'desc');
+    //    }
     public function payes()
     {
         return $this->hasMany(ArPay::class, 'ar_people_id', 'id');

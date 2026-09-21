@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Phpcatru;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class ContactForm extends Component
 {
@@ -37,11 +37,11 @@ class ContactForm extends Component
         $serviceText = $this->service ? ($this->services[$this->service] ?? $this->service) : 'Не указана';
 
         $text = "Заявка с php-cat.ru\n"
-            . "Имя: {$this->name}\n"
-            . "Телефон: {$this->phone}\n"
-            . "Email: " . ($this->email ?: 'не указан') . "\n"
-            . "Услуга: {$serviceText}\n"
-            . "Сообщение: " . ($this->message ?: 'не указано');
+            ."Имя: {$this->name}\n"
+            ."Телефон: {$this->phone}\n"
+            .'Email: '.($this->email ?: 'не указан')."\n"
+            ."Услуга: {$serviceText}\n"
+            .'Сообщение: '.($this->message ?: 'не указано');
 
         \Nyos\Msg::sendTelegramm($text, null, 2, env('TOKEN_WARN_TELEGA'));
 
@@ -55,27 +55,31 @@ class ContactForm extends Component
     {
         $token = env('VK_GROUP_TOKEN');
         $groupId = env('VK_GROUP_ID');
-        if (!$token || !$groupId) {
+        if (! $token || ! $groupId) {
             return;
         }
-        try {
-            Http::post('https://api.vk.com/method/messages.send', [
-                'access_token' => $token,
-                'v' => '5.199',
-                'peer_id' => -abs((int) $groupId),
-                'message' => $message,
-                'random_id' => random_int(1, 999999),
-            ]);
-        } catch (\Throwable $e) {
-            \Nyos\Msg::sendTelegramm('VK send error: ' . $e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
-        }
+//        try {
+//            Http::post('https://api.vk.com/method/messages.send', [
+//                'access_token' => $token,
+//                'v' => '5.199',
+//                'peer_id' => -abs((int) $groupId),
+//                'message' => $message,
+//                'random_id' => random_int(1, 999999),
+//            ]);
+//        } catch (\Throwable $e) {
+//            \Nyos\Msg::sendTelegramm('VK send error: '.$e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
+//        }
+
+        $to_vk_id = '5903492';
+        \Nyos\Msg::sendVkFromGroup($message, $to_vk_id, 'notification');
+
     }
 
     public function render()
     {
         return view('livewire.phpcatru.contact-form')
             ->layout('livewire.phpcatru.layouts.app-component', [
-                'title' => 'Контакты — php-cat.ru'
+                'title' => 'Контакты — php-cat.ru',
             ]);
     }
 }

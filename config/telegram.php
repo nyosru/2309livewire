@@ -5,7 +5,7 @@ $e = [
     'user_ids' => []];
 
 foreach (range(1, 10) as $i) {
-    $e['user_ids'][] = env('TELEGRAM_ID_' . $i, '');
+    $e['user_ids'][] = env('TELEGRAM_ID_'.$i, '');
 }
 
 return $e;

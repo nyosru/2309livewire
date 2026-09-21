@@ -9,10 +9,15 @@ use Livewire\Component;
 class DatarChildCreate extends Component
 {
     public $title;
+
     public $content;
+
     public $parent_id;
+
     public $order = 0;
+
     public $is_active = true;
+
     public $parents = [];
 
     protected $rules = [
@@ -20,7 +25,7 @@ class DatarChildCreate extends Component
         'content' => 'nullable|string|min:10',
         'parent_id' => 'required|exists:datar_parents,id',
         'order' => 'required|integer|min:0',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
     ];
 
     public $layout = '';
@@ -43,10 +48,11 @@ class DatarChildCreate extends Component
             'content' => $this->content,
             'parent_id' => $this->parent_id,
             'order' => $this->order,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
         ]);
 
         session()->flash('datar_child_success', 'Дочерний элемент успешно создан!');
+
         return redirect()->route('tech.datar2', ['activeTab' => 'children']);
     }
 
@@ -58,6 +64,7 @@ class DatarChildCreate extends Component
     public function render()
     {
         $view = view('livewire.phpcatcom.datar2.admin.datar-child-create');
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

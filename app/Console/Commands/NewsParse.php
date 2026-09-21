@@ -28,8 +28,9 @@ class NewsParse extends Command
     {
         $this->info('news parse');
 
-        $go = new ParseController();
+        $go = new ParseController;
         $go->go();
+
         return 0;
     }
 }

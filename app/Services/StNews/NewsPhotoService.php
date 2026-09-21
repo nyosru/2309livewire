@@ -3,8 +3,8 @@
 namespace App\Services\StNews;
 
 use App\Models\StNewsPhoto;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class NewsPhotoService
@@ -13,12 +13,14 @@ class NewsPhotoService
 
     /**
      * Максимальное время общей загрузки фото
+     *
      * @var int
      */
     public $maxExecutionTime = 10; // 10 секунд
 
     /**
      * Максимальное время для загрузки одного фото
+     *
      * @var int
      */
     public $maxSingleDownloadTime = 3; // 3 секунды
@@ -32,7 +34,7 @@ class NewsPhotoService
     {
         $return = [
             'log' => [],
-            'loaded_size' => 0
+            'loaded_size' => 0,
         ];
 
         // Ограничение времени выполнения скрипта
@@ -54,7 +56,7 @@ class NewsPhotoService
             }
 
             // Логирование общего времени выполнения
-            $return['log'][] = "Время выполнения на текущий момент: " . (microtime(true) - $startTime) . " секунд.";
+            $return['log'][] = 'Время выполнения на текущий момент: '.(microtime(true) - $startTime).' секунд.';
 
             // Предполагаем, что поле 'image_path' содержит ссылку на фото
             $imagePath = $photo->image_path;
@@ -75,10 +77,10 @@ class NewsPhotoService
                     $fileContent = $response->body();
 
                     // Генерируем уникальное имя файла для локальной версии
-                    $fileName = Str::random(10) . '.' . pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $fileName = Str::random(10).'.'.pathinfo($imagePath, PATHINFO_EXTENSION);
 
                     // Сохраняем файл на сервере (например, в директории 'public/st_news_photos')
-                    $filePath = $this->dir_for_photo . "/{$fileName}";
+                    $filePath = $this->dir_for_photo."/{$fileName}";
                     Storage::disk('public')->put($filePath, $fileContent);
 
                     // Обновляем ту же запись, добавляя ссылку на локальную фотографию
@@ -94,7 +96,6 @@ class NewsPhotoService
                     // Логируем неудачную попытку загрузки
                     $return['log'][] = "Не удалось загрузить фото: {$imagePath}. Код ответа: {$response->status()}.";
 
-
                     try {
                         // Засекаем время начала загрузки конкретного фото
                         $singleStartTime = microtime(true);
@@ -109,13 +110,13 @@ class NewsPhotoService
 
                         if ($fileContent === false) {
                             // Логируем ошибку
-                            $return['log'][] = "Ошибка при загрузке фото через cURL: {$imagePath}. Ошибка: " . curl_error($ch);
+                            $return['log'][] = "Ошибка при загрузке фото через cURL: {$imagePath}. Ошибка: ".curl_error($ch);
                         } else {
                             // Генерируем уникальное имя файла для локальной версии
-                            $fileName = Str::random(10) . '.' . pathinfo($imagePath, PATHINFO_EXTENSION);
+                            $fileName = Str::random(10).'.'.pathinfo($imagePath, PATHINFO_EXTENSION);
 
                             // Сохраняем файл на сервере
-                            $filePath = $this->dir_for_photo . "/{$fileName}";
+                            $filePath = $this->dir_for_photo."/{$fileName}";
                             Storage::disk('public')->put($filePath, $fileContent);
 
                             // Обновляем запись с локальной фотографией
@@ -124,10 +125,10 @@ class NewsPhotoService
                             ]);
 
                             // Логируем успех загрузки
-                            $fileSize = strlen($fileContent)/1024;
+                            $fileSize = strlen($fileContent) / 1024;
                             $return['loaded_size'] += $fileSize;
                             $return['loaded'][$imagePath] = $fileName;
-                            $return['log'][] = "Успешно загружено фото: {$imagePath}. Локальный файл: {$fileName}. Размер: {$fileSize} кбайт. Время загрузки: " . (microtime(true) - $singleStartTime) . " секунд.";
+                            $return['log'][] = "Успешно загружено фото: {$imagePath}. Локальный файл: {$fileName}. Размер: {$fileSize} кбайт. Время загрузки: ".(microtime(true) - $singleStartTime).' секунд.';
                         }
 
                         curl_close($ch);
@@ -135,8 +136,6 @@ class NewsPhotoService
                         // Логируем ошибку при загрузке
                         $return['log'][] = "Ошибка загрузки фото: {$imagePath}. Ошибка: {$e->getMessage()}.";
                     }
-
-
 
                 }
             } catch (\Exception $e) {

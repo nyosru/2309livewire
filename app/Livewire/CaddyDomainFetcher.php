@@ -2,14 +2,15 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class CaddyDomainFetcher extends Component
 {
     public $domains = [];
+
     public $results = [];
 
     // Метод для получения доменов из контейнера Caddy
@@ -20,7 +21,7 @@ class CaddyDomainFetcher extends Component
         $process->run();
 
         // Проверяем, завершился ли процесс успешно
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -64,7 +65,7 @@ class CaddyDomainFetcher extends Component
                     $domain = trim($domain);
 
                     // Добавляем домен в массив
-                    if (!empty($domain)) {
+                    if (! empty($domain)) {
                         $domains[] = $domain;
                     }
                 }
@@ -97,7 +98,7 @@ class CaddyDomainFetcher extends Component
 
         try {
             // Проверка доступности домена
-            $response = Http::get('http://' . $domain);
+            $response = Http::get('http://'.$domain);
             $domainInfo['reachable'] = $response->successful();
 
             // Получение IP-адреса домена
@@ -105,7 +106,7 @@ class CaddyDomainFetcher extends Component
             $domainInfo['ip_address'] = ($ipAddress !== $domain) ? $ipAddress : null;
 
             // Проверка SSL сертификата
-            $streamContext = stream_context_create(["ssl" => ["capture_peer_cert" => true]]);
+            $streamContext = stream_context_create(['ssl' => ['capture_peer_cert' => true]]);
             $resource = @stream_socket_client(
                 "ssl://{$domain}:443",
                 $errno,
@@ -116,7 +117,7 @@ class CaddyDomainFetcher extends Component
             );
             if ($resource) {
                 $params = stream_context_get_params($resource);
-                $cert = openssl_x509_parse($params["options"]["ssl"]["peer_certificate"]);
+                $cert = openssl_x509_parse($params['options']['ssl']['peer_certificate']);
                 $validFrom = $cert['validFrom_time_t'];
                 $validTo = $cert['validTo_time_t'];
 

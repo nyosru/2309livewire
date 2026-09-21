@@ -7,12 +7,13 @@ use Livewire\Component;
 
 class ShowRoom extends Component
 {
-    public $imgs  = [];
+    public $imgs = [];
 
     // #[Reactive]
-    public $n  = '';
+    public $n = '';
 
-    public function setset($a){
+    public function setset($a)
+    {
         $this->n = $a;
         // $this->js("alert('Вы только что выполнили JS из бэкенда!".$a."')");
     }

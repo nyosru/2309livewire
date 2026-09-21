@@ -15,5 +15,4 @@ class WhoisDomain extends Model
      * @var string
      */
     protected $connection = 'sqlite_domains'; // Замените 'mysql' на имя вашего подключения
-
 }

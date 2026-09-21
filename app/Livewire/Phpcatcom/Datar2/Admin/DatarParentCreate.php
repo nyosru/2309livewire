@@ -2,16 +2,20 @@
 
 namespace Phpcatcom\Datar2\Admin;
 
-use Livewire\Component;
 use App\Models\Datar2;
 use App\Models\DatarParent;
+use Livewire\Component;
 
 class DatarParentCreate extends Component
 {
     public string $title = '';
+
     public string $content = '';
+
     public ?int $parent_id = null;
+
     public int $order = 0;
+
     public bool $is_active = true;
 
     public array $parents = [];
@@ -57,6 +61,7 @@ class DatarParentCreate extends Component
     public function render()
     {
         $view = view('phpcatcom.datar2.admin.datar-parent-create');
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

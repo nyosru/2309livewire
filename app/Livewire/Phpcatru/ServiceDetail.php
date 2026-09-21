@@ -2,14 +2,17 @@
 
 namespace App\Livewire\Phpcatru;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class ServiceDetail extends Component
 {
     public $slug;
+
     public $name = '';
+
     public $phone = '';
+
     public $sent = false;
 
     public $services = [
@@ -122,9 +125,9 @@ class ServiceDetail extends Component
         $serviceName = $this->services[$this->slug]['title'] ?? $this->slug;
 
         $text = "Заявка с php-cat.ru (услуга)\n"
-            . "Услуга: {$serviceName}\n"
-            . "Имя: {$this->name}\n"
-            . "Телефон: {$this->phone}";
+            ."Услуга: {$serviceName}\n"
+            ."Имя: {$this->name}\n"
+            ."Телефон: {$this->phone}";
 
         \Nyos\Msg::sendTelegramm($text, null, 2, env('TOKEN_WARN_TELEGA'));
 
@@ -138,7 +141,7 @@ class ServiceDetail extends Component
     {
         $token = env('VK_GROUP_TOKEN');
         $groupId = env('VK_GROUP_ID');
-        if (!$token || !$groupId) {
+        if (! $token || ! $groupId) {
             return;
         }
         try {
@@ -150,7 +153,7 @@ class ServiceDetail extends Component
                 'random_id' => random_int(1, 999999),
             ]);
         } catch (\Throwable $e) {
-            \Nyos\Msg::sendTelegramm('VK send error: ' . $e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
+            \Nyos\Msg::sendTelegramm('VK send error: '.$e->getMessage(), null, 2, env('TOKEN_WARN_TELEGA'));
         }
     }
 
@@ -158,13 +161,13 @@ class ServiceDetail extends Component
     {
         $service = $this->services[$this->slug] ?? null;
 
-        if (!$service) {
+        if (! $service) {
             return redirect('/services');
         }
 
         return view('livewire.phpcatru.service-detail', ['service' => $service])
             ->layout('livewire.phpcatru.layouts.app-component', [
-                'title' => $service['title'] . ' — php-cat.ru'
+                'title' => $service['title'].' — php-cat.ru',
             ]);
     }
 }

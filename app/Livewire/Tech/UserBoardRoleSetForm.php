@@ -9,11 +9,9 @@ class UserBoardRoleSetForm extends Component
 {
     public $user;
 
-    public function mount($user){
+    public function mount($user) {}
 
-    }
-
-    public function setBoardRole( $user_id, $board_id, $role_id )
+    public function setBoardRole($user_id, $board_id, $role_id)
     {
         UserController::setBoardRole($user_id, $board_id, $role_id);
     }

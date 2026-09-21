@@ -18,13 +18,13 @@ class News extends Model
         'image',
         'is_published',
         'published_at',
-        'views'
+        'views',
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
         'published_at' => 'datetime',
-        'views' => 'integer'
+        'views' => 'integer',
     ];
 
     protected static function boot()

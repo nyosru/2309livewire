@@ -4,8 +4,8 @@ use App\Http\Controllers\Phpcat\MsgSendController;
 use App\Http\Controllers\RedirectController;
 use App\Livewire\Phpcat\Develop;
 use App\Livewire\Phpcat\News;
-use Illuminate\Support\Facades\Route;
 use App\Livewire\Phpcat\VkFriends;
+use Illuminate\Support\Facades\Route;
 
 $d = function () {
 
@@ -17,18 +17,18 @@ $d = function () {
     Route::get('ai/token', [\App\Http\Controllers\Service\AiController::class, 'getToken'])->name('ai.token');
 
     Route::get('/callback', function (\Illuminate\Http\Request $request) {
-////		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
+        // //		return app(\App\Livewire\Phpcat\VkFriends::class)->getAccessToken($request->code);
         $vkFriendsComponent = app(\App\Livewire\Phpcat\VkFriends::class);
         $e = $vkFriendsComponent->getAccessToken($request->code);
         dd($e);
-//
-//		// Перенаправляем пользователя обратно на главную страницу
-//		return redirect('/f');
-//
+        //
+        //		// Перенаправляем пользователя обратно на главную страницу
+        //		return redirect('/f');
+        //
     });
 
     Route::get('/f', function () {
-        return view('pages.friends', ['component' => new VkFriends()]);
+        return view('pages.friends', ['component' => new VkFriends]);
     });
 
     Route::get('/show_page/{page}', function ($page) {
@@ -41,14 +41,15 @@ $d = function () {
         abort(404, 'нет! нет!! нет!!! не найден');
     });
 
-//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
-//		$vkFriendsComponent = app(VkFriends::class);
-//		$vkFriendsComponent->getAccessToken($request->code);
-//
-//		return redirect('/f');
-//	});
+    //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+    //		$vkFriendsComponent = app(VkFriends::class);
+    //		$vkFriendsComponent->getAccessToken($request->code);
+    //
+    //		return redirect('/f');
+    //	});
     Route::get('/callback', function (\Illuminate\Http\Request $request) {
         session(['auth_code' => $request->code]);
+
         return redirect('/f');
     });
 
@@ -58,46 +59,41 @@ $d = function () {
         return redirect('/');
     });
 
+    //	Route::get('/callback', function (\Illuminate\Http\Request $request) {
+    //		$e = new \App\Livewire\Phpcat\VkFriends();
+    // //		return $e->getAccessToken($request->code);
+    //		$e->getAccessToken($request->code);
+    //		return response()->json($e->getFriends());
+    //	});
 
+    //    Route::get('services', News::class)->name('services');
+    //    // Route::get('/', function () { return view('phpcat.index'); });
+    // //    Route::get('news', News::class)->name('news');
+    // //    Route::get('torrent', News::class)->name('torrent');
+    // //    Route::get('money', News::class)->name('money');
+    //    // Route::get('{.*}', News::class)->name('other');
 
-//	Route::get('/callback', function (\Illuminate\Http\Request $request) {
-//		$e = new \App\Livewire\Phpcat\VkFriends();
-////		return $e->getAccessToken($request->code);
-//		$e->getAccessToken($request->code);
-//		return response()->json($e->getFriends());
-//	});
+    //	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
 
-//    Route::get('services', News::class)->name('services');
-//    // Route::get('/', function () { return view('phpcat.index'); });
-////    Route::get('news', News::class)->name('news');
-////    Route::get('torrent', News::class)->name('torrent');
-////    Route::get('money', News::class)->name('money');
-//    // Route::get('{.*}', News::class)->name('other');
-
-//	Route::any('/f/{code}', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends3');
-
-//	Route::get('/f', function () {
-//		return view('pages.friends', ['component' => new VkFriends()]);
-//	});
-//
-////	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
-
+    //	Route::get('/f', function () {
+    //		return view('pages.friends', ['component' => new VkFriends()]);
+    //	});
+    //
+    // //	Route::get('/callback', \App\Livewire\Phpcat\VkFriends::class)->name('vk_friends2');
 
 };
 
-
 Route::group([
     'as' => 'phpcat.',
-    'domain' => ( (request()->getHost() === 'phpcat.local') ? 'phpcat.local' : 'php-cat.com' )
+    'domain' => ((request()->getHost() === 'phpcat.local') ? 'phpcat.local' : 'php-cat.com'),
 ], $d);
 
 Route::group([
     'as' => 'phpcat2.',
-    'domain' => 'seotel.ru'
+    'domain' => 'seotel.ru',
 ], $d);
 
 Route::group([
     'as' => 'phpcat1.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? '1.php-cat.local' : '1.php-cat.com'
+    'domain' => (env('APP_ENV', 'local') == 'local') ? '1.php-cat.local' : '1.php-cat.com',
 ], $d);
-

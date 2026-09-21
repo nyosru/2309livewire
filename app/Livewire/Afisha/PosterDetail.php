@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Afisha;
 
-use Livewire\Component;
 use App\Models\AfishaPoster;
+use Livewire\Component;
 
 class PosterDetail extends Component
 {
     public $posterId;
+
     public $poster;
 
     public function mount($posterId)

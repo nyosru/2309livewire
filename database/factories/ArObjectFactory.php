@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ArObjectFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,11 +25,11 @@ class ArObjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'nomer' => rand(1,10),
+            'nomer' => rand(1, 10),
             'adres' => fake()->name(),
             'opis' => fake()->text(),
-//            'user_id' => rand(1,10)
-//            'user_id' => rand(1,10)
+            //            'user_id' => rand(1,10)
+            //            'user_id' => rand(1,10)
 
         ];
     }

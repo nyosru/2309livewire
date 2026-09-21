@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Models\Role as SpatieRole;
+use Spatie\Permission\Traits\HasPermissions;
 
 class Role extends SpatieRole
 {
     use HasPermissions, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,14 +21,13 @@ class Role extends SpatieRole
         'name',
         'name_ru',
         'guard_name',
-        'board_id'
+        'board_id',
     ];
 
     public function board()
     {
         return $this->belongsTo(Board::class);
     }
-
 
     /**
      * Метод для мягкого удаления роли с дополнительной логикой.
@@ -53,10 +52,10 @@ class Role extends SpatieRole
         $this->restore(); // Это восстановит удалённую роль
     }
 
-//    public function columns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-//    {
-//        return $this->belongsToMany(LeedColumn::class, 'column_role', 'role_id', 'column_id');
-//    }
+    //    public function columns(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    //    {
+    //        return $this->belongsToMany(LeedColumn::class, 'column_role', 'role_id', 'column_id');
+    //    }
 
     public function columns(): BelongsToMany
     {
@@ -72,5 +71,4 @@ class Role extends SpatieRole
     {
         return $this->belongsToMany(Macros::class, 'macro_role', 'role_id', 'macro_id');
     }
-
 }

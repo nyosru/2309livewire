@@ -2,116 +2,119 @@
 
 namespace App\Livewire\Phpcat;
 
-use http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class VkFriends extends Component
 {
-	public $friends = [];
-	public $token;
-	public $clientId;
-	public $redirectUri;
-	public $scope = 'friends,friends.delete';
+    public $friends = [];
 
-	protected $listeners = [
-		'refreshFriends' => '$refresh',
-	];
+    public $token;
 
-	public function __construct()
-	{
-		$this->clientId = env('VK_CLIENT_ID');
-		$this->redirectUri = env('VK_REDIRECT_URI2');
-	}
+    public $clientId;
 
-	public function mount()
-	{
-		$this->getAccessToken();
-	}
+    public $redirectUri;
 
-	public function getAuthorizationUrl()
-	{
-		return "https://oauth.vk.com/authorize?client_id={$this->clientId}&display=page&redirect_uri={$this->redirectUri}&scope={$this->scope}&response_type=code&v=5.131";
-	}
+    public $scope = 'friends,friends.delete';
 
-	public function getAccessToken($code = null )
-	{
-//		dd(session()->all());
+    protected $listeners = [
+        'refreshFriends' => '$refresh',
+    ];
 
-		// Проверяем, есть ли код в сессии
-		if (!session()->has('auth_code')) {
-			if (!$code) {
-				return redirect($this->getAuthorizationUrl());
-			}
+    public function __construct()
+    {
+        $this->clientId = env('VK_CLIENT_ID');
+        $this->redirectUri = env('VK_REDIRECT_URI2');
+    }
 
-			// Сохраняем код в сессию
-			session(['auth_code' => $code]);
-		}
+    public function mount()
+    {
+        $this->getAccessToken();
+    }
 
-		// Используем код из сессии
-		$code = session('auth_code');
+    public function getAuthorizationUrl()
+    {
+        return "https://oauth.vk.com/authorize?client_id={$this->clientId}&display=page&redirect_uri={$this->redirectUri}&scope={$this->scope}&response_type=code&v=5.131";
+    }
 
-		$response = Http::asForm()->post('https://oauth.vk.com/access_token', [
-			'client_id' => $this->clientId,
-//			'client_secret' => config('services.vk.secret'),
-			'client_secret' => env('VK_CLIENT_SECRET'),
-			'redirect_uri' => $this->redirectUri,
-			'code' => $code,
-		]);
+    public function getAccessToken($code = null)
+    {
+        //		dd(session()->all());
 
-		if ($response->successful()) {
-			$data = $response->json();
-			$this->token = $data['access_token'];
-			$this->getFriends();
-//			dd($this->friends);
-		} else {
-			session()->flash('error', 'Ошибка получения токена.');
-		}
-	}
+        // Проверяем, есть ли код в сессии
+        if (! session()->has('auth_code')) {
+            if (! $code) {
+                return redirect($this->getAuthorizationUrl());
+            }
 
-	public function getFriends()
-	{
-		// Получаем список друзей через API VK
-		$response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.get', [
-			'order' => 'hints',
-			'fields' => 'nickname,photo_100',
-			'v' => '5.131'
-		]);
+            // Сохраняем код в сессию
+            session(['auth_code' => $code]);
+        }
 
-		if ($response->successful()) {
-			$data = $response->json()['response']['items'];
-			foreach ($data as &$friend) {
-				$friend['id'] = $friend['id'];
-				$friend['first_name'] = $friend['first_name'];
-				$friend['last_name'] = $friend['last_name'];
-				$friend['photo_url'] = $friend['photo_100'];
-			}
-			$this->friends = $data;
-		} else {
-			session()->flash('error', 'Не удалось получить список друзей.');
-		}
-	}
+        // Используем код из сессии
+        $code = session('auth_code');
 
-	public function deleteFriend($friendId)
-	{
-		// Удаление друга в подписчики
-//		$response = Http::withToken($this->token)->post('https://api.vk.com/method/friends.delete', [
-		$response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.delete', [
-			'user_id' => $friendId,
-			'v' => '5.131'
-		]);
+        $response = Http::asForm()->post('https://oauth.vk.com/access_token', [
+            'client_id' => $this->clientId,
+            //			'client_secret' => config('services.vk.secret'),
+            'client_secret' => env('VK_CLIENT_SECRET'),
+            'redirect_uri' => $this->redirectUri,
+            'code' => $code,
+        ]);
 
-//		if ($response->successful() && $response->json()['response']) {
-		if ($response->successful()) {
-			session()->flash('message', 'Друг успешно удален.'.serialize($response->json()));
-//			$this->emit('refreshFriends');
-		} else {
-			session()->flash('error', 'Произошла ошибка при удалении друга.');
-		}
-	}
+        if ($response->successful()) {
+            $data = $response->json();
+            $this->token = $data['access_token'];
+            $this->getFriends();
+            //			dd($this->friends);
+        } else {
+            session()->flash('error', 'Ошибка получения токена.');
+        }
+    }
 
-	public function render()
-	{
-		return view('livewire.phpcat.vk-friends');
-	}
+    public function getFriends()
+    {
+        // Получаем список друзей через API VK
+        $response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.get', [
+            'order' => 'hints',
+            'fields' => 'nickname,photo_100',
+            'v' => '5.131',
+        ]);
+
+        if ($response->successful()) {
+            $data = $response->json()['response']['items'];
+            foreach ($data as &$friend) {
+                $friend['id'] = $friend['id'];
+                $friend['first_name'] = $friend['first_name'];
+                $friend['last_name'] = $friend['last_name'];
+                $friend['photo_url'] = $friend['photo_100'];
+            }
+            $this->friends = $data;
+        } else {
+            session()->flash('error', 'Не удалось получить список друзей.');
+        }
+    }
+
+    public function deleteFriend($friendId)
+    {
+        // Удаление друга в подписчики
+        //		$response = Http::withToken($this->token)->post('https://api.vk.com/method/friends.delete', [
+        $response = Http::withToken($this->token)->get('https://api.vk.com/method/friends.delete', [
+            'user_id' => $friendId,
+            'v' => '5.131',
+        ]);
+
+        //		if ($response->successful() && $response->json()['response']) {
+        if ($response->successful()) {
+            session()->flash('message', 'Друг успешно удален.'.serialize($response->json()));
+            //			$this->emit('refreshFriends');
+        } else {
+            session()->flash('error', 'Произошла ошибка при удалении друга.');
+        }
+    }
+
+    public function render()
+    {
+        return view('livewire.phpcat.vk-friends');
+    }
 }

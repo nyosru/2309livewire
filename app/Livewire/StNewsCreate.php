@@ -1,20 +1,26 @@
 <?php
+
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\WithFileUploads;
 use App\Models\StNews;
 use App\Models\StNewsPhoto;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class StNewsCreate extends Component
 {
     use WithFileUploads;
 
     public $title;
+
     public $summary;
+
     public $content;
+
     public $published_at;
+
     public $promo_code;
+
     public $photos = [];
 
     public function createNews()

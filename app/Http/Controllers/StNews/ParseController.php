@@ -9,26 +9,24 @@ use App\Models\StNewsParsingCategory;
 use App\Models\StNewsParsingSite;
 use App\Models\StNewsPhoto;
 use Carbon\Carbon;
-use http\Exception;
+use GuzzleHttp\Client;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
-
 use Illuminate\Support\Str;
-
 
 class ParseController extends Controller
 {
-
     public static $host = 'http://web_scraper2:5047';
+
     public static $site_id = null;
+
     /**
      * сколько новостей сканить когда обогащаем новости
+     *
      * @var int
      */
     public static $count_scan_news_full = 1;
-
 
     public function __construct()
     {
@@ -41,10 +39,7 @@ class ParseController extends Controller
     /**
      * Добавление нового каталога, если он отсутствует
      *
-     * @param string $category_name
-     * @param string $category_url
-     * @param int $site_id
-     * @return array
+     * @param  int  $site_id
      */
     public function addCatalogIfNotExists(string $category_name, string $category_url, StNewsParsingSite $site): array
     {
@@ -63,7 +58,7 @@ class ParseController extends Controller
             return [
                 'status' => 'ok',
                 'message' => 'Каталог уже существует.',
-                'catalog' => $catalog
+                'catalog' => $catalog,
             ];
         }
         // Если каталог не найден, создаём новый
@@ -72,20 +67,19 @@ class ParseController extends Controller
             'category_name' => $category_name,
             'category_url' => $catalog_link,
             'last_scan' => null,  // По умолчанию пустое время последнего сканирования
-            'scan_status' => false // По умолчанию статус сканирования отключён
+            'scan_status' => false, // По умолчанию статус сканирования отключён
         ]);
 
         // Возвращаем новый элемент
         return [
             'status' => 'ok',
             'message' => 'Новый каталог успешно добавлен.',
-            'catalog' => $newCatalog
+            'catalog' => $newCatalog,
         ];
     }
 
     /**
      * показ инфы о каталогах
-     * @return array
      */
     public function scanCatalogInfo(): array
     {
@@ -111,7 +105,7 @@ class ParseController extends Controller
         return $return;
     }
 
-    static public function convertToDateTime($dateString)
+    public static function convertToDateTime($dateString)
     {
         // Массив для замены русских месяцев на английские
         $months = [
@@ -135,12 +129,12 @@ class ParseController extends Controller
         // Преобразование строки даты в Carbon
         try {
             $date = Carbon::createFromFormat('d F Y в H:i', $dateString);
+
             return $date->format('Y-m-d H:i:s'); // Приводим к формату, который можно отправить в БД
         } catch (\Exception $e) {
             return null; // Обработка ошибки, если формат строки неправильный
         }
     }
-
 
     public function scanCatalog()
     {
@@ -164,7 +158,7 @@ class ParseController extends Controller
             foreach ($res as $catalog) {
                 // обновляем время последнего сканирования
                 if (1 == 2) {
-//            if(1==1) {
+                    //            if(1==1) {
                     $catalog->last_scan = now();
                     $catalog->save();
                 }
@@ -183,55 +177,52 @@ class ParseController extends Controller
         $return = [
             'data' => [
                 'scan' => '',
-                'data' => []
-            ]
+                'data' => [],
+            ],
         ];
 
         // формирование списка новостей для парсинга
         if (1 == 2) {
             // проверяем есть ли каталог для сканирования
             $r = $_REQUEST['skip_catalog'] ?? '';
-            if (!empty($r)) {
+            if (! empty($r)) {
                 $scan_cat = false;
             } else {
                 $scan_cat = $this->scanCatalog();
             }
 
-//        dd($scan_cat);
+            //        dd($scan_cat);
 
             // получаем список новостей из каталога
-            if (!empty($scan_cat)) {
+            if (! empty($scan_cat)) {
                 $data = $this->getParseRes(
-                    self::$host . '/news_list?rand=' . time() . '&url=' . $scan_cat['catalog']->category_url
+                    self::$host.'/news_list?rand='.time().'&url='.$scan_cat['catalog']->category_url
                 );
-//            dd($data);
+                //            dd($data);
                 $add_items = $this->addNewsList($data['items'], $scan_cat['catalog']);
                 dd($add_items);
-//            dd([
-//                $scan_cat,
-//                $add_items
-//                    ]
-//            );
-////            return $add_items;
+                //            dd([
+                //                $scan_cat,
+                //                $add_items
+                //                    ]
+                //            );
+                // //            return $add_items;
             }
         }
 
-
-//        // показ доп инфы
-//        $r = $_REQUEST['show_info'] ?? '';
-//        if ($r) {
-//            $return['info']['catalog'] = $this->scanCatalogInfo();
-//        }
-//
-//        if ($scan_cat) {
-//            $return['data']['scan'] = 'catalog';
-//            $return['data']['data'] = $scan_cat;
-//        }
-
+        //        // показ доп инфы
+        //        $r = $_REQUEST['show_info'] ?? '';
+        //        if ($r) {
+        //            $return['info']['catalog'] = $this->scanCatalogInfo();
+        //        }
+        //
+        //        if ($scan_cat) {
+        //            $return['data']['scan'] = 'catalog';
+        //            $return['data']['data'] = $scan_cat;
+        //        }
 
         // сканим новости
-//        else {
-
+        //        else {
 
         $a = $this->parseNewsFull();
 
@@ -242,57 +233,54 @@ class ParseController extends Controller
 
         $return['data']['scan'] = 'news';
         $return['data']['data'] = $a;
-//        }
+        //        }
 
         return response()->json($return);
 
-//        // получаем 1 новость
-//        $uri0 = '/novosti/demografiya/lyubov-v-kazhdom-podarke-tyumentsy-mogut-podderzhat-babushek-i-dedushek/';
-//        $uri = 'https://тюменскаяобласть.рф';
-//        return $this->getParseRes(self::$host . '/parse_item?url=' . $uri . $uri0);
-//
-//        // получаем список новостей из каталога
-//        $uri = 'https://тюменскаяобласть.рф/novosti/demografiya/';
-//        return $this->getParseRes(self::$host . '/news_list?rand=' . time() . '&url=' . $uri);
-//
-//        // получаем каталоги
-//        $uri = 'https://тюменскаяобласть.рф/novosti/';
-//        return $this->getParseRes(self::$host . '/catalogs?url=' . $uri);
+        //        // получаем 1 новость
+        //        $uri0 = '/novosti/demografiya/lyubov-v-kazhdom-podarke-tyumentsy-mogut-podderzhat-babushek-i-dedushek/';
+        //        $uri = 'https://тюменскаяобласть.рф';
+        //        return $this->getParseRes(self::$host . '/parse_item?url=' . $uri . $uri0);
+        //
+        //        // получаем список новостей из каталога
+        //        $uri = 'https://тюменскаяобласть.рф/novosti/demografiya/';
+        //        return $this->getParseRes(self::$host . '/news_list?rand=' . time() . '&url=' . $uri);
+        //
+        //        // получаем каталоги
+        //        $uri = 'https://тюменскаяобласть.рф/novosti/';
+        //        return $this->getParseRes(self::$host . '/catalogs?url=' . $uri);
 
+        //        return json_encode([1=>2]);
+        //        return $this->getParseRes('http://'.$_SERVER['HTTP_HOST'].':5017/scrape?url=https://тюменскаяобласть.рф/novosti/');
+        //        return $this->getParseRes('http://parser22.local:5017/catalogs?url=https://тюменскаяобласть.рф/novosti/');
 
-//        return json_encode([1=>2]);
-//        return $this->getParseRes('http://'.$_SERVER['HTTP_HOST'].':5017/scrape?url=https://тюменскаяобласть.рф/novosti/');
-//        return $this->getParseRes('http://parser22.local:5017/catalogs?url=https://тюменскаяобласть.рф/novosti/');
-
-
-//        return $this->getParseRes('http://web_scraper:5017/catalogs?url=https://тюменскаяобласть.рф/novosti/');
-//        return $this->getParseRes('http://web_scraper:5017/scrape?url=https://тюменскаяобласть.рф/novosti/');
+        //        return $this->getParseRes('http://web_scraper:5017/catalogs?url=https://тюменскаяобласть.рф/novosti/');
+        //        return $this->getParseRes('http://web_scraper:5017/scrape?url=https://тюменскаяобласть.рф/novosti/');
     }
-
 
     public function getParseRes(
         $url = 'http://web_scraper:5047/scrape?url=https://xn--80aacozicjl1agbl4lraw.xn--p1ai/novosti/',
         $param = []
     ) {
         // URL, который необходимо запросить
-//        $url = 'http://web_scraper:5007/scrape?url=https://xn--80aacozicjl1agbl4lraw.xn--p1ai/novosti/';
-//dd($html);
+        //        $url = 'http://web_scraper:5007/scrape?url=https://xn--80aacozicjl1agbl4lraw.xn--p1ai/novosti/';
+        // dd($html);
         // Создаем новый HTTP-клиент
-//        $client = new Client();
+        //        $client = new Client();
 
         try {
             // Выполняем GET-запрос к заданному URL
-//            $response = $client->request('GET', $url.( !empty($html) ? $html : '' ));
-//            $response = $client->request('POST', $url , ['html' => ( !empty($html) ? $html : '' ) ]);
-//            $response = $client->request('POST', $url , $param );
+            //            $response = $client->request('GET', $url.( !empty($html) ? $html : '' ));
+            //            $response = $client->request('POST', $url , ['html' => ( !empty($html) ? $html : '' ) ]);
+            //            $response = $client->request('POST', $url , $param );
 
-//            $response = Http::timeout(2)->post($url, $param)->json();
+            //            $response = Http::timeout(2)->post($url, $param)->json();
             $response = Http::asForm()->post($url, $param)->json();
-//            $response = Http::timeout(10)->get($url, $param)->json();
-//            $response = Http::get($url, $param)->json();
+            //            $response = Http::timeout(10)->get($url, $param)->json();
+            //            $response = Http::get($url, $param)->json();
 
             dd($response);
-//            dd([$response, $url, $param]);
+            //            dd([$response, $url, $param]);
 
             // Проверяем, успешен ли запрос (код 200)
             if ($response->getStatusCode() == 200) {
@@ -302,11 +290,12 @@ class ParseController extends Controller
                 // Преобразуем его в массив, если это JSON-ответ
                 $data = json_decode($body, true);
                 $data['result'] = 1;
+
                 // Возвращаем JSON-ответ
                 return $data;
             } else {
                 // В случае ошибки возвращаем сообщение с кодом ошибки
-                return ['error' => 'Request failed with status code: ' . $response->getStatusCode()];
+                return ['error' => 'Request failed with status code: '.$response->getStatusCode()];
             }
         } catch (\Exception $e) {
             // Обрабатываем исключения и возвращаем сообщение об ошибке
@@ -334,10 +323,10 @@ class ParseController extends Controller
                 $parsingSite0->save();
 
                 // Формируем URL для парсера
-                $url = 'http://parser_service:5047/catalogs?url=' . $parsingSite[0]->category_parsing_url;
+                $url = 'http://parser_service:5047/catalogs?url='.$parsingSite[0]->category_parsing_url;
                 $get = $this->getParseRes($url);
 
-                if (!empty($get['catalogs'])) {
+                if (! empty($get['catalogs'])) {
                     $cat_in = [];
 
                     foreach ($get['catalogs'] as $v) {
@@ -351,12 +340,12 @@ class ParseController extends Controller
                             $cat_in[] = [
                                 'site_id' => $parsingSite[0]->id,
                                 'category_name' => $v['title'],
-                                'category_url' => $parsingSite[0]->site_url . $v['link'],
+                                'category_url' => $parsingSite[0]->site_url.$v['link'],
                             ];
                         }
                     }
 
-                    if (!empty($cat_in)) {
+                    if (! empty($cat_in)) {
                         // Добавляем временные метки вручную
                         foreach ($cat_in as &$cat) {
                             $cat['created_at'] = now();
@@ -379,8 +368,8 @@ class ParseController extends Controller
 
     /**
      * Сканируем каталог на новости, получение списка новостей без содержания
-     * @param Request $request
-     * @return array
+     *
+     * @param  Request  $request
      */
     public function saveNewNewsList($list, StNewsParsingSite $site): array
     {
@@ -393,22 +382,22 @@ class ParseController extends Controller
                 $ee = StNews::whereSite_id($site->id)->whereSource($n->link)->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
-//                $get['msg'][] = $e->getMessage();
-//continue;
-                $in = new StNews();
+                //                $get['msg'][] = $e->getMessage();
+                // continue;
+                $in = new StNews;
                 $in->site_id = $site->id;
                 $in->title = $n->title;
 
-                if (!empty($n->anons)) {
+                if (! empty($n->anons)) {
                     $in->summary = $n->anons;
                 }
 
                 $in->source = $n->link;
 
-                if (!empty($n->date_origin)) {
+                if (! empty($n->date_origin)) {
                     $in->published_at = date('Y-m-d', strtotime($n->date_origin));
                 } else {
-                    if (!empty($n->date)) {
+                    if (! empty($n->date)) {
                         $d = DateService::convertDateTime($n->date);
                         $in->published_at = date('Y-m-d', strtotime($d));
                     }
@@ -416,9 +405,9 @@ class ParseController extends Controller
 
                 $in->moderation_required = 1;
 
-                if (!empty($n->catalog_name) && !empty($n->catalog_link)) {
+                if (! empty($n->catalog_name) && ! empty($n->catalog_link)) {
                     $catalog = $this->addCatalogIfNotExists($n->catalog_name, $n->catalog_link, $site);
-                    if (!empty($catalog['catalog']['id'])) {
+                    if (! empty($catalog['catalog']['id'])) {
                         $in->cat_id = $catalog['catalog']['id'];
                     }
                 }
@@ -433,12 +422,13 @@ class ParseController extends Controller
                 // $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
             }
         }
+
         return $res;
     }
 
     /**
      * Сканируем каталог на новости, получение списка новостей без содержания
-     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function parseNewsListCatalog(Request $request)
@@ -465,7 +455,7 @@ class ParseController extends Controller
 
             $go = [
                 'type' => 'parse_news_list',
-                'url' => $parsingCatalog0->category_url
+                'url' => $parsingCatalog0->category_url,
             ];
 
             if (strpos(strtolower($parsingCatalog0->category_url), 'vsluh.ru') !== false) {
@@ -478,14 +468,15 @@ class ParseController extends Controller
                 $go['type'] = 'parse_ura_news_list';
             }
 
-            $return['url'] = self::$host . '/get_html?' . http_build_query($go);
+            $return['url'] = self::$host.'/get_html?'.http_build_query($go);
             $json = file_get_contents($return['url']);
             $return['data'] = json_decode($json);
 
-            //return response()->json([__LINE__ => true, 'db_item_for_scan' => $parsingCatalog0, 'return' => $return]);
+            // return response()->json([__LINE__ => true, 'db_item_for_scan' => $parsingCatalog0, 'return' => $return]);
 
-            if (!empty($return['data'])) {
+            if (! empty($return['data'])) {
                 $return['add_db_res'] = $this->saveNewNewsList($return['data'], $parsingCatalog0->site);
+
                 return response()->json($return);
             }
 
@@ -494,19 +485,18 @@ class ParseController extends Controller
                 'file' => __FILE__,
                 'line' => __LINE__,
                 'db_item_for_scan' => $parsingCatalog0,
-                '$json_loaded' => $json
+                '$json_loaded' => $json,
             ]);
-
 
             // Получаем домен из URL
             $urlParts = parse_url($parsingCatalog0->category_url);
             $domain = $urlParts['host'];
 
             // Формируем URL для парсера
-            $url = 'http://parser_service:5047/news_list?url=' . $parsingCatalog0->category_url;
+            $url = 'http://parser_service:5047/news_list?url='.$parsingCatalog0->category_url;
             $get = $this->getParseRes($url);
 
-            if (!empty($get['news'])) {
+            if (! empty($get['news'])) {
                 $add_db = [];
                 $check = [];
                 foreach ($get['news'] as $n) {
@@ -517,7 +507,7 @@ class ParseController extends Controller
                         // Если новость не найдена, добавляем её
                         $get['msg'][] = $e->getMessage();
 
-                        $in = new StNews();
+                        $in = new StNews;
                         $in->site_id = $parsingCatalog0->site_id;
                         $in->title = $n['title'];
                         $in->source = $n['source'];
@@ -537,39 +527,35 @@ class ParseController extends Controller
 
             return response()->json([
                 'parsingCatalog' => $parsingCatalog0,
-                'data' => $get
+                'data' => $get,
             ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-
     /**
      * получить ссылку на каталог
-     * @param StNewsParsingSite $site
-     * @param $url
-     * @return string
      */
-    static function createCatalogLink(StNewsParsingSite $site, $url): string
+    public static function createCatalogLink(StNewsParsingSite $site, $url): string
     {
         if ($site->id == 2) {
             // Удаляем слеш в конце, если он есть
             $trimmedUrl = rtrim($url, '/');
+
             // Извлекаем последнее слово с помощью basename
-            return $site->site_url . '/text/?rubric=' . basename($trimmedUrl);
+            return $site->site_url.'/text/?rubric='.basename($trimmedUrl);
         } else {
-            return $site->site_url . $url;
+            return $site->site_url.$url;
         }
     }
 
-
-    function addNewsList($items, StNewsParsingCategory $cat)
+    public function addNewsList($items, StNewsParsingCategory $cat)
     {
         $get = [
             __FUNCTION__,
             $items,
-            $cat
+            $cat,
         ];
 
         foreach ($items as $n) {
@@ -578,9 +564,9 @@ class ParseController extends Controller
             try {
                 // Проверяем, существует ли уже новость с таким источником
                 $ee = StNews::whereSource($n['source'])->firstOrFail();
-//                $get[] = 'есть такая';
+                //                $get[] = 'есть такая';
             } catch (\Exception $e) {
-//                $get[] = 'нет такая';
+                //                $get[] = 'нет такая';
 
                 if ($cat->site->id == 2) {
                     $catalog_search = $this->addCatalogIfNotExists($n['category'], $n['category_link'], $cat->site);
@@ -588,14 +574,14 @@ class ParseController extends Controller
                     $catalog_search = $cat;
                 }
 
-//                $get[] = $catalog_search;
+                //                $get[] = $catalog_search;
 
                 if (empty($catalog_search['catalog'])) {
                     continue;
                 }
 
                 // Если новость не найдена, добавляем её
-                $in = new StNews();
+                $in = new StNews;
                 $in->site_id = $cat->site_id;
                 $in->cat_id = $catalog_search['catalog']->id;
                 $in->title = $n['title'];
@@ -605,17 +591,18 @@ class ParseController extends Controller
                 $in->save();
                 $get[$in->id] = $in->title;
 
-//                        // Добавляем фото новости с доменом
-//                        $p = new StNewsPhoto();
-//                        $p->st_news_id = $in->id;
-//                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
-//                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
+                //                        // Добавляем фото новости с доменом
+                //                        $p = new StNewsPhoto();
+                //                        $p->st_news_id = $in->id;
+                //                        $p->image_path = 'https://' . $domain . $n['image'];  // Добавляем домен к пути изображения
+                //                        $get['msg'][] = 'save photo:' . ($p->save() ? 1 : 0);
             }
         }
+
         return $get;
     }
 
-    function removePhotoCredit($content)
+    public function removePhotoCredit($content)
     {
         // Регулярное выражение для поиска строки, начинающейся с "Фото:" и любых символов после нее
         $pattern = '/Фото:.*$/m';
@@ -636,26 +623,26 @@ class ParseController extends Controller
 
         $countContentNull = StNews::whereNull('content')->count();
 
-//        // Количество каталогов с полем last_scan меньше чем за 24 часа или пустое
-//        $countRecentScans = StNews::where(function ($query) {
-//            $query->where('last_scan', '<', now()->subDay())
-//                ->orWhereNull('last_scan');
-//        })->count();
-//
-//        // Количество каталогов с полем scan_status = true
-//        $countScanStatusTrue = StNewsParsingCategory::whereScanStatus(true)->count();
+        //        // Количество каталогов с полем last_scan меньше чем за 24 часа или пустое
+        //        $countRecentScans = StNews::where(function ($query) {
+        //            $query->where('last_scan', '<', now()->subDay())
+        //                ->orWhereNull('last_scan');
+        //        })->count();
+        //
+        //        // Количество каталогов с полем scan_status = true
+        //        $countScanStatusTrue = StNewsParsingCategory::whereScanStatus(true)->count();
 
         // Добавляем данные в массив $return
         $return['count_all'] = $countAll;
         $return['count_content_null'] = $countContentNull;
-//        $return['full_news']['count_scan_status_true'] = $countScanStatusTrue;
+        //        $return['full_news']['count_scan_status_true'] = $countScanStatusTrue;
 
         return $return;
     }
 
     public function loadParsingNewsItem(StNews $news)
     {
-        $go = ['url' => $news->site->site_url . $news->source];
+        $go = ['url' => $news->site->site_url.$news->source];
 
         // если вслух
         if (strpos($news->site->site_url, 'vsluh.ru') !== false) {
@@ -666,17 +653,16 @@ class ParseController extends Controller
             $go['type'] = 'parse_ura_news';
         }
 
-        $return = ['url' => self::$host . '/get_html?' . http_build_query($go)];
+        $return = ['url' => self::$host.'/get_html?'.http_build_query($go)];
 
-//        $json = file_get_contents($return['url']);
-//        $return['data'] = json_decode($json, true);
-
+        //        $json = file_get_contents($return['url']);
+        //        $return['data'] = json_decode($json, true);
 
         // Настраиваем контекст с тайм-аутом 10 секунд
         $contextOptions = [
             'http' => [
                 'timeout' => 10, // Ограничение времени загрузки в 10 секунд
-            ]
+            ],
         ];
 
         // Создаем поток с контекстом
@@ -689,21 +675,20 @@ class ParseController extends Controller
             $return['data'] = json_decode($json, true);
         } catch (\Exception $e) {
             // Обработка ошибки (например, тайм-аут)
-            $return['error'] = 'Ошибка при загрузке данных: ' . $e->getMessage();
+            $return['error'] = 'Ошибка при загрузке данных: '.$e->getMessage();
         }
-
 
         $return['dop'] = [$go];
 
         return $return;
     }
 
-
-    static public function convertToIsoString($dateString)
+    public static function convertToIsoString($dateString)
     {
         // Преобразование строки даты в Carbon
         try {
             $date = Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
+
             return $date->toISOString(); // Преобразуем в ISO 8601 формат
         } catch (\Exception $e) {
             return null; // Обработка ошибки, если формат строки неправильный
@@ -711,29 +696,27 @@ class ParseController extends Controller
     }
 
     /**
-     * @param StNews $news
-     * @param $data
+     * @param  StNews  $news
      * @return array
      */
-    public
-    function saveParseNewsFullData(
+    public function saveParseNewsFullData(
         StNews $i,
         $data
     ): array|bool {
-//        dd($data);
+        //        dd($data);
 
         if (empty($data['data'])) {
             return false;
         }
 
-        if (!empty($data['data']['text_html'])) {
+        if (! empty($data['data']['text_html'])) {
             $i->content = $data['data']['text_html'];
-        } elseif (!empty($data['data']['post_text_html'])) {
+        } elseif (! empty($data['data']['post_text_html'])) {
             $i->content = $data['data']['post_text_html'];
         }
 
         // vsluh.ru
-        if (!empty($data['data']['category_link']) && !empty($data['data']['category_name'])) {
+        if (! empty($data['data']['category_link']) && ! empty($data['data']['category_name'])) {
             $return['cat'][] =
             $cat = $this->addCatalogIfNotExists(
                 $data['data']['category_name'],
@@ -750,9 +733,9 @@ class ParseController extends Controller
         $i->updated_at = now();
 
         $date_publish = self::convertToDateTime($data['data']['date_published']);
-        if (!empty($date_publish)) {
+        if (! empty($date_publish)) {
             $date_to_db = self::convertToIsoString($date_publish);
-            if (!empty($date_to_db)) {
+            if (! empty($date_to_db)) {
                 $i->published_at = $date_to_db;
             }
         }
@@ -761,7 +744,7 @@ class ParseController extends Controller
 
         // добавляем фотки
         $img77 = $data['data']['first_image'] ?? $data['data']['image_url'] ?? '';
-        if (!empty($img77)) {
+        if (! empty($img77)) {
             try {
                 $this->saveImgToNews($i->id, [$img77], $i->site->site_name);
             } catch (\Exception $exc) {
@@ -774,11 +757,10 @@ class ParseController extends Controller
     /**
      * @return array|JsonResponse
      */
-    public
-    function parseNewsFull()
+    public function parseNewsFull()
     {
         $return = [
-            'self::$count_scan_news_full' => self::$count_scan_news_full
+            'self::$count_scan_news_full' => self::$count_scan_news_full,
         ];
 
         try {
@@ -796,49 +778,49 @@ class ParseController extends Controller
             //            $urlParts = parse_url($parsingCatalog0->category_url);
             //            $domain = $urlParts['host'];
 
-//            $return['in'] = [];
+            //            $return['in'] = [];
             $return['saved_news'] =
 //            $return['loaded_news'] =
                 [];
             foreach ($items as $i) {
                 $return['loaded_news'][] =
                 $data = $this->loadParsingNewsItem($i);
-                if (!empty($data['error'])) {
+                if (! empty($data['error'])) {
                     $return['saved_news'][] = $data;
                 } else {
-//                dd($data);
+                    //                dd($data);
                     $return['saved_news'][] = $this->saveParseNewsFullData($i, $data);
                 }
             }
+
             return response()->json($return);
 
-//            return $return;
-//            return response()->json([
-//                'parsingCatalog' => $parsingCatalog0,
-//                'data' => $get
-//            ], 200);
-
+            //            return $return;
+            //            return response()->json([
+            //                'parsingCatalog' => $parsingCatalog0,
+            //                'data' => $get
+            //            ], 200);
 
         } catch (\Exception $e) {
             return [
                 'error' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'e' => $e->getTrace()
+                'e' => $e->getTrace(),
             ];
         }
     }
 
-    static public function saveImgToNews(int $news_id, array $images, $domain = '')
+    public static function saveImgToNews(int $news_id, array $images, $domain = '')
     {
         $insertData = [];
 
         foreach ($images as $imagePath) {
-            if (!empty($imagePath)) {
+            if (! empty($imagePath)) {
                 $insertData[] = [
                     'st_news_id' => $news_id,
                     // ID новости
-                    'image_path' => (!strpos(strtolower($imagePath), $domain) ? 'https://' . $domain : '') . $imagePath,
+                    'image_path' => (! strpos(strtolower($imagePath), $domain) ? 'https://'.$domain : '').$imagePath,
                     // Путь к изображению
                     'created_at' => now(),
                     // Время создания
@@ -861,12 +843,12 @@ class ParseController extends Controller
 
             foreach ($newsItems as $item) {
                 // Создаем новый объект модели StNews
-                $news = new StNews();
+                $news = new StNews;
 
                 // Заполняем поля модели
                 $news->title = $item['title'] ?? null;
-//                $news->summary = $item['summary'] ?? null;
-//                $news->content = $item['content'] ?? null;
+                //                $news->summary = $item['summary'] ?? null;
+                //                $news->content = $item['content'] ?? null;
                 $news->source = $item['source'] ?? null;
                 $news->moderation_required = 1;
 
@@ -888,7 +870,6 @@ class ParseController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -938,7 +919,6 @@ class ParseController extends Controller
         //
     }
 
-
     /**
      * Проверить новости и автоматически проставить поле moderation
      */
@@ -963,5 +943,4 @@ class ParseController extends Controller
             }
         }
     }
-
 }

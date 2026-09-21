@@ -34,8 +34,8 @@ class ArObject extends Model
 
     public function getPayInMonthAttribute()
     {
-        $latestPay = $this->prices->flatMap(function($price) {
-            return $price->man->flatMap(function($man) {
+        $latestPay = $this->prices->flatMap(function ($price) {
+            return $price->man->flatMap(function ($man) {
                 return $man->payes;
             });
         })->sortByDesc('date')->first();
@@ -45,13 +45,13 @@ class ArObject extends Model
 
     public function getLastPayAttribute()
     {
-        $lastPay = $this->prices->flatMap(function($price) {
-            return $price->man->flatMap(function($man) {
+        $lastPay = $this->prices->flatMap(function ($price) {
+            return $price->man->flatMap(function ($man) {
                 return $man->payes;
             });
         })->sortByDesc('date')->first();
 
-//        return $latestPay && Carbon::parse($latestPay->date)->greaterThanOrEqualTo(Carbon::now()->subDays(30));
+        //        return $latestPay && Carbon::parse($latestPay->date)->greaterThanOrEqualTo(Carbon::now()->subDays(30));
         return $lastPay;
     }
 }

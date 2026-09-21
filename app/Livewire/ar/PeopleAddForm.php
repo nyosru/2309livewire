@@ -2,25 +2,34 @@
 
 namespace App\Livewire\Ar;
 
-use Carbon\Carbon;
-use Livewire\Component;
+use App\Models\ArObject;
 use App\Models\ArPeople;
 use App\Models\ArPrice;
-use App\Models\ArObject;
+use Carbon\Carbon;
+use Livewire\Component;
 
 class PeopleAddForm extends Component
 {
     public $name;
+
     public $phone;
+
     public $phone2;
+
     public $opis;
 
     public $ar_object_id;
+
     public $price;
+
     public $date_start;
+
     public $price_opis;
+
     public $arObjects = [];
+
     public $now_object = null;
+
     public $isFormVisible = false;
 
     protected $rules = [
@@ -36,7 +45,7 @@ class PeopleAddForm extends Component
     public function mount($now_object = null)
     {
         $this->now_object = $now_object;
-        if (!$this->now_object) {
+        if (! $this->now_object) {
             $this->arObjects = ArObject::all(); // Загрузка всех объектов для выпадающего списка
         }
 
@@ -74,7 +83,7 @@ class PeopleAddForm extends Component
 
     public function toggleForm()
     {
-        $this->isFormVisible = !$this->isFormVisible;
+        $this->isFormVisible = ! $this->isFormVisible;
     }
 
     public function render()

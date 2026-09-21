@@ -10,7 +10,7 @@ class ApiDocs extends Component
     {
         return view('livewire.news-storage.api-docs')
             ->layout('livewire.news-storage.layouts.app-component', [
-                'title' => 'API Documentation — News Storage'
+                'title' => 'API Documentation — News Storage',
             ]);
     }
 }

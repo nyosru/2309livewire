@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('zem_orders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('phone' );
-            $table->string('name' );
-            $table->string('city' );
-            $table->string('kooperativ' );
-            $table->string('nomer' );
+            $table->string('phone');
+            $table->string('name');
+            $table->string('city');
+            $table->string('kooperativ');
+            $table->string('nomer');
 
             $table->timestamps();
         });

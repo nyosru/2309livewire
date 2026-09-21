@@ -8,9 +8,11 @@ use Livewire\Component;
 class Pay extends Component
 {
     public $pay = [];
+
     public $deleted = false;
 
-    public function delete(){
+    public function delete()
+    {
         ArPay::find($this->pay->id)->delete();
         $this->deleted = true;
     }

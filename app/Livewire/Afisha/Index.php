@@ -5,7 +5,6 @@ namespace App\Livewire\Afisha;
 use App\Models\AfishaPoster as Poster;
 use Livewire\Component;
 
-
 class Index extends Component
 {
     public $posters;
@@ -20,11 +19,10 @@ class Index extends Component
     {
         return view(
             'livewire.afisha.index'
-//            ,
-//            [
-//            'posters' => $this->posters, // Передаем афиши в шаблон
-//        ]
+            //            ,
+            //            [
+            //            'posters' => $this->posters, // Передаем афиши в шаблон
+            //        ]
         );
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\StNews\A;
 
-use App\Models\StNewsParsingSite;
 use Livewire\Component;
 
 class StNewsSiteItem extends Component
@@ -12,7 +11,7 @@ class StNewsSiteItem extends Component
     // Метод для переключения статуса сканирования
     public function toggleScanStatus()
     {
-        $this->site->scan_status = !$this->site->scan_status;
+        $this->site->scan_status = ! $this->site->scan_status;
         $this->site->save();
         $this->site = $this->site->refresh();
     }
@@ -20,7 +19,7 @@ class StNewsSiteItem extends Component
     // Метод для переключения модерации при загрузке
     public function toggleModerationOnUpload()
     {
-        $this->site->moderation_on_upload = !$this->site->moderation_on_upload;
+        $this->site->moderation_on_upload = ! $this->site->moderation_on_upload;
         $this->site->save();
         $this->site = $this->site->refresh();
     }

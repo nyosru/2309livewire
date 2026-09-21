@@ -17,8 +17,8 @@ class ArPriceFactory extends Factory
     public function definition(): array
     {
         return [
-            'price' => rand(1,10),
-            'date_start' => date( 'Y-m-d', $_SERVER['REQUEST_TIME']-24*3600*50*rand(1,10))
+            'price' => rand(1, 10),
+            'date_start' => date('Y-m-d', $_SERVER['REQUEST_TIME'] - 24 * 3600 * 50 * rand(1, 10)),
         ];
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-//use Nyos\Msg;
+
+// use Nyos\Msg;
 
 class SendStatus extends Command
 {
@@ -26,18 +27,18 @@ class SendStatus extends Command
      */
     public function handle()
     {
-//        $e = new Msg();
-//        $e->sendTelegramm('111',null,2);
-//        return 0;
+        //        $e = new Msg();
+        //        $e->sendTelegramm('111',null,2);
+        //        return 0;
 
         file_get_contents(
-//            'https://api.php-cat.com/telegram.php?' . http_build_query([
-            'http://site_api/telegram.php?' . http_build_query([
+            //            'https://api.php-cat.com/telegram.php?' . http_build_query([
+            'http://site_api/telegram.php?'.http_build_query([
                 's' => md5('2309livewire.schedule'),
                 'id' => 360209578,
                 'token' => null,
                 'msg' => 222111,
-                'domain' => '2309livewire.schedule'
+                'domain' => '2309livewire.schedule',
             ])
         );
 

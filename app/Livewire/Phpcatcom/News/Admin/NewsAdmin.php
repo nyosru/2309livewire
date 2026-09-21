@@ -3,35 +3,41 @@
 namespace App\Livewire\Phpcatcom\News\Admin;
 
 use App\Models\News;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Storage;
 
 class NewsAdmin extends Component
 {
-    use WithPagination;
     use WithFileUploads;
+    use WithPagination;
 
     public $search = '';
+
     public $image = '';
+
     public $is_published = '';
+
     public $perPage = 10;
+
     public $selectedNews = null;
+
     public $confirmingDeletion = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'page' => ['except' => 1]
+        'page' => ['except' => 1],
     ];
+
     public $layout = '';
+
     public $type = '';
 
     public function mount()
     {
         $this->layout = 'livewire.cfa.app.body';
     }
-
 
     public function updatingSearch()
     {
@@ -48,8 +54,8 @@ class NewsAdmin extends Component
     {
         if ($this->selectedNews) {
             // Удаляем изображение если есть
-            if ($this->selectedNews->image && Storage::exists('public/' . $this->selectedNews->image)) {
-                Storage::delete('public/' . $this->selectedNews->image);
+            if ($this->selectedNews->image && Storage::exists('public/'.$this->selectedNews->image)) {
+                Storage::delete('public/'.$this->selectedNews->image);
             }
 
             $this->selectedNews->delete();
@@ -65,8 +71,8 @@ class NewsAdmin extends Component
         $news = News::find($newsId);
         if ($news) {
             $news->update([
-                'is_published' => !$news->is_published,
-                'published_at' => $news->is_published ? null : now()
+                'is_published' => ! $news->is_published,
+                'published_at' => $news->is_published ? null : now(),
             ]);
 
             $this->dispatch('news-updated');
@@ -77,8 +83,8 @@ class NewsAdmin extends Component
     {
         $news = News::query()
             ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('content', 'like', '%' . $this->search . '%');
+                $query->where('title', 'like', '%'.$this->search.'%')
+                    ->orWhere('content', 'like', '%'.$this->search.'%');
             })
             ->latest()
             ->paginate($this->perPage);

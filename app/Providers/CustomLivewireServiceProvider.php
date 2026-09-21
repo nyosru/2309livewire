@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Livewire;
 use Illuminate\Foundation\Support\Providers\LivewireServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Livewire;
 
 class CustomLivewireServiceProvider extends ServiceProvider
 {

@@ -8,6 +8,7 @@ use Livewire\Component;
 class StNewsItem extends Component
 {
     public $newsItem;
+
     public $isDeleted = false;
 
     public function mount(StNews $newsItem)

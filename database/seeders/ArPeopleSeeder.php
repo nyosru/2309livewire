@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\ArObject;
 use App\Models\ArPeople;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ArPeopleSeeder extends Seeder

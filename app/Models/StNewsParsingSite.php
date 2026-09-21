@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StNewsParsingSite extends Model
@@ -12,8 +10,10 @@ class StNewsParsingSite extends Model
     use SoftDeletes;
 
     protected $table = 'st_news_parsing_site';
+
     // Если в вашей таблице есть поля created_at и updated_at, Eloquent автоматически управляет ими
     public $timestamps = true;
+
     protected $fillable = [
         'site_name',
         'site_url',
@@ -25,11 +25,9 @@ class StNewsParsingSite extends Model
         'moderation_on_upload',
     ];
 
-
     // Связь с новостями
     public function news()
     {
         return $this->hasMany(StNews::class, 'site_id');
     }
-
 }

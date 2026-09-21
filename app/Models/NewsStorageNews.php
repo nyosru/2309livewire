@@ -11,6 +11,7 @@ class NewsStorageNews extends Model
     use HasFactory, SoftDeletes;
 
     protected $connection = 'newsstorage';
+
     protected $table = 'newsstorage_news';
 
     protected $fillable = [
@@ -20,6 +21,7 @@ class NewsStorageNews extends Model
         'summary',
         'content',
         'status',
+        'status_show',
     ];
 
     public function source()

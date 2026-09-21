@@ -6,7 +6,6 @@ use Livewire\Component;
 
 class DatarListHeadItem extends Component
 {
-
     public $parent;
 
     public function selectParent()

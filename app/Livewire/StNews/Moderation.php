@@ -1,12 +1,14 @@
 <?php
+
 namespace App\Livewire\StNews;
 
-use Livewire\Component;
 use App\Models\StNews;
+use Livewire\Component;
 
 class Moderation extends Component
 {
     public $secret = '';
+
     public $news;
 
     protected $listeners = ['newsModerated' => 'removeNewsItem'];

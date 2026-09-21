@@ -17,8 +17,8 @@ $e = [
 ];
 
 for ($i = 1; $i <= 10; $i++) {
-    $e['REDIRECT_DOMAIN' . $i] = env('REDIRECT_DOMAIN' . $i , '' );
-    $e['REDIRECT_DOMAIN' . $i . '_TO'] = env('REDIRECT_DOMAIN' . $i . '_TO' , '');
+    $e['REDIRECT_DOMAIN'.$i] = env('REDIRECT_DOMAIN'.$i, '');
+    $e['REDIRECT_DOMAIN'.$i.'_TO'] = env('REDIRECT_DOMAIN'.$i.'_TO', '');
 }
 
 return $e;

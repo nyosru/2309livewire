@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\Ar;
 
 use App\Models\ArObject;
@@ -7,9 +8,13 @@ use Livewire\Component;
 class ObjectAddForm extends Component
 {
     public $nomer;
+
     public $adres;
+
     public $adres_list;
+
     public $opis;
+
     public $showForm = false; // Добавляем переменную состояния
 
     protected $rules = [
@@ -20,7 +25,7 @@ class ObjectAddForm extends Component
 
     public function toggleForm()
     {
-        $this->showForm = !$this->showForm; // Метод для переключения видимости формы
+        $this->showForm = ! $this->showForm; // Метод для переключения видимости формы
     }
 
     public function submit()
@@ -43,8 +48,8 @@ class ObjectAddForm extends Component
     {
         $uniqueAddresses = ArObject::select('adres')->distinct()->orderBy('adres', 'desc')->get();
 
-        return view('livewire.ar.object-add-form',[
-            'uniqueAddresses' => $uniqueAddresses
+        return view('livewire.ar.object-add-form', [
+            'uniqueAddresses' => $uniqueAddresses,
         ]);
     }
 }

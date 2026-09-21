@@ -7,14 +7,15 @@ use Livewire\Component;
 class PunnyConverter extends Component
 {
     public $domain = ''; // Обычный домен
+
     public $encodedDomain = ''; // Закодированный домен
 
     // Метод для обновления домена
     public function updatedDomain($value)
     {
-        if( empty($value) ) {
+        if (empty($value)) {
             $this->encodedDomain = '';
-        }else {
+        } else {
             // Удаляем "http://", "https://" и "/"
             $cleanedValue = $this->cleanDomain($value);
             $this->domain = $cleanedValue;
@@ -25,9 +26,9 @@ class PunnyConverter extends Component
     // Метод для обновления закодированного домена
     public function updatedEncodedDomain($value)
     {
-        if( empty($value) ) {
+        if (empty($value)) {
             $this->domain = '';
-        }else {
+        } else {
             // Удаляем "http://", "https://" и "/"
             $cleanedValue = $this->cleanDomain($value);
             $this->encodedDomain = $cleanedValue;
@@ -39,6 +40,7 @@ class PunnyConverter extends Component
     private function cleanDomain($value)
     {
         $value = str_replace(['https://', 'http://'], '', $value); // Удаляем протоколы
+
         return rtrim($value, '/'); // Удаляем конечные "/"
     }
 

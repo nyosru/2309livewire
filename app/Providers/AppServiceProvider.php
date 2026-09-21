@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         \Illuminate\Support\Facades\Http::globalOptions([
-            'verify' => false // для полного отключения
+            'verify' => false, // для полного отключения
         ]);
 
         // проверка разрешений
@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
             // Проверяем email пользователя
             if ($user && (
-                    $user->email === '1@php-cat.com'
-                    || $user->email === 'nyos@rambler.ru'
-                ) ) {
+                $user->email === '1@php-cat.com'
+                || $user->email === 'nyos@rambler.ru'
+            )) {
                 return true;
             } // полный доступ
             elseif ($user && $user->can('Полный//доступ')) {

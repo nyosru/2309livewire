@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\service\SocEnterController;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocWebController extends Controller
 {
@@ -26,12 +24,12 @@ class SocWebController extends Controller
 
         $user = Socialite::driver('vkontakte')->user();
 
-//        dd([$data,$user]);
+        //        dd([$data,$user]);
         $ee = SocEnterController::enter($user);
-//        dd( __LINE__, $ee );
+        //        dd( __LINE__, $ee );
         // $userNow
         Auth::loginUsingId($ee->id);
-//        Auth::login($ee);
+        //        Auth::login($ee);
 
         return redirect()->to('/');
     }

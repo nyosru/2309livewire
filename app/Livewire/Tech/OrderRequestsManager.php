@@ -8,21 +8,28 @@ use Livewire\WithPagination;
 
 class OrderRequestsManager extends Component
 {
-
     use WithPagination;
 
     public $orderRequestId;
 
     public $name;
+
     public $pole;
+
     public $description;
 
     public $number = false;
+
     public $date = false;
+
     public $datetime = false;
+
     public $text = false;
+
     public $string = false;
+
     public $nullable = false;
+
     public $is_web_link = false;
 
     public $rules;
@@ -99,7 +106,7 @@ class OrderRequestsManager extends Component
     public function update()
     {
         $validatedData = $this->validate($this->rulesValidation);
-//dd($validatedData);
+        // dd($validatedData);
         if ($this->orderRequestId) {
             $orderRequest = OrderRequest::find($this->orderRequestId);
             $orderRequest->update($validatedData);

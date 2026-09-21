@@ -15,7 +15,7 @@ class ArPrice extends Model
         'ar_people_id',
         'price',
         'date_start',
-        'opis'
+        'opis',
     ];
 
     public function object()

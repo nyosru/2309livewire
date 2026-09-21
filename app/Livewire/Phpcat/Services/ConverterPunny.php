@@ -6,43 +6,45 @@ use Livewire\Component;
 
 class ConverterPunny extends Component
 {
-	public $domain = ''; // Обычный домен
-	public $encodedDomain = ''; // Закодированный домен
+    public $domain = ''; // Обычный домен
 
-	// Метод для обновления домена
-	public function updatedDomain($value)
-	{
-		if( empty($value) ) {
-			$this->encodedDomain = '';
-		}else {
-			// Удаляем "http://", "https://" и "/"
-			$cleanedValue = $this->cleanDomain($value);
-			$this->domain = $cleanedValue;
-			$this->encodedDomain = idn_to_ascii($cleanedValue); // Кодируем домен в Punycode
-		}
-	}
+    public $encodedDomain = ''; // Закодированный домен
 
-	// Метод для обновления закодированного домена
-	public function updatedEncodedDomain($value)
-	{
-		if( empty($value) ) {
-			$this->domain = '';
-		}else {
-			// Удаляем "http://", "https://" и "/"
-			$cleanedValue = $this->cleanDomain($value);
-			$this->encodedDomain = $cleanedValue;
-			$this->domain = idn_to_utf8($cleanedValue); // Расшифровываем Punycode в обычный домен
-		}
-	}
+    // Метод для обновления домена
+    public function updatedDomain($value)
+    {
+        if (empty($value)) {
+            $this->encodedDomain = '';
+        } else {
+            // Удаляем "http://", "https://" и "/"
+            $cleanedValue = $this->cleanDomain($value);
+            $this->domain = $cleanedValue;
+            $this->encodedDomain = idn_to_ascii($cleanedValue); // Кодируем домен в Punycode
+        }
+    }
 
-	// Функция для удаления "https://", "http://" и "/"
-	private function cleanDomain($value)
-	{
-		$value = str_replace(['https://', 'http://'], '', $value); // Удаляем протоколы
-		return rtrim($value, '/'); // Удаляем конечные "/"
-	}
+    // Метод для обновления закодированного домена
+    public function updatedEncodedDomain($value)
+    {
+        if (empty($value)) {
+            $this->domain = '';
+        } else {
+            // Удаляем "http://", "https://" и "/"
+            $cleanedValue = $this->cleanDomain($value);
+            $this->encodedDomain = $cleanedValue;
+            $this->domain = idn_to_utf8($cleanedValue); // Расшифровываем Punycode в обычный домен
+        }
+    }
 
-	public function render()
+    // Функция для удаления "https://", "http://" и "/"
+    private function cleanDomain($value)
+    {
+        $value = str_replace(['https://', 'http://'], '', $value); // Удаляем протоколы
+
+        return rtrim($value, '/'); // Удаляем конечные "/"
+    }
+
+    public function render()
     {
         return view('livewire.phpcat.services.converter-punny');
     }

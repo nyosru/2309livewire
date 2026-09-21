@@ -11,15 +11,20 @@ class DatarList extends Component
     use WithPagination;
 
     public $selectedParentId = null;
+
     public $selectedParent = null;
+
     public $search = '';
+
     public $perPage = 10;
+
     public $isLoading = false;
+
     public $layout = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'selectedParentId' => ['except' => null]
+        'selectedParentId' => ['except' => null],
     ];
 
     public function mount()
@@ -32,7 +37,6 @@ class DatarList extends Component
         }
     }
 
-
     protected $listeners = ['select-parent' => 'onSelectParent'];
 
     public function onSelectParent($payload)
@@ -43,9 +47,6 @@ class DatarList extends Component
         }
     }
 
-
-
-
     protected function loadSelectedParent()
     {
         $this->isLoading = true;
@@ -55,7 +56,7 @@ class DatarList extends Component
                 ->find($this->selectedParentId);
 
             // Если родитель не найден (был удален), сбрасываем выбор
-            if (!$this->selectedParent) {
+            if (! $this->selectedParent) {
                 $this->selectedParentId = null;
             }
         } catch (\Exception $e) {
@@ -97,8 +98,8 @@ class DatarList extends Component
     {
         $parents = DatarParent::query()
             ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('content', 'like', '%' . $this->search . '%');
+                $query->where('title', 'like', '%'.$this->search.'%')
+                    ->orWhere('content', 'like', '%'.$this->search.'%');
             })
             ->withCount(['children as active_children_count' => function ($query) {
                 $query->where('is_active', true);

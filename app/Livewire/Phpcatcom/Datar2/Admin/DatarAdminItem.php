@@ -2,17 +2,17 @@
 
 namespace App\Livewire\Phpcatcom\Datar2\Admin;
 
-use App\Models\Datar2;
 use App\Models\DatarParent;
 use Livewire\Component;
 
 class DatarAdminItem extends Component
 {
-
     public $parent;
+
     protected $listeners = ['datar-children-should-refresh' => 'refreshUp'];
 
-    public function refreshUp(){
+    public function refreshUp()
+    {
         $this->dispatch('datar-parent-should-refresh');
     }
 
@@ -30,13 +30,13 @@ class DatarAdminItem extends Component
 
     public function toggleStatusParent($id)
     {
-//        $parent = DatarParent::find($id);
+        //        $parent = DatarParent::find($id);
 
-//        if ($parent) {
-            $this->parent->update(['is_active' => !$this->parent->is_active]);
-//            $this->dispatch('item-updated');
-            $this->parent = DatarParent::find($id);
-//        }
+        //        if ($parent) {
+        $this->parent->update(['is_active' => ! $this->parent->is_active]);
+        //            $this->dispatch('item-updated');
+        $this->parent = DatarParent::find($id);
+        //        }
     }
 
     public function render()

@@ -7,77 +7,86 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Nyos\Msg as MsgAlias;
 
-class Form extends Component {
-
+class Form extends Component
+{
     public $show_form = false;
+
     public $show_res_ok = false;
 
     public $polya = [
         'phone' => [
             'name' => 'Телефон',
-            'required'=> true,
-//            'placeholder' => 'Укажите Ваш телефон',
-//            'type' => 'string'
+            'required' => true,
+            //            'placeholder' => 'Укажите Ваш телефон',
+            //            'type' => 'string'
         ],
         'name' => [
             'name' => 'Как Вас зовут',
-//            'placeholder' => 'Укажите Ваш телефон',
-//            'type' => 'string'
+            //            'placeholder' => 'Укажите Ваш телефон',
+            //            'type' => 'string'
         ],
-//        'city' => [
-//            'name' => 'Город',
-//            'required'=> true,
-////            'placeholder' => 'Укажите Ваш телефон',
-////            'type' => 'string'
-//        ],
-//        'kooperativ' => [
-//            'name' => 'Название гаражного кооператива',
-////            'placeholder' => 'Укажите Ваш телефон',
-////            'type' => 'string'
-//        ],
-//        'nomer' => [
-//            'name' => 'Номер гаража(ей)',
-//            'required'=> true,
-////            'placeholder' => 'Укажите Ваш телефон',
-//            'comment' => 'Можно запускать сразу несколько гаражей на одного владельца, нормально проходит',
-////            'type' => 'string'
-//        ],
+        //        'city' => [
+        //            'name' => 'Город',
+        //            'required'=> true,
+        // //            'placeholder' => 'Укажите Ваш телефон',
+        // //            'type' => 'string'
+        //        ],
+        //        'kooperativ' => [
+        //            'name' => 'Название гаражного кооператива',
+        // //            'placeholder' => 'Укажите Ваш телефон',
+        // //            'type' => 'string'
+        //        ],
+        //        'nomer' => [
+        //            'name' => 'Номер гаража(ей)',
+        //            'required'=> true,
+        // //            'placeholder' => 'Укажите Ваш телефон',
+        //            'comment' => 'Можно запускать сразу несколько гаражей на одного владельца, нормально проходит',
+        // //            'type' => 'string'
+        //        ],
         'promo_code' => [
             'name' => 'Промо код',
             'comment' => 'Укажите промо код, если есть',
-        ]
+        ],
 
     ];
 
     public $phone = '';
+
     public $name = '';
+
     public $city = '';
+
     public $promo_code = '';
+
     public $kooperativ = '';
+
     public $nomer = '';
+
     public $lich = '';
 
-    public function save(Request $r) {
+    public function save(Request $r)
+    {
         zemOrder::create($this->all());
 
-        $str = 'заказ на приватизацию гаража' . PHP_EOL;
-        foreach($this->polya as $k => $v) {
-            if(!empty($this->$k))
-                $str .= $k . ' :' . $this->$k . PHP_EOL;
+        $str = 'заказ на приватизацию гаража'.PHP_EOL;
+        foreach ($this->polya as $k => $v) {
+            if (! empty($this->$k)) {
+                $str .= $k.' :'.$this->$k.PHP_EOL;
+            }
         }
 
-//        dump('1234123123');
+        //        dump('1234123123');
 
-//        MsgAlias::$domain = '';
-//        MsgAlias::sendTelegramm($str, null, 2, env('TOKEN_WARN_TELEGA') );
+        //        MsgAlias::$domain = '';
+        //        MsgAlias::sendTelegramm($str, null, 2, env('TOKEN_WARN_TELEGA') );
 
-        MsgAlias::sendTelegramm($str,  360209578, null, env('TOKEN_WARN_TELEGA') );
+        MsgAlias::sendTelegramm($str, 360209578, null, env('TOKEN_WARN_TELEGA'));
 
         $this->show_res_ok = true;
     }
 
-    public function render() {
+    public function render()
+    {
         return view('livewire.zem.form');
     }
-
 }

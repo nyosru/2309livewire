@@ -1,4 +1,5 @@
 <?php
+
 // app/Models/AfishaPoster.php
 
 namespace App\Models;
@@ -14,7 +15,7 @@ class AfishaPoster extends Model
     protected $table = 'afisha_posters';
 
     protected $fillable = [
-        'title', 'description', 'link', 'event_date', 'event_time', 'end_date', 'source_link', 'extra_links', 'images', 'address'
+        'title', 'description', 'link', 'event_date', 'event_time', 'end_date', 'source_link', 'extra_links', 'images', 'address',
     ];
 
     protected $casts = [

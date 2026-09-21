@@ -7,7 +7,9 @@ use Livewire\Component;
 class BazaZnan extends Component
 {
     public $show_type = '';
+
     public $selectedPage = 'page1';
+
     public $pages = [
         'page1' => ['title' => 'КРТ', 'content' => 'Комплексное развитие территории - когда застройщик заходит на землю строить свои новые дома взамен текущих строений
         <br/>
@@ -28,6 +30,7 @@ class BazaZnan extends Component
 '],
         'page3' => ['title' => 'Над или под гаражом есть ещё гараж или другой обьект', 'content' => 'В таком случае получится приватизировать только строение, землю приватизировать не получится так как есть конфликт интересов разных собственников.'],
     ];
+
     public function render()
     {
         return view('livewire.zem.baza-znan');

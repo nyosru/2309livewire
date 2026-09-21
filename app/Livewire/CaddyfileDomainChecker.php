@@ -2,24 +2,25 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Livewire\Component;
 
 class CaddyfileDomainChecker extends Component
 {
     public $domains = [];
+
     public $results = [];
 
     // Метод для парсинга файла Caddyfile и получения списка доменов
     public function parseCaddyfile()
     {
-//        $caddyfilePath = base_path('Caddyfile'); // путь к файлу Caddyfile
+        //        $caddyfilePath = base_path('Caddyfile'); // путь к файлу Caddyfile
         $caddyfilePath = storage_path('app/caddy/prod.Caddyfile'); // путь к файлу Caddyfile
-//        dd($caddyfilePath);
-        //$caddyfilePath = storage_path('app/caddy/dev.Caddyfile'); // путь к файлу Caddyfile
+        //        dd($caddyfilePath);
+        // $caddyfilePath = storage_path('app/caddy/dev.Caddyfile'); // путь к файлу Caddyfile
         if (file_exists($caddyfilePath)) {
             $fileContents = file_get_contents($caddyfilePath);
-//            dd($fileContents);
+            //            dd($fileContents);
 
             $this->domains = $this->extractDomains($fileContents);
         } else {
@@ -28,7 +29,7 @@ class CaddyfileDomainChecker extends Component
     }
 
     // Метод для извлечения доменов из содержимого Caddyfile
-    function extractDomains($fileContent)
+    public function extractDomains($fileContent)
     {
         // Разбиваем содержимое файла на строки
         $lines = explode("\n", $fileContent);
@@ -59,12 +60,12 @@ class CaddyfileDomainChecker extends Component
                     // Убираем пробелы вокруг домена
                     $domain = trim($domain);
 
-                    if (!$this->checkDomainString($domain)) {
+                    if (! $this->checkDomainString($domain)) {
                         continue;
                     }
 
                     // Добавляем домен в массив
-                    if (!empty($domain)) {
+                    if (! empty($domain)) {
                         $domains[] = $domain;
                     }
                 }
@@ -73,7 +74,6 @@ class CaddyfileDomainChecker extends Component
 
         return $domains;
     }
-
 
     // Метод для проверки доступности доменов и SSL
     public function checkDomains()
@@ -84,7 +84,7 @@ class CaddyfileDomainChecker extends Component
         }
     }
 
-    function checkDomainString($domain)
+    public function checkDomainString($domain)
     {
         // Убираем пробелы вокруг домена
         $domain = trim($domain);
@@ -96,7 +96,7 @@ class CaddyfileDomainChecker extends Component
         $punycodePattern = '/^xn--[a-zA-Z0-9-.]+$/';
 
         // Проверка домена на соответствие основному шаблону или Punycode шаблону
-        if (strpos($domain,'.рф')) {
+        if (strpos($domain, '.рф')) {
             return true;
         }
 
@@ -121,10 +121,10 @@ class CaddyfileDomainChecker extends Component
             'message' => '',
         ];
 
-//
-//        if (!$this->checkDomainString($domain)) {
-//            return $domainStatus;
-//        }
+        //
+        //        if (!$this->checkDomainString($domain)) {
+        //            return $domainStatus;
+        //        }
 
         try {
             // Проверка доступности домена
@@ -132,7 +132,7 @@ class CaddyfileDomainChecker extends Component
             $domainStatus['reachable'] = $response->successful();
 
             // Проверка SSL сертификата
-            $streamContext = stream_context_create(["ssl" => ["capture_peer_cert" => true]]);
+            $streamContext = stream_context_create(['ssl' => ['capture_peer_cert' => true]]);
             $resource = @stream_socket_client(
                 "ssl://{$domain}:443",
                 $errno,
@@ -143,7 +143,7 @@ class CaddyfileDomainChecker extends Component
             );
             if ($resource) {
                 $params = stream_context_get_params($resource);
-                $cert = openssl_x509_parse($params["options"]["ssl"]["peer_certificate"]);
+                $cert = openssl_x509_parse($params['options']['ssl']['peer_certificate']);
                 $validFrom = $cert['validFrom_time_t'];
                 $validTo = $cert['validTo_time_t'];
 

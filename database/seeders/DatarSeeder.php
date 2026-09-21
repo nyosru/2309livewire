@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\DatarParent;
 use App\Models\Datar2;
+use App\Models\DatarParent;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
 
 class DatarSeeder extends Seeder
@@ -33,21 +32,21 @@ class DatarSeeder extends Seeder
                         'title' => 'Анализ ликвидности',
                         'content' => 'Оценка способности предприятия погашать краткосрочные обязательства. Коэффициенты: текущей ликвидности, быстрой ликвидности, абсолютной ликвидности.',
                         'order' => 1,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Анализ рентабельности',
                         'content' => 'Оценка эффективности использования ресурсов предприятия. Показатели: рентабельность продаж, активов, собственного капитала.',
                         'order' => 2,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Анализ финансовой устойчивости',
                         'content' => 'Определение степени зависимости предприятия от заемных источников финансирования. Коэффициенты: автономии, финансового левериджа.',
                         'order' => 3,
-                        'is_active' => true
-                    ]
-                ]
+                        'is_active' => true,
+                    ],
+                ],
             ],
             [
                 'title' => 'Инвестиционный анализ',
@@ -59,21 +58,21 @@ class DatarSeeder extends Seeder
                         'title' => 'Чистая приведенная стоимость (NPV)',
                         'content' => 'Метод оценки инвестиционного проекта, основанный на дисконтировании денежных потоков.',
                         'order' => 1,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Внутренняя норма доходности (IRR)',
                         'content' => 'Ставка дисконтирования, при которой чистая приведенная стоимость проекта равна нулю.',
                         'order' => 2,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Срок окупаемости (PP)',
                         'content' => 'Период времени, необходимый для того, чтобы инвестиционные затраты окупились.',
                         'order' => 3,
-                        'is_active' => true
-                    ]
-                ]
+                        'is_active' => true,
+                    ],
+                ],
             ],
             [
                 'title' => 'Бюджетирование и планирование',
@@ -85,21 +84,21 @@ class DatarSeeder extends Seeder
                         'title' => 'Операционный бюджет',
                         'content' => 'Бюджет, включающий планирование доходов и расходов от основной деятельности.',
                         'order' => 1,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Финансовый бюджет',
                         'content' => 'Бюджет денежных средств, бюджет доходов и расходов, прогнозный баланс.',
                         'order' => 2,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Гибкое бюджетирование',
                         'content' => 'Метод budgeting, позволяющий адаптировать бюджет к изменяющимся условиям.',
                         'order' => 3,
-                        'is_active' => true
-                    ]
-                ]
+                        'is_active' => true,
+                    ],
+                ],
             ],
             [
                 'title' => 'Управление рисками',
@@ -111,21 +110,21 @@ class DatarSeeder extends Seeder
                         'title' => 'Кредитные риски',
                         'content' => 'Риск невыполнения контрагентом своих обязательств по платежам.',
                         'order' => 1,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Рыночные риски',
                         'content' => 'Риски, связанные с изменением рыночных цен: валютный, процентный, ценовой риски.',
                         'order' => 2,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Операционные риски',
                         'content' => 'Риски потерь вследствие ошибок персонала, сбоев систем или внешних событий.',
                         'order' => 3,
-                        'is_active' => true
-                    ]
-                ]
+                        'is_active' => true,
+                    ],
+                ],
             ],
             [
                 'title' => 'Финансовая отчетность',
@@ -137,22 +136,22 @@ class DatarSeeder extends Seeder
                         'title' => 'Балансовый отчет',
                         'content' => 'Анализ структуры активов и пассивов, оценка финансового положения.',
                         'order' => 1,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Отчет о прибылях и убытках',
                         'content' => 'Анализ доходов, расходов и финансовых результатов деятельности.',
                         'order' => 2,
-                        'is_active' => true
+                        'is_active' => true,
                     ],
                     [
                         'title' => 'Отчет о движении денежных средств',
                         'content' => 'Анализ денежных потоков от операционной, инвестиционной и финансовой деятельности.',
                         'order' => 3,
-                        'is_active' => true
-                    ]
-                ]
-            ]
+                        'is_active' => true,
+                    ],
+                ],
+            ],
         ];
 
         foreach ($parents as $parentData) {
@@ -170,6 +169,6 @@ class DatarSeeder extends Seeder
             }
         }
 
-        $this->command->info('Успешно создано ' . count($parents) . ' родительских записей с дочерними элементами!');
+        $this->command->info('Успешно создано '.count($parents).' родительских записей с дочерними элементами!');
     }
 }

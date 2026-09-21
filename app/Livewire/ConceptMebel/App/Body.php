@@ -6,7 +6,6 @@ use Livewire\Component;
 
 class Body extends Component
 {
-
     public $name = 'Body';
 
     public function render()

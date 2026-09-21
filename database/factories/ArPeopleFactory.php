@@ -18,9 +18,9 @@ class ArPeopleFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'phone' => '89'.rand(111111111,999999999),
-            'phone2' => rand(1,2) == 2 ? '89'.rand(111111111,999999999) : null,
-            'opis' => fake()->text()
+            'phone' => '89'.rand(111111111, 999999999),
+            'phone2' => rand(1, 2) == 2 ? '89'.rand(111111111, 999999999) : null,
+            'opis' => fake()->text(),
         ];
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Livewire\Phpcatcom\Datar2\DatarList;
 use App\Livewire\Phpcatcom\News\NewsList;
 use App\Livewire\Phpcatcom\News\NewsShow;
-use App\Livewire\Phpcatcom\Datar2\DatarList;
+use Illuminate\Support\Facades\Route;
 
 $d = function () {
     Route::get('/', \App\Livewire\Cfa\Index::class)->name('index');
@@ -14,8 +14,8 @@ $d = function () {
 
     Route::get('/datar', DatarList::class)->name('datar.list');
 
-    Route::get('/login',function () {
-//    return response('Привет буфет, ещё пару сек пожалуйста');
+    Route::get('/login', function () {
+        //    return response('Привет буфет, ещё пару сек пожалуйста');
         return redirect('/');
     });
 
@@ -24,19 +24,16 @@ $d = function () {
 //    'as' => 'cfa.',
 // //    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa2.local' : 'cfa-center.ru'
 //    'domain' => (env('APP_ENV', 'x') == 'local') ? 'cfa.local' : 'cfa-center.ru'
-//], $d);
+// ], $d);
 
 Route::group([
     'as' => 'cfa.',
-    'domain' => ( (request()->getHost() === 'cfa.local') ? 'cfa.local' : 'cfa-center.ru' )
+    'domain' => ((request()->getHost() === 'cfa.local') ? 'cfa.local' : 'cfa-center.ru'),
 ], $d);
 Route::group([
     'as' => 'cfa2.',
-    'domain' => 'cfa.php-cat.com'
+    'domain' => 'cfa.php-cat.com',
 ], $d);
-
-
-
 
 // для cfa
 Route::middleware(['auth'])->group(function () {
@@ -46,13 +43,13 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('datar2')->as('datar2')->group(function () {
             Route::get('/', \App\Livewire\Phpcatcom\Datar2\Admin\DatarAdmin::class)->name('');
             // Родители
-//                Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentCreate::class)->name('.parents.create');
-//            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
+            //                Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentCreate::class)->name('.parents.create');
+            //            Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParent2Create::class)->name('.parents.create');
             Route::get('/parents/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.create');
 
             Route::get('/parents/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarParentEdit::class)->name('.parents.edit');
 
-//                // Дети
+            //                // Дети
             Route::get('/children/create', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildCreate::class)->name('.children.create');
             Route::get('/children/edit/{id}', \App\Livewire\Phpcatcom\Datar2\Admin\DatarChildEdit::class)->name('.children.edit');
         });

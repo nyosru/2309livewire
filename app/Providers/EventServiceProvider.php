@@ -18,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-//            SendEmailVerificationNotification::class,
-//            UslugiSendTelegaFromBackwordNotification::class,
+            //            SendEmailVerificationNotification::class,
+            //            UslugiSendTelegaFromBackwordNotification::class,
         ],
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // ... Другие провайдеры

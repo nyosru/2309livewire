@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\ArObject;
 use App\Models\ArPrice;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 

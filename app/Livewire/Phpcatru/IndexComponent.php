@@ -38,7 +38,7 @@ class IndexComponent extends Component
         \Nyos\Msg::sendTelegramm($text, null, 2, env('TOKEN_WARN_TELEGA'));
 
         $to_vk_id = '5903492';
-        \Nyos\Msg::sendVkFromGroup($text, $to_vk_id, 'notification');
+        \Nyos\Msg::sendVkFromGroup($text, $to_vk_id, 'order');
 
 
         $this->sendToVk($text);

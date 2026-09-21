@@ -12,12 +12,13 @@ class NewsStorageController extends Controller
     private function checkApiKey(Request $request): bool
     {
         $apiKey = $request->header('X-NewsStorage-Api-Key', $request->input('api_key'));
+
         return $apiKey === config('custom.NEWSSTORAGE_API_KEY');
     }
 
     public function store(Request $request): JsonResponse
     {
-        if (!$this->checkApiKey($request)) {
+        if (! $this->checkApiKey($request)) {
             return response()->json(['error' => 'Invalid API key'], 401);
         }
 
@@ -30,7 +31,7 @@ class NewsStorageController extends Controller
                         ->table('newsstorage_sources')
                         ->where('id', $value)
                         ->exists();
-                    if (!$exists) {
+                    if (! $exists) {
                         $fail('The selected source_id is invalid.');
                     }
                 },
@@ -53,7 +54,7 @@ class NewsStorageController extends Controller
             'status' => 'new',
         ]);
 
-        if (!empty($validated['media'])) {
+        if (! empty($validated['media'])) {
             foreach ($validated['media'] as $mediaItem) {
                 $news->media()->create([
                     'url' => $mediaItem['url'],
@@ -72,7 +73,7 @@ class NewsStorageController extends Controller
 
     public function updateStatus(Request $request, int $id): JsonResponse
     {
-        if (!$this->checkApiKey($request)) {
+        if (! $this->checkApiKey($request)) {
             return response()->json(['error' => 'Invalid API key'], 401);
         }
 
@@ -82,7 +83,7 @@ class NewsStorageController extends Controller
 
         $news = NewsStorageNews::find($id);
 
-        if (!$news) {
+        if (! $news) {
             return response()->json(['error' => 'News record not found'], 404);
         }
 

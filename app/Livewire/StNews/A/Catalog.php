@@ -26,7 +26,7 @@ class Catalog extends Component
         $category = StNewsParsingCategory::find($categoryId);
         if ($category) {
             // Переключаем статус между true и false
-            $category->scan_status = !$category->scan_status;
+            $category->scan_status = ! $category->scan_status;
             $category->save();
 
             // Обновляем список категорий после изменения

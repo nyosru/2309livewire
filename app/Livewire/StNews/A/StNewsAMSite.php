@@ -7,13 +7,18 @@ use Livewire\Component;
 
 class StNewsAMSite extends Component
 {
-
     public $sites = [];
+
     public $site_name = '';
+
     public $site_url = '';
+
     public $category_parsing_url = '';
+
     public $time_to_auto_publish = 0;
+
     public $moderation_on_upload = false;
+
     public $scan_status = true;
 
     public function mount()
@@ -52,7 +57,6 @@ class StNewsAMSite extends Component
         // Сообщение об успешном добавлении
         session()->flash('message', 'Сайт успешно добавлен!');
     }
-
 
     public function render()
     {

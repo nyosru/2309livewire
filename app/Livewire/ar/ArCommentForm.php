@@ -11,7 +11,9 @@ class ArCommentForm extends Component
     use WithPagination;
 
     public $comment;
+
     public $ar_object_id;
+
     public $ar_people_id;
 
     protected $rules = [

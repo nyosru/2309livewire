@@ -97,7 +97,7 @@ class ServicesList extends Component
     {
         return view('livewire.phpcatru.services-list')
             ->layout('livewire.phpcatru.layouts.app-component', [
-                'title' => 'Услуги по внедрению ИИ — php-cat.ru'
+                'title' => 'Услуги по внедрению ИИ — php-cat.ru',
             ]);
     }
 }

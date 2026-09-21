@@ -27,22 +27,20 @@ class NewsDownloadPhoto extends Command
      */
     public function handle()
     {
-        $e = new NewsPhotoService();
+        $e = new NewsPhotoService;
         $res = $e->downloadAndStorePhotos();
-        foreach($res['log'] as $l ){
+        foreach ($res['log'] as $l) {
             $this->info($l);
         }
-
 
         $msg = 'downloadAndStorePhotos completed. '.PHP_EOL
 //            .serialize($res)
         .
             'all:'.($res['count_morate_all'] ?? 'x').PHP_EOL.
             'moderated:'.($res['count_morated'] ?? 'x').PHP_EOL.
-            'size Mb:'.($res['loaded_size'] ? ( round($res['loaded_size']/1024,2) ) : 'x')
-        ;
-        Msg::sendTelegramm($msg,null,2);
-//        Msg::sendTelegramm($msg,null,2);
+            'size Mb:'.($res['loaded_size'] ? (round($res['loaded_size'] / 1024, 2)) : 'x');
+        Msg::sendTelegramm($msg, null, 2);
+        //        Msg::sendTelegramm($msg,null,2);
         $this->info($msg);
 
     }

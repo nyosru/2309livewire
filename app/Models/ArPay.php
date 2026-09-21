@@ -16,7 +16,7 @@ class ArPay extends Model
         'amount',
         'date',
         'opis',
-        'json'
+        'json',
     ];
 
     /**

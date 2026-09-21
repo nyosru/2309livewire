@@ -8,14 +8,18 @@ use Livewire\Component;
 
 class DatarParent2Create extends Component
 {
-
     public string $title = '';
+
     public string $content = '';
+
     public ?int $parent_id = null;
+
     public int $order = 0;
+
     public bool $is_active = true;
 
     public array $parents = [];
+
     public $layout = '';
 
     protected function rules(): array
@@ -23,7 +27,7 @@ class DatarParent2Create extends Component
         return [
             'title' => 'required|string|max:255',
             'content' => 'nullable|string',
-//            'parent_id' => 'required|exists:datar_parents,id',
+            //            'parent_id' => 'required|exists:datar_parents,id',
             'parent_id' => 'nullable|exists:datar_parents,id',
             'order' => 'required|integer|min:0',
             'is_active' => 'boolean',
@@ -43,7 +47,7 @@ class DatarParent2Create extends Component
 
         $this->content = nl2br($this->content);
 
-        if( !empty($this->parent_id) ) {
+        if (! empty($this->parent_id)) {
             Datar2::create([
                 'title' => $this->title,
                 'content' => $this->content,
@@ -51,7 +55,7 @@ class DatarParent2Create extends Component
                 'order' => $this->order,
                 'is_active' => $this->is_active,
             ]);
-        }else{
+        } else {
             DatarParent::create([
                 'title' => $this->title,
                 'content' => $this->content,
@@ -66,10 +70,10 @@ class DatarParent2Create extends Component
         session()->flash('message', 'Запись успешно создана.');
     }
 
-
     public function render()
     {
         $view = view('livewire.phpcatcom.datar2.admin.datar-parent2-create');
+
         return $this->layout ? $view->layout($this->layout) : $view;
     }
 }

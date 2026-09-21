@@ -7,12 +7,14 @@ use Livewire\Component;
 class ShowerDopInfo extends Component
 {
     public $string = '';
+
     public $data = [];
+
     public $show = false;
 
-
-    public function switcher(){
-        $this->show = !$this->show;
+    public function switcher()
+    {
+        $this->show = ! $this->show;
     }
 
     public function render()
