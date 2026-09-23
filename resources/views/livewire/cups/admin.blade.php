@@ -49,12 +49,20 @@
                     <input id="cup-images" type="file" wire:model="img" multiple accept="image/*" class="hidden">
 
                     @if( count($img) )
-                        <div class="flex flex-wrap gap-2 mb-3">
+                        <div class="flex flex-wrap gap-2 mb-3" wire:loading.class="opacity-50" wire:target="img">
                             @foreach( $img as $f )
                                 <img src="{{ $f->temporaryUrl() }}" class="w-20 h-20 object-cover rounded" loading="lazy"/>
                             @endforeach
                         </div>
                     @endif
+
+                    <div wire:loading wire:target="img" class="text-blue-600 text-sm mb-2 flex items-center justify-center gap-2">
+                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                        Загрузка фото...
+                    </div>
 
                     <span class="text-gray-500">Перетащите фото сюда или кликните для выбора</span>
                     @error('img') <span class="text-red-500 text-sm block mt-1">{{ $message }}</span> @enderror
@@ -111,8 +119,18 @@
 
             <div class="flex gap-2">
                 <button type="submit"
-                        class="bg-blue-600 text-white px-4 py-2 rounded">
-                    {{ $editId ? 'Сохранить' : 'Добавить' }}
+                        wire:loading.attr="disabled" wire:target="save, img"
+                        class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                    <span wire:loading.remove wire:target="save">
+                        {{ $editId ? 'Сохранить' : 'Добавить' }}
+                    </span>
+                    <span wire:loading wire:target="save" class="flex items-center gap-2">
+                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                        Сохранение...
+                    </span>
                 </button>
                 @if( $editId )
                     <button type="button" wire:click="cancelEdit"
