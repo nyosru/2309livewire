@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1"/>
     <link rel="shortcut icon" href="/storage/krugi/favicon.png" type="image/png"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <link rel="stylesheet" href="/css/output.css?v12"/>
+    <link rel="stylesheet" href="/css/output.css?v13"/>
 
     @livewireStyles
 </head>
