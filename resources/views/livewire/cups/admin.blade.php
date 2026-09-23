@@ -48,11 +48,11 @@
 
                 <div id="cup-dropzone"
                      x-data="{ progress: false, pct: 0 }"
-                     @livewire-upload-start="progress = true; pct = 0"
-                     @livewire-upload-progress="pct = $event.detail.progress"
-                     @livewire-upload-finish="pct = 100; setTimeout(() => progress = false, 800)"
-                     @livewire-upload-error="progress = false"
-                     @livewire-upload-cancel="progress = false"
+                     @@livewire-upload-start="progress = true; pct = 0"
+                     @@livewire-upload-progress="pct = $event.detail.progress"
+                     @@livewire-upload-finish="pct = 100; setTimeout(() => progress = false, 800)"
+                     @@livewire-upload-error="progress = false"
+                     @@livewire-upload-cancel="progress = false"
                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 transition">
                     <input id="cup-images" type="file" wire:model="img" multiple accept="image/*" class="hidden">
 
