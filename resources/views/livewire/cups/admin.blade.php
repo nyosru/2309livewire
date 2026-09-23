@@ -1,3 +1,5 @@
+<style>[x-cloak]{display:none!important}</style>
+
 <div class="container-fluid mx-auto max-w-7xl px-5 py-10">
 
     <h1 class="text-xl mb-5"><b>Управление кружками</b></h1>
@@ -45,6 +47,12 @@
                 <label class="block mb-1">Фото (перетащите или выберите, до 10 штук)</label>
 
                 <div id="cup-dropzone"
+                     x-data="{ progress: false, pct: 0 }"
+                     @livewire-upload-start="progress = true; pct = 0"
+                     @livewire-upload-progress="pct = $event.detail.progress"
+                     @livewire-upload-finish="pct = 100; setTimeout(() => progress = false, 800)"
+                     @livewire-upload-error="progress = false"
+                     @livewire-upload-cancel="progress = false"
                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 transition">
                     <input id="cup-images" type="file" wire:model="img" multiple accept="image/*" class="hidden">
 
@@ -56,12 +64,14 @@
                         </div>
                     @endif
 
-                    <div wire:loading wire:target="img" class="text-blue-600 text-sm mb-2 flex items-center justify-center gap-2">
-                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                        </svg>
-                        Загрузка фото...
+                    <div x-show="progress" x-cloak class="mb-2 text-left max-w-[400px] mx-auto">
+                        <div class="h-2 bg-gray-200 rounded overflow-hidden">
+                            <div class="h-full bg-blue-600 transition-all duration-150"
+                                 :style="'width:' + pct + '%'"></div>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 text-center">
+                            Загрузка фото... <b x-text="Math.round(pct)"></b>%
+                        </div>
                     </div>
 
                     <span class="text-gray-500">Перетащите фото сюда или кликните для выбора</span>
