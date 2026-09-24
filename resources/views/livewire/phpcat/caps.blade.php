@@ -1,4 +1,4 @@
-<a href="https://кружки.сергейсб.рф"
+<a href="https://cups.php-cat.ru"
    target="_blank"
 >
     <section class="py-32
@@ -38,7 +38,7 @@
                             молоком.<br/>
                             Добавте свою частичку в коллекцию, было бы здорово!<br/>
                             <span class="text-blue-500 hover:underline"
-                                  target="_blank">кружки.СергейСБ.рф</span>
+                                  target="_blank">cups.php-cat.ru</span>
                         </p>
                     </div>
                 </div>
