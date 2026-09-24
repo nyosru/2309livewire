@@ -2,7 +2,9 @@
     <div class="relative block bg-white rounded-lg shadow-lg overflow-hidden">
 
         @if( $i->photos->isNotEmpty() )
-            <img src="{{ $i->photos->first()->mini_url }}" loading="lazy" class="aspect-square w-full"/>
+            <img src="{{ $i->photos->first()->mini_url }}" loading="lazy" class="
+{{--            aspect-square --}}
+            w-full"/>
         @endif
 
         @if( !empty($i['opis']) )
