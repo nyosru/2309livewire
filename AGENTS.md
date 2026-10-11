@@ -146,3 +146,26 @@ Common types: feat, fix, chore, docs, refactor, test, style, perf
 - PHPUnit 10, tests in `tests/Feature/` and `tests/Unit/`
 - DB tests require uncommenting sqlite in `phpunit.xml` — not set up by default
 - `php artisan test` to run all
+
+
+
+
+## Проверка паролей WiFi-хендшейков (bruteforce)
+
+Когда тестируем хендшейк (подбор пароля по .cap) и проверяем пароли — **обязательно записывать результат в БД**:
+
+- Файл БД: `/Users/phpcat/PhpstormProjects/2309livewire/database/passwords.sqlite`
+
+### Схема (2 таблицы)
+1. `handshakes` — информация о хендшейке: `ssid`, `bssid`, `cap_file`, `captured_at`.
+2. `attacks` — информация о переборе: `handshake_id` (FK → handshakes), `mask` + `mask_desc` (какая маска проверялась), `status` (`cracked` | `not_found` | `stopped`), `password` (найденный пароль или NULL), `keyspace`, `speed_khs`, `started_at`/`finished_at`, `tool` (по умолчанию `hashcat`).
+
+### Правила
+- Записывать **все** результаты, включая неудачные (`not_found`) и прерванные (`stopped`).
+- Если сеть ещё не в `handshakes` — сначала добавить запись о хендшейке, потом подбор в `attacks`.
+- Не дублировать: для уже известного (ssid + bssid) хендшейка переиспользовать существующий `handshake_id`.
+- Пример добавления записи о переборе:
+  ```sql
+  INSERT INTO attacks (handshake_id, mask, mask_desc, status, password, keyspace, speed_khs)
+  VALUES (12, '?d?d?d?d?d?d?d?d', '8 цифр', 'not_found', NULL, 100000000, 115.2);
+  ```

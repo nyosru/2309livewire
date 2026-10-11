@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 require 'web.cups.php';
 require 'web.concept-mebel.php';
 require 'web.krostu.php';
+require 'web.catcom.php';
 
 // земельный кадастр
 require 'web.zem.php';
