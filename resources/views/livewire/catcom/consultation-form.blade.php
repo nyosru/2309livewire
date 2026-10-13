@@ -25,13 +25,13 @@
 
             <fieldset class="cat-field">
                 <legend>Как лучше ответить?</legend>
-                <div class="cat-contact-options">
+                <div class="cat-contact-options ">
                     <label class="cat-contact-option">
                         <input type="radio" wire:model="contactMethod" value="call">
                         <span class="cat-radio-mark"></span>
                         <span><b>Позвонить</b><small>Обсудим голосом</small></span>
                     </label>
-                    <label class="cat-contact-option">
+                    <label class="cat-contact-option ">
                         <input type="radio" wire:model="contactMethod" value="max">
                         <span class="cat-radio-mark"></span>
                         <span><b>Написать в MAX</b><small>Ответим сообщением</small></span>

@@ -868,8 +868,8 @@ select {
   bottom: 1rem;
 }
 
-.bottom-\[-40px\] {
-  bottom: -40px;
+.bottom-\[0\] {
+  bottom: 0;
 }
 
 .end-0 {
@@ -890,6 +890,10 @@ select {
 
 .left-4 {
   left: 1rem;
+}
+
+.left-\[10px\] {
+  left: 10px;
 }
 
 .left-\[30\%\] {
@@ -946,26 +950,6 @@ select {
 
 .top-\[8\.3rem\] {
   top: 8.3rem;
-}
-
-.bottom-\[40px\] {
-  bottom: 40px;
-}
-
-.left-\[10px\] {
-  left: 10px;
-}
-
-.bottom-\[20px\] {
-  bottom: 20px;
-}
-
-.bottom-\[5px\] {
-  bottom: 5px;
-}
-
-.bottom-\[0\] {
-  bottom: 0;
 }
 
 .z-0 {
@@ -1201,10 +1185,6 @@ select {
   margin-left: 0.25rem;
 }
 
-.ml-12 {
-  margin-left: 3rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1417,10 +1397,6 @@ select {
   height: 4rem;
 }
 
-.h-2 {
-  height: 0.5rem;
-}
-
 .h-20 {
   height: 5rem;
 }
@@ -1455,10 +1431,6 @@ select {
 
 .h-7 {
   height: 1.75rem;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-9 {
@@ -1661,10 +1633,6 @@ select {
   width: 1.75rem;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
 .w-8\/12 {
   width: 66.666667%;
 }
@@ -1767,10 +1735,6 @@ select {
 
 .max-w-4xl {
   max-width: 56rem;
-}
-
-.max-w-6xl {
-  max-width: 72rem;
 }
 
 .max-w-7xl {
@@ -2425,11 +2389,6 @@ select {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
-}
-
-.border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
 
 .border-gray-500 {
@@ -3695,10 +3654,6 @@ select {
   padding-top: 1.5rem;
 }
 
-.pt-8 {
-  padding-top: 2rem;
-}
-
 .pt-\[0\.37rem\] {
   padding-top: 0.37rem;
 }
@@ -3989,11 +3944,6 @@ select {
 .text-gray-100 {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
 .text-gray-300 {
@@ -4342,11 +4292,6 @@ select {
 
 .shadow-neutral-700\/10 {
   --tw-shadow-color: rgb(64 64 64 / 0.1);
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-white {
-  --tw-shadow-color: #fff;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -5655,10 +5600,6 @@ select {
 
   .sm\:items-center {
     align-items: center;
-  }
-
-  .sm\:justify-start {
-    justify-content: flex-start;
   }
 
   .sm\:justify-center {
