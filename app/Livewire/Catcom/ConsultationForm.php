@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Catcom;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Nyos\Msg;
 
@@ -55,7 +57,31 @@ class ConsultationForm extends Component
             ."Первый вопрос: {$this->question}";
 
         try {
-            $result = Msg::sendVkFromGroup($message, '5903492', 'notification');
+            Log::info('catcom - notification', [
+                'phone' => $this->phone,
+                'contact_method' => $this->contactMethod,
+                'question' => $this->question,
+            ]);
+
+//            Msg::sendTelegramm('Заказ манника', null, 2, config('custom.TELEGRAM_BOT_ORDER_TOKEN'));
+
+//            $result = Msg::sendVkFromGroup($message, '5903492', 'order');
+
+
+            $token = (string) config('services.vk.token_order');
+            $userId = (string) config('services.vk.vk_admin_id');
+            $version = (string) config('services.vk.api_version', '5.199');
+
+            $response = Http::asForm()->post('https://api.vk.com/method/messages.send', [
+                'access_token' => $token,
+                'v' => $version,
+                'user_id' => $userId,
+                'message' => $message,
+                'random_id' => random_int(1, PHP_INT_MAX),
+            ])->throw();
+
+
+            $result = 1;
             $response = json_decode((string) $result, true);
 
             if (is_array($response) && array_key_exists('status', $response) && ! $response['status']) {
