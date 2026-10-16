@@ -3,6 +3,7 @@
 namespace App\Livewire\Phpcat\Admin;
 
 use App\Models\PhpcatServices;
+use Dotenv\Dotenv;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -34,6 +35,8 @@ class ServicesAdmin extends Component
         ], [], [
             'password' => 'пароль',
         ]);
+
+        $this->refreshSecretConfig();
 
         $expectedPassword = (string) config('custom.sercret', '');
 
@@ -167,6 +170,25 @@ class ServicesAdmin extends Component
     private function isAuthorized(): bool
     {
         return session()->get(self::SESSION_KEY) === true;
+    }
+
+    private function refreshSecretConfig(): void
+    {
+        $environmentFile = app()->environmentFilePath();
+
+        if (! is_readable($environmentFile)) {
+            return;
+        }
+
+        try {
+            $environment = Dotenv::parse((string) file_get_contents($environmentFile));
+        } catch (\Throwable) {
+            return;
+        }
+
+        if (array_key_exists('sercret', $environment)) {
+            config()->set('custom.sercret', $environment['sercret']);
+        }
     }
 
     private function resetForm(): void
