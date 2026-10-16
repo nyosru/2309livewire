@@ -12,4 +12,13 @@ class PhpcatServices extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    protected $fillable = [
+        'title',
+        'link',
+        'link_title',
+        'img_url',
+        'opis',
+        'onoff',
+    ];
 }

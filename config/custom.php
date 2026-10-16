@@ -13,6 +13,7 @@ $e = [
     'YANDEX_IAM' => env('YANDEX_IAM'),
     'BLOG_API_KEY' => env('BLOG_API_KEY'),
     'NEWSSTORAGE_API_KEY' => env('NEWSSTORAGE_API_KEY'),
+    'sercret' => env('sercret'),
 
 ];
 

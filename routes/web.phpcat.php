@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Phpcat\MsgSendController;
 use App\Http\Controllers\RedirectController;
+use App\Livewire\Phpcat\Admin\ServicesAdmin;
 use App\Livewire\Phpcat\Develop;
 use App\Livewire\Phpcat\News;
 use App\Livewire\Phpcat\VkFriends;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 $d = function () {
 
     Route::get('/', News::class)->name('index');
+    Route::get('/aaa', ServicesAdmin::class)->name('admin');
     Route::get('/develop/{item}', Develop::class)->name('develop');
     Route::any('/msg', MsgSendController::class)->name('msg.send');
 
