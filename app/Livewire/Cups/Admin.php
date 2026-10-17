@@ -19,6 +19,8 @@ class Admin extends Component
 
     public $lon = '';
 
+    public $address = '';
+
     public $opis = '';
 
     public $img = [];
@@ -31,16 +33,19 @@ class Admin extends Component
             'name' => 'required|string|max:255',
             'lat' => 'nullable|string|max:255',
             'lon' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
             'opis' => 'nullable|string',
             'img.*' => 'nullable|image|max:2048',
             'photoLink' => 'nullable|url|max:2048',
         ]);
 
-        $cup = $this->editId ? Cup::findOrFail($this->editId) : new Cup;
+        $wasEditing = (bool) $this->editId;
+        $cup = $wasEditing ? Cup::findOrFail($this->editId) : new Cup;
 
         $cup->name = $this->name;
         $cup->lat = $this->lat;
         $cup->lon = $this->lon;
+        $cup->address = $this->address;
         $cup->opis = $this->opis;
 
         $cup->save();
@@ -64,7 +69,7 @@ class Admin extends Component
         }
 
         $this->resetForm();
-        session()->flash('success', $this->editId ? 'Кружка обновлена!' : 'Кружка успешно добавлена!');
+        session()->flash('success', $wasEditing ? 'Кружка обновлена!' : 'Кружка успешно добавлена!');
     }
 
     public function edit($id)
@@ -75,6 +80,7 @@ class Admin extends Component
         $this->name = $cup->name;
         $this->lat = $cup->lat;
         $this->lon = $cup->lon;
+        $this->address = $cup->address;
         $this->opis = $cup->opis;
         $this->img = [];
         $this->photoLink = '';
@@ -110,6 +116,15 @@ class Admin extends Component
         session()->flash('success', 'Кружка удалена');
     }
 
+    public function toggleHidden($id): void
+    {
+        $cup = Cup::findOrFail($id);
+        $cup->is_hidden = ! $cup->is_hidden;
+        $cup->save();
+
+        session()->flash('success', $cup->is_hidden ? 'Кружка скрыта с сайта' : 'Кружка снова показывается на сайте');
+    }
+
     public function cancelEdit()
     {
         $this->resetForm();
@@ -121,6 +136,7 @@ class Admin extends Component
         $this->name = '';
         $this->lat = '';
         $this->lon = '';
+        $this->address = '';
         $this->opis = '';
         $this->img = [];
         $this->photoLink = '';
@@ -193,7 +209,7 @@ class Admin extends Component
     public function render()
     {
         return view('livewire.cups.admin', [
-            'cups' => Cup::with('photos')->withTrashed()->orderByDesc('id')->get(),
+            'cups' => Cup::with('photos')->orderByDesc('id')->get(),
         ])->layout('livewire.cups.app.body');
     }
 }

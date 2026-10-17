@@ -13,6 +13,7 @@ class CollectionMap extends Component
     {
         $this->points = Cup::query()
             ->with('photos')
+            ->where('is_hidden', false)
             ->orderBy('id')
             ->get()
             ->map(fn (Cup $cup): array => $this->toMapPoint($cup))
@@ -29,6 +30,7 @@ class CollectionMap extends Component
         return [
             'id' => $cup->id,
             'name' => $cup->name,
+            'address' => $cup->address,
             'description' => $cup->opis,
             'photo' => $photo?->mini_url,
             'latitude' => $latitude,

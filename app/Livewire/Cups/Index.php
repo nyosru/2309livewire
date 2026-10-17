@@ -11,7 +11,9 @@ class Index extends Component
 
     public function mount()
     {
-        $this->cups = Cup::with('photos')->get();
+        $this->cups = Cup::with('photos')
+            ->where('is_hidden', false)
+            ->get();
     }
 
     public function render()

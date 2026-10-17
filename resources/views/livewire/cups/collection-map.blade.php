@@ -47,8 +47,11 @@
                 const description = point.description
                     ? `<div style="margin-top:6px;color:#4b5563;">${escapeHtml(point.description)}</div>`
                     : '';
+                const address = point.address
+                    ? `<div style="margin-top:6px;color:#6b7280;">${escapeHtml(point.address)}</div>`
+                    : '';
 
-                return `${photo}<strong>${escapeHtml(point.name)}</strong>${description}`;
+                return `${photo}<strong>${escapeHtml(point.name)}</strong>${address}${description}`;
             };
 
             const initialize = () => {

@@ -16,7 +16,13 @@ class Cup extends Model
         'name',
         'lat',
         'lon',
+        'address',
         'opis',
+        'is_hidden',
+    ];
+
+    protected $casts = [
+        'is_hidden' => 'boolean',
     ];
 
     public function photos(): HasMany

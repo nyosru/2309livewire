@@ -35,6 +35,14 @@
             </div>
 
             <div class="mb-4">
+                <label class="block mb-1">Адрес места</label>
+                <input type="text" wire:model="address"
+                       placeholder="Например: Россия, Тюменская область, пгт Боровский"
+                       class="border border-2 w-full max-w-[820px] px-2 py-1">
+                @error('address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="mb-4">
                 <label class="block mb-1">Описание</label>
                 <textarea wire:model="opis" rows="3"
                           class="border border-2 w-full max-w-[400px] px-2 py-1"></textarea>
@@ -142,59 +150,106 @@
         </form>
     </div>
 
-    <h2 class="font-bold text-lg mb-4">Все кружки ({{ $cups->count() }})</h2>
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="font-bold text-lg">Текущие записи ({{ $cups->count() }})</h2>
+        <span class="text-sm text-gray-500">Скрыто: {{ $cups->where('is_hidden', true)->count() }}</span>
+    </div>
 
-    <div class="columns-1 md:columns-2 lg:columns-3 gap-4">
-        @foreach( $cups as $cup )
-            <div class="border border-gray-200 rounded-lg shadow p-4 mb-4 break-inside-avoid">
-                <div class="flex items-start gap-4">
-                    @if( $cup->photos->isNotEmpty() )
-                        <img src="{{ $cup->photos->first()->mini_url }}"
-                             class="w-20 h-20 object-cover rounded" loading="lazy"/>
-                    @endif
-                    <div class="flex-1">
-                        <div class="font-bold">{{ $cup->name }}</div>
-                        @if( $cup->lat && $cup->lon )
-                            <div class="text-xs text-gray-500">{{ $cup->lat }}, {{ $cup->lon }}</div>
+    <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow">
+        <table class="w-full min-w-[1000px] border-collapse text-left text-sm">
+            <thead class="bg-gray-100 text-gray-700">
+            <tr>
+                <th class="px-4 py-3 font-semibold">ID</th>
+                <th class="px-4 py-3 font-semibold">Запись</th>
+                <th class="px-4 py-3 font-semibold">Адрес и координаты</th>
+                <th class="px-4 py-3 font-semibold">Фотографии</th>
+                <th class="px-4 py-3 font-semibold">Действия</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            @forelse( $cups as $cup )
+                <tr wire:key="cup-row-{{ $cup->id }}"
+                    @class(['align-top', 'bg-gray-50 opacity-60' => $cup->is_hidden])>
+                    <td class="px-4 py-4 text-gray-500">{{ $cup->id }}</td>
+                    <td class="px-4 py-4 min-w-64">
+                        <div class="font-bold text-base">{{ $cup->name }}</div>
+                        @if( $cup->is_hidden )
+                            <span class="mt-1 inline-block rounded bg-gray-600 px-2 py-0.5 text-xs text-white">Скрыта</span>
                         @endif
                         @if( $cup->opis )
-                            <div class="text-sm text-gray-600">{{ $cup->opis }}</div>
+                            <div class="mt-2 whitespace-pre-line text-gray-600">{{ $cup->opis }}</div>
                         @endif
-                    </div>
-                </div>
+                    </td>
+                    <td class="px-4 py-4 min-w-64">
+                        @if( $cup->address )
+                            <div class="mb-2">{{ $cup->address }}</div>
+                        @else
+                            <div class="mb-2 text-gray-400">Адрес не указан</div>
+                        @endif
 
-                @if( $cup->photos->isNotEmpty() )
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        @foreach( $cup->photos as $photo )
-                            <div class="relative">
-                                <a href="{{ $photo->url }}" target="_blank">
-                                    <img src="{{ $photo->mini_url }}"
-                                         class="w-16 h-16 object-cover rounded" loading="lazy"
-                                         title="{{ $photo->link ? 'ссылка' : $photo->image }}"/>
-                                </a>
-                                <button wire:click="deletePhoto({{ $photo->id }})"
-                                        title="Удалить фото"
-                                        class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 text-xs leading-none">
-                                    x
-                                </button>
+                        @if( $cup->lat && $cup->lon )
+                            <div class="font-mono text-xs text-gray-500">
+                                {{ $cup->lat }}, {{ $cup->lon }}
                             </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                <div class="flex gap-2 mt-4">
-                    <button wire:click="edit({{ $cup->id }})"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
-                        Редактировать
-                    </button>
-                    <button wire:click="delete({{ $cup->id }})"
-                            wire:confirm="Удалить кружку «{{ $cup->name }}»?"
-                            class="bg-red-600 text-white px-3 py-1 rounded text-sm">
-                        Удалить
-                    </button>
-                </div>
-            </div>
-        @endforeach
+                        @else
+                            <div class="text-xs text-red-500">Координаты не указаны</div>
+                        @endif
+                    </td>
+                    <td class="px-4 py-4 min-w-[320px]">
+                        @if( $cup->photos->isNotEmpty() )
+                            <div class="flex flex-wrap gap-3">
+                                @foreach( $cup->photos as $photo )
+                                    <div class="relative" wire:key="cup-photo-{{ $photo->id }}">
+                                        <a href="{{ $photo->url }}" target="_blank" rel="noopener">
+                                            <img src="{{ $photo->mini_url }}"
+                                                 class="h-20 w-20 rounded border object-cover {{ $loop->first ? 'border-orange-500 border-2' : 'border-gray-200' }}"
+                                                 loading="lazy"
+                                                 alt="{{ $cup->name }}"
+                                                 title="{{ $photo->link ? 'Фото по ссылке' : $photo->image }}"/>
+                                        </a>
+                                        @if( $loop->first )
+                                            <span class="absolute bottom-0 left-0 bg-orange-500 px-1 text-xs text-white">Первая</span>
+                                        @endif
+                                        <button type="button"
+                                                wire:click="deletePhoto({{ $photo->id }})"
+                                                wire:confirm="Удалить эту фотографию?"
+                                                title="Удалить фото"
+                                                aria-label="Удалить фото"
+                                                class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-base font-bold leading-none text-white shadow hover:bg-red-700">
+                                            &times;
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <span class="text-gray-400">Нет фотографий</span>
+                        @endif
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <div class="flex flex-col items-start gap-2">
+                            <button type="button" wire:click="edit({{ $cup->id }})"
+                                    class="text-blue-700 underline hover:text-blue-900">
+                                Редактировать
+                            </button>
+                            <button type="button" wire:click="toggleHidden({{ $cup->id }})"
+                                    class="text-gray-700 underline hover:text-gray-900">
+                                {{ $cup->is_hidden ? 'Показать' : 'Скрыть' }}
+                            </button>
+                            <button type="button" wire:click="delete({{ $cup->id }})"
+                                    wire:confirm="Удалить кружку «{{ $cup->name }}» и все её фотографии?"
+                                    class="text-red-700 underline hover:text-red-900">
+                                Удалить
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="px-4 py-10 text-center text-gray-500">Записей пока нет</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
     </div>
 
 </div>
