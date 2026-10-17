@@ -46,7 +46,6 @@ return [
         'token_order' => env('VK_BOT_TOKEN_ORDER'),
         'vk_admin_id' => env('VK_ADMIN_ID'),
 
-
         'bot_token' => env('VK_BOT_TOKEN'),
         'confirmation_code' => env('VK_CONFIRMATION_CODE', ''),
         'group_tokens' => (static function (): array {
@@ -56,7 +55,6 @@ return [
             return is_array($decoded) ? $decoded : [];
         })(),
 
-
     ],
 
     'gigachat' => [
@@ -65,6 +63,10 @@ return [
         'auth_url' => 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth',
         //        'api_url' => 'https://gigachat.devices.sberbank.ru/api/v1/chat/completions',
         'api_url' => 'https://gigachat.devices.sberbank.ru/api/v1/models',
+    ],
+
+    'nominatim' => [
+        'url' => env('NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
     ],
 
 ];

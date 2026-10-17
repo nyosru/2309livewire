@@ -4,8 +4,11 @@ namespace App\Livewire\Cups;
 
 use App\Models\Krugi\Cup;
 use App\Models\Krugi\CupPhoto;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Throwable;
 
 class Admin extends Component
 {
@@ -20,6 +23,8 @@ class Admin extends Component
     public $lon = '';
 
     public $address = '';
+
+    public $geocodeResult = '';
 
     public $opis = '';
 
@@ -72,6 +77,61 @@ class Admin extends Component
         session()->flash('success', $wasEditing ? 'Кружка обновлена!' : 'Кружка успешно добавлена!');
     }
 
+    public function findCoordinates(): void
+    {
+        $this->resetErrorBag('address');
+        $this->geocodeResult = '';
+
+        $address = trim($this->address);
+
+        if ($address === '') {
+            $this->addError('address', 'Сначала введите адрес.');
+
+            return;
+        }
+
+        try {
+            $places = Cache::remember(
+                'cups:geocode:'.sha1(mb_strtolower($address)),
+                now()->addDays(30),
+                function () use ($address): array {
+                    $response = Http::acceptJson()
+                        ->withHeaders([
+                            'Referer' => 'https://cups.php-cat.ru/a123_',
+                            'User-Agent' => 'cups.php-cat.ru/1.0',
+                        ])
+                        ->timeout(12)
+                        ->get(rtrim(config('services.nominatim.url'), '/').'/search', [
+                            'q' => $address,
+                            'format' => 'jsonv2',
+                            'limit' => 1,
+                            'accept-language' => 'ru',
+                        ]);
+
+                    $response->throw();
+
+                    return $response->json() ?: [];
+                }
+            );
+        } catch (Throwable) {
+            $this->addError('address', 'Сервис поиска координат сейчас недоступен. Попробуйте позже.');
+
+            return;
+        }
+
+        $place = $places[0] ?? null;
+
+        if (! $place || ! isset($place['lat'], $place['lon'])) {
+            $this->addError('address', 'По этому адресу не удалось найти координаты.');
+
+            return;
+        }
+
+        $this->lat = (string) $place['lat'];
+        $this->lon = (string) $place['lon'];
+        $this->geocodeResult = (string) ($place['display_name'] ?? $address);
+    }
+
     public function edit($id)
     {
         $cup = Cup::findOrFail($id);
@@ -81,6 +141,7 @@ class Admin extends Component
         $this->lat = $cup->lat;
         $this->lon = $cup->lon;
         $this->address = $cup->address;
+        $this->geocodeResult = '';
         $this->opis = $cup->opis;
         $this->img = [];
         $this->photoLink = '';
@@ -137,6 +198,7 @@ class Admin extends Component
         $this->lat = '';
         $this->lon = '';
         $this->address = '';
+        $this->geocodeResult = '';
         $this->opis = '';
         $this->img = [];
         $this->photoLink = '';

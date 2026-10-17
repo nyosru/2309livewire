@@ -1749,6 +1749,10 @@ select {
   width: 100vw;
 }
 
+.min-w-0 {
+  min-width: 0px;
+}
+
 .min-w-64 {
   min-width: 16rem;
 }
@@ -5449,6 +5453,10 @@ select {
   cursor: not-allowed;
 }
 
+.disabled\:cursor-wait:disabled {
+  cursor: wait;
+}
+
 .disabled\:text-black\/30:disabled {
   color: rgb(0 0 0 / 0.3);
 }
@@ -5459,6 +5467,10 @@ select {
 
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
+}
+
+.disabled\:opacity-60:disabled {
+  opacity: 0.6;
 }
 
 .group:hover .group-hover\:translate-x-1 {

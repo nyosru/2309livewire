@@ -21,7 +21,30 @@
                 @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-w-[400px]">
+            <div class="mb-4">
+                <label class="block mb-1">Адрес места</label>
+                <div class="flex max-w-[820px] flex-col gap-2 sm:flex-row">
+                    <input type="text" wire:model="address"
+                           placeholder="Например: Россия, Тюменская область, пгт Боровский"
+                           class="min-w-0 flex-1 border-2 border-gray-300 px-2 py-1">
+                    <button type="button"
+                            wire:click="findCoordinates"
+                            wire:loading.attr="disabled"
+                            wire:target="findCoordinates"
+                            class="whitespace-nowrap rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:cursor-wait disabled:opacity-60">
+                        <span wire:loading.remove wire:target="findCoordinates">Найти координаты</span>
+                        <span wire:loading wire:target="findCoordinates">Ищу…</span>
+                    </button>
+                </div>
+                @error('address') <span class="mt-1 block text-sm text-red-500">{{ $message }}</span> @enderror
+                @if( $geocodeResult )
+                    <div class="mt-2 max-w-[820px] rounded bg-green-100 px-3 py-2 text-sm text-green-800">
+                        Найдено: {{ $geocodeResult }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="grid max-w-[400px] grid-cols-2 gap-4">
                 <div class="mb-4">
                     <label class="block mb-1">Широта (lat)</label>
                     <input type="text" wire:model="lat" class="border border-2 w-full px-2 py-1">
@@ -32,14 +55,6 @@
                     <input type="text" wire:model="lon" class="border border-2 w-full px-2 py-1">
                     @error('lon') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
-            </div>
-
-            <div class="mb-4">
-                <label class="block mb-1">Адрес места</label>
-                <input type="text" wire:model="address"
-                       placeholder="Например: Россия, Тюменская область, пгт Боровский"
-                       class="border border-2 w-full max-w-[820px] px-2 py-1">
-                @error('address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div class="mb-4">
