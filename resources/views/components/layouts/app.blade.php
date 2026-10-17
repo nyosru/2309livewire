@@ -73,10 +73,14 @@
 
     @include('livewire.snowk-start')
 
+{{--@elseif(--}}
+{{--    //земельныйкадастр.рф--}}
+{{--    $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai' ||--}}
+{{--    )--}}
+{{--    @include('zem.index')--}}
+
 @elseif(
     $_SERVER['HTTP_HOST'] == 'zem.local' ||
-    //земельныйкадастр.рф
-    $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai' ||
     // приватизация гаража
     $_SERVER['HTTP_HOST'] == 'xn--80aaaaahj0aehcc8fojz5e1i.xn--p1ai'
 //    ||
