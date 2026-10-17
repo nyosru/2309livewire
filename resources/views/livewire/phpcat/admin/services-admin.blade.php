@@ -171,11 +171,14 @@
                                             @endif
                                         </td>
                                         <td class="px-5 py-4">
-                                            @if ($service->onoff === 'on')
-                                                <span class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">Показывается</span>
-                                            @else
-                                                <span class="rounded-full bg-gray-200 px-3 py-1 text-sm text-gray-700">Скрыт</span>
-                                            @endif
+                                            <button type="button"
+                                                    wire:click="toggleVisibility({{ $service->id }})"
+                                                    wire:loading.attr="disabled"
+                                                    wire:target="toggleVisibility({{ $service->id }})"
+                                                    title="Нажмите, чтобы изменить видимость"
+                                                    class="rounded-full px-3 py-1 text-sm transition disabled:opacity-50 {{ $service->onoff === 'on' ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                                                {{ $service->onoff === 'on' ? 'Показывается' : 'Скрыт' }}
+                                            </button>
                                         </td>
                                         <td class="px-5 py-4">
                                             <div class="flex justify-end gap-2">

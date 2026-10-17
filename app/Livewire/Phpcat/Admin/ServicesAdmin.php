@@ -144,6 +144,25 @@ class ServicesAdmin extends Component
         session()->flash('success', 'Сервис удалён.');
     }
 
+    public function toggleVisibility(int $id): void
+    {
+        $this->ensureAuthorized();
+
+        $service = PhpcatServices::query()->findOrFail($id);
+        $service->update([
+            'onoff' => $service->onoff === 'on' ? 'off' : 'on',
+        ]);
+
+        if ($this->editId === $service->id) {
+            $this->onoff = $service->onoff;
+        }
+
+        session()->flash(
+            'success',
+            $service->onoff === 'on' ? 'Сервис опубликован.' : 'Сервис скрыт.',
+        );
+    }
+
     public function cancelEdit(): void
     {
         $this->ensureAuthorized();
