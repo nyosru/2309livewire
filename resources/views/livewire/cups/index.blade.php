@@ -1,4 +1,6 @@
 <div class="container-fluid mx-auto">
+    <livewire:cups.collection-map/>
+
     <div class="w-full mt-10 text-center mb-5">
         <h1 class="text-xl"><b>Коллекция кружек для питья горячего, сладкого кофе с молоком</b></h1>
         <p>на которой написано название страны, города или места где получилось ей обзавестись, купить, получить</p>
