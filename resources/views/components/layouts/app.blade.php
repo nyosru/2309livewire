@@ -75,7 +75,7 @@
 
 @elseif(
     //земельныйкадастр.рф
-    $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai' ||
+    $_SERVER['HTTP_HOST'] == 'xn--80aalcakqihin5bmo2koa.xn--p1ai'
     )
     @include('livewire.zem_kadastr.index')
 
