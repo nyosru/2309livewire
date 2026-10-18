@@ -1,157 +1,67 @@
-{{--@section('content')--}}
 <div>
+    <section class="hero">
+        <div class="hero__photo" aria-hidden="true"></div>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <div class="ttt-shell hero__inner">
+            <div class="hero__copy">
+                <p class="eyebrow">Школа бильярда · Тюмень</p>
+                <h1>Удар,<br><em>которому</em><br>веришь.</h1>
+                <p class="hero__lead">Поставим стойку, прицел и технику. Научим читать стол и спокойно выигрывать — с нуля или с вашего текущего уровня.</p>
+                <div class="hero__facts" aria-label="Ключевые преимущества">
+                    <span><b>2 часа</b> одно занятие</span>
+                    <span><b>1 на 1</b> с тренером</span>
+                    <span><b>с 2006</b> тренерская практика</span>
+                </div>
+            </div>
 
-    {{--    <livewire:mannik.order-form/>--}}
+            <livewire:ttt.hero-lead-form/>
+        </div>
+    </section>
 
+    <section class="method" aria-labelledby="method-title">
+        <div class="ttt-shell method__grid">
+            <div class="section-heading">
+                <p class="eyebrow">Метод Коновалова</p>
+                <h2 id="method-title">Не бейте<br>наугад.</h2>
+                <p class="section-lead">Хорошая игра начинается не с силы. Она начинается с понятной системы движений и решений.</p>
+            </div>
+            <ol class="method-list">
+                <li><span>01</span><div><b>Ставим технику</b><p>Стойка, хват, мост, ровный вынос кия и стабильный удар.</p></div></li>
+                <li><span>02</span><div><b>Учимся видеть стол</b><p>Прицеливание, резка, выходы и выбор правильного продолжения.</p></div></li>
+                <li><span>03</span><div><b>Собираем свою игру</b><p>Практика, разбор ошибок и спокойствие в каждой партии.</p></div></li>
+            </ol>
+        </div>
+    </section>
 
-    <div>
-        <livewire:spa.form1/>
-    </div>
     <livewire:ttt.smi-list/>
-    {{--    <div>--}}
-    {{--        <livewire:spa.form2-action1/>--}}
-    {{--    </div>--}}
+    <livewire:ttt.where-to-play/>
 
-    {{--блок слева картинка справа текст списком--}}
-    <div class="
-{{--    my-5 --}}
-    py-10 to-orange-200
-    bg-gradient-to-bl from-yellow-200
-    ">
-        <div class="container mx-auto">
-
-            <img src="/ttt/img/b1.jpeg" class="rounded-xl float-left mr-2"/>
-
-            <div class="">
-                Присоединяйтесь к нашей школе бильярда!
-                Хотите освоить бильярд с нуля или поднять свою игру на новый уровень?
-            </div>
-            <div class="font-bold pt-3">
-                🎱 Почему выбирают нас?
-            </div>
+    <section class="final-cta" id="contact">
+        <div class="ttt-shell final-cta__grid">
             <div>
-                + Обучение от профессионального тренера с многолетним опытом.
-                <br/>
-                + Программы для всех уровней: от новичков до мастеров.
-                <br/>
-                + Уютная атмосфера, современные столы и индивидуальный подход.
+                <p class="eyebrow">Хватит смотреть со стороны</p>
+                <h2>Пора<br><em>к столу.</em></h2>
+                <p>Оставьте номер — Александр Борисович уточнит цель, расскажет о формате и предложит удобное время.</p>
             </div>
-            @if(1==2)
-                <div class="pt-3 ">
-                    <b>📝 Запишитесь прямо сейчас!</b><br/>
-                    Оставьте заявку, и мы свяжемся с вами, чтобы подобрать удобное время и формат занятий.
 
-                    <div class="flex justify-center">
-                        <div class="w-[300px] bg-gradient-to-bl from-yellow-200 to-orange-500 rounded-xl p-4">
-                            <div class="flex flex-col space-y-2">
-                                <div class="font-bold text-center">
-                                    Записаться на обучение игре в&nbsp;бильярд
-                                </div>
-                                <div class="">
-                                    <input type="text" placeholder="Ваш телефон" class="w-full"/>
-                                </div>
-                                <div class="">
-                                    <button
-                                        class="bg-gradient-to-bl from-blue-200 to-blue-400 w-full font-bold rounded-xl px-2 py-1">
-                                        Отправить
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            <br clear="all"/>
+            <livewire:ttt.bottom-lead-form/>
         </div>
-    </div>
-
-    @if(1==2)
-        <div class="w-full">
-            <div class="w-full min-h-screen flex justify-center items-center">
-                <div
-                    class="relative flex justify-center items-center min-h-[650px] w-full max-w-4xl bg-cover bg-no-repeat bg-center border-2 border-red-300"
-                    style="background-image: url('/ttt/img/bar777-ball-colorful-photo-lg.jpeg');">
-                    <div
-                        class="w-[300px] bg-gradient-to-bl from-yellow-200 to-orange-500 rounded-xl p-4 flex justify-center items-center">
-                        <div class="flex flex-col space-y-2 w-full">
-                            <div class="font-bold text-center">
-                                Записаться на обучение игре в&nbsp;бильярд
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Ваш телефон" class="w-full rounded-md p-2"/>
-                            </div>
-                            <div>
-                                <button
-                                    class="bg-gradient-to-bl from-blue-200 to-blue-400 w-full font-bold rounded-xl px-2 py-1">
-                                    Отправить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <livewire:spa.form2-action1 />
-
+    </section>
 
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
           "@type": "Service",
           "name": "Обучение бильярду",
-          "description": "Индивидуальные и курсовые занятия по бильярду в Тюмени. Тренировки с инструктором, техника, стратегия и практика игры.",
+          "description": "Индивидуальные занятия по бильярду в Тюмени с Александром Коноваловым.",
           "provider": {
             "@type": "LocalBusiness",
-            "name": "Школа бильярда Александра Коновалова - TTT72",
+            "name": "Школа бильярда Александра Коновалова — TTT72",
             "url": "https://ttt72.ru",
             "telephone": "+7-922-263-06-18",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Тюмень",
-              "addressRegion": "Тюменская область",
-              "addressCountry": "RU"
-            }
+            "address": {"@type": "PostalAddress", "addressLocality": "Тюмень", "addressCountry": "RU"}
           },
-          "areaServed": {
-            "@type": "AdministrativeArea",
-            "name": "Тюмень"
-          },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Цены на занятия по бильярду",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "name": "1 занятие по бильярду",
-                "description": "Индивидуальное занятие с тренером (2 часа) + оплата стола отдельно",
-                "price": "1000",
-                "priceCurrency": "RUB",
-                "url": "https://ttt72.ru"
-              },
-              {
-                "@type": "Offer",
-                "name": "Курс 2 месяца",
-                "description": "6 занятий по 2 часа + оплата стола отдельно",
-                "price": "5500",
-                "priceCurrency": "RUB",
-                "url": "https://ttt72.ru"
-              },
-              {
-                "@type": "Offer",
-                "name": "Курс 6 месяцев",
-                "description": "18 занятий по 2 часа + оплата стола отдельно",
-                "price": "15000",
-                "priceCurrency": "RUB",
-                "url": "https://ttt72.ru"
-              }
-            ]
-          }
+          "areaServed": "Тюмень"
         }
     </script>
-
-
 </div>
-{{--@endsection--}}
-

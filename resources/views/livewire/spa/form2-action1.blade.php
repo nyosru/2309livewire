@@ -1,54 +1,21 @@
-<div class="w-full">
-
-    <div
-        class="
-        ">
-        <div class="flex
-             items-center
-            min-h-[650px]
-            bg-cover bg-no-repeat
-            bg-center
-            "
-             style="background-image: url('/ttt/img/bar777-ball-colorful-photo-lg.jpeg');"
-        >
-{{--            $telegram_bot_token_config {{ $telegram_bot_token_config ?? 'xx' }}--}}
-{{--            <br/>--}}
-{{--            $telegram_bot_token {{ $telegram_bot_token ?? 'x' }}--}}
-{{--            <br/>--}}
-{{--            <br/>--}}
-
-            <form wire:submit.prevent="sendMsg">
-                <div id="a7" class="w-[300px]
-                    bg-gradient-to-bl from-yellow-200 to-orange-500 rounded-xl p-4
-                     mx-auto
-                     md:mr-[5vw]
-                     md:ml-[5vw]
-                    flex flex-col space-y-2">
-                    @if(session('message_ok'))
-                        <div class="bg-green-100
-                        text-center
-                        border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                             role="alert">
-                            {{ session('message_ok') }}
-                        </div>
-                    @else
-                        <div class="font-bold text-center">
-                            Записаться на обучение игре в&nbsp;бильярд
-                        </div>
-                        <div class="">
-                            <input type="text" wire:model="phone" placeholder="Ваш телефон" class="w-full"/>
-                        </div>
-                        <div class="">
-                            <button
-                                type="submit"
-                                class="bg-gradient-to-bl from-blue-200 to-blue-400 w-full font-bold rounded-xl px-2 py-1">
-                                Отправить
-                            </button>
-                        </div>
-                    @endif
-                </div>
-            </form>
+<section class="final-cta" id="contact">
+    <div class="ttt-shell final-cta__grid">
+        <div>
+            <p class="eyebrow">Хватит смотреть со стороны</p>
+            <h2>Пора<br><em>к столу.</em></h2>
+            <p>Оставьте номер — Александр Борисович уточнит цель, расскажет о формате и предложит удобное время.</p>
         </div>
-    </div>
 
-</div>
+        <form wire:submit.prevent="sendMsg" class="final-form">
+            @if(session('message_ok'))
+                <div class="form-success" role="alert">{{ session('message_ok') }}</div>
+            @else
+                <label for="footer-phone">Ваш телефон</label>
+                <input id="footer-phone" type="text" wire:model="phone" placeholder="+7 900 000-00-00" autocomplete="tel">
+                @error('phone') <span class="form-error">{{ $message }}</span> @enderror
+                <button type="submit">Записаться на занятие <span aria-hidden="true">→</span></button>
+                <small>Или позвоните: <a href="tel:89222630618">8 922 263-06-18</a></small>
+            @endif
+        </form>
+    </div>
+</section>

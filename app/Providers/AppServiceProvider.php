@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Gate::define('manage-ttt-clubs', function (User $user): bool {
+            if (in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)) {
+                return true;
+            }
+
+            return $user->getAllPermissions()->contains(
+                fn ($permission) => in_array($permission->name, ['Полный//доступ', 'ттт.Клубы'], true),
+            );
+        });
 
         \Illuminate\Support\Facades\Http::globalOptions([
             'verify' => false, // для полного отключения

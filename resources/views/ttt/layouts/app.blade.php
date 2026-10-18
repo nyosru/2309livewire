@@ -13,6 +13,7 @@
 {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />--}}
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
     <link href="/css/output.css?v={{ filemtime(public_path('/css/output.css')) }}" rel="stylesheet">
+    <link href="/css/ttt.css?v={{ filemtime(public_path('/css/ttt.css')) }}" rel="stylesheet">
 {{--    <script src="https://cdn.tailwindcss.com/3.4.16"></script>--}}
 {{--    <script src="https://cdn.tailwindcss.com/3.4.16"></script>--}}
 {{--    <script>--}}
@@ -57,15 +58,9 @@
     <meta name="twitter:image" content="https://xn--80aayihhat9j.xn--p1ai/mannik/preview_link_for_vk.jpg">
     @endif
 
-    <style>
-        html{
-            font-size: 130%;
-        }
-    </style>
-
 </head>
 
-<body class="antialiased">
+<body class="ttt-site antialiased">
 
     <header>
         @include('ttt.layouts.header')

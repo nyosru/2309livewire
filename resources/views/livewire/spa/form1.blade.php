@@ -1,57 +1,34 @@
-<section class="py-16
-{{--    bg-gradient-to-bl from-green-500 to-blue-600--}}
-
-
-    text-white
-
-
- bg-cover bg-no-repeat
-            bg-center
-
-            "
-         style="background-image: url('/ttt/img/bb1.jpeg');"
->
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-        <!-- Текст предложения -->
-        <div class="md:w-1/2 text-center md:text-right">
-            <h2 class="text-3xl font-bold mb-4"
-                style="text-shadow: 1px 1px 5px rgba(0,0,0,0.7);"
-            >Станьте мастером бильярда!</h2>
-            <p class="text-lg mb-6"
-               style="text-shadow: 1px 1px 5px rgba(0,0,0,0.7);"
-            >Пройдите курс&nbsp;обучения 6&nbsp;месяцев</p>
+<section class="hero">
+    <div class="hero__photo" aria-hidden="true"></div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="ttt-shell hero__inner">
+        <div class="hero__copy">
+            <p class="eyebrow">Школа бильярда · Тюмень</p>
+            <h1>Удар,<br><em>которому</em><br>веришь.</h1>
+            <p class="hero__lead">Поставим стойку, прицел и технику. Научим читать стол и спокойно выигрывать — с нуля или с вашего текущего уровня.</p>
+            <div class="hero__facts" aria-label="Ключевые преимущества">
+                <span><b>2 часа</b> одно занятие</span>
+                <span><b>1 на 1</b> с тренером</span>
+                <span><b>с 2006</b> тренерская практика</span>
+            </div>
         </div>
 
-        <!-- Форма -->
-        <div class="md:w-1/2">
+        <div class="lead-card" id="signup">
+            <p class="lead-card__label">Первый ход — ваш</p>
+            <h2>Запишитесь<br>на тренировку</h2>
             @if(session('message_ok'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                     role="alert">
-                    {{ session('message_ok') }}
-                </div>
+                <div class="form-success" role="alert">{{ session('message_ok') }}</div>
             @else
-                <form wire:submit.prevent="sendMsg" class="max-w-md mx-auto space-y-4">
-                    <div>
-                        <input
-                            type="text"
-                            wire:model="phone"
-                            placeholder="Ваш номер телефона"
-                            class="w-full p-3 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                        >
-                        @error('phone') <span class="text-red-400 text-sm">{{ $message }}</span> @enderror
+                <form wire:submit.prevent="sendMsg" class="lead-form">
+                    <label for="hero-phone">Телефон</label>
+                    <div class="lead-form__row">
+                        <input id="hero-phone" type="text" wire:model="phone" placeholder="+7 900 000-00-00" autocomplete="tel">
+                        <button type="submit">Обсудить занятие <span aria-hidden="true">→</span></button>
                     </div>
-                    <button
-                        type="submit"
-                        class="w-full bg-yellow-400 text-green-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition"
-                    >
-                        Отправить
-                    </button>
-                    {{--                @if (session()->has('message'))--}}
-                    {{--                    <div class="text-green-200 text-center">{{ session('message') }}</div>--}}
-                    {{--                @endif--}}
+                    @error('phone') <span class="form-error">{{ $message }}</span> @enderror
+                    <small>Перезвоним, узнаем ваш уровень и подберём время.</small>
                 </form>
             @endif
-
         </div>
     </div>
 </section>
