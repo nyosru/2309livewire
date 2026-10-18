@@ -33,5 +33,6 @@
 
     @yield('content')
 </main>
+<script src="/js/raal-admin.js" defer></script>
 </body>
 </html>

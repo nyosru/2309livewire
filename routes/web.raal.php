@@ -1,17 +1,12 @@
 <?php
 
 use App\Http\Controllers\RaalProjectController;
-use App\Models\RaalProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 $raalRoutes = function () {
-    Route::get('/', function () {
-        return view('raal.index', [
-            'projects' => RaalProject::active()->orderBy('sort_order')->orderBy('id')->get(),
-        ]);
-    })->name('index');
+    Route::view('/', 'raal.index')->name('index');
 
     Route::post('/consultation', function (Request $request) {
         $data = $request->validate([
@@ -68,6 +63,8 @@ $raalRoutes = function () {
 
     Route::middleware('raal.admin')->prefix('adm_')->as('admin.')->group(function () {
         Route::get('/', fn () => redirect()->route('raal.admin.projects.index'))->name('index');
+        Route::patch('projects/{project}/visibility', [RaalProjectController::class, 'toggleVisibility'])
+            ->name('projects.visibility');
         Route::resource('projects', RaalProjectController::class)->except('show');
         Route::post('/logout', function (Request $request) {
             $request->session()->forget('raal_admin_authenticated');

@@ -13,7 +13,7 @@
         @if($editing) @method('PUT') @endif
 
         <section class="form-section">
-            <div class="form-section-title"><span>01</span><div><h2>Основное</h2><p>То, что посетитель увидит в карточке проекта.</p></div></div>
+            <div class="form-section-title"><span>01</span><div><h2>Основное</h2><p>То, что посетитель увидит в&nbsp;карточке проекта.</p></div></div>
             <div class="form-fields">
                 <label class="wide"><span>Название *</span><input name="title" value="{{ old('title', $project->title) }}" required maxlength="160"></label>
                 <label><span>Категория</span><input name="category" value="{{ old('category', $project->category) }}" placeholder="Например, IT-сервис"></label>
@@ -28,18 +28,34 @@
         <section class="form-section">
             <div class="form-section-title"><span>02</span><div><h2>Фотографии</h2><p>Первая фотография будет обложкой. Остальные показываются при наведении.</p></div></div>
             <div class="form-fields">
-                @if(collect($project->images)->isNotEmpty())
-                    <div class="current-images wide">
-                        @foreach($project->images as $image)<img src="{{ $image }}" alt="Фото {{ $loop->iteration }}">@endforeach
+                <div class="image-manager wide" data-image-manager>
+                    <div class="current-images" data-current-images>
+                        @foreach(old('existing_images', $project->images ?? []) as $image)
+                            <div class="current-image-item" data-current-image>
+                                <img src="{{ $image }}" alt="Фото {{ $loop->iteration }}">
+                                <input type="hidden" name="existing_images[]" value="{{ $image }}">
+                                <span class="cover-label" data-cover-label @if(! $loop->first) hidden @endif>Обложка</span>
+                                <button class="image-remove" type="button" data-remove-image aria-label="Удалить фотографию">×</button>
+                            </div>
+                        @endforeach
                     </div>
-                @endif
-                <label class="wide"><span>Пути или ссылки — по одной в строке</span><textarea name="image_urls" rows="6" placeholder="/storage/raal/projects/photo.jpg">{{ old('image_urls', collect($project->images)->implode("\n")) }}</textarea></label>
-                <label class="wide upload-field"><span>Загрузить новые фотографии</span><input type="file" name="images_upload[]" accept="image/*" multiple><small>JPG, PNG или WebP, до 6 МБ каждый. Загруженные файлы добавятся в конец списка.</small></label>
+
+                    <label class="drop-zone" data-drop-zone>
+                        <input class="drop-zone-input" type="file" name="images_upload[]" accept="image/jpeg,image/png,image/webp" multiple data-file-input>
+                        <span class="drop-zone-icon">＋</span>
+                        <strong>Перетащите фотографии сюда</strong>
+                        <span>или нажмите, чтобы выбрать</span>
+                        <small>JPG, PNG или WebP, до 6 МБ. После загрузки файл преобразуется в JPG, а ширина уменьшится до 700 px. Оригинал не сохраняется.</small>
+                    </label>
+
+                    <div class="upload-previews" data-upload-previews></div>
+                    <p class="image-manager-note">Крестик убирает фотографию из проекта после сохранения формы. Всего можно добавить до 12 фотографий.</p>
+                </div>
             </div>
         </section>
 
         <section class="form-section">
-            <div class="form-section-title"><span>03</span><div><h2>Публикация</h2><p>Управляйте порядком и видимостью.</p></div></div>
+            <div class="form-section-title"><span>03</span><div><h2>Публикация</h2><p>Управляйте порядком и&nbsp;видимостью.</p></div></div>
             <div class="form-fields">
                 <label><span>Порядок</span><input type="number" name="sort_order" value="{{ old('sort_order', $project->sort_order ?? 0) }}" min="0" max="100000" required></label>
                 <label class="checkbox-label"><input type="hidden" name="is_active" value="0"><input type="checkbox" name="is_active" value="1" @checked(old('is_active', $project->exists ? $project->is_active : true))><span>Показывать проект на сайте</span></label>
