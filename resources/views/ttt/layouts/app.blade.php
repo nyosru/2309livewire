@@ -4,7 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Тактика Техника Точность, обучение бильярду у Коновалова Александра Борисовича!</title>
+    <title>Школа бильярда Александра Коновалова в Тюмени — TTT72</title>
+    <meta name="description" content="Научитесь уверенно держать кий, точно бить и понимать игру уже с первых занятий — даже если раньше никогда не подходили к бильярдному столу.">
+    <link rel="canonical" href="https://ttt72.ru/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="TTT72 — школа бильярда">
+    <meta property="og:url" content="https://ttt72.ru/">
+    <meta property="og:title" content="Научитесь играть в бильярд уверенно — с нуля">
+    <meta property="og:description" content="Александр Коновалов поставит технику, разберёт ошибки и поможет перейти от случайных ударов к осознанной игре.">
+    <meta property="og:image" content="https://ttt72.ru/ttt/preview_link_for_fb.jpg">
+    <meta property="og:image:secure_url" content="https://ttt72.ru/ttt/preview_link_for_fb.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="628">
+    <meta property="og:image:alt" content="Обучение игре в бильярд в школе TTT72">
+
+    <meta property="vk:image" content="https://ttt72.ru/ttt/preview_link_for_vk.jpg">
     <link type="image/x-icon" href="/phpcat/favcat.ico" rel="shortcut icon" />
 {{--    <!-- Fonts -->--}}
 {{--    <link rel="preconnect" href="https://fonts.bunny.net">--}}
@@ -35,28 +52,6 @@
 {{--    </script>--}}
 
 {{--    @livewireStyles--}}
-
-    @if(1==2)
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://ЮраМанник.рф">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="ЮраМанник.рф - самые вкусные манники в Тюмени!">
-    <meta property="og:description" content="настоящее воплощение простоты и уюта">
-
-{{--    <meta property="og:image" content="https://php-cat.com/phpcat/preview_link_phpcat_for_fb.jpg">--}}
-    <meta property="og:image" content="https://xn--80aayihhat9j.xn--p1ai/mannik/preview_link_for_fb.jpg">
-
-    <!-- VK Meta Tags -->
-    <meta property="vk:image"  content="https://xn--80aayihhat9j.xn--p1ai/mannik/preview_link_for_vk.jpg" />
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="ЮраМанник.рф">
-    <meta property="twitter:url" content="https://xn--80aayihhat9j.xn--p1ai">
-    <meta name="twitter:title" content="ЮраМанник.рф - самые вкусные манники в Тюмени!">
-    <meta name="twitter:description" content="настоящее воплощение простоты и уюта">
-    <meta name="twitter:image" content="https://xn--80aayihhat9j.xn--p1ai/mannik/preview_link_for_vk.jpg">
-    @endif
 
 </head>
 

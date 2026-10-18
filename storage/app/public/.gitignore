@@ -1,2 +1,5 @@
 *
 !.gitignore
+!ttt/
+!ttt/clubs/
+!ttt/clubs/.gitkeep
