@@ -57,6 +57,10 @@ return [
 
     ],
 
+    'raal' => [
+        'admin_password' => env('PASS_FOR_RAAL'),
+    ],
+
     'gigachat' => [
         'client_id' => env('GIGACHAT_CLIENT_ID'),
         'client_secret' => env('GIGACHAT_CLIENT_SECRET'),

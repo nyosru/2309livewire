@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'vk_id',
+        'vk_token',
     ];
 
     /**
