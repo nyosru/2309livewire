@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <title>Коллекция кружен</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1"/>
     <link rel="shortcut icon" href="/storage/krugi/favicon.png" type="image/png"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
