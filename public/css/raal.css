@@ -10,3 +10,4 @@
 .brand-name{font-size:1.5rem}.brand-copy small{font-size:2rem;line-height:1.25}.hero-card-bottom,.project-status,.project-meta,.investment span,.modal-step label span{font-size:12px}.hero-card-top,.contact-action>p{font-size:14px}@media(max-width:640px){.site-header{height:82px}.brand{gap:10px}.brand-mark{width:40px;height:40px;font-size:20px}.brand-name{font-size:16px}.brand-copy small{max-width:125px;font-size:9px}.header-action{font-size:12px}}
 .brand-name{letter-spacing:.78em;line-height:1}.brand-copy small{margin-top:-1px}
 .main-nav,.header-action{font-size:16px}.brand-copy small{font-size:12px}footer{font-size:14px}@media(max-width:640px){.brand-copy small{font-size:11px}.header-action{font-size:13px}}
+.brand-mark{border:1px solid var(--ink)}
