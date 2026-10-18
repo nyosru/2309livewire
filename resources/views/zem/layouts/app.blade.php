@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ПриватизацияГаража.рф</title>
+    <title>ПриватизацияГаража.рф 1</title>
 
     <link type="image/x-icon" href="/zem/favicon.ico" rel="shortcut icon"/>
 
