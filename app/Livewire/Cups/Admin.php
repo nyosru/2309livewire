@@ -28,6 +28,14 @@ class Admin extends Component
 
     public $opis = '';
 
+    public $advertisingText = '';
+
+    public $advertisingAddress = '';
+
+    public $advertisingPhone = '';
+
+    public $showAdvertisement = false;
+
     public $img = [];
 
     public $photoLink = '';
@@ -40,6 +48,10 @@ class Admin extends Component
             'lon' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:500',
             'opis' => 'nullable|string',
+            'advertisingText' => 'nullable|string',
+            'advertisingAddress' => 'nullable|string|max:500',
+            'advertisingPhone' => 'nullable|string|max:100',
+            'showAdvertisement' => 'boolean',
             'img.*' => 'nullable|image|max:2048',
             'photoLink' => 'nullable|url|max:2048',
         ]);
@@ -52,6 +64,10 @@ class Admin extends Component
         $cup->lon = $this->lon;
         $cup->address = $this->address;
         $cup->opis = $this->opis;
+        $cup->advertising_text = $this->advertisingText;
+        $cup->advertising_address = $this->advertisingAddress;
+        $cup->advertising_phone = $this->advertisingPhone;
+        $cup->show_advertisement = $this->showAdvertisement;
 
         $cup->save();
 
@@ -143,6 +159,10 @@ class Admin extends Component
         $this->address = $cup->address;
         $this->geocodeResult = '';
         $this->opis = $cup->opis;
+        $this->advertisingText = $cup->advertising_text;
+        $this->advertisingAddress = $cup->advertising_address;
+        $this->advertisingPhone = $cup->advertising_phone;
+        $this->showAdvertisement = $cup->show_advertisement;
         $this->img = [];
         $this->photoLink = '';
     }
@@ -200,6 +220,10 @@ class Admin extends Component
         $this->address = '';
         $this->geocodeResult = '';
         $this->opis = '';
+        $this->advertisingText = '';
+        $this->advertisingAddress = '';
+        $this->advertisingPhone = '';
+        $this->showAdvertisement = false;
         $this->img = [];
         $this->photoLink = '';
     }

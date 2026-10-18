@@ -18,10 +18,15 @@ class Cup extends Model
         'lon',
         'address',
         'opis',
+        'advertising_text',
+        'advertising_address',
+        'advertising_phone',
+        'show_advertisement',
         'is_hidden',
     ];
 
     protected $casts = [
+        'show_advertisement' => 'boolean',
         'is_hidden' => 'boolean',
     ];
 

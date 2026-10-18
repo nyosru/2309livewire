@@ -64,6 +64,37 @@
                 @error('opis') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
+            <div class="mb-6 max-w-[820px] rounded-lg border border-orange-200 bg-orange-50 p-4">
+                <div class="mb-4 flex items-center gap-2">
+                    <input id="show-advertisement" type="checkbox" wire:model="showAdvertisement"
+                           class="h-4 w-4 rounded border-gray-300 text-orange-600">
+                    <label for="show-advertisement" class="font-semibold">Показывать рекламный блок у последней кружки</label>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1">Рекламный текст</label>
+                    <textarea wire:model="advertisingText" rows="3"
+                              class="w-full border-2 border-gray-300 px-2 py-1"></textarea>
+                    @error('advertisingText') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1">Рекламный адрес</label>
+                    <input type="text" wire:model="advertisingAddress"
+                           placeholder="Адрес для ссылки на Яндекс.Карты"
+                           class="w-full border-2 border-gray-300 px-2 py-1">
+                    @error('advertisingAddress') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label class="block mb-1">Рекламный телефон</label>
+                    <input type="tel" wire:model="advertisingPhone"
+                           placeholder="+7 999 123-45-67"
+                           class="w-full max-w-[400px] border-2 border-gray-300 px-2 py-1">
+                    @error('advertisingPhone') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
             <div class="mb-4">
                 <label class="block mb-1">Фото (перетащите или выберите, до 10 штук)</label>
 
@@ -176,7 +207,7 @@
             <tr>
                 <th class="px-4 py-3 font-semibold">ID</th>
                 <th class="px-4 py-3 font-semibold">Запись</th>
-                <th class="px-4 py-3 font-semibold">Адрес и координаты</th>
+                <th class="px-4 py-3 font-semibold">Адрес и координаты</th>
                 <th class="px-4 py-3 font-semibold">Фотографии</th>
                 <th class="px-4 py-3 font-semibold">Действия</th>
             </tr>
@@ -251,7 +282,7 @@
                                 {{ $cup->is_hidden ? 'Показать' : 'Скрыть' }}
                             </button>
                             <button type="button" wire:click="delete({{ $cup->id }})"
-                                    wire:confirm="Удалить кружку «{{ $cup->name }}» и все её фотографии?"
+                                    wire:confirm="Удалить кружку «{{ $cup->name }}» и все её фотографии?"
                                     class="text-red-700 underline hover:text-red-900">
                                 Удалить
                             </button>
