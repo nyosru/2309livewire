@@ -96,7 +96,7 @@
             </div>
 
             <div class="mb-4">
-                <label class="block mb-1">Фото (перетащите или выберите, до 10 штук)</label>
+                <label class="block mb-1">Фото (перетащите или выберите, до 10 штук, каждое до 12 МБ)</label>
 
                 <div id="cup-dropzone"
                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 transition">
@@ -202,12 +202,13 @@
     </div>
 
     <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow">
-        <table class="w-full min-w-[1000px] border-collapse text-left text-sm">
+        <table class="w-full min-w-[1250px] border-collapse text-left text-sm">
             <thead class="bg-gray-100 text-gray-700">
             <tr>
                 <th class="px-4 py-3 font-semibold">ID</th>
                 <th class="px-4 py-3 font-semibold">Запись</th>
                 <th class="px-4 py-3 font-semibold">Адрес и координаты</th>
+                <th class="px-4 py-3 font-semibold">Реклама</th>
                 <th class="px-4 py-3 font-semibold">Фотографии</th>
                 <th class="px-4 py-3 font-semibold">Действия</th>
             </tr>
@@ -240,6 +241,46 @@
                         @else
                             <div class="text-xs text-red-500">Координаты не указаны</div>
                         @endif
+                    </td>
+                    <td class="px-4 py-4 min-w-72">
+                        <label class="flex cursor-pointer items-start gap-2 font-medium text-gray-800">
+                            <input type="checkbox"
+                                   wire:click="toggleAdvertisement({{ $cup->id }})"
+                                   wire:loading.attr="disabled"
+                                   wire:target="toggleAdvertisement({{ $cup->id }})"
+                                   @checked($cup->show_advertisement)
+                                   class="mt-0.5 h-4 w-4 rounded border-gray-300 text-orange-600 disabled:cursor-wait disabled:opacity-60">
+                            <span>Показывать рекламный блок у&nbsp;последней кружки</span>
+                        </label>
+
+                        <div class="mt-3 space-y-2 text-gray-600">
+                            @if( $cup->advertising_text )
+                                <div title="{{ $cup->advertising_text }}">
+                                    <span class="font-semibold text-gray-700">Текст:</span>
+                                    {{ mb_substr($cup->advertising_text, 0, 100) }}@if( mb_strlen($cup->advertising_text) > 100 )…@endif
+                                </div>
+                            @else
+                                <div class="text-gray-400">Рекламный текст не&nbsp;указан</div>
+                            @endif
+
+                            @if( $cup->advertising_address )
+                                <div>
+                                    <span class="font-semibold text-gray-700">Адрес:</span>
+                                    {{ $cup->advertising_address }}
+                                </div>
+                            @else
+                                <div class="text-gray-400">Рекламный адрес не&nbsp;указан</div>
+                            @endif
+
+                            @if( $cup->advertising_phone )
+                                <div>
+                                    <span class="font-semibold text-gray-700">Телефон:</span>
+                                    {{ $cup->advertising_phone }}
+                                </div>
+                            @else
+                                <div class="text-gray-400">Рекламный телефон не&nbsp;указан</div>
+                            @endif
+                        </div>
                     </td>
                     <td class="px-4 py-4 min-w-[320px]">
                         @if( $cup->photos->isNotEmpty() )
@@ -291,7 +332,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="px-4 py-10 text-center text-gray-500">Записей пока нет</td>
+                    <td colspan="6" class="px-4 py-10 text-center text-gray-500">Записей пока нет</td>
                 </tr>
             @endforelse
             </tbody>

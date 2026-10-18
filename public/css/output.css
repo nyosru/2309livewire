@@ -1541,10 +1541,6 @@ select {
   max-height: 600px;
 }
 
-.max-h-full {
-  max-height: 100%;
-}
-
 .max-h-screen {
   max-height: 100vh;
 }
@@ -1567,6 +1563,10 @@ select {
 
 .min-h-\[250px\] {
   min-height: 250px;
+}
+
+.min-h-\[350px\] {
+  min-height: 350px;
 }
 
 .min-h-\[400px\] {
@@ -1765,8 +1765,12 @@ select {
   min-width: 16rem;
 }
 
-.min-w-\[1000px\] {
-  min-width: 1000px;
+.min-w-72 {
+  min-width: 18rem;
+}
+
+.min-w-\[1250px\] {
+  min-width: 1250px;
 }
 
 .min-w-\[320px\] {
@@ -2074,10 +2078,6 @@ select {
 
 .grid-cols-8 {
   grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.grid-rows-\[140px_minmax\(0\2c 1fr\)\] {
-  grid-template-rows: 140px minmax(0,1fr);
 }
 
 .flex-row {
@@ -2907,6 +2907,10 @@ select {
 
 .bg-white\/20 {
   background-color: rgb(255 255 255 / 0.2);
+}
+
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7);
 }
 
 .bg-white\/80 {
@@ -3776,6 +3780,10 @@ select {
   padding-top: 1.5rem;
 }
 
+.pt-9 {
+  padding-top: 2.25rem;
+}
+
 .pt-\[0\.37rem\] {
   padding-top: 0.37rem;
 }
@@ -4455,6 +4463,11 @@ select {
   --tw-ring-color: rgb(0 0 0 / var(--tw-ring-opacity, 1));
 }
 
+.ring-blue-300 {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(147 197 253 / var(--tw-ring-opacity, 1));
+}
+
 .ring-gray-300 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(209 213 219 / var(--tw-ring-opacity, 1));
@@ -4555,6 +4568,29 @@ select {
 
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes latest-cup-gradient-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.latest-cup-gradient {
+  background: linear-gradient(120deg, #fff7ed, #fee2e2, #ffedd5, #fecaca);
+  background-size: 300% 300%;
+  animation: latest-cup-gradient-drift 14s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .latest-cup-gradient {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -5393,11 +5429,6 @@ select {
   --tw-ring-color: rgb(251 146 60 / var(--tw-ring-opacity, 1));
 }
 
-.focus\:ring-orange-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(249 115 22 / var(--tw-ring-opacity, 1));
-}
-
 .focus\:ring-red-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity, 1));
@@ -6059,10 +6090,6 @@ select {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
-  .md\:grid-rows-1 {
-    grid-template-rows: repeat(1, minmax(0, 1fr));
-  }
-
   .md\:flex-row {
     flex-direction: row;
   }
@@ -6598,4 +6625,3 @@ select {
     margin-left: 0px;
   }
 }
-

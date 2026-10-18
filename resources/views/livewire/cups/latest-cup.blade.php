@@ -1,7 +1,7 @@
-<section class="flex h-[350px] items-center bg-orange-50 px-5 py-6">
+<section class="latest-cup-gradient flex min-h-[350px] items-center px-5 py-6">
     @if( $cup )
-        <div class="mx-auto grid h-full w-full max-w-5xl grid-rows-[140px_minmax(0,1fr)] items-center gap-4 md:grid-cols-2 md:grid-rows-1 md:gap-7">
-            <div class="relative mx-auto h-full w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-xl"
+        <div class="mx-auto grid w-full max-w-5xl items-center gap-4 md:grid-cols-2 md:gap-7">
+            <div class="relative mx-auto h-[350px] w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-xl"
                  @if( $cup->photos->isNotEmpty() )
                      x-data="{ active: 0, photos: {{ Illuminate\Support\Js::from($cup->photos->pluck('mini_url')->values()) }} }"
                      x-on:mouseleave="active = 0"
@@ -42,7 +42,7 @@
                 @endif
             </div>
 
-            <div class="max-h-full overflow-y-auto text-center md:text-left">
+            <div class="self-center text-center md:text-left">
                 <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-orange-600">
                     Последнее пополнение
                 </p>
@@ -55,20 +55,23 @@
                 @if( $mapUrl )
                     <p class="mb-5 text-sm text-gray-600">
                         Координаты: {{ $cup->lat }}, {{ $cup->lon }}
+                        <a href="{{ $mapUrl }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="relative z-20 ml-2 font-semibold text-blue-600 underline hover:text-blue-800">
+                            Посмотреть на карте
+                        </a>
                     </p>
-
-                    <a href="{{ $mapUrl }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="relative z-20 inline-flex items-center rounded-lg bg-orange-500 px-5 py-3 font-semibold text-white shadow transition hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        Посмотреть на карте
-                    </a>
                 @else
                     <p class="text-sm text-gray-500">Координаты пока не указаны</p>
                 @endif
 
-                @if( $cup->show_advertisement )
-                    <div class="mt-5 border-t border-orange-200 pt-4">
+                @if( $showAdvertisement )
+                    <div class="relative mt-5 rounded-lg border border-orange-200 bg-white/70 px-4 pb-4 pt-9">
+                        <p class="absolute right-3 top-2 text-xs font-semibold uppercase tracking-wider text-orange-600">
+                            На правах рекламы
+                        </p>
+
                         @if( filled($cup->advertising_text) )
                             <p class="mb-3 whitespace-pre-line font-medium text-gray-800">{{ $cup->advertising_text }}</p>
                         @endif
@@ -86,7 +89,7 @@
                             @if( $telephoneUrl )
                                 <a href="{{ $telephoneUrl }}"
                                    class="font-semibold text-orange-700 underline hover:text-orange-900">
-                                    {{ $cup->advertising_phone }}
+                                    Позвонить: {{ $cup->advertising_phone }}
                                 </a>
                             @endif
                         </div>

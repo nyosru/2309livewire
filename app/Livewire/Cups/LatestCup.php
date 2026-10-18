@@ -15,6 +15,8 @@ class LatestCup extends Component
 
     public ?string $telephoneUrl = null;
 
+    public bool $showAdvertisement = false;
+
     public function mount(): void
     {
         $this->cup = Cup::with('photos')
@@ -32,7 +34,14 @@ class LatestCup extends Component
             );
         }
 
-        if ($this->cup?->show_advertisement) {
+        $this->showAdvertisement = (bool) $this->cup?->show_advertisement
+            && (
+                filled($this->cup?->advertising_text)
+                || filled($this->cup?->advertising_address)
+                || filled($this->cup?->advertising_phone)
+            );
+
+        if ($this->showAdvertisement) {
             $advertisingAddress = trim((string) $this->cup->advertising_address);
             $advertisingPhone = trim((string) $this->cup->advertising_phone);
 

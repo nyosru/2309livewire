@@ -6,3 +6,25 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@keyframes latest-cup-gradient-drift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.latest-cup-gradient {
+    background: linear-gradient(120deg, #fff7ed, #fee2e2, #ffedd5, #fecaca);
+    background-size: 300% 300%;
+    animation: latest-cup-gradient-drift 14s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .latest-cup-gradient {
+        animation: none;
+        background-position: 50% 50%;
+    }
+}

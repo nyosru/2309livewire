@@ -6,6 +6,9 @@ use App\Models\Krugi\Cup;
 use App\Models\Krugi\CupPhoto;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Throwable;
@@ -52,7 +55,8 @@ class Admin extends Component
             'advertisingAddress' => 'nullable|string|max:500',
             'advertisingPhone' => 'nullable|string|max:100',
             'showAdvertisement' => 'boolean',
-            'img.*' => 'nullable|image|max:2048',
+            'img' => 'array|max:10',
+            'img.*' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:12288',
             'photoLink' => 'nullable|url|max:2048',
         ]);
 
@@ -206,6 +210,18 @@ class Admin extends Component
         session()->flash('success', $cup->is_hidden ? 'Кружка скрыта с сайта' : 'Кружка снова показывается на сайте');
     }
 
+    public function toggleAdvertisement($id): void
+    {
+        $cup = Cup::findOrFail($id);
+        $cup->show_advertisement = ! $cup->show_advertisement;
+        $cup->save();
+
+        session()->flash(
+            'success',
+            $cup->show_advertisement ? 'Рекламный блок включён' : 'Рекламный блок выключен'
+        );
+    }
+
     public function cancelEdit()
     {
         $this->resetForm();
@@ -230,11 +246,25 @@ class Admin extends Component
 
     private function storeImage($file): string
     {
-        $filename = date('ymdhis').'_'.uniqid().'.jpg';
+        if (! in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/webp', 'image/gif'], true)) {
+            throw ValidationException::withMessages([
+                'img' => 'Этот формат изображения не поддерживается.',
+            ]);
+        }
 
-        $file->storeAs('krugi/cups', $filename, 'public');
+        $filename = 'cup_tmp_'.Str::uuid().'.jpg';
+        Storage::disk('public')->makeDirectory('krugi/cups');
 
-        $this->makeMini(storage_path('app/public/krugi/cups/'.$filename), $filename);
+        $storedImagePath = storage_path('app/public/krugi/cups/'.$filename);
+
+        if (! $this->resizeImage($file->getRealPath(), $storedImagePath, 800)
+            || ! $this->makeMini($storedImagePath, $filename)) {
+            $this->deleteFiles($filename);
+
+            throw ValidationException::withMessages([
+                'img' => 'Не удалось сохранить изображение. Попробуйте выбрать другой файл.',
+            ]);
+        }
 
         return $filename;
     }
@@ -246,24 +276,37 @@ class Admin extends Component
             mkdir($dir, 0775, true);
         }
 
-        $img = $this->loadImage($path);
+        return $this->resizeImage(
+            $path,
+            $dir.'/'.$filename,
+            400
+        );
+    }
+
+    private function resizeImage(string $sourcePath, string $destinationPath, int $maxWidth): bool
+    {
+        $img = $this->loadImage($sourcePath);
         if (! $img) {
             return false;
         }
 
         $oldW = imagesx($img);
         $oldH = imagesy($img);
-        $newW = 400;
+        $newW = min($maxWidth, $oldW);
         $newH = intval($oldH * $newW / $oldW);
 
-        $mini = imagecreatetruecolor($newW, $newH);
-        imagecopyresampled($mini, $img, 0, 0, 0, 0, $newW, $newH, $oldW, $oldH);
+        $resized = imagecreatetruecolor($newW, $newH);
+        $white = imagecolorallocate($resized, 255, 255, 255);
+        imagefill($resized, 0, 0, $white);
+        imagealphablending($resized, true);
+        imagecopyresampled($resized, $img, 0, 0, 0, 0, $newW, $newH, $oldW, $oldH);
 
-        imagejpeg($mini, $dir.'/'.$filename, 85);
+        $saved = imagejpeg($resized, $destinationPath, 80);
+
         imagedestroy($img);
-        imagedestroy($mini);
+        imagedestroy($resized);
 
-        return true;
+        return $saved;
     }
 
     private function loadImage(string $path)
