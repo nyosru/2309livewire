@@ -8,6 +8,12 @@
         </div>
     @endif
 
+    @if( session()->has('error') )
+        <div class="mb-5 rounded border border-red-400 bg-red-100 p-3 text-red-800">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
         <h2 class="font-bold text-lg mb-4">
             {{ $editId ? 'Редактировать кружку #' . $editId : 'Добавить кружку' }}
@@ -305,6 +311,17 @@
                                                 class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-base font-bold leading-none text-white shadow hover:bg-red-700">
                                             &times;
                                         </button>
+                                        @if( $photo->image )
+                                            <button type="button"
+                                                    wire:click="rotatePhoto({{ $photo->id }})"
+                                                    wire:loading.attr="disabled"
+                                                    wire:target="rotatePhoto({{ $photo->id }})"
+                                                    title="Повернуть на 90° по часовой стрелке"
+                                                    aria-label="Повернуть фотографию на 90° по часовой стрелке"
+                                                    class="absolute -bottom-2 -right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-lg font-bold leading-none text-white shadow hover:bg-blue-700 disabled:cursor-wait disabled:opacity-60">
+                                                ↻
+                                            </button>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

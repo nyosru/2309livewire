@@ -21,36 +21,44 @@
             {{-- {{ $data }} --}}
 
             @foreach ($items as $i)
-                <a href="{{ $i->link }}" class="block" target="_blank">
-                    <div class="flex-1">
+                <article class="flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                    <a href="{{ $i->link ?: url('/') }}" class="block flex-1" target="_blank" rel="noopener noreferrer">
+                        <div class="flex-1">
 
-                        @if( strpos($i->img_url,'placeholder.com') )
-                            <div class="inline-block float-left mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
-                        @else
-                            <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
-                        @endif
+                            @if( strpos($i->img_url,'placeholder.com') )
+                                <div class="inline-block float-left mr-2 mb-2 w-[150px] h-[150px] bg-blue-400">&nbsp;</div>
+                            @else
+                                <img src="{{ $i->img_url }}" class="float-left pr-3 pb-2 max-w-[150px]"/>
+                            @endif
 
-                        {{--                    id: {{$i['id'] }}--}}
-                        {{-- {{ print_r($post) }} --}}
-                        <h2 class="
+                            {{--                    id: {{$i['id'] }}--}}
+                            {{-- {{ print_r($post) }} --}}
+                            <h2 class="
 background-radial-gradient
 xbg-green-100 pt-2 pb-2 text-[2rem]">{{ $i->title }}</h2>
-                        {{-- <p>{{ $post->photo }}</p> --}}
+                            {{-- <p>{{ $post->photo }}</p> --}}
 
-                        <p class="text-blue-500 text-[1.5rem] hover:underline">{{ $i->link_title }}</p>
-                        <p>{{ $i->opis }}</p>
-                        <Br/>
+                            <p class="text-blue-500 text-[1.5rem] hover:underline">{{ $i->link_title }}</p>
+                            <p>{{ $i->opis }}</p>
+                            <br/>
 
-                        @if(1==2)
-                            <div
-                                style="max-height: 175px; overflow: auto; font-size: 12px; border: 1px solid green; padding: 3px;">
-                                {{ str_replace('"','" ',json_encode($i,true)) }}
-                            </div>
-                        @endif
+                            @if(1==2)
+                                <div
+                                    style="max-height: 175px; overflow: auto; font-size: 12px; border: 1px solid green; padding: 3px;">
+                                    {{ str_replace('"','" ',json_encode($i,true)) }}
+                                </div>
+                            @endif
 
-                        <br clear="all"/>
-                    </div>
-                </a>
+                            <br clear="all"/>
+                        </div>
+                    </a>
+
+                    <x-share-buttons
+                        :url="$i->link ?: url('/')"
+                        :text="$i->title"
+                        class="mt-4 border-t border-gray-200 pt-3"
+                    />
+                </article>
             @endforeach
 
         </div>

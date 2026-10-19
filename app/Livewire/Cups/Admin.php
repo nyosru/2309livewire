@@ -182,6 +182,50 @@ class Admin extends Component
         $photo->delete();
     }
 
+    public function rotatePhoto($photoId): void
+    {
+        $photo = CupPhoto::findOrFail($photoId);
+
+        if (! $photo->image) {
+            session()->flash('error', 'Фотографию по внешней ссылке повернуть нельзя.');
+
+            return;
+        }
+
+        $oldFilename = $photo->image;
+        $oldPath = storage_path('app/public/krugi/cups/'.$oldFilename);
+
+        if (! is_file($oldPath)) {
+            session()->flash('error', 'Исходный файл фотографии не найден.');
+
+            return;
+        }
+
+        $newFilename = 'cup_tmp_'.Str::uuid().'.jpg';
+        $newPath = storage_path('app/public/krugi/cups/'.$newFilename);
+
+        if (! $this->rotateImageClockwise($oldPath, $newPath)
+            || ! $this->makeMini($newPath, $newFilename)) {
+            $this->deleteFiles($newFilename);
+            session()->flash('error', 'Не удалось повернуть фотографию.');
+
+            return;
+        }
+
+        try {
+            $photo->image = $newFilename;
+            $photo->save();
+        } catch (Throwable) {
+            $this->deleteFiles($newFilename);
+            session()->flash('error', 'Не удалось сохранить повёрнутую фотографию.');
+
+            return;
+        }
+
+        $this->deleteFiles($oldFilename);
+        session()->flash('success', 'Фотография повёрнута на 90° по часовой стрелке.');
+    }
+
     public function delete($id)
     {
         $cup = Cup::findOrFail($id);
@@ -305,6 +349,27 @@ class Admin extends Component
 
         imagedestroy($img);
         imagedestroy($resized);
+
+        return $saved;
+    }
+
+    private function rotateImageClockwise(string $sourcePath, string $destinationPath): bool
+    {
+        $img = $this->loadImage($sourcePath);
+        if (! $img) {
+            return false;
+        }
+
+        $white = imagecolorallocate($img, 255, 255, 255);
+        $rotated = imagerotate($img, -90, $white);
+        imagedestroy($img);
+
+        if (! $rotated) {
+            return false;
+        }
+
+        $saved = imagejpeg($rotated, $destinationPath, 80);
+        imagedestroy($rotated);
 
         return $saved;
     }
