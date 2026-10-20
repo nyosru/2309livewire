@@ -1,38 +1,48 @@
 <div class="mb-5 break-inside-avoid">
     <div class="relative block overflow-hidden rounded-lg bg-white shadow-lg"
          @if( $i->photos->isNotEmpty() )
-             x-data="{ active: 0, photos: {{ Illuminate\Support\Js::from($i->photos->pluck('mini_url')->values()) }} }"
+             x-data="{ active: 0 }"
              x-on:mouseleave="active = 0"
          @endif>
 
         @if( $i->photos->isNotEmpty() )
-            <img src="{{ $i->photos->first()->mini_url }}"
-                 x-bind:src="photos[active]"
-                 loading="lazy"
-                 class="w-full"
-                 alt="{{ $i->name }}"/>
+            <div class="relative grid w-full">
+                @foreach( $i->photos as $photo )
+                    <img src="{{ $photo->mini_url }}"
+                         loading="lazy"
+                         decoding="async"
+                         class="col-start-1 row-start-1 w-full transition-opacity duration-150"
+                         style="{{ $loop->first ? 'visibility: visible; opacity: 1;' : 'visibility: hidden; opacity: 0;' }}"
+                         x-bind:style="active === {{ $loop->index }}
+                             ? 'visibility: visible; opacity: 1;'
+                             : 'visibility: hidden; opacity: 0;'"
+                         x-bind:aria-hidden="active !== {{ $loop->index }}"
+                         alt="{{ $i->name }} — фото {{ $loop->iteration }}"/>
+                @endforeach
 
-            @if( $i->photos->count() > 1 )
-                <div class="absolute inset-0 z-10 flex" aria-label="Фотографии кружки «{{ $i->name }}»">
-                    @foreach( $i->photos as $photo )
-                        <button type="button"
-                                class="h-full flex-1 cursor-default bg-transparent"
-                                x-on:mouseenter="active = {{ $loop->index }}"
-                                x-on:focus="active = {{ $loop->index }}"
-                                x-on:touchstart="active = {{ $loop->index }}"
-                                aria-label="Показать фото {{ $loop->iteration }} из {{ $i->photos->count() }}">
-                        </button>
-                    @endforeach
-                </div>
+                @if( $i->photos->count() > 1 )
+                    <div class="absolute inset-0 z-10 flex" aria-label="Фотографии кружки «{{ $i->name }}»">
+                        @foreach( $i->photos as $photo )
+                            <button type="button"
+                                    class="h-full flex-1 cursor-default bg-transparent"
+                                    x-on:mouseenter="active = {{ $loop->index }}"
+                                    x-on:focus="active = {{ $loop->index }}"
+                                    x-on:touchstart="active = {{ $loop->index }}"
+                                    aria-label="Показать фото {{ $loop->iteration }} из {{ $i->photos->count() }}">
+                            </button>
+                        @endforeach
+                    </div>
 
-                <div class="pointer-events-none absolute left-2 right-2 top-2 z-20 flex gap-1" aria-hidden="true">
-                    @foreach( $i->photos as $photo )
-                        <span class="h-1 flex-1 rounded-full shadow-sm"
-                              x-bind:class="active === {{ $loop->index }} ? 'bg-orange-500' : 'bg-white/80'">
-                        </span>
-                    @endforeach
-                </div>
-            @endif
+                    <div class="pointer-events-none absolute left-2 right-2 top-2 z-20 flex gap-1" aria-hidden="true">
+                        @foreach( $i->photos as $photo )
+                            <span class="h-1 flex-1 rounded-full shadow-sm"
+                                  x-bind:class="active === {{ $loop->index }} ? 'bg-orange-500' : 'bg-white/80'">
+                            </span>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
         @endif
 
 {{--        @if( !empty($i['opis']) )--}}
