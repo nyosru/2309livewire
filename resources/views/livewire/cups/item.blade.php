@@ -1,24 +1,51 @@
 <div class="mb-5 break-inside-avoid">
     <div class="relative block overflow-hidden rounded-lg bg-white shadow-lg"
          @if( $i->photos->isNotEmpty() )
-             x-data="{ active: 0 }"
+             x-data="{
+                 active: 0,
+                 photos: {{ Illuminate\Support\Js::from($i->photos->pluck('mini_url')->values()) }},
+                 maxRatio: null,
+                 galleryHeight: null,
+                 resizeObserver: null,
+                 init() {
+                     Promise.all(this.photos.map((source) => new Promise((resolve) => {
+                         const image = new Image();
+                         image.onload = () => resolve(image.naturalHeight / image.naturalWidth);
+                         image.onerror = () => resolve(0);
+                         image.src = source;
+                     }))).then((ratios) => {
+                         const validRatios = ratios.filter((ratio) => ratio > 0);
+                         this.maxRatio = validRatios.length ? Math.max(...validRatios) : 1;
+                         this.updateGalleryHeight();
+                     });
+
+                     this.$nextTick(() => {
+                         this.resizeObserver = new ResizeObserver(() => this.updateGalleryHeight());
+                         this.resizeObserver.observe(this.$refs.gallery);
+                     });
+                 },
+                 updateGalleryHeight() {
+                     if (this.maxRatio && this.$refs.gallery) {
+                         this.galleryHeight = Math.round(this.$refs.gallery.clientWidth * this.maxRatio);
+                     }
+                 },
+                 destroy() {
+                     this.resizeObserver?.disconnect();
+                 }
+             }"
              x-on:mouseleave="active = 0"
          @endif>
 
         @if( $i->photos->isNotEmpty() )
-            <div class="relative grid w-full">
-                @foreach( $i->photos as $photo )
-                    <img src="{{ $photo->mini_url }}"
-                         loading="lazy"
-                         decoding="async"
-                         class="col-start-1 row-start-1 w-full transition-opacity duration-150"
-                         style="{{ $loop->first ? 'visibility: visible; opacity: 1;' : 'visibility: hidden; opacity: 0;' }}"
-                         x-bind:style="active === {{ $loop->index }}
-                             ? 'visibility: visible; opacity: 1;'
-                             : 'visibility: hidden; opacity: 0;'"
-                         x-bind:aria-hidden="active !== {{ $loop->index }}"
-                         alt="{{ $i->name }} — фото {{ $loop->iteration }}"/>
-                @endforeach
+            <div x-ref="gallery"
+                 x-bind:style="galleryHeight ? 'height: ' + galleryHeight + 'px; aspect-ratio: auto;' : ''"
+                 class="relative aspect-square w-full bg-white">
+                <img src="{{ $i->photos->first()->mini_url }}"
+                     x-bind:src="photos[active]"
+                     loading="lazy"
+                     decoding="async"
+                     class="absolute inset-0 h-full w-full object-contain"
+                     alt="{{ $i->name }}"/>
 
                 @if( $i->photos->count() > 1 )
                     <div class="absolute inset-0 z-10 flex" aria-label="Фотографии кружки «{{ $i->name }}»">
