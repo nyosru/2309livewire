@@ -5,6 +5,7 @@ namespace App\Livewire\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Livewire\Component;
 
@@ -15,6 +16,8 @@ class Vk extends Component
 
         $clientId = config('services.vk.client_id');
         $redirectUri = config('services.vk.redirect');
+        $state = Str::random(40);
+        session()->put('vk_oauth_state', $state);
 
         $authUrl = 'https://oauth.vk.com/authorize?'.http_build_query([
             'client_id' => $clientId,
@@ -25,7 +28,7 @@ class Vk extends Component
             //                'scope' => 'email,messages,wall,offline',
             'scope' => 'email',
             'v' => '5.131',
-            'state' => csrf_token(),
+            'state' => $state,
         ]);
 
         // dd($authUrl);
@@ -53,6 +56,11 @@ class Vk extends Component
     public function handleVKCallback()
     {
         try {
+            $state = session()->pull('vk_oauth_state');
+            if (! is_string($state) || ! is_string(request('state')) || ! hash_equals($state, request('state'))) {
+                throw new \Exception('Проверка состояния авторизации не пройдена');
+            }
+
             if (! request()->has('code')) {
                 throw new \Exception('Код авторизации не получен');
             }
@@ -130,21 +138,23 @@ class Vk extends Component
 
             // 4. Логиним пользователя
             Auth::login($user, true);
+            session()->regenerate();
+            session()->forget('vk_auth_error_redirect');
 
             //            $message = "🔔 Уведомление: 987";
             //            $vkController = new \App\Http\Controllers\VkMessageController();
             //            $vkController->sendNotification($user, $message);
 
-            return redirect()->to('/');
+            return redirect()->intended('/');
             //            return redirect()->route('tech.index');
             //            return redirect()->route('board.list');
             //            return redirect()->intended('/dashboard');
 
         } catch (\Exception $e) {
             logger()->error('VK Auth Error: '.$e->getMessage());
-            session()->flash('error', 'Ошибка авторизации через VK: '.$e->getMessage());
+            session()->flash('error', 'Не удалось войти через ВКонтакте. Попробуйте ещё раз.');
 
-            return redirect()->route('login');
+            return redirect()->to(session()->pull('vk_auth_error_redirect', route('login')));
         }
     }
 

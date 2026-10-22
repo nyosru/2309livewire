@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Vkusno;
 
 use App\Http\Controllers\Controller;
+use App\Models\Vkusno\MenuSection;
 use App\Models\Vkusno\Order;
+use App\Models\Vkusno\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,10 +16,24 @@ class CafeController extends Controller
 {
     public function index()
     {
+        $products = Product::available()->with('menuCategory')->orderBy('sort_order')->orderBy('id')->get()
+            ->map(fn (Product $product) => array_replace($product->attributesToArray(), [
+                'section' => $product->menuCategory->section_id,
+                'category' => $product->menuCategory->slug,
+                'label' => $product->menuCategory->name,
+            ]))->all();
+        $sections = MenuSection::where('is_active', true)->with(['categories' => fn ($query) => $query
+            ->where('is_active', true)->orderBy('sort_order')->orderBy('id')])->orderBy('sort_order')->orderBy('id')->get()
+            ->mapWithKeys(fn (MenuSection $section) => [$section->id => [
+                'anchor' => $section->anchor, 'title' => $section->title,
+                'eyebrow' => $section->eyebrow, 'description' => $section->description,
+                'categories' => $section->categories->pluck('name', 'slug')->all(),
+            ]])->all();
+
         return view('vkusno.index', [
-            'cafe' => config('vkusno'),
+            'cafe' => array_replace(config('vkusno'), ['products' => $products, 'menu_sections' => $sections]),
             'frontend' => [
-                'products' => config('vkusno.products'),
+                'products' => $products,
                 'fillings' => config('vkusno.fillings'),
                 'today' => now(config('vkusno.timezone'))->toDateString(),
                 'cakeDate' => now(config('vkusno.timezone'))->addDays(config('vkusno.cake_lead_days'))->toDateString(),
@@ -27,6 +43,8 @@ class CafeController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        $catalog = Product::available()->get()->keyBy('id');
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'max:30', 'regex:/^(?=(?:\D*\d){10,15}\D*$)\+?[\d\s()\-]{10,30}$/'],
@@ -36,7 +54,7 @@ class CafeController extends Controller
             'requested_date' => ['nullable', 'date_format:Y-m-d', 'after_or_equal:'.now(config('vkusno.timezone'))->toDateString()],
             'consent' => ['accepted'],
             'items' => ['present', 'array', 'max:30'],
-            'items.*.id' => ['required', 'string', Rule::in(array_column(config('vkusno.products'), 'id')), 'distinct'],
+            'items.*.id' => ['required', 'string', Rule::in($catalog->keys()->all()), 'distinct'],
             'items.*.quantity' => ['required', 'integer', 'min:1', 'max:30'],
             'cake' => ['nullable', 'array'],
             'cake.filling' => ['required_with:cake', Rule::in(config('vkusno.fillings'))],
@@ -51,11 +69,10 @@ class CafeController extends Controller
             throw ValidationException::withMessages(['requested_date' => 'Торт нужно заказать минимум за '.config('vkusno.cake_lead_days').' дня.']);
         }
 
-        $catalog = collect(config('vkusno.products'))->keyBy('id');
         $items = collect($data['items'])->map(function ($item) use ($catalog) {
             $product = $catalog[$item['id']];
 
-            return ['id' => $product['id'], 'name' => $product['name'], 'price' => $product['price'], 'quantity' => $item['quantity']];
+            return ['id' => $product['id'], 'name' => $product['name'], 'price' => $product['price'], 'quantity' => $item['quantity'], 'unit' => $product['weight'], 'price_is_estimate' => ! empty($product['price_is_estimate'])];
         })->all();
         $order = Order::create([
             'reference' => (string) Str::uuid(),

@@ -30,6 +30,14 @@ return [
 
     'disks' => [
 
+        'vkusno' => [
+            'driver' => 'local',
+            'root' => public_path('vkusno/menu/uploads'),
+            'url' => '/vkusno/menu/uploads',
+            'visibility' => 'public',
+            'throw' => true,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

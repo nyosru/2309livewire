@@ -6,6 +6,30 @@
     const cakeDialog = document.getElementById('cake-dialog');
     const orderForm = document.getElementById('order-form');
     const cakeForm = document.getElementById('cake-form');
+    const productCards = [...document.querySelectorAll('[data-product-id]')];
+    const header = document.querySelector('.header');
+    const menuToggle = header.querySelector('.menu-toggle');
+    const navigation = header.querySelector('nav');
+    const compactHeader = window.matchMedia('(max-width: 1100px)');
+    function setMenuOpen(open) {
+        header.classList.toggle('is-menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    }
+    menuToggle.addEventListener('click', () => setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true'));
+    navigation.addEventListener('click', event => {
+        if (event.target.closest('a')) setMenuOpen(false);
+    });
+    document.addEventListener('click', event => {
+        if (!header.contains(event.target) || event.target.closest('[data-cart-open]')) setMenuOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+            setMenuOpen(false);
+            menuToggle.focus();
+        }
+    });
+    compactHeader.addEventListener('change', () => setMenuOpen(false));
     const money = amount => new Intl.NumberFormat('ru-RU').format(amount) + ' ₽';
     let cart = {};
     let cake = null;
@@ -25,10 +49,29 @@
     function toast(message) {
         const el = document.getElementById('toast');
         el.textContent = message;
+        el.classList.remove('is-leaving');
         el.hidden = false;
+        positionToast();
         clearTimeout(toast.timer);
-        toast.timer = setTimeout(() => { el.hidden = true; }, 2600);
+        toast.timer = setTimeout(() => { el.classList.add('is-leaving'); }, 2600);
     }
+    document.getElementById('toast').addEventListener('animationend', event => {
+        if (event.animationName === 'toast-slide-out' && event.currentTarget.classList.contains('is-leaving')) {
+            event.currentTarget.hidden = true;
+            event.currentTarget.classList.remove('is-leaving');
+        }
+    });
+    function positionToast() {
+        const el = document.getElementById('toast');
+        if (el.hidden) return;
+        const cartButton = header.querySelector('[data-cart-open]').getBoundingClientRect();
+        const right = Math.max(12, window.innerWidth - cartButton.right);
+        el.style.top = `${header.getBoundingClientRect().bottom + 12}px`;
+        el.style.right = `${right}px`;
+        el.style.setProperty('--toast-offset', `${right + 24}px`);
+        el.style.maxWidth = `${Math.min(360, window.innerWidth - right - 12)}px`;
+    }
+    window.addEventListener('resize', positionToast);
     function element(tag, text, className) {
         const el = document.createElement(tag);
         if (text !== undefined) el.textContent = text;
@@ -47,7 +90,8 @@
             const row = element('div', undefined, 'cart-row');
             const img = element('img'); img.src = '/vkusno/' + product.image; img.alt = product.name;
             const main = element('div', undefined, 'cart-row-main');
-            main.append(element('h3', product.name), element('p', money(product.price * quantity)));
+            main.append(element('h3', product.name), element('p', product.weight + ' × ' + quantity), element('p', money(product.price * quantity)));
+            if (product.price_is_estimate) main.append(element('p', 'Цена предварительная'));
             const remove = element('button', 'Удалить', 'remove'); remove.type = 'button'; remove.setAttribute('aria-label', 'Удалить ' + product.name);
             remove.onclick = () => { delete cart[id]; save(); render(); };
             main.append(remove);
@@ -63,6 +107,15 @@
             row.append(img, main, control); list.append(row);
         }
         document.querySelectorAll('[data-cart-count]').forEach(el => { el.textContent = count; });
+        productCards.forEach(card => {
+            const quantity = cart[card.dataset.productId] || 0;
+            card.querySelector('[data-product-cart-status]').hidden = quantity === 0;
+            const counter = card.querySelector('[data-product-quantity]');
+            counter.hidden = quantity === 0;
+            counter.textContent = `${quantity} шт.`;
+            card.querySelector('[data-subtract]').hidden = quantity === 0;
+            card.querySelector('[data-add]').disabled = quantity >= 30;
+        });
         document.getElementById('cart-empty').hidden = count !== 0;
         document.getElementById('cart-subtotal').textContent = money(subtotal);
         document.getElementById('submit-order').disabled = !count || submitting;
@@ -105,18 +158,42 @@
         const id = button.dataset.add;
         if ((cart[id] || 0) >= 30) return toast('В корзине уже 30 порций этого блюда');
         cart[id] = (cart[id] || 0) + 1;
-        save(); render(); toast('Добавлено в корзину');
+        save(); render(); toast(`${catalog.get(id).name} — добавлено в корзину`);
     });
-    document.querySelectorAll('[data-category]').forEach(button => button.onclick = () => {
-        document.querySelectorAll('[data-category]').forEach(el => {
-            const active = el === button; el.classList.toggle('active', active); el.setAttribute('aria-pressed', active);
+    document.querySelectorAll('[data-subtract]').forEach(button => button.onclick = () => {
+        const id = button.dataset.subtract;
+        if (!cart[id]) return;
+        cart[id] -= 1;
+        if (!cart[id]) delete cart[id];
+        save(); render();
+        if (!cart[id]) button.closest('.product-quantity').querySelector('[data-add]').focus();
+    });
+    document.querySelectorAll('[data-menu-block]').forEach(block => {
+        let category = 'all';
+        let limit = 12;
+        const cards = [...block.querySelectorAll('[data-product-category]')];
+        const more = block.querySelector('[data-menu-show-more]');
+        function updateMenu() {
+            const matching = cards.filter(card => category === 'all' || card.dataset.productCategory === category);
+            cards.forEach(card => { card.hidden = true; });
+            matching.slice(0, limit).forEach(card => { card.hidden = false; });
+            block.querySelector('[data-menu-count]').textContent = `Позиций: ${matching.length}`;
+            if (more) {
+                more.hidden = matching.length <= limit;
+                more.textContent = `Показать ещё (${matching.length - limit})`;
+            }
+        }
+        block.querySelectorAll('[data-category]').forEach(button => button.onclick = () => {
+            category = button.dataset.category;
+            limit = 12;
+            block.querySelectorAll('[data-category]').forEach(el => {
+                const active = el === button;
+                el.classList.toggle('active', active); el.setAttribute('aria-pressed', active);
+            });
+            updateMenu();
         });
-        let count = 0;
-        document.querySelectorAll('[data-product-category]').forEach(el => {
-            el.hidden = button.dataset.category !== 'all' && el.dataset.productCategory !== button.dataset.category;
-            if (!el.hidden) count++;
-        });
-        document.getElementById('menu-count').textContent = `${count} позиций`;
+        if (more) more.onclick = () => { limit += 12; updateMenu(); };
+        updateMenu();
     });
     orderForm.addEventListener('change', event => {
         if (event.target.name !== 'fulfillment') return;

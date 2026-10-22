@@ -25,6 +25,12 @@ require 'api.phpcat.php';
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
 
 Route::post('blog', [\App\Http\Controllers\Api\BlogApiController::class, 'store'])->name('api.blog.store');
+Route::post('max/webhook', \App\Http\Controllers\Max\WebhookController::class)->middleware('throttle:120,1')->name('api.max.webhook');
+Route::prefix('max/service')->middleware([\App\Http\Middleware\EnsureMaxServiceClient::class, 'throttle:60,1'])->group(function () {
+    Route::post('message', [\App\Http\Controllers\Max\ServiceController::class, 'message']);
+    Route::post('auth/start', [\App\Http\Controllers\Max\ServiceController::class, 'start']);
+    Route::post('auth/check', [\App\Http\Controllers\Max\ServiceController::class, 'check']);
+});
 
 Route::prefix('news-storage')->group(function () {
     Route::post('news', [\App\Http\Controllers\Api\NewsStorageController::class, 'store'])->name('api.news-storage.store');

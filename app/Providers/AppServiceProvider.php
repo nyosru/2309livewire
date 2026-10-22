@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\Vkusno\Administrator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
@@ -23,10 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('manage-vkusno', function (User $user): bool {
-            return in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)
-                || $user->can('Полный//доступ');
-        });
+        Gate::define('manage-vkusno', fn (User $user): bool => Administrator::canManage($user));
+
+        Gate::define('manage-vkusno-access', fn (User $user): bool => Administrator::isSuperAdmin($user));
 
         Gate::define('manage-ttt-clubs', function (User $user): bool {
             if (in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)) {
