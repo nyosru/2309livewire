@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="64" viewBox="0 0 280 64" fill="none">
+  <title>Вкусняжки72 — кафе и кондитерская</title>
+  <g stroke="#ad4e32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M45 11a25 25 0 1 0 8 35"/>
+    <path d="M10 43h37M15 42V29h27v13M15 30c5 4 8-3 13 0s9-3 14 0M19 25h19M23 25v-7m11 7v-7"/>
+    <path d="M52 10c-4-7-13-1-7 5l7 7 7-7c6-6-3-12-7-5Z" fill="#f7f2e9"/>
+  </g>
+  <text x="65" y="32" fill="#322d26" font-family="Arial,sans-serif" font-size="27" font-weight="800" letter-spacing="-1.4">вкусняжки<tspan fill="#ad4e32">72</tspan></text>
+  <text x="67" y="49" fill="#322d26" font-family="Arial,sans-serif" font-size="8" letter-spacing="2.25">КАФЕ · КОНДИТЕРСКАЯ</text>
+</svg>
