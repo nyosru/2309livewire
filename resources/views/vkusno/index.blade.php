@@ -48,10 +48,32 @@
     <section id="delivery" class="delivery-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">МЫ БЛИЖЕ, ЧЕМ КАЖЕТСЯ</p><h2>Как вам <em>удобнее?</em></h2></div><p>Любимые блюда найдут дорогу к вам.</p></div><div class="delivery-options"><article><span>↗</span><div><h3>Доставим к вам</h3><p>Укажите адрес в заказе. Время и зону доставки подтвердим по телефону.</p><small>{{ $cafe['delivery_fee'] !== null ? 'Доставка — '.$cafe['delivery_fee'].' ₽' : 'Стоимость доставки уточняется при подтверждении' }}</small></div></article><article><span>⌂</span><div><h3>Заберите по пути</h3><p>Выберите самовывоз. Согласуем время и соберём всё к вашему приходу.</p><small>Самовывоз — бесплатно</small></div></article><article><span>♡</span><div><h3>Поешьте у нас</h3><p>В зале до {{ $cafe['seats'] }} мест. Приходите за вкусной едой и тёплыми встречами.</p><small>Будем рады видеть вас</small></div></article></div></div></section>
 </main>
 <footer id="contacts" class="wrap footer"><div><a href="/" class="footer-brand" aria-label="Вкусняжки72 — на главную"><img src="/vkusno/logo.svg" alt="ВкусняЖки72" width="340" height="78" loading="lazy"></a><p>Кафе, в которое хочется вернуться.</p></div><div><h3>Заглядывайте</h3><p>{{ $cafe['address'] ?: 'Адрес кафе скоро появится здесь' }}</p><p>{{ $cafe['hours'] ?: 'Часы работы уточняются' }}</p><a href="{{ $cafe['map_url'] }}" target="_blank" rel="noopener">На карте ↗</a></div>
-    <div><h3>Будем на связи</h3>@if($cafe['phone'])<a href="tel:{{ preg_replace('/[^+0-9]/', '', $cafe['phone']) }}">{{ $cafe['phone'] }}</a>@else<p>Телефон скоро появится здесь</p>@endif<a href="/privacy">Обработка персональных данных</a></div><a href="/admin">Управление кафе</a><div class="footer-bottom"><span>© {{ date('Y') }} Вкусняжки72</span><span>С любовью к еде и людям ♡</span></div></footer>
+    <div><h3>Будем на связи</h3>@if($cafe['phone'])<a href="tel:{{ preg_replace('/[^+0-9]/', '', $cafe['phone']) }}">{{ $cafe['phone'] }}</a>@else<p>Телефон скоро появится здесь</p>@endif<a href="/privacy">Обработка персональных данных</a>
+
+<span>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function(m,e,t,r,i,k,a){
+                m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113755820', 'ym');
+
+            ym(113755820, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/113755820" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+</span>
+
+    </div>
+{{--    <a href="/admin">Управление кафе</a>--}}
+    <div class="footer-bottom"><span>© {{ date('Y') }} Вкусняжки72</span><span>С любовью к еде и людям ♡</span></div></footer>
 <dialog id="cart-dialog" class="drawer" aria-labelledby="cart-heading"><div class="dialog-header"><div><p class="eyebrow">ПОЧТИ У ВАС</p><h2 id="cart-heading">Ваша корзина</h2></div><button class="close-button" data-close aria-label="Закрыть корзину">×</button></div><div id="cart-items"></div><p id="cart-empty">Здесь пока пусто. Добавьте что-нибудь вкусное из меню.</p><div id="cake-summary" hidden></div><div class="cart-totals"><div><span>Блюда</span><strong id="cart-subtotal">0 ₽</strong></div><p>Торт по индивидуальному заказу рассчитывается отдельно. Доставка и итоговая стоимость подтверждаются кафе.</p></div><form id="order-form"><h3>Оформим заявку</h3><div class="fulfillment"><label><input type="radio" name="fulfillment" value="pickup" checked> Самовывоз</label><label><input type="radio" name="fulfillment" value="delivery"> Доставка</label></div><label>Ваше имя<input name="name" autocomplete="name" required maxlength="100" placeholder="Как к вам обращаться?"></label><label>Телефон<input name="phone" type="tel" autocomplete="tel" required maxlength="30" pattern="\+?[0-9\s()\-]{10,30}" placeholder="+7 (___) ___-__-__"></label><label id="address-field" hidden>Адрес доставки<input name="address" autocomplete="street-address" maxlength="500" placeholder="Улица, дом, квартира"></label><label>Желаемая дата <span class="optional">необязательно для блюд</span><input name="requested_date" type="date"></label><label>Комментарий<textarea name="comment" rows="2" maxlength="2000" placeholder="Время, аллергии, пожелания"></textarea></label><label class="consent"><input type="checkbox" name="consent" required><span>Согласен с <a href="/privacy" target="_blank" rel="noopener">условиями обработки персональных данных</a> для оформления заявки.</span></label><div id="order-error" role="alert" hidden></div><button class="button primary" id="submit-order" type="submit">Отправить заявку <span>↗</span></button><small class="form-note">Без онлайн-оплаты. Заказ считается принятым после подтверждения кафе.</small></form><div id="order-success" role="status" hidden></div></dialog>
 <dialog id="cake-dialog" class="cake-dialog" aria-labelledby="cake-heading"><div class="dialog-header"><div><p class="eyebrow">НАЧНЁМ СО СЛАДКОГО</p><h2 id="cake-heading">Ваш особенный торт</h2></div><button class="close-button" data-close aria-label="Закрыть форму торта">×</button></div><form id="cake-form"><p>Расскажите о пожеланиях. Стоимость и возможность изготовления подтвердим лично.</p><label>Начинка<select name="filling">@foreach($cafe['fillings'] as $filling)<option>{{ $filling }}</option>@endforeach</select></label><label>Вес, кг<input type="number" name="weight" min="1" max="15" step="0.5" value="2" required></label><label>Декор и повод<textarea name="design" maxlength="2000" rows="3" placeholder="Например: на день рождения, с ягодами и надписью"></textarea></label><button type="submit" class="button primary">Добавить заявку в корзину <span>↗</span></button><small class="form-note">Выберите дату в корзине, минимум за {{ $cafe['cake_lead_days'] }} дня.</small></form></dialog>
 <div class="toast-region"><div id="toast" class="toast" role="status" hidden></div></div>
 <script type="application/json" id="cafe-data">@json($frontend)</script>
+
+
 </body>
 </html>
