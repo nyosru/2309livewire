@@ -79,6 +79,10 @@ html{scroll-padding-top:calc(var(--header-height) + 16px)}
 .product-bottom .product-quantity button:disabled{opacity:.45;cursor:default;background:#fff3bf;color:var(--ink);border-color:#e7c870}
 @media(max-width:760px){.product-quantity{gap:4px}.product-quantity>span{min-width:29px}.product-bottom .product-quantity button{width:36px;height:36px}}
 
+.social-share{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px;font-size:14px}
+.footer .social-share a{display:inline-flex;margin:0;padding:7px 11px;border:1px solid currentColor;border-radius:5px;text-decoration:none}
+.social-share a:hover,.social-share a:focus-visible{background:#ffe335;color:#8e1023}
+
 /* Уведомление выезжает из-за правой границы и уходит обратно. */
 .toast-region{position:fixed;inset:0;z-index:110;overflow:hidden;pointer-events:none}
 .toast{animation:toast-slide-in .28s ease-out both}

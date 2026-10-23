@@ -1,11 +1,36 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Вкусняжки72 — кафе и торты с вашей историей</title>
-    <meta name="description" content="Вкусняжки72: кафе и столовая, любимые блюда и торты на заказ. Соберите заказ с доставкой или самовывозом.">
+    @php
+        $socialTitle = 'Вкусняжки72 — кафе, столовая и торты на заказ в Тюмени';
+        $socialDescription = 'Любимые блюда, выпечка и десерты. Торты на заказ для ваших праздников. Приходите в кафе, выбирайте самовывоз или доставку.';
+        $socialUrl = url('/');
+        $socialImage = url('/vkusno/social-preview.jpg').'?v=20261023';
+        $socialImageAlt = 'Вкусняжки72: фирменный логотип и реальный зал кафе с мягкими диванами и столиками';
+    @endphp
+    <title>{{ $socialTitle }}</title>
+    <meta name="description" content="{{ $socialDescription }}">
+    <link rel="canonical" href="{{ $socialUrl }}">
+    {{-- Open Graph: превью ссылок в VK, Facebook и мессенджерах. --}}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Вкусняжки72">
+    <meta property="og:title" content="{{ $socialTitle }}">
+    <meta property="og:description" content="{{ $socialDescription }}">
+    <meta property="og:url" content="{{ $socialUrl }}">
+    <meta property="og:image" content="{{ $socialImage }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ $socialImageAlt }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $socialTitle }}">
+    <meta name="twitter:description" content="{{ $socialDescription }}">
+    <meta name="twitter:image" content="{{ $socialImage }}">
+    <meta name="twitter:image:alt" content="{{ $socialImageAlt }}">
     <meta name="theme-color" content="#cd122d">
     <link rel="icon" href="/vkusno/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/vkusno/cafe.css">
@@ -49,6 +74,7 @@
 </main>
 <footer id="contacts" class="wrap footer"><div><a href="/" class="footer-brand" aria-label="Вкусняжки72 — на главную"><img src="/vkusno/logo.svg" alt="ВкусняЖки72" width="340" height="78" loading="lazy"></a><p>Кафе, в которое хочется вернуться.</p></div><div><h3>Заглядывайте</h3><p>{{ $cafe['address'] ?: 'Адрес кафе скоро появится здесь' }}</p><p>{{ $cafe['hours'] ?: 'Часы работы уточняются' }}</p><a href="{{ $cafe['map_url'] }}" target="_blank" rel="noopener">На карте ↗</a></div>
     <div><h3>Будем на связи</h3>@if($cafe['phone'])<a href="tel:{{ preg_replace('/[^+0-9]/', '', $cafe['phone']) }}">{{ $cafe['phone'] }}</a>@else<p>Телефон скоро появится здесь</p>@endif<a href="/privacy">Обработка персональных данных</a>
+        <div class="social-share" aria-label="Поделиться сайтом"><span>Поделиться:</span><a href="https://vk.com/share.php?url={{ rawurlencode($socialUrl) }}" target="_blank" rel="noopener noreferrer" aria-label="Поделиться сайтом в VK">VK ↗</a><a href="https://www.facebook.com/sharer/sharer.php?u={{ rawurlencode($socialUrl) }}" target="_blank" rel="noopener noreferrer" aria-label="Поделиться сайтом в Facebook">Facebook ↗</a></div>
 
 <span>
         <!-- Yandex.Metrika counter -->
