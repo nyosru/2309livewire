@@ -17,7 +17,7 @@ class MaxAuthService
 
     public function configured(): bool
     {
-        return config('max.auth_driver') === 'bot' && $this->max->configured();
+        return app(MaxSettings::class)->get('auth_driver') === 'bot' && $this->max->configured();
     }
 
     public function begin(string $phone, string $purpose, string $browserToken, string $ip, bool $deliver = true, string $displayName = 'сервис'): Verification

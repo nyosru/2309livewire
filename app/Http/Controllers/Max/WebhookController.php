@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Max;
 use App\Http\Controllers\Controller;
 use App\Services\Max\MaxAuthException;
 use App\Services\Max\MaxService;
+use App\Services\Max\MaxSettings;
 use App\Services\Max\RecipientRegistry;
 use App\Services\Max\SignedContact;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class WebhookController extends Controller
 {
     public function __invoke(Request $request, MaxService $max, SignedContact $contacts, RecipientRegistry $recipients)
     {
-        $secret = config('max.webhook_secret');
+        $secret = app(MaxSettings::class)->get('webhook_secret');
         abort_unless(is_string($secret) && strlen($secret) >= 5 && hash_equals($secret, (string) $request->header('X-Max-Bot-Api-Secret')), 403);
         abort_if(strlen($request->getContent()) > 65536, 413);
         $user = null;

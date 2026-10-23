@@ -36,6 +36,7 @@ class AdminTest extends TestCase
             '2026_10_22_000003_create_vkusno_menu_catalogs.php',
             '2026_10_22_000004_create_vkusno_administrators_table.php',
             '2026_10_22_000005_create_max_auth_tables.php',
+            '2026_10_23_000006_create_application_settings_table.php',
         ] as $file) {
             (require database_path('migrations/'.$file))->up();
         }

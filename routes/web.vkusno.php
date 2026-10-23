@@ -6,6 +6,7 @@ use App\Http\Controllers\Vkusno\CafeController;
 use App\Http\Controllers\Vkusno\CatalogAdminController;
 use App\Http\Controllers\Vkusno\MaxAuthController;
 use App\Http\Controllers\Vkusno\ProductAdminController;
+use App\Http\Controllers\Vkusno\SettingsAdminController;
 use App\Http\Middleware\EnsureVkusnoAdmin;
 use App\Http\Middleware\EnsureVkusnoSuperAdmin;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,8 @@ $d = function () {
         Route::put('/categories/{category}', [CatalogAdminController::class, 'saveCategory'])->name('categories.update');
         Route::delete('/categories/{category}', [CatalogAdminController::class, 'destroyCategory'])->name('categories.destroy');
         Route::middleware(EnsureVkusnoSuperAdmin::class)->group(function () {
+            Route::get('/settings', [SettingsAdminController::class, 'edit'])->name('settings');
+            Route::put('/settings', [SettingsAdminController::class, 'update'])->name('settings.update');
             Route::get('/access', [AccessAdminController::class, 'index'])->name('access');
             Route::post('/access', [AccessAdminController::class, 'store'])->name('access.store');
             Route::post('/access/phones', [AccessAdminController::class, 'storePhone'])->name('access.phones.store');
@@ -59,5 +62,5 @@ $d = function () {
 // вкусняжки72
 Route::group([
     'as' => 'vkusno.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'vkusno . local' : 'xn--72-dlcqkkbw9at8k.xn--p1ai',
+    'domain' => app()->environment('local', 'testing') ? 'vkusno.local' : 'xn--72-dlcqkkbw9at8k.xn--p1ai',
 ], $d);

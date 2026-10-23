@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\Max\MaxAuthException;
 use App\Services\Max\MaxService;
+use App\Services\Max\MaxSettings;
 use Illuminate\Console\Command;
 
 class MaxRegisterWebhook extends Command
@@ -15,7 +16,7 @@ class MaxRegisterWebhook extends Command
     public function handle(MaxService $max): int
     {
         try {
-            $max->subscribe((string) config('max.webhook_url'));
+            $max->subscribe((string) app(MaxSettings::class)->get('webhook_url'));
         } catch (MaxAuthException $exception) {
             $this->error($exception->getMessage());
 

@@ -1,5 +1,7 @@
 <?php
 
+// Bot credentials below are imported once by migration 2026_10_23_000006.
+// Runtime bot settings use App\Services\Max\MaxSettings (database).
 return [
     'bot_token' => env('MAX_BOT_TOKEN'),
     'ca_bundle' => env('MAX_CA_BUNDLE'),

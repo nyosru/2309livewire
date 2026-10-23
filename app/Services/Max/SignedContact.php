@@ -10,7 +10,7 @@ class SignedContact
     {
         $vcf = $payload['vcf_info'] ?? null;
         $signature = $payload['hash'] ?? null;
-        $token = config('max.bot_token');
+        $token = app(MaxSettings::class)->get('bot_token');
         $contactId = data_get($payload, 'max_info.user_id');
         if (! is_string($vcf) || strlen($vcf) > 16384 || ! is_string($signature)
             || ! is_string($token) || $token === '' || ! is_scalar($contactId) || (string) $contactId !== $senderId) {

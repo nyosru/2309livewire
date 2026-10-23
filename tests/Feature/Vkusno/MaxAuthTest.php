@@ -49,6 +49,7 @@ class MaxAuthTest extends TestCase
             '2026_10_22_000003_create_vkusno_menu_catalogs.php',
             '2026_10_22_000004_create_vkusno_administrators_table.php',
             '2026_10_22_000005_create_max_auth_tables.php',
+            '2026_10_23_000006_create_application_settings_table.php',
         ] as $file) {
             (require database_path('migrations/'.$file))->up();
         }
@@ -190,11 +191,13 @@ class MaxAuthTest extends TestCase
     public function test_delivery_failure_or_disabled_driver_does_not_create_a_valid_code(): void
     {
         $this->grant();
-        config(['max.auth_driver' => 'disabled']);
+        $setting = \App\Models\ApplicationSetting::findOrFail('max');
+        $setting->update(['values' => array_replace($setting->values, ['auth_driver' => 'disabled'])]);
         $this->get($this->host.'/admin/login')->assertOk()->assertSee('Вход через MAX пока не подключён');
         $this->post($this->host.'/admin/auth/max/request', ['phone' => $this->phone])->assertSessionHasErrors('phone');
         Http::assertNothingSent();
-        config(['max.auth_driver' => 'bot']);
+        $setting = \App\Models\ApplicationSetting::findOrFail('max');
+        $setting->update(['values' => array_replace($setting->values, ['auth_driver' => 'bot'])]);
         $this->maxStatus = 500;
         $this->post($this->host.'/admin/auth/max/request', ['phone' => $this->phone])->assertSessionHasErrors('phone');
         $this->assertSame(0, Verification::count());
@@ -338,7 +341,8 @@ class MaxAuthTest extends TestCase
         $this->withHeaders(['X-Max-Service-Client' => 'project-a', 'X-Max-Service-Key' => str_repeat('a', 40)])
             ->postJson('/api/max/service/message', ['user_id' => '123456', 'text' => 'Сообщение из другого проекта'])->assertOk()->assertJson(['sent' => true]);
         Http::assertSent(fn ($request) => str_starts_with($request->url(), 'https://platform-api2.max.ru/messages?user_id=123456'));
-        config(['max.webhook_url' => 'https://example.test/api/max/webhook']);
+        $setting = \App\Models\ApplicationSetting::findOrFail('max');
+        $setting->update(['values' => array_replace($setting->values, ['webhook_url' => 'https://example.test/api/max/webhook'])]);
         $this->artisan('max:register-webhook')->assertSuccessful();
         Http::assertSent(fn ($request) => $request->url() === 'https://platform-api2.max.ru/subscriptions'
             && $request['secret'] === 'a-secret-webhook-value' && $request['update_types'] === ['bot_started', 'message_created']);

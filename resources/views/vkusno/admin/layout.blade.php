@@ -22,7 +22,7 @@
         @foreach(['/admin/products' => 'Товары', '/admin/categories' => 'Категории', '/admin/sections' => 'Разделы меню', '/admin/orders' => 'Заказы'] as $path => $label)
         <a href="{{ $path }}" @if(request()->is(ltrim($path, '/').'*')) aria-current="page" @endif>{{ $label }}</a>
         @endforeach
-        @if(\App\Models\Vkusno\Administrator::isSuperAdmin(auth()->user()))<a href="/admin/access" @if(request()->is('admin/access*')) aria-current="page" @endif>Доступ к панели</a>@endif
+        @if(\App\Models\Vkusno\Administrator::isSuperAdmin(auth()->user()))<a href="/admin/settings" @if(request()->is('admin/settings*')) aria-current="page" @endif>Настройки</a><a href="/admin/access" @if(request()->is('admin/access*')) aria-current="page" @endif>Доступ к панели</a>@endif
         <a href="/">Открыть сайт ↗</a>
     </nav>
     @endif

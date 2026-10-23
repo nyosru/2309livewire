@@ -10,12 +10,12 @@ class MaxService
 {
     public function configured(): bool
     {
-        return filled(config('max.bot_token'));
+        return filled(app(MaxSettings::class)->get('bot_token'));
     }
 
     public function botUrl(): ?string
     {
-        $username = config('max.bot_username');
+        $username = app(MaxSettings::class)->get('bot_username');
 
         return is_string($username) && preg_match('/^[A-Za-z0-9_]+$/D', $username) ? 'https://max.ru/'.$username : null;
     }
@@ -56,11 +56,11 @@ class MaxService
     public function subscribe(string $url): void
     {
         $parts = parse_url($url);
-        $secret = config('max.webhook_secret');
+        $secret = app(MaxSettings::class)->get('webhook_secret');
         if (! filter_var($url, FILTER_VALIDATE_URL) || ($parts['scheme'] ?? '') !== 'https'
             || (isset($parts['port']) && $parts['port'] !== 443) || isset($parts['user']) || isset($parts['pass'])
             || ! is_string($secret) || ! preg_match('/^[A-Za-z0-9_-]{5,256}$/D', $secret)) {
-            throw new MaxAuthException('Настройте HTTPS-адрес MAX_WEBHOOK_URL и MAX_WEBHOOK_SECRET (5–256 символов A-Z, a-z, 0-9, _ и -).');
+            throw new MaxAuthException('На странице «Настройки» укажите HTTPS-адрес получения событий MAX и секрет подключения (5–256 символов A-Z, a-z, 0-9, _ и -).');
         }
         $data = $this->request('/subscriptions', ['url' => $url, 'secret' => $secret, 'update_types' => ['bot_started', 'message_created']]);
         if (($data['success'] ?? false) !== true) {
@@ -93,7 +93,7 @@ class MaxService
     private function request(string $path, array $body, string $method = 'POST'): array
     {
         if (! $this->configured()) {
-            throw new MaxAuthException('Укажите MAX_BOT_TOKEN в настройках сервера.');
+            throw new MaxAuthException('Укажите токен бота MAX на странице «Настройки».');
         }
         $verify = true;
         $bundle = config('max.ca_bundle');
@@ -105,7 +105,7 @@ class MaxService
         }
         try {
             // Tokens and codes must not inherit the app's global verify=false.
-            $http = Http::withOptions(['verify' => $verify, 'allow_redirects' => false])->withHeaders(['Authorization' => config('max.bot_token')])
+            $http = Http::withOptions(['verify' => $verify, 'allow_redirects' => false])->withHeaders(['Authorization' => app(MaxSettings::class)->get('bot_token')])
                 ->acceptJson()->asJson()->connectTimeout(5)->timeout(15);
             $response = $method === 'GET' ? $http->get('https://platform-api2.max.ru'.$path) : $http->post('https://platform-api2.max.ru'.$path, $body);
         } catch (ConnectionException|TransferException) {

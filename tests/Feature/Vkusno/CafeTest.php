@@ -23,6 +23,7 @@ class CafeTest extends TestCase
         $administrators = require database_path('migrations/2026_10_22_000004_create_vkusno_administrators_table.php');
         $administrators->up();
         (require database_path('migrations/2026_10_22_000005_create_max_auth_tables.php'))->up();
+        (require database_path('migrations/2026_10_23_000006_create_application_settings_table.php'))->up();
     }
 
     public function test_migration_imports_the_entire_current_catalog(): void
@@ -72,11 +73,10 @@ class CafeTest extends TestCase
         $this->assertSame(0, Order::count());
     }
 
-    public function test_cafe_is_available_on_both_domains_and_idn(): void
+    public function test_cafe_is_available_locally_and_alias_redirects_to_canonical_domain(): void
     {
-        foreach (['vkusno.local', 'xn--72-dlcyjau5ar6c5d.xn--p1ai'] as $host) {
-            $this->get('http://'.$host.'/')->assertOk()->assertSee('Вкусняжки72')->assertSee('Корзина');
-        }
+        $this->get('http://vkusno.local/')->assertOk()->assertSee('Вкусняжки72')->assertSee('Корзина');
+        $this->get('http://xn--72-dlcyjau5ar6c5d.xn--p1ai/')->assertStatus(301)->assertRedirect('https://xn--72-dlcqkkbw9at8k.xn--p1ai/');
     }
 
     public function test_menus_are_shown_as_two_ordered_sections(): void
@@ -149,7 +149,8 @@ class CafeTest extends TestCase
 
     public function test_delivery_requires_address_and_records_unconfirmed_fee(): void
     {
-        config(['vkusno.delivery_fee' => null]);
+        $setting = \App\Models\ApplicationSetting::findOrFail('vkusno');
+        $setting->update(['values' => array_replace($setting->values, ['delivery_fee' => null])]);
         $this->postJson('http://vkusno.local/orders', $this->payload(['fulfillment' => 'delivery']))
             ->assertUnprocessable()->assertJsonValidationErrors('address');
         $this->postJson('http://vkusno.local/orders', $this->payload(['fulfillment' => 'delivery', 'address' => 'Тестовая, 1']))->assertCreated();

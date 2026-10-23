@@ -3,9 +3,10 @@
 return [
     'super_admin_vk_id' => env('VKUSNO_SUPER_ADMIN_VK_ID', env('VK_ADMIN_ID')),
     'super_admin_phone' => env('VKUSNO_SUPER_ADMIN_PHONE'),
+    // Initial values for migration 2026_10_23_000006 only. Runtime data is in application_settings.
     'timezone' => 'Asia/Yekaterinburg',
-    'phone' => env('VKUSNO_PHONE') ?: '+7 (963) 452-17-13',
-    'address' => env('VKUSNO_ADDRESS') ?: 'Тюмень, Харьковская улица, 59а, 1 этаж',
+    'phone' => env('VKUSNO_PHONE') ?: '+7 (963) 452-**-**',
+    'address' => env('VKUSNO_ADDRESS') ?: 'Тюмень, Харьковская улица, 59а',
     'hours' => env('VKUSNO_HOURS') ?: 'Ежедневно с 08:30 до 21:00',
     'map_url' => 'https://2gis.ru/tyumen/firm/70000001045708211',
     'directions_url' => 'https://2gis.ru/tyumen/directions/points/%7C65.584612%2C57.149141%3B70000001045708211',

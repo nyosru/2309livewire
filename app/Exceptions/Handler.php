@@ -17,6 +17,8 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
         'max_code',
+        'max_bot_token',
+        'max_webhook_secret',
     ];
 
     /**
