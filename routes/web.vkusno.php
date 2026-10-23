@@ -11,10 +11,11 @@ use App\Http\Middleware\EnsureVkusnoSuperAdmin;
 use Illuminate\Support\Facades\Route;
 
 // Редирект с вкусняшки72.рф на вкуснякжки72.рф
-//Route::domain('xn--72-dlcyjau5ar6c5d.xn--p1ai')->group(function () {
-if( $_SERVER['HTTP_HOST'] == 'xn--72-dlcyjau5ar6c5d.xn--p1ai' ){
-    return redirect()->to('https://xn--72-dlcqkkbw9at8k.xn--p1ai');
-}
+Route::redirect(
+    'https://xn--72-dlcyjau5ar6c5d.xn--p1ai/',
+    'https://xn--72-dlcqkkbw9at8k.xn--p1ai/',
+    301
+);
 
 $d = function () {
     Route::get('/', [CafeController::class, 'index'])->name('home');
