@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Vkusno\Order;
 use App\Models\Vkusno\Product;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class CafeTest extends TestCase
@@ -145,6 +146,43 @@ class CafeTest extends TestCase
         $this->assertSame(450, $order->items[0]['price']);
         $this->assertSame(0, $order->delivery_fee);
         $this->assertSame($order->reference, $response->json('reference'));
+    }
+
+    public function test_new_order_is_sent_to_vk_like_the_ttt_lead_forms(): void
+    {
+        config([
+            'services.vk.token_order' => 'vk-test-token',
+            'services.vk.vk_admin_id' => '5903492',
+            'services.vk.api_version' => '5.199',
+        ]);
+        Http::fake(['api.vk.com/method/messages.send' => Http::response(['response' => 1])]);
+
+        $this->postJson('http://vkusno.local/orders', $this->payload([
+            'address' => null,
+            'comment' => 'Позвонить за час',
+        ]))->assertCreated();
+
+        Http::assertSent(fn ($request) => $request->url() === 'https://api.vk.com/method/messages.send'
+            && $request['access_token'] === 'vk-test-token'
+            && $request['user_id'] === '5903492'
+            && $request['v'] === '5.199'
+            && str_contains($request['message'], 'Новая заявка «Вкусняжки72»')
+            && str_contains($request['message'], 'Тестовый клиент')
+            && str_contains($request['message'], 'Паста с песто')
+            && str_contains($request['message'], 'Самовывоз')
+            && str_contains($request['message'], 'Позвонить за час'));
+    }
+
+    public function test_vk_notification_failure_does_not_discard_the_order(): void
+    {
+        config([
+            'services.vk.token_order' => 'vk-test-token',
+            'services.vk.vk_admin_id' => '5903492',
+        ]);
+        Http::fake(['api.vk.com/*' => Http::response(['error' => ['error_msg' => 'VK error']])]);
+
+        $this->postJson('http://vkusno.local/orders', $this->payload())->assertCreated();
+        $this->assertSame(1, Order::count());
     }
 
     public function test_delivery_requires_address_and_records_unconfirmed_fee(): void

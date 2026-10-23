@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Vkusno\MenuSection;
 use App\Models\Vkusno\Order;
 use App\Models\Vkusno\Product;
+use App\Services\Vkusno\OrderNotifier;
 use App\Services\Vkusno\SiteSettings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -43,7 +45,7 @@ class CafeController extends Controller
         ]);
     }
 
-    public function store(Request $request, SiteSettings $settings): JsonResponse
+    public function store(Request $request, SiteSettings $settings, OrderNotifier $notifier): JsonResponse
     {
         $site = $settings->all();
         $catalog = Product::available()->get()->keyBy('id');
@@ -89,6 +91,13 @@ class CafeController extends Controller
             'subtotal' => collect($items)->sum(fn ($item) => $item['price'] * $item['quantity']),
             'delivery_fee' => $data['fulfillment'] === 'pickup' ? 0 : $site['delivery_fee'],
         ]);
+
+        try {
+            $notifier->send($order);
+        } catch (\Throwable $exception) {
+            report($exception);
+            Log::warning('vkusno - order notification failed', ['order_id' => $order->id]);
+        }
 
         return response()->json(['reference' => $order->reference, 'message' => 'Заявка сохранена. Дождитесь звонка кафе: состав, время и итоговая стоимость требуют подтверждения.'], 201);
     }
