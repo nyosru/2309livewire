@@ -1,5 +1,5 @@
 <article class="product" data-product-id="{{ $product['id'] }}" data-product-category="{{ $product['category'] }}">
-    <div class="product-image"><img src="/vkusno/{{ $product['image'] }}" alt="{{ $product['name'] }}" loading="lazy"><span>{{ $product['badge'] }}</span></div>
+    <div class="product-image"><img src="/vkusno/{{ $product['image'] }}?date={{ config('vkusno.image_cache_version') }}" alt="{{ $product['name'] }}" loading="lazy"><span>{{ $product['badge'] }}</span></div>
     <div class="product-title"><h3>{{ $product['name'] }}</h3><small>{{ $product['weight'] }}</small></div>
     <p>{{ $product['description'] }}</p>
     @if(!empty($product['price_is_estimate']))<p class="product-price-note">Предварительная цена — уточним в кафе</p>@elseif(in_array('name', $product['inferred_fields'] ?? []))<p class="product-price-note">Название уточняется</p>@elseif(empty($product['source_photo']) && $cafe['demo_menu'])<p class="product-price-note">Примерная позиция</p>@endif

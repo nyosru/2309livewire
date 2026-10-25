@@ -16,6 +16,9 @@ return [
     // Null means the delivery cost must be confirmed by the cafe.
     'delivery_fee' => env('VKUSNO_DELIVERY_FEE'),
     'cake_lead_days' => 3,
+    // Версия в адресе фотографий товаров: меняется вместе с картинками, чтобы браузер
+    // и кеш не отдавали старые файлы. Переопределяется через VKUSNO_IMAGE_CACHE_VERSION.
+    'image_cache_version' => env('VKUSNO_IMAGE_CACHE_VERSION', '20261025'),
     'menu_sections' => [
         'cafe' => [
             'anchor' => 'menu', 'title' => 'Кафе',

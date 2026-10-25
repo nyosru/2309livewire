@@ -88,7 +88,7 @@
             count += quantity;
             subtotal += product.price * quantity;
             const row = element('div', undefined, 'cart-row');
-            const img = element('img'); img.src = '/vkusno/' + product.image; img.alt = product.name;
+            const img = element('img'); img.src = '/vkusno/' + product.image + '?date=' + config.imageCacheVersion; img.alt = product.name;
             const main = element('div', undefined, 'cart-row-main');
             main.append(element('h3', product.name), element('p', product.weight + ' × ' + quantity), element('p', money(product.price * quantity)));
             if (product.price_is_estimate) main.append(element('p', 'Цена предварительная'));

@@ -41,6 +41,7 @@ class CafeController extends Controller
                 'fillings' => $site['fillings'],
                 'today' => now($site['timezone'])->toDateString(),
                 'cakeDate' => now($site['timezone'])->addDays($site['cake_lead_days'])->toDateString(),
+                'imageCacheVersion' => config('vkusno.image_cache_version'),
             ],
         ]);
     }
