@@ -25,6 +25,7 @@ class CafeTest extends TestCase
         $administrators->up();
         (require database_path('migrations/2026_10_22_000005_create_max_auth_tables.php'))->up();
         (require database_path('migrations/2026_10_23_000006_create_application_settings_table.php'))->up();
+        (require database_path('migrations/2026_10_25_000007_add_vkusno_semi_finished_section.php'))->up();
     }
 
     public function test_migration_imports_the_entire_current_catalog(): void
