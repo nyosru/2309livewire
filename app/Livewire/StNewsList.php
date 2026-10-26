@@ -29,8 +29,7 @@ class StNewsList extends Component
         //            [told_at] =>
         //        $news = StNews::whereModeration(True)->whereModeration_required(true)->latest()->paginate(10);
 
-        $news = StNews::whereModeration_required(true)
-            ->whereModeration(true)
+        $news = StNews::whereNotNull('published_at')
             ->where('content', '!=', '')
 //            ->latest()
             ->orderBy('published_at', 'desc')

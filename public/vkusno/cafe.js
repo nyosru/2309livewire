@@ -48,7 +48,16 @@
     }
     function toast(message) {
         const el = document.getElementById('toast');
-        el.textContent = message;
+        const [name, msg] = message.split(' — ');
+        el.innerHTML = '';
+        const content = element('div', undefined, 'toast-content');
+        const nameEl = element('div', name, 'toast-name');
+        content.appendChild(nameEl);
+        const msgEl = element('div', msg || 'товар добавлен в корзину', 'toast-msg');
+        content.appendChild(msgEl);
+        el.appendChild(content);
+        const arrow = element('div', undefined, 'toast-arrow');
+        el.appendChild(arrow);
         el.classList.remove('is-leaving');
         el.hidden = false;
         positionToast();
@@ -110,11 +119,11 @@
         productCards.forEach(card => {
             const quantity = cart[card.dataset.productId] || 0;
             card.querySelector('[data-product-cart-status]').hidden = quantity === 0;
-            const counter = card.querySelector('[data-product-quantity]');
-            counter.hidden = quantity === 0;
-            counter.textContent = `${quantity} шт.`;
+            card.querySelector('[data-product-quantity]').hidden = quantity === 0;
+            card.querySelector('[data-product-quantity]').textContent = `${quantity} шт.`;
             card.querySelector('[data-subtract]').hidden = quantity === 0;
             card.querySelector('[data-add]').disabled = quantity >= 30;
+            card.classList.toggle('is-in-cart', quantity > 0);
         });
         document.getElementById('cart-empty').hidden = count !== 0;
         document.getElementById('cart-subtotal').textContent = money(subtotal);

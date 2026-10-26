@@ -4,6 +4,12 @@
 
 <br/>
 
+<div class="flex justify-center gap-5 text-sm">
+    <a href="{{ route('stn.manage') }}" class="text-neutral-500 hover:text-blue-600">Управление новостями</a>
+    <a href="{{ route('stn.moderation') }}" class="text-neutral-500 hover:text-blue-600">Модерация</a>
+</div>
+
+
 @if(1==2)
 
 <a href="{{ route('stn.vk-enter') }}" class="btn btn-primary">    Войти через ВКонтакте</a>

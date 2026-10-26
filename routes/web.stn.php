@@ -34,6 +34,9 @@ $d = function () {
     Route::get('/moderation', StNewsModeration::class)->name('moderation');
     Route::get('/m', [StNewsModeration::class, 'm'])->name('moderation1');
 
+    // Админка: управление новостями (все, поиск, публикация)
+    Route::get('/manage', \App\Livewire\StNews\StNewsManage::class)->name('manage');
+
     Route::group(['a' => 'a.', 'prefix' => 'a'], function () {
         Route::get('/m', \App\Livewire\StNews\A\Index::class)->name('index');
     });

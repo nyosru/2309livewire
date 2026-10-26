@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'raal.admin' => \App\Http\Middleware\EnsureRaalAdmin::class,
+        'stn.api' => \App\Http\Middleware\CheckStnApiKey::class,
     ];
 }

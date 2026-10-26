@@ -13,7 +13,28 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet"/>
 {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>--}}
 {{--    <script src="https://cdn.tailwindcss.com/3.3.0"></script>--}}
-    <link rel="stylesheet" href="/css/output.css?v=1" />
+    <link rel="stylesheet" href="/css/output.css?v=2" />
+    <style>
+        /* Блок новостей «Самые Тюменские Новости» — редакционный стиль */
+        .stn-news .stn-headline {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .stn-news .stn-photo {
+            aspect-ratio: 16 / 10;
+            display: block;
+        }
+        .stn-news .stn-card {
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+        .stn-news .stn-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px -14px rgba(2, 6, 23, .22);
+            border-color: #f97316;
+        }
+    </style>
     <script>
         tailwind.config = {
             darkMode: "class",

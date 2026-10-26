@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StNews\ParseController;
+use App\Http\Controllers\StNews\NewsApiController;
 use App\Services\ServiceController;
 use App\Services\StNews\AutoModerationNewsServices;
 use GuzzleHttp\Client;
@@ -90,6 +91,21 @@ $d = function () {
     //    Route::fallback(function () {
     //        return redirect('/');
     //    });
+
+    // ------------------------------------------------------------------
+    // Публичный CRUD-API для новостей (управление контентом)
+    // Чтение — открыто; запись — за middleware stn.api (X-STN-Api-Key).
+    // ------------------------------------------------------------------
+    Route::group(['prefix' => 'stn', 'as' => 'api.stn.'], function () {
+        Route::get('news', [NewsApiController::class, 'index'])->name('news.index');
+        Route::get('news/{news}', [NewsApiController::class, 'show'])->name('news.show');
+
+        Route::post('news', [NewsApiController::class, 'store'])->middleware('stn.api')->name('news.store');
+        Route::put('news/{news}', [NewsApiController::class, 'update'])->middleware('stn.api')->name('news.update');
+        Route::patch('news/{news}', [NewsApiController::class, 'update'])->middleware('stn.api')->name('news.update.patch');
+        Route::delete('news/{news}', [NewsApiController::class, 'destroy'])->middleware('stn.api')->name('news.destroy');
+        Route::post('news/{news}/media', [NewsApiController::class, 'attachMedia'])->middleware('stn.api')->name('news.media.store');
+    });
 
 };
 
