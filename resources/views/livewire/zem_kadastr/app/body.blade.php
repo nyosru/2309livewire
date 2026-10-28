@@ -17,7 +17,7 @@
     <link rel="canonical" href="https://xn--80aalcakqihin5bmo2koa.xn--p1ai/">
     <meta name="theme-color" content="#f4f0e6">
 
-    <link rel="stylesheet" href="/css/zem_kadastr.css?v=3">
+    <link rel="stylesheet" href="/css/zem_kadastr.css?v=4">
     @livewireStyles
 
 </head>
