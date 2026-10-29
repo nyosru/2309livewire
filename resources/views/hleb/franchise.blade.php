@@ -4,7 +4,22 @@
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Франшиза «Хлебничная» — своя пекарня</title>
-    <meta name="description" content="Франшиза пекарни Хлебничная: инвестиции, паушальный взнос, поддержка и заявка на консультацию.">
+    <meta name="description" content="Условия открытия пекарни, инвестиции, обучение и поддержка партнёров.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Хлебничная">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="Франшиза «Хлебничная» — своя пекарня">
+    <meta property="og:description" content="Условия открытия пекарни, инвестиции, обучение и поддержка партнёров.">
+    <meta property="og:url" content="https://xn--80ablnmob2dxa6f.xn--p1ai/franchise">
+    <meta property="og:image" content="https://xn--80ablnmob2dxa6f.xn--p1ai/hleb/images/social-franchise.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Франшиза Хлебничной: логотип и каравай">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Франшиза «Хлебничная» — своя пекарня">
+    <meta name="twitter:description" content="Условия открытия пекарни, инвестиции, обучение и поддержка партнёров.">
+    <meta name="twitter:image" content="https://xn--80ablnmob2dxa6f.xn--p1ai/hleb/images/social-franchise.jpg">
     <link rel="stylesheet" href="/hleb/site.css?v={{ filemtime(public_path('hleb/site.css')) }}">
     <script src="/hleb/franchise.js?v={{ filemtime(public_path('hleb/franchise.js')) }}" defer></script>
 </head>
@@ -19,7 +34,7 @@
 <section class="wrap section faq" id="questions"><div><span class="eyebrow">04 / ВОПРОСЫ И ОТВЕТЫ</span><h2>Обсудим<br><em>подробнее.</em></h2></div><div><details><summary>Что входит в инвестиции?</summary><p>Опубликованный ориентир в 3 621 522 ₽ указан без паушального взноса. Запросите подробную смету с расходами на помещение, оборудование, сырьё и оборотные средства для вашего проекта.</p></details><details><summary>Нужен ли опыт в пекарном деле?</summary><p>Сеть предусматривает обучение партнёра и сотрудников, а также поддержку технолога при запуске. Организационные обязанности владельца обсудите на консультации.</p></details><details><summary>Как подобрать помещение?</summary><p>Команда помогает с оценкой расположения, трафика и планировкой. Требования к площади и коммуникациям зависят от выбранного помещения и проекта.</p></details><details><summary>Когда окупятся вложения?</summary><p>На сайте сети для рассматриваемого предложения указан расчётный срок от 10 месяцев. Фактический результат зависит от расходов, выручки, местоположения и других условий.</p></details></div></section>
 <section class="fr-apply" id="apply"><div class="wrap fr-apply-grid"><div><span class="eyebrow">05 / НАЧНЁМ ЗНАКОМСТВО</span><h2>Поговорим<br><em>о вашей пекарне.</em></h2><p>Оставьте контакты и расскажите, в каком городе хотите открыть «Хлебничную». Условия и следующие шаги обсудим индивидуально.</p><a class="fr-apply-phone" href="tel:88007775431">8-800-777-54-31</a></div><form data-franchise-form>@include('hleb.form', ['kind' => 'franchise'])<button class="button" type="submit">Отправить заявку ↗</button><p role="status" class="form-status"></p></form></div></section>
 </main>
-<footer class="wrap"><a class="brand footer-brand" href="/">Хлебничная</a><span>© {{ date('Y') }} · С теплом к вам.</span><button class="text-link" data-fr-privacy>Обработка персональных данных</button><a href="/">На главную ↗</a></footer>
+<footer class="wrap"><a class="brand footer-brand" href="/">Хлебничная</a><span>© {{ date('Y') }} · С теплом к вам.</span><button class="text-link" data-fr-privacy>Обработка персональных данных</button><a href="/">На главную ↗</a><a href="https://php-cat.com" target="_blank" rel="noopener noreferrer">Создание сайта и php-cat.com</a></footer>
 <dialog id="fr-privacy" aria-labelledby="fr-privacy-title"><button class="dialog-close" type="button" data-fr-close aria-label="Закрыть">×</button><h2 id="fr-privacy-title">Ваши данные</h2><p>Имя, телефон, город и пожелания сохраняются для ответа на заявку о франшизе. Не указывайте платёжные данные.</p><p>Для вопросов о данных и отзыва согласия обратитесь по телефону 8-800-234-37-44.</p></dialog>
 @include('hleb.dev-notice')
 </body></html>

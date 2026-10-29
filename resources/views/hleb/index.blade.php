@@ -4,7 +4,22 @@
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Хлебничная — выпечка с душой. Пекарня и франшиза</title>
-    <meta name="description" content="Сытные и сладкие пироги, пицца и выпечка Хлебничной. Соберите заказ или узнайте, как открыть свою пекарню по франшизе.">
+    <meta name="description" content="Сытные и сладкие пироги, пицца и выпечка. Выберите любимое и соберите заказ.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Хлебничная">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="Хлебничная — пироги и свежая выпечка">
+    <meta property="og:description" content="Сытные и сладкие пироги, пицца и выпечка. Выберите любимое и соберите заказ.">
+    <meta property="og:url" content="https://xn--80ablnmob2dxa6f.xn--p1ai/">
+    <meta property="og:image" content="https://xn--80ablnmob2dxa6f.xn--p1ai/hleb/images/social-home.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Логотип Хлебничной и каравай">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Хлебничная — пироги и свежая выпечка">
+    <meta name="twitter:description" content="Сытные и сладкие пироги, пицца и выпечка. Выберите любимое и соберите заказ.">
+    <meta name="twitter:image" content="https://xn--80ablnmob2dxa6f.xn--p1ai/hleb/images/social-home.jpg">
     <link rel="stylesheet" href="/hleb/site.css?v={{ filemtime(public_path('hleb/site.css')) }}">
     <script src="/hleb/site.js?v={{ filemtime(public_path('hleb/site.js')) }}" defer></script>
 </head>
@@ -42,7 +57,7 @@
     <section class="contacts" id="contacts"><div class="wrap contact-inner"><div><span class="eyebrow">06 / ДО ВСТРЕЧИ В ПЕКАРНЕ</span><h2>Ваши люди.<br><em>Ваше место.</em></h2><p>Екатеринбург · Приём заказов 09:00–21:00</p></div><div><a class="big-phone" href="tel:88002343744">8-800-234-37-44</a><a class="text-link" href="https://hlebnichnaya.ru/info/7951" target="_blank" rel="noopener">Адреса пекарен ↗</a></div></div></section>
 </main>
 <div class="closing-word wrap" aria-hidden="true">Хлебничная<span>®</span></div>
-<footer class="wrap"><a class="brand footer-brand" href="#home">Хлебничная</a><span>© {{ date('Y') }} · С теплом к вам.</span><a href="/franchise">Франшиза</a><button class="text-link" data-privacy-open>Обработка персональных данных</button><a href="#home">Наверх ↑</a></footer>
+<footer class="wrap"><a class="brand footer-brand" href="#home">Хлебничная</a><span>© {{ date('Y') }} · С теплом к вам.</span><a href="/franchise">Франшиза</a><button class="text-link" data-privacy-open>Обработка персональных данных</button><a href="#home">Наверх ↑</a><a href="https://php-cat.com" target="_blank" rel="noopener noreferrer">Создание сайта и php-cat.com</a></footer>
 <dialog id="cart-dialog" aria-labelledby="cart-title"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ВАШ ВКУСНЫЙ ПЛАН</span><h2 id="cart-title">Корзина</h2><div id="cart-items"></div><div id="cart-summary"><div class="cart-total">Предварительно <strong id="cart-total"></strong></div><p class="muted">Стоимость и получение согласуем перед подтверждением.</p><form data-request-form="order">@include('hleb.form', ['kind' => 'order'])<button class="button" type="submit">Оставить заявку на заказ ↗</button><p role="status" class="form-status"></p></form></div><div id="cart-empty"><p>Здесь пока тихо. Давайте добавим что-нибудь вкусное?</p><button class="button" data-close>Выбрать выпечку</button></div></dialog>
 
 <dialog id="privacy-dialog" aria-labelledby="privacy-title"><button class="dialog-close" data-close aria-label="Закрыть">×</button><h2 id="privacy-title">Ваши данные</h2><p>В форме запрашиваются имя, телефон, город и пожелания. Они сохраняются для обработки вашей заявки на заказ или консультацию по франшизе. Не указывайте платёжные данные.</p><p>Нажимая кнопку отправки и отмечая согласие, вы разрешаете обработать указанные данные для ответа на заявку. Для вопросов о данных и отзыва согласия обратитесь по телефону 8-800-234-37-44.</p></dialog>
