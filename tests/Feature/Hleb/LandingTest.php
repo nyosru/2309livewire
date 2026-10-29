@@ -17,7 +17,14 @@ class LandingTest extends TestCase
     public function test_landing_is_available_on_local_and_production_hosts(): void
     {
         foreach (['hleb.local', 'xn--80ablnmob2dxa6f.xn--p1ai'] as $host) {
-            $this->get('https://'.$host.'/')->assertOk()->assertSee('Хлеб. Люди.')->assertSee('ФРАНШИЗА');
+            $this->get('https://'.$host.'/')->assertOk()->assertSee('Выбирайте')->assertSee('Франшиза');
+        }
+    }
+
+    public function test_franchise_page_is_available_for_both_hosts(): void
+    {
+        foreach (['hleb.local', 'xn--80ablnmob2dxa6f.xn--p1ai'] as $host) {
+            $this->get('https://'.$host.'/franchise')->assertOk()->assertSee('400 000 ₽')->assertSee('3 621 522 ₽');
         }
     }
 

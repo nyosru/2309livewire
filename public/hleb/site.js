@@ -1,11 +1,5 @@
 (() => {
     'use strict';
-    const devNotice = document.getElementById('dev-notice');
-    try { if (sessionStorage.getItem('hleb-dev-notice-dismissed') === '1') devNotice.hidden = true; } catch (_) {}
-    document.getElementById('dev-notice-close').addEventListener('click', () => {
-        devNotice.hidden = true;
-        try { sessionStorage.setItem('hleb-dev-notice-dismissed', '1'); } catch (_) {}
-    });
     const products = JSON.parse(document.querySelector('#catalog-data').textContent);
     const catalog = new Map(products.map(p => [p.id, p]));
     const money = value => new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
@@ -13,7 +7,7 @@
     try {
         const saved = JSON.parse(localStorage.getItem('hleb-cart-v1') || '{}');
         for (const [id, quantity] of Object.entries(saved || {})) {
-            if (catalog.has(id) && Number.isInteger(quantity) && quantity > 0 && quantity <= 99) cart[id] = quantity;
+            if (catalog.has(id) && Number.isInteger(quantity) && quantity >= 0 && quantity <= 99) cart[id] = quantity;
         }
     } catch (_) { /* Storage can be unavailable in private mode. */ }
     function persist() { try { localStorage.setItem('hleb-cart-v1', JSON.stringify(cart)); } catch (_) {} }
@@ -32,8 +26,8 @@
             for (const [label, delta] of [['−', -1], ['+', 1]]) {
                 const button = element('button', '', label);
                 button.type = 'button'; button.setAttribute('aria-label', `${delta < 0 ? 'Уменьшить' : 'Увеличить'} количество: ${p.name}`);
-                button.disabled = delta > 0 && quantity >= 99;
-                button.addEventListener('click', () => { cart[id] += delta; if (!cart[id]) delete cart[id]; persist(); renderCart(); });
+                button.disabled = delta > 0 ? quantity >= 99 : quantity <= 0;
+                button.addEventListener('click', () => { cart[id] += delta; persist(); renderCart(); });
                 controls.append(button);
                 if (delta < 0) controls.append(element('span', '', quantity));
             }
@@ -52,7 +46,7 @@
         document.querySelectorAll('[data-cart-count]').forEach(node => node.textContent = count);
         document.querySelector('#cart-total').textContent = money(total);
         document.querySelector('#cart-summary').hidden = !count;
-        document.querySelector('#cart-empty').hidden = !!count;
+        document.querySelector('#cart-empty').hidden = Object.keys(cart).length > 0;
     }
     function openDialog(id) { document.getElementById(id).showModal(); document.body.classList.add('modal-open'); }
     document.querySelectorAll('dialog').forEach(dialog => {
@@ -116,7 +110,7 @@
         const status = form.querySelector('.form-status'), button = form.querySelector('[type="submit"]');
         if (button.disabled) return;
         const data = Object.fromEntries(new FormData(form)); data.type = form.dataset.requestForm; data.consent = form.elements.consent.checked;
-        if (data.type === 'order') { data.items = Object.entries(cart).map(([id, quantity]) => ({id, quantity})); if (!data.items.length) return; }
+        if (data.type === 'order') { data.items = Object.entries(cart).filter(([, quantity]) => quantity > 0).map(([id, quantity]) => ({id, quantity})); if (!data.items.length) return; }
         button.disabled = true; status.classList.remove('error'); status.textContent = 'Сохраняем заявку…';
         const abort = new AbortController(), timeout = setTimeout(() => abort.abort(), 20000);
         try {
