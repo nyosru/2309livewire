@@ -36,6 +36,7 @@ class StNewsManage extends Component
     public function render()
     {
         $query = StNews::query()
+            ->with(['media', 'coverPhoto'])
             ->orderByDesc('published_at')
             ->orderByDesc('id');
 

@@ -35,6 +35,7 @@
                     <tr>
                         <th class="w-12 px-4 py-3">#</th>
                         <th class="px-4 py-3">Заголовок</th>
+                        <th class="w-44 px-4 py-3">Медиа</th>
                         <th class="w-40 px-4 py-3">Опубликовано</th>
                         <th class="w-44 px-4 py-3">Статус</th>
                         <th class="w-44 px-4 py-3">Источник</th>
@@ -48,6 +49,29 @@
                             <td class="px-4 py-3 text-neutral-400">{{ $n->id }}</td>
                             <td class="px-4 py-3">
                                 <div class="font-medium text-neutral-900">{{ \Illuminate\Support\Str::limit($n->title, 80) }}</div>
+                            </td>
+                            <td class="px-4 py-3">
+                                @php
+                                    $photos = $n->media->filter(fn ($m) => $m->is_photo);
+                                    $videos = $n->media->filter(fn ($m) => $m->is_video);
+                                @endphp
+                                <div class="flex items-center gap-1.5">
+                                    @forelse($photos->take(4) as $m)
+                                        <a href="{{ $m->url }}" target="_blank" rel="noopener" title="{{ $m->alt ?? 'Фото' }}" class="block h-9 w-9 flex-none overflow-hidden rounded-md border border-neutral-200 bg-neutral-100">
+                                            <img src="{{ $m->url }}" alt="{{ $m->alt ?? '' }}" class="h-full w-full object-cover" loading="lazy">
+                                        </a>
+                                    @empty
+                                        <span class="text-xs text-neutral-400">—</span>
+                                    @endforelse
+                                    @if($photos->count() > 4)
+                                        <span class="flex h-9 w-9 flex-none items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-500">+{{ $photos->count() - 4 }}</span>
+                                    @endif
+                                    @if($videos->count())
+                                        <span class="flex h-9 w-9 flex-none items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500" title="{{ $videos->count() }} видео">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                        </span>
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-4 py-3 text-neutral-500">
                                 {{ $isPub ? $n->published_at->format('d.m.Y H:i') : '—' }}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StNews\ParseController;
 use App\Http\Controllers\StNews\NewsApiController;
+use App\Http\Controllers\StNews\SwaggerController;
 use App\Services\ServiceController;
 use App\Services\StNews\AutoModerationNewsServices;
 use GuzzleHttp\Client;
@@ -106,6 +107,13 @@ $d = function () {
         Route::delete('news/{news}', [NewsApiController::class, 'destroy'])->middleware('stn.api')->name('news.destroy');
         Route::post('news/{news}/media', [NewsApiController::class, 'attachMedia'])->middleware('stn.api')->name('news.media.store');
     });
+
+    // ------------------------------------------------------------------
+    // Swagger / OpenAPI-документация API (хаб с переключателем тем сверху).
+    // Публично: просмотр документации не требует ключа.
+    // ------------------------------------------------------------------
+    Route::get('docs', [SwaggerController::class, 'index'])->name('swagger.docs');
+    Route::get('openapi/{theme}', [SwaggerController::class, 'spec'])->name('swagger.spec');
 
 };
 

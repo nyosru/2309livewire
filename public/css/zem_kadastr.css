@@ -85,9 +85,8 @@ button, input, select, textarea { font: inherit; }
 .zem-service-icon { display: grid; width: 45px; height: 45px; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--zem-orange); font-family: Georgia, serif; font-size: 22px; }
 .zem-service h3 { margin: 38px 0 16px; font-family: Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05; }
 .zem-service p { margin: 0 0 30px; color: var(--zem-muted); font-size: 18px; line-height: 1.55; }
-.zem-service-meta { display: grid; gap: 6px; margin-top: auto; }.zem-service-meta b { font-size: 20px; }.zem-service-meta span { color: var(--zem-muted); font-size: 18px; line-height: 1.35; }
+.zem-service-meta { display: grid; gap: 6px; margin-top: auto; }.zem-service-meta span { color: var(--zem-muted); font-size: 18px; line-height: 1.35; }
 .zem-service a { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--zem-line); font-size: 18px; font-weight: 850; line-height: 1.35; text-decoration: none; }
-.zem-price-note { max-width: 820px; margin: 24px 0 0 auto; color: var(--zem-muted); font-size: 18px; line-height: 1.55; text-align: right; }
 
 .zem-dark { background: var(--zem-ink); color: #fff; }
 .zem-dark .zem-kicker > span { background: var(--zem-acid); }.zem-dark .zem-lead { color: #aab4af; }
@@ -139,7 +138,7 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 620px) {
     .zem-shell { width: min(100% - 28px, 1180px); }.zem-section { padding: 78px 0; }.zem-nav { min-height: 70px; }
     .zem-hero { padding: 64px 0 75px; }.zem-hero-copy h1 { font-size: clamp(48px, 15vw, 67px); }.zem-hero-copy > .zem-lead { margin-top: 25px; font-size: 20px; }.zem-actions { align-items: stretch; flex-direction: column; gap: 13px; }.zem-button, .zem-text-link { width: 100%; text-align: center; }.zem-trust { grid-template-columns: 1fr; gap: 18px; }.zem-trust li { grid-template-columns: 135px 1fr; align-items: baseline; }.zem-plot { min-height: 430px; }.zem-plot-map { inset: 28px 7px 28px 20px; }.zem-stamp { width: 100px; height: 100px; font-size: 18px; }.zem-plot-note { min-width: auto; padding: 12px; font-size: 18px; }.zem-area { left: 18%; font-size: 26px; }
-    .zem-section-head h2, .zem-process-head h2, .zem-check h2, .zem-consult h2, .zem-faq-grid h2 { font-size: 42px; }.zem-services { grid-template-columns: 1fr; margin-top: 45px; }.zem-service { min-height: 440px; }.zem-price-note { text-align: left; }
+    .zem-section-head h2, .zem-process-head h2, .zem-check h2, .zem-consult h2, .zem-faq-grid h2 { font-size: 42px; }.zem-services { grid-template-columns: 1fr; margin-top: 45px; }.zem-service { min-height: 440px; }
     .zem-process { margin-top: 45px; }.zem-process article { grid-template-columns: 55px 1fr; gap: 15px; }.zem-process article > b { grid-column: 2; justify-self: start; margin: 0; }.zem-process h3 { font-size: 25px; }.zem-process-no { width: 44px; height: 44px; }
     .zem-symptoms li { grid-template-columns: 48px 1fr; padding-block: 10px; }.zem-symptoms p { font-size: 21px; }.zem-review-grid { grid-template-columns: 1fr; }.zem-review { min-height: 340px; }.zem-review > p { font-size: 20px; }
     .zem-form-card { min-height: 0; padding: 24px 18px; box-shadow: 7px 7px 0 var(--zem-acid); }.zem-form-title { align-items: start; flex-direction: column; gap: 6px; }.zem-form-row { grid-template-columns: 1fr; gap: 0; }.zem-contact-options { grid-template-columns: 1fr; }.zem-consult-benefits { grid-template-columns: 1fr; }.zem-form-success { min-height: 450px; }.zem-form-success h3 { font-size: 34px; }

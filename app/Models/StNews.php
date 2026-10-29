@@ -61,6 +61,12 @@ class StNews extends Model
         return $this->belongsTo(StNewsMedia::class, 'cover_photo_id');
     }
 
+    // Ключевые слова (существительные/глаголы): many-to-many, слова общие для новостей.
+    public function keywords()
+    {
+        return $this->belongsToMany(Keyword::class, 'st_news_keywords');
+    }
+
     public function getIsPublishedAttribute(): bool
     {
         return ! empty($this->published_at);

@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 require 'web.zem_kadastr.php';
 require 'web.cups.php';
+require 'web.cals.php';
 require 'web.vkusno.php';
+require 'web.hleb.php';
 require 'web.concept-mebel.php';
 require 'web.krostu.php';
 require 'web.catcom.php';
