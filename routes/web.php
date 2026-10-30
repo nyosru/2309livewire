@@ -20,6 +20,7 @@ require 'web.cups.php';
 require 'web.cals.php';
 require 'web.vkusno.php';
 require 'web.hleb.php';
+require 'web.dzudo.php';
 require 'web.concept-mebel.php';
 require 'web.krostu.php';
 require 'web.catcom.php';
