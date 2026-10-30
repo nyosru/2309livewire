@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RaalProjectController;
+use App\Services\VkNotifierService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +9,8 @@ use Illuminate\Support\Facades\Route;
 $raalRoutes = function () {
     Route::view('/', 'raal.index')->name('index');
 
-    Route::post('/consultation', function (Request $request) {
+    Route::post('/consultation', function (Request $request, VkNotifierService $notifier) {
+
         $data = $request->validate([
             'phone' => ['required', 'string', 'max:40'],
             'city' => ['required', 'string', 'max:120'],
@@ -24,6 +26,27 @@ $raalRoutes = function () {
             'project' => $data['project'] ?? null,
             'source' => 'raal',
         ]);
+
+        $text = 'Новая заявка с сайта РААЛ'.PHP_EOL.
+            'phone: '. $data['phone'].PHP_EOL.
+            'city: '.$data['city'].PHP_EOL.
+            'preferred_time: '. $data['preferred_time'].PHP_EOL.
+            'project: '.($data['project'] ?? null)
+        ;
+
+        try {
+            $notifier->send($text);
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Не получилось отправить заявку. Пожалуйста, попробуйте ещё раз.',
+                ], 502);
+            }
+
+            return back()->with('consultation_error', true);
+        }
 
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Заявка принята. Мы свяжемся с вами, чтобы подтвердить время.']);

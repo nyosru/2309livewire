@@ -164,6 +164,7 @@
             <label class="wide"><span>Когда удобно созвониться или встретиться?</span><textarea name="preferred_time" rows="3" placeholder="Например: в будни после 16:00, лучше созвониться" required></textarea></label>
             <label class="honeypot" aria-hidden="true">Сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             <button class="button button-primary wide" type="submit">Договориться о&nbsp;встрече <span>↗</span></button>
+            <p class="wide" id="consultationSubmitError" role="alert" hidden>Не получилось отправить заявку. Пожалуйста, попробуйте ещё раз.</p>
             <small class="wide">Нажимая кнопку, вы соглашаетесь на обработку указанных данных для связи с&nbsp;вами.</small>
         </form>
     </div>

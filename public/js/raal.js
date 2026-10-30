@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStep = modal?.querySelector('.modal-form-step');
     const successStep = modal?.querySelector('.modal-success');
     const projectField = document.querySelector('#projectField');
+    const submitError = document.querySelector('#consultationSubmitError');
 
     document.querySelectorAll('.js-open-modal').forEach((button) => {
         button.addEventListener('click', () => {
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const original = submit.innerHTML;
         submit.disabled = true;
         submit.textContent = 'Отправляем…';
+        submitError.hidden = true;
 
         try {
             const response = await fetch(form.action, {
@@ -40,8 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
             formStep.hidden = true;
             successStep.hidden = false;
         } catch (error) {
-            submit.textContent = 'Не получилось. Попробовать ещё раз';
+            submit.innerHTML = original;
             submit.disabled = false;
+            submitError.hidden = false;
             return;
         }
 

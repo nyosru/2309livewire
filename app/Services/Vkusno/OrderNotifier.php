@@ -3,46 +3,23 @@
 namespace App\Services\Vkusno;
 
 use App\Models\Vkusno\Order;
-use Illuminate\Support\Facades\Http;
+use App\Services\VkNotifierService;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
 
 class OrderNotifier
 {
+    public function __construct(private VkNotifierService $vkNotifier)
+    {
+    }
+
     public function send(Order $order): void
     {
-        $token = (string) config('services.vk.token_order');
-        $userId = (string) config('services.vk.vk_admin_id');
-        $version = (string) config('services.vk.api_version', '5.199');
-
-        if ($token === '' || $userId === '') {
-            throw new RuntimeException('Не настроены параметры отправки заявки во ВКонтакте.');
-        }
-
         Log::info('vkusno - new order', [
             'order_id' => $order->id,
             'reference' => $order->reference,
         ]);
 
-        $response = Http::asForm()
-            ->timeout(3)
-            ->post('https://api.vk.com/method/messages.send', [
-                'access_token' => $token,
-                'v' => $version,
-                'user_id' => $userId,
-                'message' => $this->message($order),
-                'random_id' => random_int(1, PHP_INT_MAX),
-            ])
-            ->throw()
-            ->json();
-
-        if (isset($response['error'])) {
-            throw new RuntimeException($response['error']['error_msg'] ?? 'ВКонтакте не принял сообщение.');
-        }
-
-        if (! array_key_exists('response', $response)) {
-            throw new RuntimeException('ВКонтакте вернул неожиданный ответ.');
-        }
+        $this->vkNotifier->send($this->message($order), timeout: 3);
     }
 
     private function message(Order $order): string

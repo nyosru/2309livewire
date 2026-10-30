@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Zem_kadastr;
 
-use Illuminate\Support\Facades\Http;
+use App\Services\VkNotifierService;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -48,7 +48,7 @@ class ConsultationForm extends Component
         ];
     }
 
-    public function submit(): void
+    public function submit(VkNotifierService $vkNotifier): void
     {
         $this->validate();
 
@@ -77,23 +77,7 @@ class ConsultationForm extends Component
             //            Msg::sendTelegramm('Заказ манника', null, 2, config('custom.TELEGRAM_BOT_ORDER_TOKEN'));
             //            $result = Msg::sendVkFromGroup($message, '5903492', 'order');
 
-            $token = (string) config('services.vk.token_order');
-            $userId = (string) config('services.vk.vk_admin_id');
-            $version = (string) config('services.vk.api_version', '5.199');
-
-            $result = Http::asForm()->post('https://api.vk.com/method/messages.send', [
-                'access_token' => $token,
-                'v' => $version,
-                'user_id' => $userId,
-                'message' => $message,
-                'random_id' => random_int(1, PHP_INT_MAX),
-            ])->throw();
-
-            $response = json_decode((string) $result, true);
-
-            if (is_array($response) && array_key_exists('status', $response) && ! $response['status']) {
-                throw new \RuntimeException($response['message'] ?? 'ВК не принял сообщение.');
-            }
+            $vkNotifier->send($message);
         } catch (\Throwable $exception) {
             report($exception);
             $this->addError('form', 'Не получилось отправить вопрос. Пожалуйста, попробуйте ещё раз.');
