@@ -8,6 +8,7 @@ class SnowkStart extends Component
 {
     public function render()
     {
-        return view('livewire.snowk-start');
+        return view('livewire.snowk-start')
+            ->layout('livewire.snowk-layout');
     }
 }

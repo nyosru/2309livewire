@@ -31,3 +31,5 @@
 /* Keep the first catalog heading close to the header. */
 .catalog.section{padding-top:40px}
 @media(max-width:760px){.catalog.section{padding-top:30px}}
+
+        .dev-notice-full{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;width:100%}.dev-notice-full>div{flex:1}.dev-notice-compact{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;font-size:14px}.dev-notice-compact[hidden],.dev-notice-full[hidden]{display:none!important}.dev-notice-compact strong{font-size:15px;white-space:nowrap}.dev-notice-compact button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;margin:0;border:1px solid currentColor;border-radius:50%;background:transparent;color:inherit;font-size:25px;line-height:1}.dev-notice.is-collapsed{width:min(340px,calc(100vw - 24px));min-height:0;padding:12px 14px 12px 18px;align-items:center}.dev-notice.is-collapsed .dev-notice-full{display:none}

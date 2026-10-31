@@ -41,5 +41,6 @@ class VkNotifierService
         if (! array_key_exists('response', $response)) {
             throw new RuntimeException('ВКонтакте вернул неожиданный ответ.');
         }
+
     }
 }

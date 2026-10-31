@@ -109,7 +109,7 @@ $d = function () {
 };
 Route::group([
     'as' => 'snowkait.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'snowk.local' : 'сноукайтинг.рф',
+    'domain' => (env('APP_ENV', 'x') == 'local') ? 'snow.local' : 'сноукайтинг.рф',
 ], $d);
 
 $d = function () {
