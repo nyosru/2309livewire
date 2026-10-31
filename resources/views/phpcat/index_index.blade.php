@@ -362,3 +362,58 @@ height="360"
             <!-- Jumbotron -->
         </section>
         <!-- Section: Design Block -->
+
+        <section class="rental-sites" aria-labelledby="rental-sites-title">
+            <style>
+                .rental-sites{--rs-ink:#172c3b;--rs-muted:#61717c;padding:clamp(64px,9vw,112px) 24px;background:#f4f6f2;color:var(--rs-ink);font-family:inherit;overflow:hidden}
+                .rental-sites-inner{width:min(1120px,100%);margin:0 auto}
+                .rental-sites-heading{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;margin-bottom:38px}
+                .rental-sites-kicker{display:block;margin-bottom:15px;color:#668276;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+                .rental-sites h2{max-width:700px;margin:0;font-size:clamp(36px,5.3vw,64px);font-weight:800;letter-spacing:-.045em;line-height:1.02}
+                .rental-sites-lead{margin:0;color:var(--rs-muted);font-size:16px;line-height:1.75}
+                .rental-sites-lead strong{color:var(--rs-ink)}
+                .rental-sites-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+                .rental-site-cards{display:contents}
+                .rental-site-card{--site-a:#b6e3d0;--site-b:#eaf2c5;position:relative;isolation:isolate;display:flex;grid-column:span 2;min-height:235px;overflow:hidden;flex-direction:column;justify-content:space-between;padding:26px;border:1px solid rgba(255,255,255,.72);border-radius:18px;background:linear-gradient(130deg,var(--site-a),var(--site-b),#fff);background-size:220% 220%;animation:rs-gradient 13s ease-in-out infinite alternate;box-shadow:0 14px 36px rgba(25,49,55,.07);transition:transform .25s ease,box-shadow .25s ease}
+                .rental-site-card:nth-child(2){--site-a:#c7dcfa;--site-b:#ead8f5;animation-delay:-3s}
+                .rental-site-card:nth-child(3){--site-a:#f4d9bf;--site-b:#f2edbd;animation-delay:-6s}
+                .rental-site-card:nth-child(4){--site-a:#c8e7ed;--site-b:#d9e9cb;animation-delay:-2s}
+                .rental-site-card:nth-child(5){--site-a:#f1cfd0;--site-b:#f6e5ba;animation-delay:-8s}
+                .rental-site-card:before{content:"";position:absolute;z-index:-1;width:230px;height:230px;right:-76px;top:-98px;border:1px solid rgba(255,255,255,.68);border-radius:50%;box-shadow:0 0 0 25px rgba(255,255,255,.13),0 0 0 52px rgba(255,255,255,.1);transition:transform .45s ease}
+                .rental-site-card:hover{transform:translateY(-5px);box-shadow:0 22px 42px rgba(25,49,55,.13)}
+                .rental-site-card:hover:before{transform:scale(1.12) translate(-8px,8px)}
+                .rental-site-card-meta{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+                .rental-site-number{font-size:12px;font-weight:800;letter-spacing:.12em;color:rgba(23,44,59,.56)}
+                .rental-site-rented{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:7px;overflow:hidden;border:0;border-radius:999px;background:linear-gradient(115deg,#ffe347,#ff8a22,#ff56a7,#a16bff,#ffe347);background-size:300% 300%;padding:8px 12px;color:#172c3b;font-size:10px;font-weight:900;letter-spacing:.07em;line-height:1.2;box-shadow:0 7px 18px rgba(238,91,91,.27);animation:rental-badge-colors 7s ease-in-out infinite alternate,rental-badge-float 4s ease-in-out infinite}
+                .rental-site-rented:before{content:"";position:relative;z-index:1;width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.28),0 0 10px rgba(255,255,255,.95)}
+                .rental-site-rented-label{position:relative;z-index:1}
+                .rental-site-rented:after{content:"";position:absolute;z-index:0;inset:-60% -30%;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.64) 48%,transparent 58%);transform:translateX(-70%);animation:rental-badge-shine 5s ease-in-out infinite}
+                @keyframes rental-badge-colors{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+                @keyframes rental-badge-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+                @keyframes rental-badge-shine{0%,55%{transform:translateX(-70%)}100%{transform:translateX(70%)}}
+                .rental-site-content{container-type:inline-size}
+                .rental-site-card h3{margin:26px 0 8px;font-size:30px;font-weight:800;letter-spacing:-.035em;line-height:1.05}
+                .rental-site-domain{display:inline-block;max-width:100%;color:#345c52;font-size:min(30px,calc(145cqi / var(--domain-chars)));font-weight:inherit;line-height:inherit;white-space:nowrap;text-decoration:underline;text-decoration-color:rgba(52,92,82,.36);text-underline-offset:5px}
+                .rental-site-domain:hover{color:#172c3b;text-decoration-color:currentColor}
+                .rental-site-card p{max-width:290px;margin:15px 0 0;color:rgba(23,44,59,.78);font-size:14px;line-height:1.6}
+                .rental-sites-footnote{display:flex;align-items:center;gap:12px;margin:26px 0 0;color:#738078;font-size:13px;line-height:1.6}
+                .rental-sites-footnote:before{content:"";flex:0 0 24px;height:1px;background:#8ba899}
+                @keyframes rs-gradient{0%{background-position:0% 45%}100%{background-position:100% 55%}}
+                @media(max-width:760px){.rental-sites-heading{grid-template-columns:1fr;gap:18px}.rental-sites-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rental-site-card{grid-column:span 1;min-height:220px;padding:21px}.rental-site-card:last-child{grid-column:1/-1}}
+                @media(max-width:480px){.rental-sites{padding-inline:18px}.rental-sites-grid{grid-template-columns:1fr}.rental-site-card,.rental-site-card:last-child{grid-column:1;min-height:200px}}
+                @media(prefers-reduced-motion:reduce){.rental-site-card{animation:none;transition:none}.rental-site-card:hover{transform:none}.rental-site-card:hover:before{transform:none}.rental-site-rented,.rental-site-rented:after{animation:none}}
+            </style>
+            <div class="rental-sites-inner">
+                <div class="rental-sites-heading">
+                    <div>
+                        <span class="rental-sites-kicker">Готовые сайты · аренда</span>
+                        <h2 id="rental-sites-title">Запустите своё дело на готовой основе</h2>
+                    </div>
+                    <p class="rental-sites-lead">Предлагаю взять в аренду готовый сайт вместе с подходящим доменом и использовать его для своего дела. <strong>Долгосрочность договорённостей закрепляем договором.</strong></p>
+                </div>
+                <div class="rental-sites-grid">
+                    <livewire:phpcat.rental-sites-list />
+                </div>
+                <p class="rental-sites-footnote">Расскажите о своей задаче — обсудим, какой сайт и домен подойдут вашему делу.</p>
+            </div>
+        </section>
