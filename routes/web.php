@@ -107,10 +107,16 @@ $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
     //    Route::get('/develop/{item}', Develop::class)->name('develop');
 };
-Route::group([
-    'as' => 'snowkait.',
-    'domain' => (env('APP_ENV', 'x') == 'local') ? 'snow.local' : 'сноукайтинг.рф',
-], $d);
+foreach ([
+    'snowkait.' => 'snow.local',
+    'snowkait.product_punycode.' => 'xn--80agoddredzph.xn--p1ai',
+    'snowkait.product_idn.' => 'сноукайтинг.рф',
+] as $routeName => $domain) {
+    Route::group([
+        'as' => $routeName,
+        'domain' => $domain,
+    ], $d);
+}
 
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
