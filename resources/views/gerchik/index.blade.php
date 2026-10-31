@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/gerchick.css?v=3">
+    <link rel="stylesheet" href="/css/gerchick.css?v=4">
 </head>
 <body>
 <header class="site-header">
@@ -104,6 +104,7 @@
     </div></section>
 </main>
 
+@include('hleb.dev-notice')
 <footer class="site-footer"><div class="wrap footer-top"><a class="brand brand-footer" href="#top"><span class="brand-mark">Г<span>.</span></span><span class="brand-name">ГЕРЧИК<small>ШКОЛА ТРЕЙДИНГА</small></span></a><div class="footer-links"><a href="#method">Подход</a><a href="#program">Программа</a><a href="#bonuses">Подарки</a><a href="#faq">Вопросы</a></div><a class="back-top" href="#top">НАВЕРХ ↑</a></div><div class="wrap footer-bottom"><span>© {{ date('Y') }} Герчик. Учебный проект.</span><p>Информация на&nbsp;сайте носит образовательный характер и&nbsp;не&nbsp;является офертой или инвестиционной рекомендацией. Торговля на&nbsp;финансовых рынках связана с&nbsp;риском потери средств.</p><a class="footer-credit" href="https://php-cat.com" target="_blank" rel="noopener noreferrer">Создание сайта — php-cat.com</a></div></footer>
 <script>
     const menuButton = document.querySelector('.menu-toggle');

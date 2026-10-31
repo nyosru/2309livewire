@@ -130,6 +130,8 @@
         </section>
     </main>
 
+    @include('hleb.dev-notice')
+
     <footer class="site-footer">
         <a class="footer-brand" href="#top">маруди<span>стоматология</span></a>
         <span>Имплантация · Лечение · Эстетика · Гигиена</span>
