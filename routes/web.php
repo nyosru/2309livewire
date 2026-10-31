@@ -102,6 +102,9 @@ require 'web.blank.php';
 require 'web.stn.php';
 require 'web.news_storage.php';
 require 'web.raal.php';
+require 'web.marudi.php';
+
+require 'web.gerchik.php';
 
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
