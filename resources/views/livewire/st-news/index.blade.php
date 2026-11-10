@@ -30,7 +30,7 @@
     </div>
 
 
-    <livewire:StNewsList/>
+    <livewire:StNewsList article-path="/stn/news" />
 
     <livewire:StNews.backword/>
 

@@ -116,6 +116,7 @@
 @elseif(
     $_SERVER['HTTP_HOST'] == 'stn.local' ||
     $_SERVER['HTTP_HOST'] == 'stn.dev.php-cat.com' ||
+    $_SERVER['HTTP_HOST'] == 'news.local' ||
     // самыетюменскиеновости.рф
     $_SERVER['HTTP_HOST'] == 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai'
 //    ||
