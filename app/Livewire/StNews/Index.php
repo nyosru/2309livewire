@@ -21,6 +21,7 @@ class Index extends Component
     public function render()
     {
 
-        return view('livewire.st-news.index');
+        return view('livewire.st-news.index')
+            ->layout('components.layouts.st-news');
     }
 }

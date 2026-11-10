@@ -3,6 +3,7 @@
 namespace App\Livewire\StNews;
 
 use App\Models\StNews;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -56,7 +57,10 @@ class StNewsManage extends Component
 
         $news = $query->paginate($this->perPage);
 
-        return view('livewire.st-news.st-news-manage', ['news' => $news]);
+        return view('livewire.st-news.st-news-manage', ['news' => $news])
+            ->layout('livewire.news-storage.layouts.app-component', [
+                'title' => 'Управление новостями',
+            ]);
     }
 
     /**
@@ -64,6 +68,8 @@ class StNewsManage extends Component
      */
     public function togglePublish($id): void
     {
+        Gate::authorize('manage-news-storage');
+
         $news = StNews::findOrFail($id);
         $news->update([
             'published_at' => $news->published_at ? null : now(),
@@ -72,6 +78,8 @@ class StNewsManage extends Component
 
     public function deleteNews($id): void
     {
+        Gate::authorize('manage-news-storage');
+
         StNews::findOrFail($id)->delete();
     }
 }

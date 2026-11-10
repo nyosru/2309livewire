@@ -6,7 +6,7 @@
         </a>
         <nav class="flex flex-wrap justify-end gap-x-5 gap-y-2 text-sm">
             <a href="/" wire:navigate class="text-neutral-500 hover:text-blue-600">Главная</a>
-            <a href="/manage" wire:navigate class="text-neutral-500 hover:text-blue-600">Редакционный список</a>
+            <a href="/admin" class="text-neutral-500 hover:text-blue-600">Админка</a>
             <a href="/stn" wire:navigate class="text-neutral-500 hover:text-blue-600">STN</a>
         </nav>
     </div>

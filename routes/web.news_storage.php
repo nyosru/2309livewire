@@ -2,15 +2,37 @@
 
 use App\Livewire\NewsStorage;
 use App\Livewire\StNews\Show as StNewsShow;
+use App\Http\Controllers\NewsStorage\AdminAuthController;
+use App\Http\Controllers\NewsStorage\AdminController;
+use App\Http\Middleware\EnsureNewsStorageAdministrator;
+use App\Http\Middleware\EnsureNewsStorageModerator;
+use App\Livewire\StNews\ModerateNews;
+use App\Livewire\StNews\StNewsManage;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
     Route::view('/', 'livewire.news-storage.feed')->name('index');
-    Route::get('/manage', NewsStorage\Index::class)->name('manage');
+    Route::redirect('/manage', '/admin/news')->name('manage');
     Route::get('/api-docs', NewsStorage\ApiDocs::class)->name('api-docs');
     Route::get('/news/{id}', NewsStorage\Show::class)->name('show');
     Route::get('/articles/{id}', StNewsShow::class)->whereNumber('id')->name('stn-show');
     Route::get('/storage-news/{id}', NewsStorage\Show::class)->whereNumber('id')->name('feed-storage-show');
+
+    Route::get('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+    Route::get('/admin/auth/vk', [AdminAuthController::class, 'redirect'])->middleware('throttle:10,1')->name('admin.vk');
+    Route::get('/admin/auth/vk/callback', [AdminAuthController::class, 'callback'])->middleware('throttle:10,1')->name('admin.vk.callback');
+    Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+    Route::prefix('admin')->middleware(EnsureNewsStorageModerator::class)->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/moderation', ModerateNews::class)->name('admin.moderation');
+
+        Route::middleware(EnsureNewsStorageAdministrator::class)->group(function () {
+            Route::get('/news', NewsStorage\Index::class)->name('admin.news');
+            Route::get('/stn-news', StNewsManage::class)->name('admin.stn-news');
+            Route::put('/access/{administrator}', [AdminController::class, 'updateAccess'])->name('admin.access.update');
+        });
+    });
 
     Route::fallback(function () {
         return redirect('/');

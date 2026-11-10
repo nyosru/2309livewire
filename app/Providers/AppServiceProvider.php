@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\NewsStorageAdministrator;
 use App\Models\Vkusno\Administrator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -28,8 +29,17 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('manage-vkusno-access', fn (User $user): bool => Administrator::isSuperAdmin($user));
 
-        Gate::define('manage-stn-news', fn (User $user): bool => in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)
-            || $user->can('Полный//доступ'));
+        Gate::define('manage-news-storage', fn (User $user): bool => NewsStorageAdministrator::query()
+            ->where('user_id', $user->id)
+            ->where('role', NewsStorageAdministrator::ROLE_ADMINISTRATOR)
+            ->exists());
+
+        Gate::define('moderate-news-storage', fn (User $user): bool => NewsStorageAdministrator::query()
+            ->where('user_id', $user->id)
+            ->whereIn('role', [NewsStorageAdministrator::ROLE_ADMINISTRATOR, NewsStorageAdministrator::ROLE_MODERATOR])
+            ->exists());
+
+        Gate::define('manage-stn-news', fn (User $user): bool => Gate::forUser($user)->allows('manage-news-storage'));
 
         Gate::define('manage-ttt-clubs', function (User $user): bool {
             if (in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)) {

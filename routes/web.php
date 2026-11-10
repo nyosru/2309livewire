@@ -106,6 +106,8 @@ require 'web.marudi.php';
 
 require 'web.gerchik.php';
 
+require __DIR__.'/web.debug.php';
+
 $d = function () {
     Route::get('/', SnowkStart::class)->name('index');
     //    Route::get('/develop/{item}', Develop::class)->name('develop');
@@ -133,7 +135,7 @@ Route::group([
 use App\Livewire\Auth\Vk;
 
 Route::get('/auth/vk', [Vk::class, 'redir'])->name('auth.vk');
-Route::get('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.callback');
+Route::any('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.callback');
 
 Route::fallback([\App\Http\Controllers\ZaglushkaController::class, 'show']);
 

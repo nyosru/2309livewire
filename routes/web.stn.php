@@ -33,11 +33,11 @@ $d = function () {
     Route::get('/caddy', \App\Livewire\CaddyfileDomainChecker::class)->name('caddy-checker');
     Route::get('/caddy2', \App\Livewire\CaddyDomainFetcher::class)->name('caddy-fetcher');
 
-    Route::get('/moderation', StNewsModeration::class)->name('moderation');
-    Route::get('/m', [StNewsModeration::class, 'm'])->name('moderation1');
+    Route::redirect('/moderation', '/admin/moderation')->name('moderation');
+    Route::redirect('/m', '/admin/moderation')->name('moderation1');
 
     // Админка: управление новостями (все, поиск, публикация)
-    Route::get('/manage', \App\Livewire\StNews\StNewsManage::class)->name('manage');
+    Route::redirect('/manage', '/admin/stn-news')->name('manage');
 
     Route::group(['a' => 'a.', 'prefix' => 'a'], function () {
         Route::get('/m', \App\Livewire\StNews\A\Index::class)->name('index');
@@ -52,7 +52,7 @@ $d = function () {
 
     Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         // Маршрут для модерации конкретной новости
-        Route::get('moderate/{id}', ModerateNews::class)->name('mod');
+        Route::redirect('moderate/{id}', '/admin/moderation')->name('mod');
         Route::get('{id}', Show::class)->name('show');
 
     });

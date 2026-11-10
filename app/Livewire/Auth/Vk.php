@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Auth;
 
-use App\Models\User;
+use App\Models\NewsStorageAdministrator;
+use App\Services\VkAuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -104,42 +105,25 @@ class Vk extends Component
             $userId = $tokenData['user_id'];
             $accessToken = $tokenData['access_token']; // получаем токен
 
-            // 3. Поиск или создание пользователя
-            $user = User::where('vk_id', $userId)->first();
-
-            if (! $user) {
-                // Ищем по email если он есть
-                if ($email && $email !== $userId.'@vk.com') {
-                    $user = User::where('email', $email)->first();
-                }
-
-                // Создаем нового пользователя
-                if (! $user) {
-                    $user = User::create([
-                        'name' => trim($vkUser['first_name'].' '.$vkUser['last_name']),
-                        'email' => $email,
-                        'password' => bcrypt(uniqid()),
-                        'vk_id' => $userId,
-                        'vk_token' => $accessToken, // сохраняем токен
-                    ]);
-                } else {
-                    // Обновляем существующего пользователя
-                    $user->update([
-                        'vk_id' => $userId,
-                        'vk_token' => $accessToken, // сохраняем токен
-                    ]);
-                }
-            } else {
-                // Обновляем токен у существующего пользователя
-                $user->update([
-                    'vk_token' => $accessToken, // обновляем токен
-                ]);
-            }
+            // 3. Единый сервис авторизации: та же схема, что используется в master.local.
+            $user = app(VkAuthService::class)->findOrCreateUser(
+                $userId,
+                $accessToken,
+                $email,
+                trim($vkUser['first_name'].' '.$vkUser['last_name']),
+            );
 
             // 4. Логиним пользователя
             Auth::login($user, true);
             session()->regenerate();
             session()->forget('vk_auth_error_redirect');
+
+            // Вход из админки news.local дополнительно регистрирует запрос доступа.
+            if (session()->pull('news_storage_admin_login', false)) {
+                NewsStorageAdministrator::registerLogin($user);
+
+                return redirect('/admin');
+            }
 
             //            $message = "🔔 Уведомление: 987";
             //            $vkController = new \App\Http\Controllers\VkMessageController();

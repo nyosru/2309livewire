@@ -3,6 +3,7 @@
 namespace App\Livewire\StNews;
 
 use App\Models\StNews;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class ModerateNews extends Component
@@ -21,11 +22,15 @@ class ModerateNews extends Component
     {
         return view('livewire.st-news.moderate-news', [
             'newsToModerate' => $this->newsToModerate,
+        ])->layout('livewire.news-storage.layouts.app-component', [
+            'title' => 'Модерация новостей',
         ]);
     }
 
     public function approve($newsId)
     {
+        Gate::authorize('moderate-news-storage');
+
         $news = StNews::findOrFail($newsId);
         $news->moderation = true; // Одобрено
         $news->moderation_date = now();
@@ -37,6 +42,8 @@ class ModerateNews extends Component
 
     public function reject($newsId)
     {
+        Gate::authorize('moderate-news-storage');
+
         $news = StNews::findOrFail($newsId);
         $news->moderation = false; // Отклонено
         $news->moderation_date = now();
