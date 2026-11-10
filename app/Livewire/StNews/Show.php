@@ -11,13 +11,17 @@ class Show extends Component
 
     public function mount($id)
     {
-        $this->news = StNews::with('site')->findOrFail($id);
+        $this->news = StNews::inPublicFeed()->with('site')->findOrFail($id);
     }
 
     public function render()
     {
-        return view('livewire.st-news.show', [
+        $view = view('livewire.st-news.show', [
             'news' => $this->news,
         ]);
+
+        return request()->routeIs('news-storage*.stn-show')
+            ? $view->layout('livewire.news-storage.layouts.app-component', ['title' => $this->news->title])
+            : $view;
     }
 }

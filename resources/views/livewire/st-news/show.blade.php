@@ -6,8 +6,8 @@ mx-auto py-6 sm:px-6 lg:px-8">
 
         <h1 class="text-3xl font-bold mb-4">{{ $news->title }}</h1>
 
-        @if( !empty($news->published_at) )
-            <p class="text-gray-600 mb-6">{{ $news->published_at->format('d.m.Y') }}</p>
+        @if( $news->news_date ?? $news->published_at )
+            <p class="text-gray-600 mb-6">{{ ($news->news_date ?? $news->published_at)->format('d.m.Y') }}</p>
         @endif
 
         {{--        <div class="text-lg text-gray-800 leading-7">--}}

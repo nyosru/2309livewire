@@ -10,6 +10,10 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (! is_file(config('database.connections.newsstorage.database'))) {
+            return;
+        }
+
         if (! Schema::connection($this->connection)->hasTable('newsstorage_sources')) {
             Schema::connection($this->connection)->create('newsstorage_sources', function (Blueprint $table) {
                 $table->id();
@@ -48,6 +52,10 @@ return new class extends Migration
 
     public function down(): void
     {
+        if (! is_file(config('database.connections.newsstorage.database'))) {
+            return;
+        }
+
         Schema::connection($this->connection)->dropIfExists('newsstorage_media');
         Schema::connection($this->connection)->dropIfExists('newsstorage_news');
         Schema::connection($this->connection)->dropIfExists('newsstorage_sources');

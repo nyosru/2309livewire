@@ -56,8 +56,9 @@ class SwaggerController extends Controller
             'info' => [
                 'title' => 'Самые Тюменские Новости — API',
                 'description' => 'CRUD-API для управления новостями: список, показ, создание, редактирование, удаление, прикрепление медиа. '
-                    . 'Чтение (index/show) — открыто; запись (store/update/delete/media) — по заголовку `X-STN-Api-Key`.',
-                'version' => '1.0.0',
+                    . 'Чтение (index/show) — открыто; запись (store/update/delete/media) — по заголовку `X-STN-Api-Key`. '
+                    . 'При создании обязательно передавайте URL первоисточника и news_date: дату, указанную в первоисточнике, а не дату импорта.',
+                'version' => '1.1.0',
             ],
             'servers' => [
                 ['url' => rtrim(request()->getSchemeAndHttpHost().'/api/stn', '/'), 'description' => 'Текущий домен'],
@@ -82,9 +83,10 @@ class SwaggerController extends Controller
                             'title' => ['type' => 'string', 'example' => 'Заголовок новости'],
                             'summary' => ['type' => ['string', 'null']],
                             'content' => ['type' => 'string'],
-                            'source' => ['type' => ['string', 'null'], 'format' => 'uri'],
+                            'source' => ['type' => ['string', 'null'], 'format' => 'uri', 'description' => 'URL страницы первоисточника.'],
                             'source_domain' => ['type' => ['string', 'null']],
-                            'published_at' => ['type' => ['string', 'null'], 'format' => 'date-time'],
+                            'news_date' => ['type' => ['string', 'null'], 'format' => 'date', 'description' => 'Дата публикации новости в первоисточнике.'],
+                            'published_at' => ['type' => ['string', 'null'], 'format' => 'date-time', 'description' => 'Дата появления в ленте сайта; не заменяет дату первоисточника.'],
                             'cover_photo_id' => ['type' => ['integer', 'null']],
                             'created_at' => ['type' => 'string', 'format' => 'date-time'],
                             'updated_at' => ['type' => 'string', 'format' => 'date-time'],
@@ -109,12 +111,13 @@ class SwaggerController extends Controller
                     ],
                     'NewsInput' => [
                         'type' => 'object',
-                        'required' => ['title', 'content'],
+                        'required' => ['title', 'content', 'source', 'news_date'],
                         'properties' => [
                             'title' => ['type' => 'string', 'maxLength' => 255, 'example' => 'Заголовок новости'],
                             'content' => ['type' => 'string', 'example' => 'Полный текст новости.'],
                             'summary' => ['type' => 'string', 'maxLength' => 1000, 'description' => 'Краткое описание (до 1000 символов).'],
-                            'source' => ['type' => 'string', 'format' => 'uri', 'maxLength' => 500],
+                            'source' => ['type' => 'string', 'format' => 'uri', 'maxLength' => 500, 'description' => 'URL первоисточника.'],
+                            'news_date' => ['type' => 'string', 'format' => 'date', 'example' => '2026-11-10', 'description' => 'Обязательная дата публикации на странице первоисточника в формате YYYY-MM-DD. Не используйте дату импорта.'],
                             'cat_id' => ['type' => ['integer', 'null']],
                             'site_id' => ['type' => ['integer', 'null']],
                             'cover_photo_id' => ['type' => ['integer', 'null']],

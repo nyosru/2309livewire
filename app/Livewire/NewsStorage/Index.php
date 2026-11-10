@@ -3,6 +3,7 @@
 namespace App\Livewire\NewsStorage;
 
 use App\Models\NewsStorageNews;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -46,7 +47,9 @@ class Index extends Component
 
     public function updateStatus($newsId, $status)
     {
-        NewsStorageNews::findOrFail($newsId)->update(['status' => $status]);
+        Gate::authorize('manage-stn-news');
+
+        NewsStorageNews::findOrFail($newsId)->changeStatus($status);
 
         $this->toastMessage = 'Статус обновлён';
         $this->dispatch('toast-hide');
@@ -54,6 +57,8 @@ class Index extends Component
 
     public function updateStatusShow($newsId, $statusShow)
     {
+        Gate::authorize('manage-stn-news');
+
         NewsStorageNews::findOrFail($newsId)->update(['status_show' => $statusShow ?: null]);
 
         $this->toastMessage = 'Статус показа обновлён';

@@ -2,8 +2,9 @@
 
 Документация по сайту новостей «Самые Тюменские Новости» для AI-агентов и разработчиков.
 
-- **Локальный домен:** `stn.local`
-- **Продакшн-домен:** punycode (`xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai`)
+- **Основная лента:** `news.local`; публичные домены — `stn.news` и `самыетюменскиеновости.рф` (`xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai`).
+- **Прежний интерфейс STN:** `news.local/stn` (модерация — `/stn/moderation`, управление — `/stn/manage`, статьи — `/stn/news/{id}`).
+- **Локальный API STN:** `stn.local`.
 - **Стек:** Laravel 10 + Livewire 3 + Volt, Docker-контейнер `2309livewire`
 - **Подписка:** https://vk.com/tymenskie
 
@@ -12,7 +13,7 @@
 - `routes/web.stn.php` — публичные страницы (группа по домену, префикс `stn.`).
 - `routes/api.stn.php` — парсинг и админка (те же closure, доступны на `stn.local`).
 
-Главная (`/`) → `App\Livewire\StNews\Index` → `resources/views/livewire/st-news/index.blade.php`.
+Раздел прежнего интерфейса (`/stn`) → `App\Livewire\StNews\Index` → `resources/views/livewire/st-news/index.blade.php`.
 Страница собирает виджеты: ссылка на VK, `StNewsList` (лента), `StNews.backword` (форма обратной связи), `StNews.money` (пожертвования).
 
 Модерация: `/moderation`, `/m`. Страница одной новости: `/news/{id}` → `App\Livewire\StNews\Show`.
@@ -39,15 +40,25 @@
 StNews::where('moderation', true)
     ->where('moderation_required', true)
     ->where('content', '!=', '')
-    ->orderBy('published_at', 'desc')
+    ->orderBy('news_date', 'desc')
     ->paginate(10);
 ```
 
-То есть в ленте видны только **прошедшие модерацию, требующие проверки и с непустым текстом** новости, отсортированные по дате публикации.
+То есть в ленте видны только **прошедшие модерацию, требующие проверки и с непустым текстом** новости, отсортированные по дате новости в первоисточнике.
 
 ### Модель `StNews`
 
-Поля (`$fillable`): `title`, `summary`, `content`, `source`, `published_at`, `promo_code`, `moderation_required`, `told_at`, `cat_id`, `site_id`. Есть soft deletes. `published_at` приведён к `datetime`.
+Поля (`$fillable`): `title`, `summary`, `content`, `source`, `news_date`, `published_at`, `promo_code`, `moderation_required`, `told_at`, `cat_id`, `site_id`. Есть soft deletes. `news_date` приведён к `date`, `published_at` — к `datetime`.
+
+### Дата новости для агентов
+
+При добавлении новости через `POST /api/stn/news` агент обязан:
+
+- открыть страницу первоисточника из поля `source`;
+- взять указанную там дату публикации и передать её в `news_date` в формате `YYYY-MM-DD`;
+- не подставлять дату поиска, импорта или создания записи.
+
+`news_date` — обязательная дата самого материала и используется для отображения и порядка в ленте. `published_at` — отдельное служебное поле: оно определяет, когда запись видна на нашем сайте. При создании через API его не передают: новость создаётся черновиком.
 
 Связи:
 - `category()` → `StNewsParsingCategory` (по `cat_id`)

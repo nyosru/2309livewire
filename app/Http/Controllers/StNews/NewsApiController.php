@@ -33,7 +33,7 @@ class NewsApiController extends Controller
 
         $query = StNews::query()
             ->where('content', '!=', '')
-            ->orderByDesc('published_at')
+            ->orderByDesc('news_date')
             ->orderByDesc('id')
             ->with(['media' => fn ($q) => $q->orderBy('sort_order')->orderBy('id'), 'coverPhoto']);
 
@@ -68,7 +68,9 @@ class NewsApiController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'summary' => ['nullable', 'string', 'max:1000'],
-            'source' => ['nullable', 'url', 'max:500'],
+            'source' => ['required', 'url', 'max:500'],
+            // Дата публикации на странице первоисточника, а не дата импорта.
+            'news_date' => ['required', 'date', 'before_or_equal:today'],
             'cat_id' => ['nullable', 'integer'],
             'site_id' => ['nullable', 'integer'],
             'moderation' => ['nullable', 'boolean'],
@@ -83,7 +85,8 @@ class NewsApiController extends Controller
             'title' => $data['title'],
             'content' => $data['content'],
             'summary' => $data['summary'] ?? null,
-            'source' => $data['source'] ?? null,
+            'source' => $data['source'],
+            'news_date' => $data['news_date'],
             // Всегда черновик: видимость ручная, не ранее чем через 2 дня после создания.
             'published_at' => null,
             'cat_id' => $data['cat_id'] ?? null,
@@ -154,7 +157,8 @@ class NewsApiController extends Controller
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'content' => ['sometimes', 'required', 'string'],
             'summary' => ['nullable', 'string', 'max:1000'],
-            'source' => ['nullable', 'url', 'max:500'],
+            'source' => ['sometimes', 'required', 'url', 'max:500'],
+            'news_date' => ['sometimes', 'required', 'date', 'before_or_equal:today'],
             'published_at' => ['nullable', 'date'],
             'cat_id' => ['nullable', 'integer'],
             'site_id' => ['nullable', 'integer'],
@@ -162,7 +166,7 @@ class NewsApiController extends Controller
         ]);
 
         $fill = [];
-        foreach (['title', 'content', 'summary', 'source', 'published_at', 'cat_id', 'site_id'] as $field) {
+        foreach (['title', 'content', 'summary', 'source', 'news_date', 'published_at', 'cat_id', 'site_id'] as $field) {
             if ($request->has($field)) {
                 $fill[$field] = $data[$field];
             }

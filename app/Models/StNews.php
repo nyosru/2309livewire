@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,7 @@ class StNews extends Model
         'summary',
         'content',
         'source',
+        'news_date',
         'published_at',
         'promo_code',
         'moderation_required',
@@ -25,7 +27,13 @@ class StNews extends Model
 
     protected $casts = [
         'published_at' => 'datetime',
+        'news_date' => 'date',
     ];
+
+    public function scopeInPublicFeed(Builder $query): Builder
+    {
+        return $query->whereNotNull('published_at')->where('content', '!=', '');
+    }
 
     // Связь с моделью StNewsParsingCategory
     public function category()

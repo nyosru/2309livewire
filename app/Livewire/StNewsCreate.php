@@ -19,6 +19,8 @@ class StNewsCreate extends Component
 
     public $published_at;
 
+    public $news_date;
+
     public $promo_code;
 
     public $photos = [];
@@ -29,6 +31,7 @@ class StNewsCreate extends Component
             'title' => 'required|string|max:255',
             'summary' => 'required|string|max:500',
             'content' => 'required|string',
+            'news_date' => 'required|date',
             'published_at' => 'required|date',
             'photos.*' => 'image|max:1024', // максимум 1MB на файл
         ]);
@@ -37,6 +40,7 @@ class StNewsCreate extends Component
             'title' => $this->title,
             'summary' => $this->summary,
             'content' => $this->content,
+            'news_date' => $this->news_date,
             'published_at' => $this->published_at,
             'promo_code' => $this->promo_code,
         ]);
@@ -50,7 +54,7 @@ class StNewsCreate extends Component
         }
 
         // Очистка полей после добавления
-        $this->reset(['title', 'summary', 'content', 'published_at', 'promo_code', 'photos']);
+        $this->reset(['title', 'summary', 'content', 'news_date', 'published_at', 'promo_code', 'photos']);
 
         session()->flash('message', 'Новость успешно добавлена.');
     }

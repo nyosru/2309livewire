@@ -5,6 +5,7 @@
         </a>
         <nav class="flex gap-4 text-sm">
             <a href="/" wire:navigate class="text-gray-600 hover:text-gray-900">Главная</a>
+            <a href="{{ route('news-storage.manage') }}" wire:navigate class="text-gray-600 hover:text-gray-900">Редакционный список</a>
         </nav>
     </div>
 </header>

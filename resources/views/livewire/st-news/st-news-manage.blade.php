@@ -36,6 +36,7 @@
                         <th class="w-12 px-4 py-3">#</th>
                         <th class="px-4 py-3">Заголовок</th>
                         <th class="w-44 px-4 py-3">Медиа</th>
+                        <th class="w-32 px-4 py-3">Дата новости</th>
                         <th class="w-40 px-4 py-3">Опубликовано</th>
                         <th class="w-44 px-4 py-3">Статус</th>
                         <th class="w-44 px-4 py-3">Источник</th>
@@ -72,6 +73,9 @@
                                         </span>
                                     @endif
                                 </div>
+                            </td>
+                            <td class="px-4 py-3 text-neutral-500">
+                                {{ $n->news_date?->format('d.m.Y') ?? '—' }}
                             </td>
                             <td class="px-4 py-3 text-neutral-500">
                                 {{ $isPub ? $n->published_at->format('d.m.Y H:i') : '—' }}

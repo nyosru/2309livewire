@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,8 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class NewsStorageNews extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $connection = 'newsstorage';
 
     protected $table = 'newsstorage_news';
 
@@ -23,6 +22,26 @@ class NewsStorageNews extends Model
         'status',
         'status_show',
     ];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->where('status', 'published');
+    }
+
+    public function changeStatus(string $status): void
+    {
+        if ($status === $this->status) {
+            return;
+        }
+
+        $this->status = $status;
+        $this->published_at = $status === 'published' ? now() : null;
+        $this->save();
+    }
 
     public function source()
     {

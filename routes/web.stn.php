@@ -20,6 +20,8 @@ use Nyos\Msg;
 $d = function () {
     // Маршрут для главной страницы новостей
     Route::get('/', StNewsIndex::class)->name('index');
+    Route::get('/storage-news/{id}', \App\Livewire\NewsStorage\Show::class)
+        ->whereNumber('id')->name('news.feed-storage-show');
 
     //    // Маршрут для показа одной новости
     //    Route::get('/news/{id}', StNewsShow::class)->name('show');
@@ -88,10 +90,12 @@ $d = function () {
 //    }
 // );
 
-// Группировка маршрутов для домена
+// Прежний интерфейс STN живёт в дополнительном разделе новой ленты.
+// Основной адрес stn.news показывает news.local (см. web.news_storage.php).
 Route::group([
     'as' => 'stn.',
-    'domain' => (env('APP_ENV', 'local') == 'local') ? 'stn.local' : 'xn--80aeiaarcmpbmdnb6aghgm9nrc.xn--p1ai',
+    'domain' => 'news.local',
+    'prefix' => 'stn',
 ], $d);
 // Route::group([
 //    'as' => 'stn2.',

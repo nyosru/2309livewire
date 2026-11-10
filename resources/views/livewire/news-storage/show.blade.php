@@ -1,6 +1,6 @@
 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="mb-4">
-        <a href="{{ route('news-storage.index') }}" wire:navigate class="text-sm text-indigo-600 hover:text-indigo-800">&larr; К списку</a>
+        <a href="{{ request()->routeIs('*.feed-storage-show') ? '/' : route('news-storage.manage') }}" class="text-sm text-indigo-600 hover:text-indigo-800">&larr; К&nbsp;списку</a>
     </div>
 
     <div class="bg-white shadow-sm rounded-lg overflow-hidden">
@@ -35,7 +35,7 @@
                         </span>
                     </span>
                 @endif
-                <span>Создано: {{ $news->created_at->format('d.m.Y H:i') }}</span>
+                <span>Создано: {{ $news->created_at?->format('d.m.Y H:i') }}</span>
                 @if($news->updated_at && $news->updated_at != $news->created_at)
                     <span>Обновлено: {{ $news->updated_at->format('d.m.Y H:i') }}</span>
                 @endif

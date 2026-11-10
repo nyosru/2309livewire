@@ -1,7 +1,7 @@
 <div class="stn-news">
     <section class="mx-auto mt-12 mb-16">
 
-        @if (request()->has('ss'))
+        @if (request()->has('ss') && auth()->user()?->can('manage-stn-news'))
             <div class="mb-10">
                 @livewire('st-news-create')
             </div>
@@ -24,8 +24,12 @@
 
             {{-- Сетка карточек --}}
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @foreach($news as $item)
-                    @livewire('st-news.st-news-item', ['newsItem' => $item], key($item->id))
+                @foreach($news as $entry)
+                    @if($entry->origin === 'stn' && ($item = $stnItems->get($entry->id)))
+                        @livewire('st-news.st-news-item', ['newsItem' => $item, 'articlePath' => $articlePath], key('stn-'.$entry->id))
+                    @elseif($entry->origin === 'storage' && ($item = $storageItems->get($entry->id)))
+                        @include('livewire.news-storage.feed-item', ['item' => $item])
+                    @endif
                 @endforeach
             </div>
 

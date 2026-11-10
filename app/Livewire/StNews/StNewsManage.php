@@ -37,7 +37,7 @@ class StNewsManage extends Component
     {
         $query = StNews::query()
             ->with(['media', 'coverPhoto'])
-            ->orderByDesc('published_at')
+            ->orderByDesc('news_date')
             ->orderByDesc('id');
 
         if ($this->search !== '') {

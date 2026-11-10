@@ -11,14 +11,25 @@ class Show extends Component
 
     public function mount($id)
     {
-        $this->news = NewsStorageNews::with(['source', 'media'])->findOrFail($id);
+        $query = NewsStorageNews::with(['source', 'media']);
+
+        if (request()->routeIs('*.feed-storage-show')) {
+            $query->published();
+        }
+
+        $this->news = $query->findOrFail($id);
     }
 
     public function render()
     {
-        return view('livewire.news-storage.show')
-            ->layout('livewire.news-storage.layouts.app-component', [
-                'title' => $this->news->title.' — News Storage',
-            ]);
+        $view = view('livewire.news-storage.show');
+
+        if (request()->routeIs('stn.news.feed-storage-show')) {
+            return $view;
+        }
+
+        return $view->layout('livewire.news-storage.layouts.app-component', [
+            'title' => $this->news->title.' — News Storage',
+        ]);
     }
 }

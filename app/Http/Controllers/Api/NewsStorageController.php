@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\NewsStorageNews;
+use App\Models\NewsStorageSource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class NewsStorageController extends Controller
 {
@@ -13,7 +15,10 @@ class NewsStorageController extends Controller
     {
         $apiKey = $request->header('X-NewsStorage-Api-Key', $request->input('api_key'));
 
-        return $apiKey === config('custom.NEWSSTORAGE_API_KEY');
+        $expectedKey = config('custom.NEWSSTORAGE_API_KEY');
+
+        return is_string($expectedKey) && $expectedKey !== '' && is_string($apiKey)
+            && hash_equals($expectedKey, $apiKey);
     }
 
     public function store(Request $request): JsonResponse
@@ -26,15 +31,7 @@ class NewsStorageController extends Controller
             'source_id' => [
                 'required',
                 'integer',
-                function ($attribute, $value, $fail) {
-                    $exists = \DB::connection('newsstorage')
-                        ->table('newsstorage_sources')
-                        ->where('id', $value)
-                        ->exists();
-                    if (! $exists) {
-                        $fail('The selected source_id is invalid.');
-                    }
-                },
+                Rule::exists(NewsStorageSource::class, 'id'),
             ],
             'url' => 'required|string|max:2048',
             'title' => 'required|string|max:255',
@@ -45,25 +42,25 @@ class NewsStorageController extends Controller
             'media.*.type' => 'required_with:media|string|max:50',
         ]);
 
-        $news = NewsStorageNews::create([
-            'source_id' => $validated['source_id'],
-            'url' => $validated['url'],
-            'title' => $validated['title'],
-            'summary' => $validated['summary'] ?? null,
-            'content' => $validated['content'] ?? null,
-            'status' => 'new',
-        ]);
+        $news = (new NewsStorageNews)->getConnection()->transaction(function () use ($validated) {
+            $news = NewsStorageNews::create([
+                'source_id' => $validated['source_id'],
+                'url' => $validated['url'],
+                'title' => $validated['title'],
+                'summary' => $validated['summary'] ?? null,
+                'content' => $validated['content'] ?? null,
+                'status' => 'new',
+            ]);
 
-        if (! empty($validated['media'])) {
-            foreach ($validated['media'] as $mediaItem) {
+            foreach ($validated['media'] ?? [] as $media) {
                 $news->media()->create([
-                    'url' => $mediaItem['url'],
-                    'type' => $mediaItem['type'],
+                    'url' => $media['url'],
+                    'type' => $media['type'],
                 ]);
             }
-        }
 
-        $news->load('media');
+            return $news->load('media');
+        });
 
         return response()->json([
             'message' => 'News record created successfully',
@@ -87,7 +84,7 @@ class NewsStorageController extends Controller
             return response()->json(['error' => 'News record not found'], 404);
         }
 
-        $news->update(['status' => $validated['status']]);
+        $news->changeStatus($validated['status']);
 
         return response()->json([
             'message' => 'Status updated successfully',

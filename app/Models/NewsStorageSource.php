@@ -9,8 +9,6 @@ class NewsStorageSource extends Model
 {
     use HasFactory;
 
-    protected $connection = 'newsstorage';
-
     protected $table = 'newsstorage_sources';
 
     protected $fillable = [

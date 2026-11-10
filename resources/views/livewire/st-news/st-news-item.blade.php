@@ -8,7 +8,7 @@
         @endif
 
         {{-- Главное — заголовок и фото. Клик по карточке ведёт к новости (И. Манн: один понятный жест). --}}
-        <a href="/news/{{ $newsItem->id }}" class="block flex flex-col">
+        <a href="{{ $articlePath }}/{{ $newsItem->id }}" class="block flex flex-col">
 
             @if ($newsItem->firstPhoto())
                 @if( !empty($newsItem->firstPhoto()->local_photo) )
@@ -24,10 +24,10 @@
 
                 {{-- Мета-строка: дата + источник (Мunari: функционально, только нужное) --}}
                 <div class="mb-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500">
-                    @if( !empty($newsItem->published_at) )
+                    @if( $newsItem->news_date ?? $newsItem->published_at )
                         <span class="inline-flex items-center gap-1.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                            {{ $newsItem->published_at->format('d.m.Y') }}
+                            {{ ($newsItem->news_date ?? $newsItem->published_at)->format('d.m.Y') }}
                         </span>
                     @endif
                     @php
@@ -53,7 +53,7 @@
         </a>
 
         {{-- Кнопка удаления вынесена из <a> (валидный HTML) --}}
-        @if (request()->has('ss'))
+        @if (request()->has('ss') && auth()->user()?->can('manage-stn-news'))
             <button wire:click="deleteNews" class="absolute top-3 right-3 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/90 text-neutral-400 shadow-sm ring-1 ring-neutral-200 hover:bg-red-50 hover:text-red-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>

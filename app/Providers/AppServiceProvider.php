@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('manage-vkusno-access', fn (User $user): bool => Administrator::isSuperAdmin($user));
 
+        Gate::define('manage-stn-news', fn (User $user): bool => in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)
+            || $user->can('Полный//доступ'));
+
         Gate::define('manage-ttt-clubs', function (User $user): bool {
             if (in_array($user->email, ['1@php-cat.com', 'nyos@rambler.ru'], true)) {
                 return true;

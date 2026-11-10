@@ -63,6 +63,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
+                            @can('manage-stn-news')
                             <select wire:change="updateStatus({{ $news->id }}, $event.target.value)"
                                     class="text-xs rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500
                                 {{ $news->status === 'published' ? 'border-green-300 text-green-800 bg-green-50' : '' }}
@@ -73,8 +74,12 @@
                                     <option value="{{ $value }}" {{ $news->status === $value ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
+                            @else
+                                {{ $statuses[$news->status] ?? $news->status }}
+                            @endcan
                         </td>
                         <td class="px-4 py-3">
+                            @can('manage-stn-news')
                             <select wire:change="updateStatusShow({{ $news->id }}, $event.target.value)"
                                     class="text-xs rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500
                                 {{ $news->status_show === 'надо рассказать' ? 'border-yellow-300 text-yellow-800 bg-yellow-50' : '' }}
@@ -84,13 +89,16 @@
                                     <option value="{{ $value }}" {{ $news->status_show === $value ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
+                            @else
+                                {{ $statusesShow[$news->status_show] ?? $news->status_show ?? '—' }}
+                            @endcan
                         </td>
                         <td class="px-4 py-3 text-sm text-gray-500">
                             @foreach($news->media as $media)
                                 <span class="inline-block mr-1 text-xs px-1.5 py-0.5 bg-gray-100 rounded">{{ $media->type }}</span>
                             @endforeach
                         </td>
-                        <td class="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">{{ $news->created_at->format('d.m.Y H:i') }}</td>
+                        <td class="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">{{ $news->created_at?->format('d.m.Y H:i') }}</td>
                     </tr>
                 @empty
                     <tr>
