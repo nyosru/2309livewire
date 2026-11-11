@@ -265,13 +265,11 @@ class VkManagerController extends Controller
         $removed = 0;
         $errors = [];
         $vkErrors = [];
-        foreach ($selectedIds as $id) {
+        foreach ($selectedIds as $index => $id) {
             $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
-            if ((int) data_get($response, 'error.error_code') === 3) {
-                $response = $this->vkGet($user->vk_token, 'friends.delete', ['user_id' => $id]);
-            }
-            if ((int) data_get($response, 'error.error_code') === 3) {
-                $response = $this->vkGet($user->vk_token, 'friends.delete', ['user_id' => $id], '5.131');
+            if ((int) data_get($response, 'error.error_code') === 6) {
+                usleep(1_000_000);
+                $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
             }
 
             if (isset($response['error'])) {
@@ -285,12 +283,27 @@ class VkManagerController extends Controller
                 $requestVersion = collect($requestParameters)->firstWhere('key', 'v')['value'] ?? config('services.vk.api_version', '5.199');
                 $vkErrors[] = [
                     'vk_user_id' => $id,
+                    'attempted' => true,
                     'method' => 'friends.delete',
                     'api_version' => $requestVersion,
                     'error_code' => $errorCode,
                     'error_message' => $errorMessage,
                     'request_parameters' => $requestParameters,
                 ];
+                if ((int) $errorCode === 3) {
+                    foreach (array_slice($selectedIds, $index + 1) as $notAttemptedId) {
+                        $vkErrors[] = [
+                            'vk_user_id' => $notAttemptedId,
+                            'attempted' => false,
+                            'method' => 'friends.delete',
+                            'api_version' => config('services.vk.api_version', '5.199'),
+                            'error_code' => 3,
+                            'error_message' => 'VK отклонил метод удаления; запрос не отправлялся.',
+                            'request_parameters' => [],
+                        ];
+                    }
+                    break;
+                }
                 continue;
             }
 
@@ -336,13 +349,4 @@ class VkManagerController extends Controller
         return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
     }
 
-    private function vkGet(string $token, string $method, array $parameters = [], ?string $version = null): array
-    {
-        $response = Http::get("https://api.vk.com/method/{$method}", array_merge($parameters, [
-            'access_token' => $token,
-            'v' => $version ?? config('services.vk.api_version', '5.199'),
-        ]));
-
-        return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
-    }
 }
