@@ -264,12 +264,26 @@ class VkManagerController extends Controller
         }
         $removed = 0;
         $errors = [];
+        $firstVkError = null;
         foreach ($selectedIds as $id) {
             $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
             if (isset($response['error'])) {
                 $errorCode = data_get($response, 'error.error_code');
                 $errorMessage = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
                 $errors[] = $errorCode ? "VK API {$errorCode}: {$errorMessage}" : $errorMessage;
+                if ($firstVkError === null) {
+                    $requestParameters = collect(data_get($response, 'error.request_params', []))
+                        ->reject(fn ($parameter) => in_array(data_get($parameter, 'key'), ['access_token', 'client_secret', 'code', 'state'], true))
+                        ->values()
+                        ->all();
+                    $firstVkError = [
+                        'method' => 'friends.delete',
+                        'api_version' => config('services.vk.api_version', '5.199'),
+                        'error_code' => $errorCode,
+                        'error_message' => $errorMessage,
+                        'request_parameters' => $requestParameters,
+                    ];
+                }
                 continue;
             }
 
@@ -288,12 +302,13 @@ class VkManagerController extends Controller
                 $message .= ' Не удалось удалить ещё '.(count($selectedIds) - $removed).': '.implode(' ', array_unique($errors));
             }
 
-            return back()->with('status', $message);
+            return back()->with('status', $message)->with('vk_error', $firstVkError);
         }
 
         return back()->with('error', $errors !== []
             ? implode(' ', array_unique($errors))
-            : 'VK не подтвердил удаление. Возможно, выбранные аккаунты уже удалены из друзей.');
+            : 'VK не подтвердил удаление. Возможно, выбранные аккаунты уже удалены из друзей.')
+            ->with('vk_error', $firstVkError);
     }
 
     private function saveContact(int $vkFriendId, array $attributes): VkManagerContact
