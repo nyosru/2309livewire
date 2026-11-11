@@ -262,73 +262,14 @@ class VkManagerController extends Controller
         if ($selectedIds === []) {
             return back()->with('error', 'Выбранные аккаунты не найдены в текущем списке друзей.');
         }
-        $removed = 0;
-        $errors = [];
-        $vkErrors = [];
-        foreach ($selectedIds as $index => $id) {
-            $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
-            if ((int) data_get($response, 'error.error_code') === 6) {
-                usleep(1_000_000);
-                $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
-            }
+        $profiles = array_map(fn ($id) => [
+            'id' => $id,
+            'url' => 'https://vk.com/id'.$id,
+        ], $selectedIds);
 
-            if (isset($response['error'])) {
-                $errorCode = data_get($response, 'error.error_code');
-                $errorMessage = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
-                $errors[] = $errorCode ? "VK API {$errorCode}: {$errorMessage}" : $errorMessage;
-                $requestParameters = collect(data_get($response, 'error.request_params', []))
-                    ->reject(fn ($parameter) => in_array(data_get($parameter, 'key'), ['access_token', 'client_secret', 'code', 'state'], true))
-                    ->values()
-                    ->all();
-                $requestVersion = collect($requestParameters)->firstWhere('key', 'v')['value'] ?? config('services.vk.api_version', '5.199');
-                $vkErrors[] = [
-                    'vk_user_id' => $id,
-                    'attempted' => true,
-                    'method' => 'friends.delete',
-                    'api_version' => $requestVersion,
-                    'error_code' => $errorCode,
-                    'error_message' => $errorMessage,
-                    'request_parameters' => $requestParameters,
-                ];
-                if ((int) $errorCode === 3) {
-                    foreach (array_slice($selectedIds, $index + 1) as $notAttemptedId) {
-                        $vkErrors[] = [
-                            'vk_user_id' => $notAttemptedId,
-                            'attempted' => false,
-                            'method' => 'friends.delete',
-                            'api_version' => config('services.vk.api_version', '5.199'),
-                            'error_code' => 3,
-                            'error_message' => 'VK отклонил метод удаления; запрос не отправлялся.',
-                            'request_parameters' => [],
-                        ];
-                    }
-                    break;
-                }
-                continue;
-            }
-
-            $result = data_get($response, 'response');
-            $friendDeleted = is_array($result)
-                ? filter_var($result['friend_deleted'] ?? false, FILTER_VALIDATE_BOOLEAN)
-                : (int) $result === 1;
-            if ($friendDeleted) {
-                $removed++;
-            }
-        }
-
-        if ($removed > 0) {
-            $message = "VK удалил из друзей: {$removed}. Удалённые аккаунты обычно становятся подписчиками.";
-            if ($errors !== []) {
-                $message .= ' Не удалось удалить ещё '.(count($selectedIds) - $removed).': '.implode(' ', array_unique($errors));
-            }
-
-            return back()->with('status', $message)->with('vk_errors', $vkErrors);
-        }
-
-        return back()->with('error', $errors !== []
-            ? implode(' ', array_unique($errors))
-            : 'VK не подтвердил удаление. Возможно, выбранные аккаунты уже удалены из друзей.')
-            ->with('vk_errors', $vkErrors);
+        return back()
+            ->with('status', 'VK не разрешает удалять друзей через API. Откройте профили и удалите друзей вручную на стороне VK.')
+            ->with('manual_removal_profiles', $profiles);
     }
 
     private function saveContact(int $vkFriendId, array $attributes): VkManagerContact
