@@ -233,9 +233,32 @@ class VkManagerController extends Controller
     {
         $data = $request->validate(['friends' => ['required', 'array', 'min:1'], 'friends.*' => ['required', 'integer', 'min:1']]);
         $user = Auth::user();
-        $current = $this->vk($user->vk_token, 'friends.get', ['user_id' => $user->vk_id, 'count' => 5000]);
-        $currentIds = collect(data_get($current, 'response.items', []))->pluck('id')->map(fn ($id) => (int) $id)->all();
-        $selectedIds = array_values(array_intersect(array_map('intval', array_unique($data['friends'])), $currentIds));
+        $wantedIds = array_values(array_unique(array_map('intval', $data['friends'])));
+        $currentIds = [];
+        $offset = 0;
+        $totalFriends = 0;
+
+        do {
+            $current = $this->vk($user->vk_token, 'friends.get', [
+                'user_id' => $user->vk_id,
+                'count' => 1000,
+                'offset' => $offset,
+            ]);
+            if (isset($current['error'])) {
+                return back()->with('error', data_get($current, 'error.error_msg', 'VK не разрешил проверить список друзей.'));
+            }
+
+            $items = data_get($current, 'response.items', []);
+            $totalFriends = (int) data_get($current, 'response.count', 0);
+            $pageIds = collect($items)->map(fn ($friend) => is_array($friend) ? ($friend['id'] ?? null) : $friend)
+                ->filter(fn ($id) => is_numeric($id))
+                ->map(fn ($id) => (int) $id)
+                ->all();
+            $currentIds = array_merge($currentIds, $pageIds);
+            $offset += count($pageIds);
+        } while ($pageIds !== [] && $offset < $totalFriends && count(array_intersect($wantedIds, $currentIds)) < count($wantedIds));
+
+        $selectedIds = array_values(array_intersect($wantedIds, $currentIds));
         if ($selectedIds === []) {
             return back()->with('error', 'Выбранные аккаунты не найдены в текущем списке друзей.');
         }

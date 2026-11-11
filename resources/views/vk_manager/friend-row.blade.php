@@ -27,7 +27,9 @@
         </form>
     </div>
     <div class="friend-row-comment">
-        <div class="comment {{ $person['manager_comment'] ? '' : 'empty' }}">{{ $person['manager_comment'] ?: 'Комментарий не добавлен' }}</div>
+        @if(filled($person['manager_comment']))
+            <div class="comment">{{ $person['manager_comment'] }}</div>
+        @endif
         <form class="comment-form" method="post" action="/friends/{{ $person['id'] }}/comment">
             @csrf
             <input name="comment" maxlength="2000" value="{{ $person['manager_comment'] }}" placeholder="Комментарий">
