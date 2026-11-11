@@ -182,8 +182,9 @@ class VkManagerController extends Controller
         $metadata = VkManagerContact::query()->where('user_id', $user->id)->whereIn('vk_friend_id', $ids)->get()->keyBy('vk_friend_id');
         foreach (['friends', 'followers'] as $listName) {
             foreach ($$listName as &$person) {
-                $person['manager_comment'] = $metadata[$person['id']]?->comment;
-                $person['manager_favorite'] = $metadata[$person['id']]?->is_favorite ?? false;
+                $contact = $metadata->get($person['id']);
+                $person['manager_comment'] = $contact?->comment;
+                $person['manager_favorite'] = $contact?->is_favorite ?? false;
             }
             unset($person);
         }
