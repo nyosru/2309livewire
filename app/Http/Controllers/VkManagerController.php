@@ -263,14 +263,35 @@ class VkManagerController extends Controller
             return back()->with('error', 'Выбранные аккаунты не найдены в текущем списке друзей.');
         }
         $removed = 0;
+        $errors = [];
         foreach ($selectedIds as $id) {
             $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
-            if (! isset($response['error']) && (int) data_get($response, 'response') === 1) {
+            if (isset($response['error'])) {
+                $errors[] = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
+                continue;
+            }
+
+            $result = data_get($response, 'response');
+            $friendDeleted = is_array($result)
+                ? filter_var($result['friend_deleted'] ?? false, FILTER_VALIDATE_BOOLEAN)
+                : (int) $result === 1;
+            if ($friendDeleted) {
                 $removed++;
             }
         }
 
-        return back()->with($removed ? 'status' : 'error', $removed ? "VK обработал удаление: {$removed}. Удалённые из друзей аккаунты обычно становятся подписчиками." : 'VK не подтвердил удаление друзей.');
+        if ($removed > 0) {
+            $message = "VK удалил из друзей: {$removed}. Удалённые аккаунты обычно становятся подписчиками.";
+            if ($errors !== []) {
+                $message .= ' Не удалось удалить ещё '.(count($selectedIds) - $removed).': '.implode(' ', array_unique($errors));
+            }
+
+            return back()->with('status', $message);
+        }
+
+        return back()->with('error', $errors !== []
+            ? implode(' ', array_unique($errors))
+            : 'VK не подтвердил удаление. Возможно, выбранные аккаунты уже удалены из друзей.');
     }
 
     private function saveContact(int $vkFriendId, array $attributes): VkManagerContact
