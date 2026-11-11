@@ -45,6 +45,7 @@ require 'web.ttt.php';
 //    ->middleware(['auth'])
 //    ->name('profile');
 //
+require 'web.vk_manager.php';
 require __DIR__.'/auth.php';
 
 // $files = scandir( __DIR__.'/web/');
@@ -55,7 +56,6 @@ require __DIR__.'/auth.php';
 // }
 
 require 'web.afisha.php';
-require 'web.vk_manager.php';
 
 // //Route::get('{.*}',function () {
 // //    return response( $_SERVER['HTTP_HOST'] ?? 'x' );

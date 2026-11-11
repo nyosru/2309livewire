@@ -3,7 +3,7 @@
 use App\Http\Controllers\VkManagerController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['domain' => 'vk.local', 'as' => 'vk-manager.'], function () {
+Route::group(['domain' => 'vk.php-cat.ru', 'as' => 'vk-manager.'], function () {
     Route::get('/', [VkManagerController::class, 'index'])->name('index');
     Route::get('/login', [VkManagerController::class, 'login'])->name('login');
     Route::post('/logout', [VkManagerController::class, 'logout'])->name('logout');

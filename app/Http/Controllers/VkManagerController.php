@@ -23,11 +23,12 @@ class VkManagerController extends Controller
     {
         $secret = config('services.vk_external_auth.secret');
         if (! is_string($secret) || $secret === '') {
-            return redirect('/login')->with('error', 'Авторизация через master.local не настроена.');
+            return redirect('/login')->with('error', 'Авторизация через ПроцессМастер.рф не настроена.');
         }
 
         $state = bin2hex(random_bytes(32));
-        $returnUrl = url('/auth/master/callback');
+        // The Master API requires an HTTPS callback.
+        $returnUrl = secure_url('/auth/master/callback');
         $request->session()->put('vk_manager_master_auth_state', $state);
         $request->session()->put('vk_manager_master_auth_return_url', $returnUrl);
 
@@ -38,13 +39,14 @@ class VkManagerController extends Controller
                 ->post(rtrim(config('services.vk_external_auth.base_url'), '/').'/api/vk/auth/requests', [
                     'return_url' => $returnUrl,
                     'state' => $state,
+                    'include_vk_token' => true,
                 ]);
         } catch (ConnectionException) {
-            return redirect('/login')->with('error', 'Сервис master.local временно недоступен. Попробуйте позже.');
+            return redirect('/login')->with('error', 'Сервис ПроцессМастер.рф временно недоступен. Попробуйте позже.');
         }
 
         if (! $response->successful() || ! is_string($response->json('authorization_url'))) {
-            return redirect('/login')->with('error', 'Не удалось начать вход через master.local. Попробуйте ещё раз.');
+            return redirect('/login')->with('error', 'Не удалось начать вход через ПроцессМастер.рф. Попробуйте ещё раз.');
         }
 
         return redirect()->away($response->json('authorization_url'));
@@ -79,12 +81,33 @@ class VkManagerController extends Controller
                     'return_url' => $returnUrl,
                 ]);
         } catch (ConnectionException) {
-            return redirect('/login')->with('error', 'Сервис master.local временно недоступен. Начните вход заново позже.');
+            return redirect('/login')->with('error', 'Сервис ПроцессМастер.рф временно недоступен. Начните вход заново позже.');
+        }
+
+        if (! $response->successful()) {
+            logger()->warning('VK external auth exchange failed', ['status' => $response->status()]);
+
+            $message = match ($response->status()) {
+                403 => 'Мастер отклонил серверную авторизацию. Проверьте общий VK_EXTERNAL_AUTH_SECRET в настройках сайтов.',
+                410 => 'Ссылка входа истекла или уже использована. Запустите вход через VK заново.',
+                429 => 'Слишком много попыток входа. Подождите немного и начните заново.',
+                default => 'Мастер не подтвердил вход (ошибка '.$response->status().'). Запустите вход через VK заново.',
+            };
+
+            return redirect('/login')->with('error', $message);
         }
 
         $identity = $response->json('user');
-        if (! $response->successful() || ! is_array($identity) || ! filled($identity['vk_id'] ?? null)) {
-            return redirect('/login')->with('error', 'Ссылка входа истекла или уже использована. Начните заново.');
+        if (! is_array($identity) || ! filled($identity['vk_id'] ?? null)) {
+            logger()->warning('VK external auth exchange returned no user identity');
+
+            return redirect('/login')->with('error', 'Мастер не вернул данные аккаунта. Начните вход заново.');
+        }
+
+        if (! filled($identity['access_token'] ?? null)) {
+            logger()->warning('VK external auth exchange returned no VK access token');
+
+            return redirect('/login')->with('error', 'Мастер не вернул токен VK. Запустите новую авторизацию и подтвердите доступ к друзьям.');
         }
 
         $vkId = (string) $identity['vk_id'];
@@ -95,9 +118,13 @@ class VkManagerController extends Controller
                 'email' => 'vk-'.$vkId.'@external.processmaster.local',
                 'password' => Str::password(40),
                 'vk_id' => $vkId,
+                'vk_token' => $identity['access_token'],
             ]);
         } else {
-            $user->update(['name' => (string) ($identity['name'] ?? $user->name)]);
+            $user->update([
+                'name' => (string) ($identity['name'] ?? $user->name),
+                'vk_token' => $identity['access_token'],
+            ]);
         }
 
         Auth::login($user, true);
@@ -125,7 +152,8 @@ class VkManagerController extends Controller
         if (! $user->vk_token || ! $user->vk_id) {
             return view('vk_manager.index', [
                 'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
-                'apiError' => 'Вход через master.local подтверждает вашу личность, но не передаёт токен VK для чтения друзей и подписчиков.',
+                'apiError' => 'Для загрузки друзей и подписчиков нужно заново войти через VK и выдать доступ.',
+                'needsVkReconnect' => true,
             ]);
         }
 
@@ -166,6 +194,7 @@ class VkManagerController extends Controller
             'friendCount' => data_get($friendsResponse, 'response.count', count($friends)),
             'followerCount' => data_get($followersResponse, 'response.count', count($followers)),
             'apiError' => data_get($friendsResponse, 'error.error_msg') ?? data_get($followersResponse, 'error.error_msg'),
+            'needsVkReconnect' => false,
         ]);
     }
 
