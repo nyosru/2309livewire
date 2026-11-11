@@ -2,16 +2,18 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public StNews $news;
+    public NewsStorageNews $news;
 
     public function mount($id)
     {
-        $this->news = StNews::inPublicFeed()->with('site')->findOrFail($id);
+        $this->news = NewsStorageNews::resolveLegacyOrCurrent($id);
+        abort_unless($this->news->status === 'published' || $this->news->published_at, 404);
+        $this->news->load(['site', 'photos', 'media']);
     }
 
     public function render()

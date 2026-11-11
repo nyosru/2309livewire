@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\StNews;
 
 use App\Http\Controllers\Controller;
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Illuminate\Http\Request;
 
 class StNewsController extends Controller
@@ -35,7 +35,7 @@ class StNewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(StNews $stNews)
+    public function show(NewsStorageNews $stNews)
     {
         //
     }
@@ -43,7 +43,7 @@ class StNewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StNews $stNews)
+    public function edit(NewsStorageNews $stNews)
     {
         //
     }
@@ -51,7 +51,7 @@ class StNewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StNews $stNews)
+    public function update(Request $request, NewsStorageNews $stNews)
     {
         //
     }
@@ -59,7 +59,7 @@ class StNewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StNews $stNews)
+    public function destroy(NewsStorageNews $stNews)
     {
         //
     }

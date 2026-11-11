@@ -1,0 +1,225 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\VkManagerContact;
+use App\Models\User;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
+
+class VkManagerController extends Controller
+{
+    public function login(): View|RedirectResponse
+    {
+        return Auth::check() ? redirect('/') : view('vk_manager.login');
+    }
+
+    public function startAuth(Request $request): RedirectResponse
+    {
+        $secret = config('services.vk_external_auth.secret');
+        if (! is_string($secret) || $secret === '') {
+            return redirect('/login')->with('error', 'Авторизация через master.local не настроена.');
+        }
+
+        $state = bin2hex(random_bytes(32));
+        $returnUrl = url('/auth/master/callback');
+        $request->session()->put('vk_manager_master_auth_state', $state);
+        $request->session()->put('vk_manager_master_auth_return_url', $returnUrl);
+
+        try {
+            $response = Http::acceptJson()
+                ->withHeaders(['X-VK-Auth-Secret' => $secret])
+                ->timeout(10)
+                ->post(rtrim(config('services.vk_external_auth.base_url'), '/').'/api/vk/auth/requests', [
+                    'return_url' => $returnUrl,
+                    'state' => $state,
+                ]);
+        } catch (ConnectionException) {
+            return redirect('/login')->with('error', 'Сервис master.local временно недоступен. Попробуйте позже.');
+        }
+
+        if (! $response->successful() || ! is_string($response->json('authorization_url'))) {
+            return redirect('/login')->with('error', 'Не удалось начать вход через master.local. Попробуйте ещё раз.');
+        }
+
+        return redirect()->away($response->json('authorization_url'));
+    }
+
+    public function callback(Request $request): RedirectResponse
+    {
+        $expectedState = $request->session()->pull('vk_manager_master_auth_state');
+        $returnUrl = $request->session()->pull('vk_manager_master_auth_return_url');
+        $state = $request->query('state');
+
+        if (! is_string($expectedState) || ! is_string($returnUrl) || ! is_string($state) || ! hash_equals($expectedState, $state)) {
+            return redirect('/login')->with('error', 'Сеанс входа истёк или не прошёл проверку. Начните вход заново.');
+        }
+
+        if ($request->filled('error')) {
+            return redirect('/login')->with('error', 'Вход через ВКонтакте был отменён или завершился ошибкой.');
+        }
+
+        $code = $request->query('code');
+        $secret = config('services.vk_external_auth.secret');
+        if (! is_string($code) || ! is_string($secret) || $secret === '') {
+            return redirect('/login')->with('error', 'Не удалось подтвердить вход. Начните его заново.');
+        }
+
+        try {
+            $response = Http::acceptJson()
+                ->withHeaders(['X-VK-Auth-Secret' => $secret])
+                ->timeout(10)
+                ->post(rtrim(config('services.vk_external_auth.base_url'), '/').'/api/vk/auth/exchange', [
+                    'code' => $code,
+                    'return_url' => $returnUrl,
+                ]);
+        } catch (ConnectionException) {
+            return redirect('/login')->with('error', 'Сервис master.local временно недоступен. Начните вход заново позже.');
+        }
+
+        $identity = $response->json('user');
+        if (! $response->successful() || ! is_array($identity) || ! filled($identity['vk_id'] ?? null)) {
+            return redirect('/login')->with('error', 'Ссылка входа истекла или уже использована. Начните заново.');
+        }
+
+        $vkId = (string) $identity['vk_id'];
+        $user = User::query()->where('vk_id', $vkId)->first();
+        if (! $user) {
+            $user = User::create([
+                'name' => (string) ($identity['name'] ?? 'Пользователь ВКонтакте'),
+                'email' => 'vk-'.$vkId.'@external.processmaster.local',
+                'password' => Str::password(40),
+                'vk_id' => $vkId,
+            ]);
+        } else {
+            $user->update(['name' => (string) ($identity['name'] ?? $user->name)]);
+        }
+
+        Auth::login($user, true);
+        $request->session()->regenerate();
+
+        return redirect('/');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
+
+    public function index(Request $request): View|RedirectResponse
+    {
+        if (! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+        if (! $user->vk_token || ! $user->vk_id) {
+            return view('vk_manager.index', [
+                'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
+                'apiError' => 'Вход через master.local подтверждает вашу личность, но не передаёт токен VK для чтения друзей и подписчиков.',
+            ]);
+        }
+
+        $friendsResponse = $this->vk($user->vk_token, 'friends.get', [
+            'user_id' => $user->vk_id,
+            'order' => 'hints',
+            'count' => 5000,
+            'fields' => 'photo_100,domain',
+        ]);
+        $followersResponse = $this->vk($user->vk_token, 'users.getFollowers', [
+            'user_id' => $user->vk_id,
+            'count' => 1000,
+            'fields' => 'photo_100,domain',
+        ]);
+
+        $friends = data_get($friendsResponse, 'response.items', []);
+        $followers = data_get($followersResponse, 'response.items', []);
+        if (! is_array($friends) || ! is_array($followers)) {
+            return view('vk_manager.index', [
+                'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
+                'comments' => [], 'favorites' => [], 'apiError' => 'VK не разрешил получить списки. Переподключите аккаунт и разрешите доступ к друзьям.',
+            ]);
+        }
+
+        $ids = collect($friends)->merge($followers)->pluck('id')->map(fn ($id) => (int) $id)->unique();
+        $metadata = VkManagerContact::query()->where('user_id', $user->id)->whereIn('vk_friend_id', $ids)->get()->keyBy('vk_friend_id');
+        foreach (['friends', 'followers'] as $listName) {
+            foreach ($$listName as &$person) {
+                $person['manager_comment'] = $metadata[$person['id']]?->comment;
+                $person['manager_favorite'] = $metadata[$person['id']]?->is_favorite ?? false;
+            }
+            unset($person);
+        }
+
+        return view('vk_manager.index', [
+            'friends' => $friends,
+            'followers' => $followers,
+            'friendCount' => data_get($friendsResponse, 'response.count', count($friends)),
+            'followerCount' => data_get($followersResponse, 'response.count', count($followers)),
+            'apiError' => data_get($friendsResponse, 'error.error_msg') ?? data_get($followersResponse, 'error.error_msg'),
+        ]);
+    }
+
+    public function favorite(int $vkFriendId): RedirectResponse
+    {
+        $this->saveContact($vkFriendId, ['is_favorite' => request()->boolean('is_favorite')]);
+
+        return back()->with('status', 'Отметка избранного сохранена.');
+    }
+
+    public function comment(Request $request, int $vkFriendId): RedirectResponse
+    {
+        $data = $request->validate(['comment' => ['nullable', 'string', 'max:2000']]);
+        $this->saveContact($vkFriendId, ['comment' => $data['comment'] ?? null]);
+
+        return back()->with('status', 'Комментарий сохранён.');
+    }
+
+    public function removeFriends(Request $request): RedirectResponse
+    {
+        $data = $request->validate(['friends' => ['required', 'array', 'min:1'], 'friends.*' => ['required', 'integer', 'min:1']]);
+        $user = Auth::user();
+        $current = $this->vk($user->vk_token, 'friends.get', ['user_id' => $user->vk_id, 'count' => 5000]);
+        $currentIds = collect(data_get($current, 'response.items', []))->pluck('id')->map(fn ($id) => (int) $id)->all();
+        $selectedIds = array_values(array_intersect(array_map('intval', array_unique($data['friends'])), $currentIds));
+        if ($selectedIds === []) {
+            return back()->with('error', 'Выбранные аккаунты не найдены в текущем списке друзей.');
+        }
+        $removed = 0;
+        foreach ($selectedIds as $id) {
+            $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
+            if (! isset($response['error']) && (int) data_get($response, 'response') === 1) {
+                $removed++;
+            }
+        }
+
+        return back()->with($removed ? 'status' : 'error', $removed ? "VK обработал удаление: {$removed}. Удалённые из друзей аккаунты обычно становятся подписчиками." : 'VK не подтвердил удаление друзей.');
+    }
+
+    private function saveContact(int $vkFriendId, array $attributes): VkManagerContact
+    {
+        return VkManagerContact::query()->updateOrCreate(
+            ['user_id' => Auth::id(), 'vk_friend_id' => $vkFriendId],
+            $attributes,
+        );
+    }
+
+    private function vk(string $token, string $method, array $parameters = []): array
+    {
+        $response = Http::asForm()->post("https://api.vk.com/method/{$method}", array_merge($parameters, [
+            'access_token' => $token,
+            'v' => config('services.vk.api_version', '5.199'),
+        ]));
+
+        return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
+    }
+}

@@ -11,7 +11,7 @@ class Show extends Component
 
     public function mount($id)
     {
-        $query = NewsStorageNews::with(['source', 'media']);
+        $query = NewsStorageNews::with(['storageSource', 'storageMedia', 'media', 'photos']);
 
         if (request()->routeIs('*.feed-storage-show')) {
             $query->published();

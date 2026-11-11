@@ -53,13 +53,13 @@ class NewsStorageController extends Controller
             ]);
 
             foreach ($validated['media'] ?? [] as $media) {
-                $news->media()->create([
+                $news->storageMedia()->create([
                     'url' => $media['url'],
                     'type' => $media['type'],
                 ]);
             }
 
-            return $news->load('media');
+            return $news->load('storageMedia');
         });
 
         return response()->json([

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Ключевое слово новости (лемма существительного / глагола).
- * Связь many-to-many с StNews через st_news_keywords.
+ * Связь many-to-many с NewsStorageNews через st_news_keywords.
  */
 class Keyword extends Model
 {
@@ -25,7 +25,7 @@ class Keyword extends Model
     /** Новости, в которых встречается это слово. */
     public function news()
     {
-        return $this->belongsToMany(StNews::class, 'st_news_keywords');
+        return $this->belongsToMany(NewsStorageNews::class, 'st_news_keywords', 'keyword_id', 'newsstorage_news_id');
     }
 
     /** Синхронизировать денормализованный счётчик новостей после изменения связей. */

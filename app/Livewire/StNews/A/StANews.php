@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews\A;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Livewire\Component;
 
 class StANews extends Component
@@ -11,7 +11,7 @@ class StANews extends Component
 
     public function mount()
     {
-        $this->list_news = StNews::with('site', 'photos')
+        $this->list_news = NewsStorageNews::stn()->with('site', 'photos')
             ->whereSite_id(4)
             ->get();
     }

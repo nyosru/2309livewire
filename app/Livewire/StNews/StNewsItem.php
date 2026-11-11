@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -16,7 +16,7 @@ class StNewsItem extends Component
     #[Locked]
     public string $articlePath = '/news';
 
-    public function mount(StNews $newsItem, string $articlePath = '/news')
+    public function mount(NewsStorageNews $newsItem, string $articlePath = '/news')
     {
         $this->newsItem = $newsItem;
         $this->articlePath = $articlePath;

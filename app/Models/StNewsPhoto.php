@@ -11,12 +11,13 @@ class StNewsPhoto extends Model
 
     protected $fillable = [
         'st_news_id',
+        'newsstorage_news_id',
         'image_path',
         'local_photo', // Новое поле для локальной фотки
     ];
 
     public function news()
     {
-        return $this->belongsTo(StNews::class, 'st_news_id');
+        return $this->belongsTo(NewsStorageNews::class, 'newsstorage_news_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 
 class AutoModerationNewsServices
 {
@@ -14,7 +14,7 @@ class AutoModerationNewsServices
         $return = [];
 
         //        // Получаем новости, у которых moderation пустое и есть site_id
-        //        $newsToModerate = StNews::whereNotNull('content')->whereNull('moderation')
+        //        $newsToModerate = NewsStorageNews::whereNotNull('content')->whereNull('moderation')
         //            ->whereHas('site', function ($query) {
         //                $query->whereNotNull('time_to_auto_publish'); // Проверяем, что у сайта есть time_to_auto_publish
         //            })
@@ -22,7 +22,7 @@ class AutoModerationNewsServices
         //            ->get();
 
         // Получаем новости, у которых moderation пустое и есть site_id
-        $newsToModerate = StNews::whereNotNull('content')
+        $newsToModerate = NewsStorageNews::stn()->whereNotNull('content')
             ->whereNull('moderation')
             ->whereHas('site', function ($query) {
                 $query->whereNotNull('time_to_auto_publish') // Проверяем, что у сайта есть time_to_auto_publish

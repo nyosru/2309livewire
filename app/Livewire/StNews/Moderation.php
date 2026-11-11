@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Livewire\Component;
 
 class Moderation extends Component
@@ -22,7 +22,7 @@ class Moderation extends Component
     {
         if ($this->secret === config('app.secret_moderation')) {
             // Получаем новости, которые требуют модерации
-            $this->news = StNews::where('needs_moderation', true)
+            $this->news = NewsStorageNews::stn()->where('moderation_required', true)
                 ->whereNull('moderation')
                 ->get();
         } else {

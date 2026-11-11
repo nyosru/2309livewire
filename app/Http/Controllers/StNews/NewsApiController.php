@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\StNews;
 
 use App\Http\Controllers\Controller;
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use App\Models\StNewsMedia;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class NewsApiController extends Controller
             config('stn.max_per_page', 100)
         );
 
-        $query = StNews::query()
+        $query = NewsStorageNews::stn()
             ->where('content', '!=', '')
             ->orderByDesc('news_date')
             ->orderByDesc('id')
@@ -48,8 +48,10 @@ class NewsApiController extends Controller
     /**
      * Одна новость с медиа.
      */
-    public function show(StNews $news): JsonResponse
+    public function show($news): JsonResponse
     {
+        $news = NewsStorageNews::resolveLegacyOrCurrent($news);
+
         return response()->json($news->load(['media' => fn ($q) => $q->orderBy('sort_order')->orderBy('id'), 'coverPhoto']));
     }
 
@@ -59,10 +61,10 @@ class NewsApiController extends Controller
     public function store(Request $request): JsonResponse
     {
         // Авто-публикация черновиков старше 2 суток (не удалённых) при очередном добавлении новости.
-        StNews::whereNull('published_at')
+        NewsStorageNews::stn()->whereNull('published_at')
             ->whereNull('deleted_at')
             ->where('created_at', '<=', now()->subDays(2))
-            ->update(['published_at' => now()]);
+            ->update(['published_at' => now(), 'status' => 'published']);
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -81,7 +83,8 @@ class NewsApiController extends Controller
             'video' => ['nullable', 'array'],
         ]);
 
-        $news = StNews::create([
+        $news = NewsStorageNews::create([
+            'is_stn' => true,
             'title' => $data['title'],
             'content' => $data['content'],
             'summary' => $data['summary'] ?? null,
@@ -151,8 +154,10 @@ class NewsApiController extends Controller
     /**
      * Обновить новость.
      */
-    public function update(Request $request, StNews $news): JsonResponse
+    public function update(Request $request, $news): JsonResponse
     {
+        $news = NewsStorageNews::resolveLegacyOrCurrent($news);
+
         $data = $request->validate([
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'content' => ['sometimes', 'required', 'string'],
@@ -192,8 +197,10 @@ class NewsApiController extends Controller
     /**
      * Удалить новость (soft delete).
      */
-    public function destroy(StNews $news): JsonResponse
+    public function destroy($news): JsonResponse
     {
+        $news = NewsStorageNews::resolveLegacyOrCurrent($news);
+
         $news->delete();
 
         return response()->json([
@@ -206,8 +213,10 @@ class NewsApiController extends Controller
      * Прикрепить фото или видео к существующей новости.
      * photo: {url|file, alt, sort}  video: {type:video, url, provider, title, duration}
      */
-    public function attachMedia(Request $request, StNews $news): JsonResponse
+    public function attachMedia(Request $request, $news): JsonResponse
     {
+        $news = NewsStorageNews::resolveLegacyOrCurrent($news);
+
         $data = $request->validate([
             'type' => ['nullable', Rule::in(['photo', 'video'])],
             'url' => ['nullable', 'url', 'max:500'],
@@ -257,7 +266,7 @@ class NewsApiController extends Controller
     /**
      * Сохранить загруженный файл фото на диск и создать запись медиа.
      */
-    protected function storeUploadedPhoto(StNews $news, UploadedFile $file, ?string $alt = null, int $sort = 0): StNewsMedia
+    protected function storeUploadedPhoto(NewsStorageNews $news, UploadedFile $file, ?string $alt = null, int $sort = 0): StNewsMedia
     {
         $disk = config('stn.media_disk', 'public');
         $path = $file->store("st_news_media/{$news->id}", $disk);
@@ -270,8 +279,8 @@ class NewsApiController extends Controller
         ]));
     }
 
-    protected function mediaAttrs(StNews $news, string $type, array $attrs): array
+    protected function mediaAttrs(NewsStorageNews $news, string $type, array $attrs): array
     {
-        return array_merge(['st_news_id' => $news->id, 'media_type' => $type], $attrs);
+        return array_merge(['newsstorage_news_id' => $news->id, 'media_type' => $type], $attrs);
     }
 }

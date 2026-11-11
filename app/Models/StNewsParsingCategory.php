@@ -22,10 +22,10 @@ class StNewsParsingCategory extends Model
         'scan_status',
     ];
 
-    // Связь с моделью StNews
+    // Связь с общей моделью новостей.
     public function news()
     {
-        return $this->hasMany(StNews::class, 'cat_id');
+        return $this->hasMany(NewsStorageNews::class, 'cat_id');
     }
 
     // Связь с моделью StNewsParsingSite для проверки статуса сканирования

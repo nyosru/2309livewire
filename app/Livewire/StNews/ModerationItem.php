@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Livewire\Component;
 
 class ModerationItem extends Component
@@ -11,7 +11,7 @@ class ModerationItem extends Component
 
     public $decision;  // Решение по модерации ("approve" или "reject")
 
-    public function mount(StNews $newsItem)
+    public function mount(NewsStorageNews $newsItem)
     {
         $this->newsItem = $newsItem;
         $this->decision = null;  // Изначально решение не принято
@@ -26,7 +26,7 @@ class ModerationItem extends Component
             'moderation' => $decision === 'approve',
             'moderation_date' => now(),
             'moderation_who' => auth()->id(),  // Предполагается, что пользователь авторизован
-            'needs_moderation' => false,  // Модерация завершена, больше не нужно
+            'moderation_required' => false,  // Модерация завершена, больше не нужно
         ]);
 
         // Emit событие для родительского компонента, чтобы удалить новость из списка

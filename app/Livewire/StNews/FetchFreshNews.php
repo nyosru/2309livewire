@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -20,13 +20,15 @@ class FetchFreshNews extends Component
             $sourceLink = (string) $item->link; // Ссылка на конкретную новость
 
             // Проверка на наличие новости с таким же заголовком и ссылкой, чтобы избежать дублирования
-            $existingNews = StNews::where('source', $sourceLink)->first();
+            $existingNews = NewsStorageNews::stn()->where('source', $sourceLink)->first();
 
             if (! $existingNews) {
-                StNews::create([
+                NewsStorageNews::create([
+                    'is_stn' => true,
                     'title' => $title,
                     'content' => $content,
                     'published_at' => $publishedAt,
+                    'status' => $publishedAt ? 'published' : 'new',
                     'source' => $sourceLink, // Сохраняем ссылку на источник
                     'moderation' => false, // Статус модерации по умолчанию
                     'moderation_required' => true,

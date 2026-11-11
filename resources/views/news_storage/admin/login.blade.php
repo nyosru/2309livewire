@@ -9,7 +9,7 @@
             <form method="post" action="/admin/logout" class="mt-6">@csrf<button type="submit" class="rounded-md border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-50">Выйти и сменить аккаунт</button></form>
         @else
             <p class="mt-4 text-neutral-700">Войдите через ВКонтакте. Если доступ ещё не выдан, ваш запрос появится в списке у администратора.</p>
-            <a href="/admin/auth/vk" class="mt-6 inline-flex rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">Войти через ВКонтакте</a>
+            <a href="/admin/auth/master" class="mt-6 inline-flex rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">Войти через ВКонтакте</a>
         @endauth
 
         @if(session('error'))<p class="mt-4 text-sm text-red-600">{{ session('error') }}</p>@endif

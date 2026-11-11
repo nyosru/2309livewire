@@ -15,9 +15,9 @@
                     <h2 class="text-xl font-semibold text-neutral-900">Редакционный список</h2>
                     <p class="mt-2 text-sm text-neutral-600">Все новости, статусы публикации и редакционные поля.</p>
                 </a>
-                <a href="/admin/stn-news" class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm hover:border-blue-400">
-                    <h2 class="text-xl font-semibold text-neutral-900">Управление новостями</h2>
-                    <p class="mt-2 text-sm text-neutral-600">Новости STN, публикация, скрытие и медиа.</p>
+                <a href="/admin/topics" class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm hover:border-blue-400">
+                    <h2 class="text-xl font-semibold text-neutral-900">Темы новостей</h2>
+                    <p class="mt-2 text-sm text-neutral-600">Создание, изменение и удаление тем на русском и английском.</p>
                 </a>
             @endif
             <a href="/admin/moderation" class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm hover:border-blue-400">

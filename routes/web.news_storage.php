@@ -7,7 +7,6 @@ use App\Http\Controllers\NewsStorage\AdminController;
 use App\Http\Middleware\EnsureNewsStorageAdministrator;
 use App\Http\Middleware\EnsureNewsStorageModerator;
 use App\Livewire\StNews\ModerateNews;
-use App\Livewire\StNews\StNewsManage;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
@@ -19,8 +18,8 @@ $d = function () {
     Route::get('/storage-news/{id}', NewsStorage\Show::class)->whereNumber('id')->name('feed-storage-show');
 
     Route::get('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
-    Route::get('/admin/auth/vk', [AdminAuthController::class, 'redirect'])->middleware('throttle:10,1')->name('admin.vk');
-    Route::get('/admin/auth/vk/callback', [AdminAuthController::class, 'callback'])->middleware('throttle:10,1')->name('admin.vk.callback');
+    Route::get('/admin/auth/master', [AdminAuthController::class, 'redirect'])->middleware('throttle:10,1')->name('admin.master');
+    Route::get('/admin/auth/master/callback', [AdminAuthController::class, 'callback'])->middleware('throttle:10,1')->name('admin.master.callback');
     Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
     Route::prefix('admin')->middleware(EnsureNewsStorageModerator::class)->group(function () {
@@ -29,7 +28,8 @@ $d = function () {
 
         Route::middleware(EnsureNewsStorageAdministrator::class)->group(function () {
             Route::get('/news', NewsStorage\Index::class)->name('admin.news');
-            Route::get('/stn-news', StNewsManage::class)->name('admin.stn-news');
+            Route::get('/topics', NewsStorage\Topics::class)->name('admin.topics');
+            Route::redirect('/stn-news', '/admin/news')->name('admin.stn-news');
             Route::put('/access/{administrator}', [AdminController::class, 'updateAccess'])->name('admin.access.update');
         });
     });

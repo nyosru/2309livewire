@@ -28,6 +28,6 @@ class StNewsParsingSite extends Model
     // Связь с новостями
     public function news()
     {
-        return $this->hasMany(StNews::class, 'site_id');
+        return $this->hasMany(NewsStorageNews::class, 'site_id');
     }
 }

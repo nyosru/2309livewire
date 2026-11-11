@@ -2,7 +2,7 @@
 
 namespace App\Livewire\StNews;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use App\Services\StNews\AutoModerationNewsServices;
 use Livewire\Component;
 
@@ -13,7 +13,7 @@ class StNewsModeration extends Component
     public function mount()
     {
         // Получение новостей на модерации
-        $this->news = StNews::whereModerationRequired(true)
+        $this->news = NewsStorageNews::stn()->whereModerationRequired(true)
             ->whereNull('moderation')
             ->get();
     }

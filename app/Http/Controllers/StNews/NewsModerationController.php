@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\StNews;
 
 use App\Http\Controllers\Controller;
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 
 class NewsModerationController extends Controller
 {
     public function index()
     {
-        $news = StNews::where('moderation', 'pending')->paginate(10);
+        $news = NewsStorageNews::stn()->where('moderation_required', true)->whereNull('moderation')->paginate(10);
 
         return view('moderation.index', compact('news'));
     }
 
     public function approve($id)
     {
-        $news = StNews::findOrFail($id);
+        $news = NewsStorageNews::resolveLegacyOrCurrent($id);
         $news->update(['moderation' => 'approved']);
 
         return redirect()->back()->with('status', 'Новость одобрена.');
@@ -24,7 +24,7 @@ class NewsModerationController extends Controller
 
     public function reject($id)
     {
-        $news = StNews::findOrFail($id);
+        $news = NewsStorageNews::resolveLegacyOrCurrent($id);
         $news->update(['moderation' => 'rejected']);
 
         return redirect()->back()->with('status', 'Новость отклонена.');

@@ -3,8 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\NewsStorageNews;
-use App\Models\StNews;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -21,7 +19,7 @@ class StNewsList extends Component
 
     protected $listeners = ['deleteNews' => 'deleteNews'];
 
-    public function mount($newsId = null, string $articlePath = '/news')
+    public function mount($newsId = null, string $articlePath = '/news'): void
     {
         $this->newsId = $newsId;
         $this->articlePath = $articlePath;
@@ -29,30 +27,19 @@ class StNewsList extends Component
 
     public function render()
     {
-        $stn = StNews::inPublicFeed()->selectRaw("id, COALESCE(news_date, DATE(published_at)) as published_at, 'stn' as origin");
-        $storage = NewsStorageNews::published()
-            ->selectRaw("id, COALESCE(published_at, created_at) as published_at, 'storage' as origin");
-
-        $news = DB::query()->fromSub($stn->toBase()->unionAll($storage->toBase()), 'feed')
-            ->orderByDesc('published_at')
-            ->orderBy('origin')
+        $news = NewsStorageNews::inPublicFeed()
+            ->with(['storageSource', 'media', 'storageMedia', 'photos'])
+            ->orderByRaw('COALESCE(news_date, published_at, created_at) DESC')
             ->orderByDesc('id')
             ->paginate(10);
 
-        $items = $news->getCollection()->groupBy('origin');
-        $stnItems = StNews::inPublicFeed()->whereKey($items->get('stn', collect())->pluck('id')->all())
-            ->get()->keyBy('id');
-        $storageItems = NewsStorageNews::published()->whereKey($items->get('storage', collect())->pluck('id')->all())
-            ->with(['source', 'media'])->get()->keyBy('id');
-
-        return view('livewire.st-news-list', compact('news', 'stnItems', 'storageItems'));
+        return view('livewire.st-news-list', compact('news'));
     }
 
-    public function deleteNews($newsId)
+    public function deleteNews($newsId): void
     {
         Gate::authorize('manage-stn-news');
 
-        StNews::findOrFail($newsId)->delete();
-        $this->render();
+        NewsStorageNews::findOrFail($newsId)->delete();
     }
 }

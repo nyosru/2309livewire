@@ -24,12 +24,8 @@
 
             {{-- Сетка карточек --}}
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @foreach($news as $entry)
-                    @if($entry->origin === 'stn' && ($item = $stnItems->get($entry->id)))
-                        @livewire('st-news.st-news-item', ['newsItem' => $item, 'articlePath' => $articlePath], key('stn-'.$entry->id))
-                    @elseif($entry->origin === 'storage' && ($item = $storageItems->get($entry->id)))
-                        @include('livewire.news-storage.feed-item', ['item' => $item])
-                    @endif
+                @foreach($news as $item)
+                    @include('livewire.news-storage.feed-item', ['item' => $item])
                 @endforeach
             </div>
 

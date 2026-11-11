@@ -16,6 +16,7 @@ class StNewsMedia extends Model
 
     protected $fillable = [
         'st_news_id',
+        'newsstorage_news_id',
         'media_type',
         'photo_path',
         'local_photo',
@@ -39,7 +40,7 @@ class StNewsMedia extends Model
 
     public function news()
     {
-        return $this->belongsTo(StNews::class, 'st_news_id');
+        return $this->belongsTo(NewsStorageNews::class, 'newsstorage_news_id');
     }
 
     public function scopePhotos($query)

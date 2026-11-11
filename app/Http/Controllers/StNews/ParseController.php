@@ -4,7 +4,7 @@ namespace App\Http\Controllers\StNews;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Service\DateService;
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use App\Models\StNewsParsingCategory;
 use App\Models\StNewsParsingSite;
 use App\Models\StNewsPhoto;
@@ -379,12 +379,12 @@ class ParseController extends Controller
         foreach ($list as $n) {
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSite_id($site->id)->whereSource($n->link)->firstOrFail();
+                $ee = NewsStorageNews::stn()->whereSite_id($site->id)->whereSource($n->link)->firstOrFail();
             } catch (\Exception $e) {
                 // Если новость не найдена, добавляем её
                 //                $get['msg'][] = $e->getMessage();
                 // continue;
-                $in = new StNews;
+                $in = new NewsStorageNews;
                 $in->site_id = $site->id;
                 $in->title = $n->title;
 
@@ -502,12 +502,12 @@ class ParseController extends Controller
                 foreach ($get['news'] as $n) {
                     try {
                         // Проверяем, существует ли уже новость с таким источником
-                        $ee = StNews::whereSource($n['source'])->firstOrFail();
+                        $ee = NewsStorageNews::stn()->whereSource($n['source'])->firstOrFail();
                     } catch (\Exception $e) {
                         // Если новость не найдена, добавляем её
                         $get['msg'][] = $e->getMessage();
 
-                        $in = new StNews;
+                        $in = new NewsStorageNews;
                         $in->site_id = $parsingCatalog0->site_id;
                         $in->title = $n['title'];
                         $in->source = $n['source'];
@@ -563,7 +563,7 @@ class ParseController extends Controller
 
             try {
                 // Проверяем, существует ли уже новость с таким источником
-                $ee = StNews::whereSource($n['source'])->firstOrFail();
+                $ee = NewsStorageNews::stn()->whereSource($n['source'])->firstOrFail();
                 //                $get[] = 'есть такая';
             } catch (\Exception $e) {
                 //                $get[] = 'нет такая';
@@ -581,7 +581,7 @@ class ParseController extends Controller
                 }
 
                 // Если новость не найдена, добавляем её
-                $in = new StNews;
+                $in = new NewsStorageNews;
                 $in->site_id = $cat->site_id;
                 $in->cat_id = $catalog_search['catalog']->id;
                 $in->title = $n['title'];
@@ -619,12 +619,12 @@ class ParseController extends Controller
         $return = [];
 
         // Общее количество
-        $countAll = StNews::count();
+        $countAll = NewsStorageNews::stn()->count();
 
-        $countContentNull = StNews::whereNull('content')->count();
+        $countContentNull = NewsStorageNews::stn()->whereNull('content')->count();
 
         //        // Количество каталогов с полем last_scan меньше чем за 24 часа или пустое
-        //        $countRecentScans = StNews::where(function ($query) {
+        //        $countRecentScans = NewsStorageNews::where(function ($query) {
         //            $query->where('last_scan', '<', now()->subDay())
         //                ->orWhereNull('last_scan');
         //        })->count();
@@ -640,7 +640,7 @@ class ParseController extends Controller
         return $return;
     }
 
-    public function loadParsingNewsItem(StNews $news)
+    public function loadParsingNewsItem(NewsStorageNews $news)
     {
         $go = ['url' => $news->site->site_url.$news->source];
 
@@ -696,11 +696,11 @@ class ParseController extends Controller
     }
 
     /**
-     * @param  StNews  $news
+     * @param  NewsStorageNews  $news
      * @return array
      */
     public function saveParseNewsFullData(
-        StNews $i,
+        NewsStorageNews $i,
         $data
     ): array|bool {
         //        dd($data);
@@ -765,7 +765,7 @@ class ParseController extends Controller
 
         try {
             // Получаем пустую(ые) новость для парсинга
-            $parsingNewsItems = StNews::with('site', 'photos')
+            $parsingNewsItems = NewsStorageNews::stn()->with('site', 'photos')
                 ->whereNull('content')
                 ->whereHas('site', function ($query) {
                     $query->where('scan_status', true);
@@ -818,7 +818,7 @@ class ParseController extends Controller
         foreach ($images as $imagePath) {
             if (! empty($imagePath)) {
                 $insertData[] = [
-                    'st_news_id' => $news_id,
+                    'newsstorage_news_id' => $news_id,
                     // ID новости
                     'image_path' => (! strpos(strtolower($imagePath), $domain) ? 'https://'.$domain : '').$imagePath,
                     // Путь к изображению
@@ -842,8 +842,8 @@ class ParseController extends Controller
             $res = [];
 
             foreach ($newsItems as $item) {
-                // Создаем новый объект модели StNews
-                $news = new StNews;
+                // Создаем новый объект модели NewsStorageNews
+                $news = new NewsStorageNews;
 
                 // Заполняем поля модели
                 $news->title = $item['title'] ?? null;
@@ -925,7 +925,7 @@ class ParseController extends Controller
     public function autoModerateNews()
     {
         // Получаем новости, у которых moderation пустой
-        $newsWithoutModeration = StNews::whereNull('moderation')
+        $newsWithoutModeration = NewsStorageNews::stn()->whereNull('moderation')
             ->whereHas('site', function ($query) {
                 // Проверяем, чтобы у сайта было значение в time_to_auto_publish
                 $query->whereNotNull('time_to_auto_publish');

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 require 'web.zem_kadastr.php';
 require 'web.cups.php';
+require 'web.boba.php';
 require 'web.cals.php';
 require 'web.vkusno.php';
 require 'web.hleb.php';
@@ -54,6 +55,7 @@ require __DIR__.'/auth.php';
 // }
 
 require 'web.afisha.php';
+require 'web.vk_manager.php';
 
 // //Route::get('{.*}',function () {
 // //    return response( $_SERVER['HTTP_HOST'] ?? 'x' );

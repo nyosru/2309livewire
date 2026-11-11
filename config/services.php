@@ -57,6 +57,12 @@ return [
 
     ],
 
+    // Внешняя авторизация через Процесс Мастер. Секрет хранится только на серверах.
+    'vk_external_auth' => [
+        'base_url' => env('VK_EXTERNAL_AUTH_URL', 'https://xn--80ajb0aifhffacm9b.xn--p1ai'),
+        'secret' => env('VK_EXTERNAL_AUTH_SECRET'),
+    ],
+
     'raal' => [
         'admin_password' => env('PASS_FOR_RAAL'),
     ],

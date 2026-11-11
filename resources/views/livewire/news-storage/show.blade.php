@@ -7,12 +7,16 @@
         <div class="p-6">
             <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ $news->title }}</h1>
 
-            @if($news->source)
+            @if($news->storageSource)
                 <div class="text-sm text-gray-500 mb-4">
                     Источник:
-                    <a href="{{ $news->source->url }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 underline">
-                        {{ $news->source->name }}
+                    <a href="{{ $news->storageSource->url }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 underline">
+                        {{ $news->storageSource->name }}
                     </a>
+                </div>
+            @elseif($news->source)
+                <div class="text-sm text-gray-500 mb-4">
+                    Источник: <a href="{{ $news->source }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline">{{ $news->source }}</a>
                 </div>
             @endif
 
@@ -64,20 +68,35 @@
                 </div>
             @endif
 
-            @if($news->media->isNotEmpty())
+            @if($news->media->isNotEmpty() || $news->storageMedia->isNotEmpty() || $news->photos->isNotEmpty())
                 <div>
                     <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">Медиа</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         @foreach($news->media as $media)
                             <div class="border rounded-lg p-2 bg-gray-50">
+                                @if($media->media_type === 'photo')
+                                    <img src="{{ $media->local_photo ?: $media->photo_path }}" alt="{{ $media->alt ?? '' }}" class="w-full h-48 object-cover rounded" loading="lazy">
+                                @else
+                                    <a href="{{ $media->url }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 underline text-sm break-all">
+                                        {{ $media->media_type }} &mdash; {{ $media->url }}
+                                    </a>
+                                @endif
+                                <div class="text-xs text-gray-500 mt-1">{{ $media->media_type }}</div>
+                            </div>
+                        @endforeach
+                        @foreach($news->storageMedia as $media)
+                            <div class="border rounded-lg p-2 bg-gray-50">
                                 @if(in_array($media->type, ['image', 'photo']))
                                     <img src="{{ $media->url }}" alt="" class="w-full h-48 object-cover rounded" loading="lazy">
                                 @else
-                                    <a href="{{ $media->url }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 underline text-sm break-all">
-                                        {{ $media->type }} &mdash; {{ $media->url }}
-                                    </a>
+                                    <a href="{{ $media->url }}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 underline text-sm break-all">{{ $media->type }} &mdash; {{ $media->url }}</a>
                                 @endif
                                 <div class="text-xs text-gray-500 mt-1">{{ $media->type }}</div>
+                            </div>
+                        @endforeach
+                        @foreach($news->photos as $photo)
+                            <div class="border rounded-lg p-2 bg-gray-50">
+                                <img src="{{ $photo->local_photo ?: $photo->image_path }}" alt="" class="w-full h-48 object-cover rounded" loading="lazy">
                             </div>
                         @endforeach
                     </div>

@@ -99,7 +99,7 @@ class SwaggerController extends Controller
                         'type' => 'object',
                         'properties' => [
                             'id' => ['type' => 'integer'],
-                            'st_news_id' => ['type' => 'integer'],
+                            'newsstorage_news_id' => ['type' => 'integer'],
                             'media_type' => ['type' => 'string', 'enum' => ['photo', 'video']],
                             'url' => ['type' => ['string', 'null'], 'description' => 'Готовый URL (для фото — локальная копия или исходник).'],
                             'is_photo' => ['type' => 'boolean'],

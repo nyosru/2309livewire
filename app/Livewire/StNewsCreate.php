@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\StNews;
+use App\Models\NewsStorageNews;
 use App\Models\StNewsPhoto;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,7 +36,8 @@ class StNewsCreate extends Component
             'photos.*' => 'image|max:1024', // максимум 1MB на файл
         ]);
 
-        $news = StNews::create([
+        $news = NewsStorageNews::create([
+            'is_stn' => true,
             'title' => $this->title,
             'summary' => $this->summary,
             'content' => $this->content,
@@ -48,7 +49,7 @@ class StNewsCreate extends Component
         foreach ($this->photos as $photo) {
             $path = $photo->store('images', 'public');
             StNewsPhoto::create([
-                'st_news_id' => $news->id,
+                'newsstorage_news_id' => $news->id,
                 'image_path' => $path,
             ]);
         }
