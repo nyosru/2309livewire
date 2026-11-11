@@ -154,18 +154,24 @@ class VkManagerController extends Controller
                 'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
                 'apiError' => 'Для загрузки друзей и подписчиков нужно заново войти через VK и выдать доступ.',
                 'needsVkReconnect' => true,
+                'friendPage' => 1, 'friendPages' => 1, 'followerPage' => 1, 'followerPages' => 1,
             ]);
         }
 
+        $perPage = 200;
+        $friendPage = max(1, min(50000, (int) $request->query('friends_page', 1)));
+        $followerPage = max(1, min(50000, (int) $request->query('followers_page', 1)));
         $friendsResponse = $this->vk($user->vk_token, 'friends.get', [
             'user_id' => $user->vk_id,
             'order' => 'hints',
-            'count' => 5000,
+            'count' => $perPage,
+            'offset' => ($friendPage - 1) * $perPage,
             'fields' => 'photo_100,domain',
         ]);
         $followersResponse = $this->vk($user->vk_token, 'users.getFollowers', [
             'user_id' => $user->vk_id,
-            'count' => 1000,
+            'count' => $perPage,
+            'offset' => ($followerPage - 1) * $perPage,
             'fields' => 'photo_100,domain',
         ]);
 
@@ -175,6 +181,8 @@ class VkManagerController extends Controller
             return view('vk_manager.index', [
                 'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
                 'comments' => [], 'favorites' => [], 'apiError' => 'VK не разрешил получить списки. Переподключите аккаунт и разрешите доступ к друзьям.',
+                'needsVkReconnect' => false,
+                'friendPage' => $friendPage, 'friendPages' => 1, 'followerPage' => $followerPage, 'followerPages' => 1,
             ]);
         }
 
@@ -189,11 +197,18 @@ class VkManagerController extends Controller
             unset($person);
         }
 
+        $friendCount = (int) data_get($friendsResponse, 'response.count', count($friends));
+        $followerCount = (int) data_get($followersResponse, 'response.count', count($followers));
+
         return view('vk_manager.index', [
             'friends' => $friends,
             'followers' => $followers,
-            'friendCount' => data_get($friendsResponse, 'response.count', count($friends)),
-            'followerCount' => data_get($followersResponse, 'response.count', count($followers)),
+            'friendCount' => $friendCount,
+            'followerCount' => $followerCount,
+            'friendPage' => $friendPage,
+            'friendPages' => max(1, (int) ceil($friendCount / $perPage)),
+            'followerPage' => $followerPage,
+            'followerPages' => max(1, (int) ceil($followerCount / $perPage)),
             'apiError' => data_get($friendsResponse, 'error.error_msg') ?? data_get($followersResponse, 'error.error_msg'),
             'needsVkReconnect' => false,
         ]);
