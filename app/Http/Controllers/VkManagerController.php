@@ -267,6 +267,10 @@ class VkManagerController extends Controller
         $firstVkError = null;
         foreach ($selectedIds as $id) {
             $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
+            if ((int) data_get($response, 'error.error_code') === 3) {
+                $response = $this->vkGet($user->vk_token, 'friends.delete', ['user_id' => $id]);
+            }
+
             if (isset($response['error'])) {
                 $errorCode = data_get($response, 'error.error_code');
                 $errorMessage = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
@@ -322,6 +326,16 @@ class VkManagerController extends Controller
     private function vk(string $token, string $method, array $parameters = []): array
     {
         $response = Http::asForm()->post("https://api.vk.com/method/{$method}", array_merge($parameters, [
+            'access_token' => $token,
+            'v' => config('services.vk.api_version', '5.199'),
+        ]));
+
+        return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
+    }
+
+    private function vkGet(string $token, string $method, array $parameters = []): array
+    {
+        $response = Http::get("https://api.vk.com/method/{$method}", array_merge($parameters, [
             'access_token' => $token,
             'v' => config('services.vk.api_version', '5.199'),
         ]));
