@@ -267,7 +267,9 @@ class VkManagerController extends Controller
         foreach ($selectedIds as $id) {
             $response = $this->vk($user->vk_token, 'friends.delete', ['user_id' => $id]);
             if (isset($response['error'])) {
-                $errors[] = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
+                $errorCode = data_get($response, 'error.error_code');
+                $errorMessage = (string) data_get($response, 'error.error_msg', 'VK отклонил удаление.');
+                $errors[] = $errorCode ? "VK API {$errorCode}: {$errorMessage}" : $errorMessage;
                 continue;
             }
 
