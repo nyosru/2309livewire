@@ -270,6 +270,9 @@ class VkManagerController extends Controller
             if ((int) data_get($response, 'error.error_code') === 3) {
                 $response = $this->vkGet($user->vk_token, 'friends.delete', ['user_id' => $id]);
             }
+            if ((int) data_get($response, 'error.error_code') === 3) {
+                $response = $this->vkGet($user->vk_token, 'friends.delete', ['user_id' => $id], '5.131');
+            }
 
             if (isset($response['error'])) {
                 $errorCode = data_get($response, 'error.error_code');
@@ -279,10 +282,11 @@ class VkManagerController extends Controller
                     ->reject(fn ($parameter) => in_array(data_get($parameter, 'key'), ['access_token', 'client_secret', 'code', 'state'], true))
                     ->values()
                     ->all();
+                $requestVersion = collect($requestParameters)->firstWhere('key', 'v')['value'] ?? config('services.vk.api_version', '5.199');
                 $vkErrors[] = [
                     'vk_user_id' => $id,
                     'method' => 'friends.delete',
-                    'api_version' => config('services.vk.api_version', '5.199'),
+                    'api_version' => $requestVersion,
                     'error_code' => $errorCode,
                     'error_message' => $errorMessage,
                     'request_parameters' => $requestParameters,
@@ -332,11 +336,11 @@ class VkManagerController extends Controller
         return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
     }
 
-    private function vkGet(string $token, string $method, array $parameters = []): array
+    private function vkGet(string $token, string $method, array $parameters = [], ?string $version = null): array
     {
         $response = Http::get("https://api.vk.com/method/{$method}", array_merge($parameters, [
             'access_token' => $token,
-            'v' => config('services.vk.api_version', '5.199'),
+            'v' => $version ?? config('services.vk.api_version', '5.199'),
         ]));
 
         return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
