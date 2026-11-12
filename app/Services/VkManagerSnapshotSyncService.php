@@ -28,10 +28,19 @@ class VkManagerSnapshotSyncService
             'user_id' => $owner->vk_id,
             'fields' => 'photo_100,domain',
         ]);
+        $outgoingRequests = $this->fetchCompleteList($owner, 'friends.getRequests', [
+            'out' => 1,
+            'extended' => 1,
+            'fields' => 'photo_100,domain',
+        ]);
 
-        $result = $this->history->reconcileSnapshot($owner, $friends, $followers, $source);
+        $result = $this->history->reconcileSnapshot($owner, $friends, $followers, $source, $outgoingRequests);
 
-        return $result + ['friends' => count($friends), 'followers' => count($followers)];
+        return $result + [
+            'friends' => count($friends),
+            'followers' => count($followers),
+            'outgoing_requests' => count($outgoingRequests),
+        ];
     }
 
     private function fetchCompleteList(User $owner, string $method, array $parameters): array

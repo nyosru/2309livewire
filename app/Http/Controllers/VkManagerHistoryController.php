@@ -6,10 +6,34 @@ use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Throwable;
 
 class VkManagerHistoryController extends Controller
 {
+    public function instructions(): View
+    {
+        $markdown = file_get_contents(base_path('docs/vk-manager-history.md')) ?: '';
+        $agentHeading = '## Для агентов, выполняющих действия с друзьями';
+        $agentStart = strpos($markdown, $agentHeading);
+        $agentEnd = $agentStart === false ? false : strpos($markdown, "\n## ", $agentStart + strlen($agentHeading));
+
+        if ($agentStart === false) {
+            $agentGuide = '';
+            $otherGuide = $markdown;
+        } else {
+            $agentEnd = $agentEnd === false ? strlen($markdown) : $agentEnd;
+            $agentGuide = substr($markdown, $agentStart, $agentEnd - $agentStart);
+            $otherGuide = trim(substr($markdown, 0, $agentStart).substr($markdown, $agentEnd));
+        }
+
+        return view('vk_manager.instructions', [
+            'agentGuideHtml' => Str::markdown($agentGuide),
+            'otherGuideHtml' => Str::markdown($otherGuide),
+        ]);
+    }
+
     public function sync(Request $request, VkManagerSnapshotSyncService $snapshotSync, VkManagerHistoryService $history): JsonResponse
     {
         try {
@@ -27,7 +51,7 @@ class VkManagerHistoryController extends Controller
     {
         $data = $request->validate([
             'vk_id' => ['required', 'string', 'regex:/^[1-9][0-9]{0,19}$/'],
-            'status' => ['required', 'string', 'in:friend,follower,none'],
+            'status' => ['required', 'string', 'in:friend,follower,outgoing_request,none'],
             'first_name' => ['nullable', 'string', 'max:100'],
             'last_name' => ['nullable', 'string', 'max:100'],
             'display_name' => ['nullable', 'string', 'max:255'],

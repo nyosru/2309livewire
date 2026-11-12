@@ -112,16 +112,22 @@ class VkManagerHistoryService
         });
     }
 
-    /** Observe one or both partial pages. Missing people are never marked stale. */
+    /** Observe partial friends/followers pages. Missing people are never marked stale. */
     public function observeLists(User $owner, array $friends, array $followers, string $source = 'vk_api_page'): array
     {
-        return $this->applyObservations($owner, $friends, $followers, $source, false);
+        return $this->applyObservations($owner, $friends, $followers, [], $source, false);
     }
 
-    /** Reconcile only when both arrays contain complete, untruncated VK lists. */
-    public function reconcileSnapshot(User $owner, array $friends, array $followers, string $source = 'full_snapshot'): array
+    /** Reconcile only when all arrays contain complete, untruncated VK lists. */
+    public function reconcileSnapshot(
+        User $owner,
+        array $friends,
+        array $followers,
+        string $source = 'full_snapshot',
+        array $outgoingRequests = [],
+    ): array
     {
-        return $this->applyObservations($owner, $friends, $followers, $source, true);
+        return $this->applyObservations($owner, $friends, $followers, $outgoingRequests, $source, true);
     }
 
     public function summary(User $owner): array
@@ -137,8 +143,10 @@ class VkManagerHistoryService
             'membership_records' => $account ? (clone $base)->count() : 0,
             'current_friends' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_FRIEND)->where('is_current', true)->count() : 0,
             'current_followers' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_FOLLOWER)->where('is_current', true)->count() : 0,
+            'current_outgoing_requests' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_OUTGOING_REQUEST)->where('is_current', true)->count() : 0,
             'former_friend_periods' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_FRIEND)->where('is_current', false)->count() : 0,
             'former_follower_periods' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_FOLLOWER)->where('is_current', false)->count() : 0,
+            'former_outgoing_request_periods' => $account ? (clone $base)->where('status', VkManagerMembership::STATUS_OUTGOING_REQUEST)->where('is_current', false)->count() : 0,
             'favorites' => (clone $contacts)->where('is_favorite', true)->count(),
             'comments' => (clone $contacts)->whereNotNull('comment')->where('comment', '<>', '')->count(),
             'last_observed_at' => $account?->last_observed_at,
@@ -146,10 +154,17 @@ class VkManagerHistoryService
         ];
     }
 
-    private function applyObservations(User $owner, array $friends, array $followers, string $source, bool $complete): array
+    private function applyObservations(User $owner, array $friends, array $followers, array $outgoingRequests, string $source, bool $complete): array
     {
         $source = $this->normalizeSource($source);
         $observations = [];
+
+        foreach ($outgoingRequests as $person) {
+            $observation = $this->normalizePerson($person, VkManagerMembership::STATUS_OUTGOING_REQUEST);
+            if ($observation) {
+                $observations[$observation['vk_id']] = $observation;
+            }
+        }
 
         foreach ($followers as $person) {
             $observation = $this->normalizePerson($person, VkManagerMembership::STATUS_FOLLOWER);
@@ -296,11 +311,13 @@ class VkManagerHistoryService
         if (is_object($person)) {
             $person = (array) $person;
         }
-        if (! is_array($person)) {
+        if (is_string($person) || is_int($person)) {
+            $person = ['vk_id' => $person];
+        } elseif (! is_array($person)) {
             return null;
         }
 
-        $id = $person['vk_id'] ?? $person['id'] ?? null;
+        $id = $person['vk_id'] ?? $person['id'] ?? $person['user_id'] ?? null;
         if (! is_string($id) && ! is_int($id)) {
             return null;
         }
@@ -350,8 +367,8 @@ class VkManagerHistoryService
         if ($status === null) {
             return null;
         }
-        if (! in_array($status, [VkManagerMembership::STATUS_FRIEND, VkManagerMembership::STATUS_FOLLOWER], true)) {
-            throw new InvalidArgumentException('Status must be friend, follower, or null.');
+        if (! in_array($status, [VkManagerMembership::STATUS_FRIEND, VkManagerMembership::STATUS_FOLLOWER, VkManagerMembership::STATUS_OUTGOING_REQUEST], true)) {
+            throw new InvalidArgumentException('Status must be friend, follower, outgoing_request, or null.');
         }
 
         return $status;

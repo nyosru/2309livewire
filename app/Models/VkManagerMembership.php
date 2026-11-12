@@ -11,6 +11,8 @@ class VkManagerMembership extends Model
 
     public const STATUS_FOLLOWER = 'follower';
 
+    public const STATUS_OUTGOING_REQUEST = 'outgoing_request';
+
     protected $fillable = [
         'account_id', 'person_id', 'status', 'is_current', 'started_at', 'ended_at', 'source',
     ];
