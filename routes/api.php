@@ -24,6 +24,13 @@ require 'api.phpcat.php';
 
 Route::get('qr', [QrController::class, 'create'])->name('qr.create');
 
+Route::prefix('vk-manager/agent')->middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+    Route::get('lists', [\App\Http\Controllers\Api\VkManagerAgentController::class, 'lists'])->name('api.vk-manager.agent.lists');
+    Route::post('sync', [\App\Http\Controllers\Api\VkManagerAgentController::class, 'sync'])->middleware('throttle:5,1')->name('api.vk-manager.agent.sync');
+    Route::put('people/{vkId}/notes', [\App\Http\Controllers\Api\VkManagerAgentController::class, 'updateNote'])->where('vkId', '[1-9][0-9]{0,19}')->name('api.vk-manager.agent.notes');
+    Route::post('history/status', [\App\Http\Controllers\VkManagerHistoryController::class, 'store'])->name('api.vk-manager.agent.history.status');
+});
+
 Route::post('blog', [\App\Http\Controllers\Api\BlogApiController::class, 'store'])->name('api.blog.store');
 Route::post('max/webhook', \App\Http\Controllers\Max\WebhookController::class)->middleware('throttle:120,1')->name('api.max.webhook');
 Route::prefix('max/service')->middleware([\App\Http\Middleware\EnsureMaxServiceClient::class, 'throttle:60,1'])->group(function () {

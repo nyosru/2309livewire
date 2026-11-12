@@ -33,6 +33,9 @@
         @if(filled($person['manager_comment']))
             <div class="comment">{{ $person['manager_comment'] }}</div>
         @endif
+        @if(filled($person['manager_agent_comment'] ?? null))
+            <div class="comment agent-comment"><strong>Информация агента:</strong> {{ $person['manager_agent_comment'] }}</div>
+        @endif
         <form class="comment-form" method="post" action="/friends/{{ $person['id'] }}/comment">
             @csrf
             <input name="comment" maxlength="2000" value="{{ $person['manager_comment'] }}" placeholder="Комментарий">

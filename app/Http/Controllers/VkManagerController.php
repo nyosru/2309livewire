@@ -266,6 +266,7 @@ class VkManagerController extends Controller
             foreach ($$listName as &$person) {
                 $contact = $metadata->get($person['id']);
                 $person['manager_comment'] = $contact?->comment;
+                $person['manager_agent_comment'] = $contact?->agent_comment;
                 $person['manager_favorite'] = $contact?->is_favorite ?? false;
             }
             unset($person);
