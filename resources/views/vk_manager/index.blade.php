@@ -42,15 +42,17 @@ document.addEventListener('submit',async(event)=>{
     const nextFavorite=favoriteInput.value==='1';
     const updateRow=(isFavorite)=>{
         row.dataset.favorite=isFavorite?'1':'0';
-        row.hidden=Boolean(isFavorite);
+        row.hidden=Boolean(isFavorite&&document.getElementById('hide-favorites')?.checked);
         favoriteInput.value=isFavorite?'0':'1';
         favoriteButton.textContent=isFavorite?'★ Убрать':'☆ В избранное';
         if(row.hidden){const checkbox=row.querySelector('input[name="friends[]"]');if(checkbox)checkbox.checked=false}
         updateSelectButton();
     };
+    const formData=new FormData(form);
+    formData.set('is_favorite',nextFavorite?'1':'0');
     form.dataset.pending='1';favoriteButton.disabled=true;errorMessage.textContent='';updateRow(nextFavorite);
     try{
-        const response=await fetch(form.action,{method:'POST',body:new FormData(form),credentials:'same-origin',headers:{'Accept':'application/json','X-Requested-With':'XMLHttpRequest'}});
+        const response=await fetch(form.action,{method:'POST',body:formData,credentials:'same-origin',headers:{'Accept':'application/json','X-Requested-With':'XMLHttpRequest'}});
         const result=await response.json();
         if(!response.ok||result.ok!==true)throw new Error(result.message||'Не удалось сохранить отметку.');
         updateRow(Boolean(result.is_favorite));
