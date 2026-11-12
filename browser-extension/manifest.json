@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "VK Friend Manager",
+  "version": "1.0.0",
+  "description": "Удаление выбранных друзей через интерфейс VK в текущем профиле Firefox.",
+  "permissions": [
+    "https://vk.php-cat.ru/*",
+    "https://vk.com/*"
+  ],
+  "background": {
+    "scripts": ["protocol.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://vk.php-cat.ru/*"],
+      "js": ["protocol.js", "site-bridge.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://vk.com/*"],
+      "js": ["vk-page.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "vk-friend-manager@php-cat.ru",
+      "strict_min_version": "109.0"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <article class="person friend-row" data-favorite="{{ $person['manager_favorite'] ? '1' : '0' }}">
     <div class="friend-row-select">
         <label class="friend-select">
-            <input form="remove-form" class="check" type="checkbox" name="friends[]" value="{{ $person['id'] }}" aria-label="Выбрать {{ $person['first_name'] }}">
+            <input class="check" type="checkbox" name="friends[]" value="{{ $person['id'] }}" aria-label="Выбрать {{ $person['first_name'] }}">
         </label>
     </div>
     <div class="friend-row-account">
