@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
-use App\Models\VkManagerMembership;
 use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Http\Client\ConnectionException;
@@ -185,83 +183,9 @@ class VkManagerController extends Controller
             return redirect('/login');
         }
 
-        $user = Auth::user();
-        $history = app(VkManagerHistoryService::class);
-        $dbStats = $history->summary($user);
-        $perPage = 200;
-        $friendPage = max(1, min(50000, (int) $request->query('friends_page', 1)));
-        $followerPage = max(1, min(50000, (int) $request->query('followers_page', 1)));
-        $requestPage = max(1, min(50000, (int) $request->query('requests_page', 1)));
-        $account = VkManagerAccount::query()->where('user_id', $user->getKey())->first();
-        $statusByList = [
-            'friends' => VkManagerMembership::STATUS_FRIEND,
-            'followers' => VkManagerMembership::STATUS_FOLLOWER,
-            'requests' => VkManagerMembership::STATUS_OUTGOING_REQUEST,
-        ];
-        $pageByList = ['friends' => $friendPage, 'followers' => $followerPage, 'requests' => $requestPage];
-        $lists = [];
-        $counts = [];
-        foreach ($statusByList as $listName => $status) {
-            $query = VkManagerMembership::query()
-                ->with('person')
-                ->where('account_id', $account?->getKey())
-                ->where('status', $status)
-                ->where('is_current', true);
-            $counts[$listName] = (clone $query)->count();
-            $lists[$listName] = $query->orderBy('id')
-                ->offset(($pageByList[$listName] - 1) * $perPage)
-                ->limit($perPage)
-                ->get()
-                ->map(static function (VkManagerMembership $membership): array {
-                    $person = $membership->person;
-                    return [
-                        'id' => $person?->vk_id,
-                        'first_name' => $person?->first_name ?? 'Пользователь',
-                        'last_name' => $person?->last_name ?? '',
-                        'domain' => $person?->domain,
-                        'photo_100' => $person?->photo_url,
-                    ];
-                })
-                ->filter(fn (array $person) => $person['id'] !== null)
-                ->values()
-                ->all();
-        }
-        $friends = $lists['friends'];
-        $followers = $lists['followers'];
-        $requests = $lists['requests'];
-        $ids = collect($friends)->merge($followers)->merge($requests)->pluck('id')->map(fn ($id) => (int) $id)->unique();
-        $metadata = VkManagerContact::query()->where('user_id', $user->id)->whereIn('vk_friend_id', $ids)->get()->keyBy('vk_friend_id');
-        foreach (['friends', 'followers', 'requests'] as $listName) {
-            foreach ($$listName as &$person) {
-                $contact = $metadata->get($person['id']);
-                $person['manager_comment'] = $contact?->comment;
-                $person['manager_agent_comment'] = $contact?->agent_comment;
-                $person['manager_favorite'] = $contact?->is_favorite ?? false;
-            }
-            unset($person);
-        }
-
-        $friendCount = $counts['friends'];
-        $followerCount = $counts['followers'];
-        $requestCount = $counts['requests'];
-
         return view('vk_manager.index', [
-            'friends' => $friends,
-            'followers' => $followers,
-            'requests' => $requests,
-            'friendCount' => $friendCount,
-            'followerCount' => $followerCount,
-            'requestCount' => $requestCount,
-            'friendPage' => $friendPage,
-            'friendPages' => max(1, (int) ceil($friendCount / $perPage)),
-            'followerPage' => $followerPage,
-            'followerPages' => max(1, (int) ceil($followerCount / $perPage)),
-            'requestPage' => $requestPage,
-            'requestPages' => max(1, (int) ceil($requestCount / $perPage)),
             'apiError' => null,
-            'requestApiError' => null,
             'needsVkReconnect' => false,
-            'dbStats' => $dbStats,
         ]);
     }
 
