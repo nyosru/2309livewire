@@ -1,9 +1,11 @@
-<article class="person friend-row" data-favorite="{{ $person['manager_favorite'] ? '1' : '0' }}">
-    <div class="friend-row-select">
-        <label class="friend-select">
-            <input class="check" type="checkbox" name="friends[]" value="{{ $person['id'] }}" aria-label="Выбрать {{ $person['first_name'] }}">
-        </label>
-    </div>
+<article class="person friend-row contact-row" data-favorite="{{ $person['manager_favorite'] ? '1' : '0' }}">
+    @if($selectable ?? true)
+        <div class="friend-row-select">
+            <label class="friend-select">
+                <input class="check" type="checkbox" name="friends[]" value="{{ $person['id'] }}" aria-label="Выбрать {{ $person['first_name'] }}">
+            </label>
+        </div>
+    @endif
     <div class="friend-row-account">
         @if(!empty($person['photo_100']))
             <img src="{{ $person['photo_100'] }}" alt="">

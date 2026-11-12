@@ -17,7 +17,7 @@
     <a class="brand" href="#top" aria-label="боба.рф — гипнолог Сергей Бакланов"><span class="brand-oval">боба.рф</span><span
             class="brand-copy"><strong>Сергей Бакланов</strong><small>гипнолог</small></span></a>
     <nav aria-label="Основная навигация"><a href="#services">Направления</a><a href="#approach">Как проходит
-            работа</a><a href="#discount">Скидка 50%</a></nav>
+            работа</a></nav>
     <button class="button button-small" type="button" data-consult="Бесплатная консультация">Записаться <span>↗</span>
     </button>
 </header>
@@ -151,20 +151,6 @@
         </div>
     </section>
 
-    <section class="discount wrap" id="discount">
-        <div class="discount-art"><span class="discount-star">✳</span><span
-                class="discount-big">−50<small>%</small></span><span
-                class="discount-caption">ОДИН РАЗ<br>В НЕДЕЛЮ</span></div>
-        <div class="discount-copy"><p class="eyebrow">ЕЖЕНЕДЕЛЬНЫЙ РОЗЫГРЫШ</p>
-            <h2>Одна встреча<br><em>со скидкой 50%</em></h2>
-            <p>Раз в неделю случайным образом выбирается один участник. Победитель получает скидку 50% на одну
-                встречу.</p>
-            <p>Участие означает согласие на видеозапись встречи и её использование для показа и просмотра. Вы можете
-                оставить заявку на бесплатную консультацию и не участвовать в розыгрыше.</p>
-            <button class="button button-dark" type="button" data-consult="Розыгрыш скидки 50%" data-discount="1">
-                Оставить заявку и участвовать <span>↗</span></button>
-        </div>
-    </section>
 </main>
 
 <x-boba.footer />

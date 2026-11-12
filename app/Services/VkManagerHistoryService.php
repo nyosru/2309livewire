@@ -13,6 +13,8 @@ use InvalidArgumentException;
 
 class VkManagerHistoryService
 {
+    private const DB_BATCH_SIZE = 500;
+
     public function ensureAccount(User $owner): VkManagerAccount
     {
         $vkId = $this->normalizeVkId((string) $owner->vk_id);
@@ -210,27 +212,31 @@ class VkManagerHistoryService
             }
 
             if ($peopleRows !== []) {
-                VkManagerPerson::query()->upsert(
-                    $peopleRows,
-                    ['vk_id'],
-                    ['first_name', 'last_name', 'display_name', 'domain', 'photo_url', 'last_profile_sync_at', 'updated_at'],
-                );
+                foreach (array_chunk($peopleRows, self::DB_BATCH_SIZE) as $peopleBatch) {
+                    VkManagerPerson::query()->upsert(
+                        $peopleBatch,
+                        ['vk_id'],
+                        ['first_name', 'last_name', 'display_name', 'domain', 'photo_url', 'last_profile_sync_at', 'updated_at'],
+                    );
+                }
             }
 
-            $people = VkManagerPerson::query()
-                ->whereIn('vk_id', array_keys($observations))
-                ->get()
-                ->keyBy('vk_id');
+            $people = collect();
+            foreach (array_chunk(array_keys($observations), self::DB_BATCH_SIZE) as $vkIdsBatch) {
+                $people = $people->concat(VkManagerPerson::query()->whereIn('vk_id', $vkIdsBatch)->get());
+            }
+            $people = $people->keyBy('vk_id');
             $personIds = $people->pluck('id')->map(fn ($id) => (int) $id)->all();
-            $currentByPerson = $personIds === []
-                ? collect()
-                : VkManagerMembership::query()
+            $currentMemberships = collect();
+            foreach (array_chunk($personIds, self::DB_BATCH_SIZE) as $personIdsBatch) {
+                $currentMemberships = $currentMemberships->concat(VkManagerMembership::query()
                     ->where('account_id', $account->getKey())
                     ->where('is_current', true)
-                    ->whereIn('person_id', $personIds)
+                    ->whereIn('person_id', $personIdsBatch)
                     ->lockForUpdate()
-                    ->get()
-                    ->groupBy('person_id');
+                    ->get());
+            }
+            $currentByPerson = $currentMemberships->groupBy('person_id');
 
             $membershipIdsToClose = [];
             $membershipsToInsert = [];
@@ -263,24 +269,42 @@ class VkManagerHistoryService
             }
 
             if ($membershipIdsToClose !== []) {
-                VkManagerMembership::query()->whereIn('id', $membershipIdsToClose)->update([
-                    'is_current' => false,
-                    'ended_at' => $now,
-                ]);
+                foreach (array_chunk($membershipIdsToClose, self::DB_BATCH_SIZE) as $membershipIdsBatch) {
+                    VkManagerMembership::query()->whereIn('id', $membershipIdsBatch)->update([
+                        'is_current' => false,
+                        'ended_at' => $now,
+                    ]);
+                }
             }
             if ($membershipsToInsert !== []) {
-                VkManagerMembership::query()->insert($membershipsToInsert);
+                foreach (array_chunk($membershipsToInsert, self::DB_BATCH_SIZE) as $membershipsBatch) {
+                    VkManagerMembership::query()->insert($membershipsBatch);
+                }
             }
 
             $staled = 0;
             if ($complete) {
-                $missing = VkManagerMembership::query()
+                $currentMemberships = VkManagerMembership::query()
                     ->where('account_id', $account->getKey())
                     ->where('is_current', true);
-                if ($personIds !== []) {
-                    $missing->whereNotIn('person_id', $personIds);
+
+                if ($personIds === []) {
+                    $staled = $currentMemberships->update(['is_current' => false, 'ended_at' => $now]);
+                } else {
+                    $observedPersonIds = array_fill_keys($personIds, true);
+                    $currentMemberships->select(['id', 'person_id'])->chunkById(self::DB_BATCH_SIZE, function ($membershipBatch) use ($observedPersonIds, $now, &$staled): void {
+                        $staleIds = $membershipBatch
+                            ->filter(fn (VkManagerMembership $membership) => ! isset($observedPersonIds[(int) $membership->person_id]))
+                            ->modelKeys();
+
+                        if ($staleIds !== []) {
+                            $staled += VkManagerMembership::query()->whereIn('id', $staleIds)->update([
+                                'is_current' => false,
+                                'ended_at' => $now,
+                            ]);
+                        }
+                    });
                 }
-                $staled = $missing->update(['is_current' => false, 'ended_at' => $now]);
             }
 
             $accountTimestamps = ['last_observed_at' => $now];
