@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\VkManagerContact;
 use App\Models\User;
+use App\Services\VkManagerHistoryService;
+use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Throwable;
 
 class VkManagerController extends Controller
 {
@@ -52,7 +56,11 @@ class VkManagerController extends Controller
         return redirect()->away($response->json('authorization_url'));
     }
 
-    public function callback(Request $request): RedirectResponse
+    public function callback(
+        Request $request,
+        VkManagerHistoryService $history,
+        VkManagerSnapshotSyncService $snapshotSync,
+    ): RedirectResponse
     {
         $expectedState = $request->session()->pull('vk_manager_master_auth_state');
         $returnUrl = $request->session()->pull('vk_manager_master_auth_return_url');
@@ -127,10 +135,38 @@ class VkManagerController extends Controller
             ]);
         }
 
+        $historyMessage = null;
+        $historyError = null;
+        $account = $history->ensureAccount($user);
+        if (! $account->last_full_sync_at) {
+            try {
+                $snapshot = $snapshotSync->sync($user, 'initial_authorization');
+                $historyMessage = sprintf(
+                    'Первичная история VK загружена: %d друзей и %d подписчиков.',
+                    $snapshot['friends'],
+                    $snapshot['followers'],
+                );
+            } catch (Throwable $exception) {
+                logger()->warning('Initial VK history synchronization failed', [
+                    'user_id' => $user->getKey(),
+                    'exception' => $exception::class,
+                ]);
+                $historyError = 'Вход выполнен, но полную историю списков VK загрузить не удалось. Попробуйте кнопку «Обновить состояние» в разделе «Данные в БД».';
+            }
+        }
+
         Auth::login($user, true);
         $request->session()->regenerate();
 
-        return redirect('/');
+        $redirect = redirect('/');
+        if ($historyMessage) {
+            $redirect->with('status', $historyMessage);
+        }
+        if ($historyError) {
+            $redirect->with('error', $historyError);
+        }
+
+        return $redirect;
     }
 
     public function logout(Request $request): RedirectResponse
@@ -149,12 +185,15 @@ class VkManagerController extends Controller
         }
 
         $user = Auth::user();
+        $history = app(VkManagerHistoryService::class);
+        $dbStats = $history->summary($user);
         if (! $user->vk_token || ! $user->vk_id) {
             return view('vk_manager.index', [
                 'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
                 'apiError' => 'Для загрузки друзей и подписчиков нужно заново войти через VK и выдать доступ.',
                 'needsVkReconnect' => true,
                 'friendPage' => 1, 'friendPages' => 1, 'followerPage' => 1, 'followerPages' => 1,
+                'dbStats' => $dbStats,
             ]);
         }
 
@@ -183,8 +222,12 @@ class VkManagerController extends Controller
                 'comments' => [], 'favorites' => [], 'apiError' => 'VK не разрешил получить списки. Переподключите аккаунт и разрешите доступ к друзьям.',
                 'needsVkReconnect' => false,
                 'friendPage' => $friendPage, 'friendPages' => 1, 'followerPage' => $followerPage, 'followerPages' => 1,
+                'dbStats' => $dbStats,
             ]);
         }
+
+        $history->observeLists($user, $friends, $followers, 'vk_api_page');
+        $dbStats = $history->summary($user);
 
         $ids = collect($friends)->merge($followers)->pluck('id')->map(fn ($id) => (int) $id)->unique();
         $metadata = VkManagerContact::query()->where('user_id', $user->id)->whereIn('vk_friend_id', $ids)->get()->keyBy('vk_friend_id');
@@ -211,12 +254,18 @@ class VkManagerController extends Controller
             'followerPages' => max(1, (int) ceil($followerCount / $perPage)),
             'apiError' => data_get($friendsResponse, 'error.error_msg') ?? data_get($followersResponse, 'error.error_msg'),
             'needsVkReconnect' => false,
+            'dbStats' => $dbStats,
         ]);
     }
 
-    public function favorite(int $vkFriendId): RedirectResponse
+    public function favorite(Request $request, int $vkFriendId): RedirectResponse|JsonResponse
     {
-        $this->saveContact($vkFriendId, ['is_favorite' => request()->boolean('is_favorite')]);
+        $isFavorite = $request->boolean('is_favorite');
+        $this->saveContact($vkFriendId, ['is_favorite' => $isFavorite]);
+
+        if ($request->expectsJson()) {
+            return response()->json(['ok' => true, 'is_favorite' => $isFavorite]);
+        }
 
         return back()->with('status', 'Отметка избранного сохранена.');
     }

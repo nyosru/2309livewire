@@ -20,10 +20,11 @@
         </div>
     </div>
     <div class="friend-row-favorite">
-        <form method="post" action="/friends/{{ $person['id'] }}/favorite">
+        <form class="favorite-form" method="post" action="/friends/{{ $person['id'] }}/favorite">
             @csrf
             <input type="hidden" name="is_favorite" value="{{ $person['manager_favorite'] ? 0 : 1 }}">
             <button class="favorite">{{ $person['manager_favorite'] ? '★ Убрать' : '☆ В избранное' }}</button>
+            <span class="favorite-error tiny" role="status"></span>
         </form>
     </div>
     <div class="friend-row-comment">

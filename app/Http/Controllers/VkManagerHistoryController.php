@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Services\VkManagerHistoryService;
+use App\Services\VkManagerSnapshotSyncService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Throwable;
+
+class VkManagerHistoryController extends Controller
+{
+    public function sync(Request $request, VkManagerSnapshotSyncService $snapshotSync, VkManagerHistoryService $history): JsonResponse
+    {
+        try {
+            $result = $snapshotSync->sync($request->user(), 'manual_full_sync');
+        } catch (Throwable $exception) {
+            return response()->json([
+                'message' => 'VK не подтвердил полную загрузку списков. История не изменена: '.$exception->getMessage(),
+            ], 502);
+        }
+
+        return response()->json($result + ['summary' => $history->summary($request->user())]);
+    }
+
+    public function store(Request $request, VkManagerHistoryService $history): JsonResponse
+    {
+        $data = $request->validate([
+            'vk_id' => ['required', 'string', 'regex:/^[1-9][0-9]{0,19}$/'],
+            'status' => ['required', 'string', 'in:friend,follower,none'],
+            'first_name' => ['nullable', 'string', 'max:100'],
+            'last_name' => ['nullable', 'string', 'max:100'],
+            'display_name' => ['nullable', 'string', 'max:255'],
+            'domain' => ['nullable', 'string', 'max:100'],
+            'photo_url' => ['nullable', 'string', 'max:4000'],
+            'source' => ['nullable', 'string', 'max:50'],
+        ]);
+
+        $status = $data['status'] === 'none' ? null : $data['status'];
+        $profile = array_intersect_key($data, array_flip([
+            'first_name', 'last_name', 'display_name', 'domain', 'photo_url',
+        ]));
+        $result = $history->recordChange(
+            $request->user(),
+            $data['vk_id'],
+            $status,
+            $profile,
+            $data['source'] ?? 'agent_http',
+        );
+
+        return response()->json($result);
+    }
+}
