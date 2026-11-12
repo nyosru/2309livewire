@@ -230,6 +230,19 @@ class VkManagerController extends Controller
         if (! is_array($requests)) {
             $requests = [];
         }
+        $requests = array_values(array_filter(array_map(static function ($person) {
+            if (is_int($person) || is_string($person)) {
+                return ['id' => $person, 'first_name' => 'Пользователь', 'last_name' => ''];
+            }
+            if (! is_array($person)) {
+                return null;
+            }
+            if (! isset($person['id']) && isset($person['user_id'])) {
+                $person['id'] = $person['user_id'];
+            }
+
+            return $person;
+        }, $requests)));
         $requestApiError = data_get($requestsResponse, 'error.error_msg');
         if (! is_array($friends) || ! is_array($followers)) {
             return view('vk_manager.index', [
@@ -244,7 +257,7 @@ class VkManagerController extends Controller
             ]);
         }
 
-        $history->observeLists($user, $friends, $followers, 'vk_api_page');
+        $history->observeLists($user, $friends, $followers, 'vk_api_page', $requests);
         $dbStats = $history->summary($user);
 
         $ids = collect($friends)->merge($followers)->merge($requests)->pluck('id')->map(fn ($id) => (int) $id)->unique();

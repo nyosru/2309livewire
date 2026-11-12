@@ -112,10 +112,16 @@ class VkManagerHistoryService
         });
     }
 
-    /** Observe partial friends/followers pages. Missing people are never marked stale. */
-    public function observeLists(User $owner, array $friends, array $followers, string $source = 'vk_api_page'): array
+    /** Observe partial list pages. Missing people are never marked stale. */
+    public function observeLists(
+        User $owner,
+        array $friends,
+        array $followers,
+        string $source = 'vk_api_page',
+        array $outgoingRequests = [],
+    ): array
     {
-        return $this->applyObservations($owner, $friends, $followers, [], $source, false);
+        return $this->applyObservations($owner, $friends, $followers, $outgoingRequests, $source, false);
     }
 
     /** Reconcile only when all arrays contain complete, untruncated VK lists. */
