@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VkManagerContact;
 use App\Models\User;
+use App\Models\VkManagerContact;
 use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Http\Client\ConnectionException;
@@ -60,8 +60,7 @@ class VkManagerController extends Controller
         Request $request,
         VkManagerHistoryService $history,
         VkManagerSnapshotSyncService $snapshotSync,
-    ): RedirectResponse
-    {
+    ): RedirectResponse {
         $expectedState = $request->session()->pull('vk_manager_master_auth_state');
         $returnUrl = $request->session()->pull('vk_manager_master_auth_return_url');
         $state = $request->query('state');
@@ -189,10 +188,13 @@ class VkManagerController extends Controller
         $dbStats = $history->summary($user);
         if (! $user->vk_token || ! $user->vk_id) {
             return view('vk_manager.index', [
-                'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
+                'friends' => [], 'followers' => [], 'requests' => [],
+                'friendCount' => 0, 'followerCount' => 0, 'requestCount' => 0,
                 'apiError' => 'Для загрузки друзей и подписчиков нужно заново войти через VK и выдать доступ.',
                 'needsVkReconnect' => true,
                 'friendPage' => 1, 'friendPages' => 1, 'followerPage' => 1, 'followerPages' => 1,
+                'requestPage' => 1, 'requestPages' => 1,
+                'requestApiError' => null,
                 'dbStats' => $dbStats,
             ]);
         }
@@ -200,6 +202,7 @@ class VkManagerController extends Controller
         $perPage = 200;
         $friendPage = max(1, min(50000, (int) $request->query('friends_page', 1)));
         $followerPage = max(1, min(50000, (int) $request->query('followers_page', 1)));
+        $requestPage = max(1, min(50000, (int) $request->query('requests_page', 1)));
         $friendsResponse = $this->vk($user->vk_token, 'friends.get', [
             'user_id' => $user->vk_id,
             'order' => 'hints',
@@ -213,15 +216,30 @@ class VkManagerController extends Controller
             'offset' => ($followerPage - 1) * $perPage,
             'fields' => 'photo_100,domain',
         ]);
+        $requestsResponse = $this->vk($user->vk_token, 'friends.getRequests', [
+            'out' => 1,
+            'extended' => 1,
+            'count' => $perPage,
+            'offset' => ($requestPage - 1) * $perPage,
+            'fields' => 'photo_100,domain',
+        ]);
 
         $friends = data_get($friendsResponse, 'response.items', []);
         $followers = data_get($followersResponse, 'response.items', []);
+        $requests = data_get($requestsResponse, 'response.items', []);
+        if (! is_array($requests)) {
+            $requests = [];
+        }
+        $requestApiError = data_get($requestsResponse, 'error.error_msg');
         if (! is_array($friends) || ! is_array($followers)) {
             return view('vk_manager.index', [
-                'friends' => [], 'followers' => [], 'friendCount' => 0, 'followerCount' => 0,
+                'friends' => [], 'followers' => [], 'requests' => [],
+                'friendCount' => 0, 'followerCount' => 0, 'requestCount' => 0,
                 'comments' => [], 'favorites' => [], 'apiError' => 'VK не разрешил получить списки. Переподключите аккаунт и разрешите доступ к друзьям.',
                 'needsVkReconnect' => false,
                 'friendPage' => $friendPage, 'friendPages' => 1, 'followerPage' => $followerPage, 'followerPages' => 1,
+                'requestPage' => $requestPage, 'requestPages' => 1,
+                'requestApiError' => $requestApiError,
                 'dbStats' => $dbStats,
             ]);
         }
@@ -229,9 +247,9 @@ class VkManagerController extends Controller
         $history->observeLists($user, $friends, $followers, 'vk_api_page');
         $dbStats = $history->summary($user);
 
-        $ids = collect($friends)->merge($followers)->pluck('id')->map(fn ($id) => (int) $id)->unique();
+        $ids = collect($friends)->merge($followers)->merge($requests)->pluck('id')->map(fn ($id) => (int) $id)->unique();
         $metadata = VkManagerContact::query()->where('user_id', $user->id)->whereIn('vk_friend_id', $ids)->get()->keyBy('vk_friend_id');
-        foreach (['friends', 'followers'] as $listName) {
+        foreach (['friends', 'followers', 'requests'] as $listName) {
             foreach ($$listName as &$person) {
                 $contact = $metadata->get($person['id']);
                 $person['manager_comment'] = $contact?->comment;
@@ -242,17 +260,23 @@ class VkManagerController extends Controller
 
         $friendCount = (int) data_get($friendsResponse, 'response.count', count($friends));
         $followerCount = (int) data_get($followersResponse, 'response.count', count($followers));
+        $requestCount = (int) data_get($requestsResponse, 'response.count', count($requests));
 
         return view('vk_manager.index', [
             'friends' => $friends,
             'followers' => $followers,
+            'requests' => $requests,
             'friendCount' => $friendCount,
             'followerCount' => $followerCount,
+            'requestCount' => $requestCount,
             'friendPage' => $friendPage,
             'friendPages' => max(1, (int) ceil($friendCount / $perPage)),
             'followerPage' => $followerPage,
             'followerPages' => max(1, (int) ceil($followerCount / $perPage)),
+            'requestPage' => $requestPage,
+            'requestPages' => max(1, (int) ceil($requestCount / $perPage)),
             'apiError' => data_get($friendsResponse, 'error.error_msg') ?? data_get($followersResponse, 'error.error_msg'),
+            'requestApiError' => $requestApiError ?: null,
             'needsVkReconnect' => false,
             'dbStats' => $dbStats,
         ]);
@@ -295,5 +319,4 @@ class VkManagerController extends Controller
 
         return $response->json() ?? ['error' => ['error_msg' => 'VK API недоступен']];
     }
-
 }
