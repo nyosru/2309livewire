@@ -5,6 +5,7 @@ namespace App\Livewire\NewsStorage;
 use App\Models\NewsStorageNews;
 use App\Models\NewsStorageVideoBlogRead;
 use App\Models\NewsTopic;
+use App\Models\NewsStorageSource;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -35,6 +36,70 @@ class Index extends Component
     public string $dateSortDirection = 'desc';
 
     public ?string $toastMessage = null;
+
+    public bool $showCreateForm = false;
+
+    public string $createTitle = '';
+
+    public string $createSummary = '';
+
+    public string $createContent = '';
+
+    public string $createSourceUrl = '';
+
+    public string $createNewsDate = '';
+
+    public string $createStatus = 'new';
+
+    public array $createTopicIds = [];
+
+    public function createNews(): void
+    {
+        Gate::authorize('manage-stn-news');
+
+        $validated = $this->validate([
+            'createTitle' => ['required', 'string', 'max:255'],
+            'createSummary' => ['nullable', 'string', 'max:10000'],
+            'createContent' => ['required', 'string', 'max:100000'],
+            'createSourceUrl' => ['nullable', 'url', 'max:2048'],
+            'createNewsDate' => ['nullable', 'date'],
+            'createStatus' => ['required', 'in:new,published,archived'],
+            'createTopicIds' => ['array'],
+            'createTopicIds.*' => ['integer', 'exists:news_topics,id'],
+        ], [], [
+            'createTitle' => 'заголовок',
+            'createSummary' => 'краткое описание',
+            'createContent' => 'текст новости',
+            'createSourceUrl' => 'ссылка на источник',
+            'createNewsDate' => 'дата новости',
+            'createStatus' => 'статус',
+        ]);
+
+        $editorialSource = NewsStorageSource::firstOrCreate(
+            ['url' => 'https://news.local'],
+            ['name' => 'Редакция']
+        );
+        $sourceUrl = $validated['createSourceUrl'] ?: $editorialSource->url;
+        $news = NewsStorageNews::create([
+            'source_id' => $editorialSource->id,
+            'url' => $sourceUrl,
+            'source' => $sourceUrl,
+            'title' => $validated['createTitle'],
+            'summary' => $validated['createSummary'] ?: null,
+            'content' => $validated['createContent'],
+            'news_date' => $validated['createNewsDate'] ?: now()->toDateString(),
+            'status' => $validated['createStatus'],
+            'published_at' => $validated['createStatus'] === 'published' ? now() : null,
+            'is_stn' => true,
+        ]);
+
+        $news->topics()->sync($validated['createTopicIds'] ?? []);
+        $this->reset(['createTitle', 'createSummary', 'createContent', 'createSourceUrl', 'createNewsDate', 'createTopicIds']);
+        $this->createStatus = 'new';
+        $this->showCreateForm = false;
+        $this->toastMessage = 'Новость добавлена';
+        $this->dispatch('toast-hide');
+    }
 
     public function updatingSearch()
     {

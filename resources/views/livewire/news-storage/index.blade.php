@@ -1,7 +1,77 @@
 <div class="mx-auto w-full max-w-none px-2 py-6 sm:px-4 lg:px-6">
     <div class="mb-4 flex justify-end">
+        @can('manage-stn-news')
+            <button type="button" wire:click="$toggle('showCreateForm')" class="mr-2 rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+                {{ $showCreateForm ? 'Скрыть форму' : 'Добавить новость' }}
+            </button>
+        @endcan
         <a href="{{ route('news-storage.admin.topics') }}" wire:navigate class="rounded bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100">Темы новостей</a>
     </div>
+
+    @can('manage-stn-news')
+        @if($showCreateForm)
+            <form wire:submit="createNews" class="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+                <h2 class="mb-4 text-lg font-semibold text-gray-900">Новая новость</h2>
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                    <div class="lg:col-span-2">
+                        <label for="create-title" class="mb-1 block text-sm font-medium text-gray-700">Заголовок</label>
+                        <input id="create-title" type="text" wire:model="createTitle" required maxlength="255" class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        @error('createTitle') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="lg:col-span-2">
+                        <label for="create-summary" class="mb-1 block text-sm font-medium text-gray-700">Краткое описание</label>
+                        <textarea id="create-summary" wire:model="createSummary" rows="2" class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        @error('createSummary') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="lg:col-span-2">
+                        <label for="create-content" class="mb-1 block text-sm font-medium text-gray-700">Текст новости</label>
+                        <textarea id="create-content" wire:model="createContent" rows="8" required class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        @error('createContent') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label for="create-source-url" class="mb-1 block text-sm font-medium text-gray-700">Ссылка на источник</label>
+                        <input id="create-source-url" type="url" wire:model="createSourceUrl" placeholder="https://…" class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        @error('createSourceUrl') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label for="create-news-date" class="mb-1 block text-sm font-medium text-gray-700">Дата новости</label>
+                            <input id="create-news-date" type="date" wire:model="createNewsDate" class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            @error('createNewsDate') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label for="create-status" class="mb-1 block text-sm font-medium text-gray-700">Статус</label>
+                            <select id="create-status" wire:model="createStatus" class="w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                @foreach($statuses as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            @error('createStatus') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+                    @if($topics->where('is_active', true)->isNotEmpty())
+                        <fieldset class="lg:col-span-2">
+                            <legend class="mb-2 text-sm font-medium text-gray-700">Темы</legend>
+                            <div class="flex flex-wrap gap-x-4 gap-y-2">
+                                @foreach($topics->where('is_active', true) as $topic)
+                                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                                        <input type="checkbox" wire:model="createTopicIds" value="{{ $topic->id }}" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        {{ $topic->name_ru }}
+                                    </label>
+                                @endforeach
+                            </div>
+                            @error('createTopicIds.*') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                        </fieldset>
+                    @endif
+                </div>
+                <div class="mt-5 flex items-center gap-3">
+                    <button type="submit" wire:loading.attr="disabled" class="rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50">Сохранить новость</button>
+                    <span wire:loading class="text-sm text-gray-500">Сохраняем…</span>
+                </div>
+            </form>
+        @endif
+    @endcan
+
     <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div>
             <input type="text" wire:model.live.debounce.300ms="search" placeholder="Поиск по заголовку, тексту, ссылке..."
