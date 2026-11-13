@@ -4,9 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Сергей Бакланов — гипнолог, Тюмень и онлайн</title>
-    <meta name="description"
-          content="Гипнолог Сергей Бакланов. Индивидуальная работа со страхами, тревогой, стрессом, самооценкой и психосоматическими запросами. Бесплатная консультация.">
+    <title>боба.рф — гипнолог Сергей Бакланов, Тюмень и онлайн</title>
+    <meta name="description" content="Всё начинается с разговора. Расскажите Сергею Бакланову, что вас беспокоит: на бесплатной консультации обсудите запрос и возможный следующий шаг без давления.">
+    <link rel="canonical" href="https://xn--80aba5c.xn--p1ai/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="боба.рф">
+    <meta property="og:title" content="боба.рф — гипнолог Сергей Бакланов">
+    <meta property="og:description" content="Всё начинается с разговора. Обсудим ваш запрос и возможный следующий шаг — спокойно, без давления. Бесплатная консультация в Тюмени и онлайн.">
+    <meta property="og:url" content="https://xn--80aba5c.xn--p1ai/">
+    <meta property="og:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
+    <meta property="og:image:secure_url" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Гипнолог Сергей Бакланов и приглашение на бесплатную консультацию">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="боба.рф — гипнолог Сергей Бакланов">
+    <meta name="twitter:description" content="Всё начинается с разговора. Обсудим ваш запрос и возможный следующий шаг без давления. Бесплатная консультация в Тюмени и онлайн.">
+    <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
     <meta name="theme-color" content="#111a1a">
     <link rel="stylesheet" href="/boba/site.css">
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
