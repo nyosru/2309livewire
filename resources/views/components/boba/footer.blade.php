@@ -15,7 +15,7 @@
 
         <section class="footer-col footer-right" aria-label="Полезные ссылки">
             <a class="crm-link" href="https://процессмастер.рф" target="_blank" rel="noopener noreferrer">CRM для ведения клиентов — ПроцессМастер.рф ↗</a>
-            <a class="creator-link" href="https://php-cat.com">Создание сайта</a>
+            <a class="creator-link" href="https://php-cat.ru">Создание сайта — php-cat.ru</a>
         </section>
     </div>
 </footer>

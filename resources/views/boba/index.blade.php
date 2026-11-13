@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>боба.рф — гипнолог Сергей Бакланов, Тюмень и онлайн</title>
-    <meta name="description" content="Всё начинается с разговора. Расскажите Сергею Бакланову, что вас беспокоит: на бесплатной консультации обсудите запрос и возможный следующий шаг без давления.">
+    <meta name="description" content="Страх общения, выступлений или конкретных ситуаций, неуверенность и привычки, мешающие продуктивности? Обсудите с гипнологом Сергеем Баклановым, подходит ли вам такой формат. Первая консультация бесплатная, без обязательств; стоимость дальнейшей работы обсуждается заранее.">
     <link rel="canonical" href="https://xn--80aba5c.xn--p1ai/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="боба.рф">
     <meta property="og:title" content="боба.рф — гипнолог Сергей Бакланов">
-    <meta property="og:description" content="Всё начинается с разговора. Обсудим ваш запрос и возможный следующий шаг — спокойно, без давления. Бесплатная консультация в Тюмени и онлайн.">
+    <meta property="og:description" content="Работа со страхами и привычными реакциями, развитие уверенности и продуктивности. Бесплатно обсудим ваш запрос; формат и стоимость дальнейшей работы — заранее, без обязательств.">
     <meta property="og:url" content="https://xn--80aba5c.xn--p1ai/">
-    <meta property="og:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
-    <meta property="og:image:secure_url" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
+    <meta property="og:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
+    <meta property="og:image:secure_url" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Гипнолог Сергей Бакланов и приглашение на бесплатную консультацию">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="боба.рф — гипнолог Сергей Бакланов">
-    <meta name="twitter:description" content="Всё начинается с разговора. Обсудим ваш запрос и возможный следующий шаг без давления. Бесплатная консультация в Тюмени и онлайн.">
-    <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=5">
+    <meta name="twitter:description" content="Работа со страхами и привычными реакциями, развитие уверенности и продуктивности. Бесплатно обсудим ваш запрос; формат и стоимость дальнейшей работы — заранее, без обязательств.">
+    <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
     <meta name="theme-color" content="#111a1a">
     <link rel="stylesheet" href="/boba/site.css">
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
@@ -46,17 +46,88 @@
         <div class="notice error" role="alert">{{ session('boba_error') }}</div>
     @endif
 
+    <section class="service-promo wrap" aria-label="Направления работы" aria-roledescription="карусель"
+             data-promo-carousel>
+        <div class="promo-viewport">
+            <article class="promo-slide is-active" data-promo-slide aria-hidden="false">
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 01 / 07</p>
+                    <h2>Страхи и фобии</h2>
+                    <div class="promo-details"><p>Общение, выступления и ситуации, которые вызывают сильное напряжение.</p>
+                        <button class="button promo-cta" type="button" data-consult="Страхи и фобии">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/fears.webp')"><img class="promo-image" src="/boba/services/fears.webp" alt="" fetchpriority="high"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 02 / 07</p>
+                    <h2>Тревога и стресс</h2>
+                    <div class="promo-details"><p>Беспокойство, напряжение и трудности с расслаблением.</p>
+                        <button class="button promo-cta" type="button" data-consult="Тревога и стресс">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/stress.webp')"><img class="promo-image" src="/boba/services/stress.webp" alt="" loading="lazy"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 03 / 07</p>
+                    <h2>Эмоции и напряжение</h2>
+                    <div class="promo-details"><p>Скованность и чувства, которым трудно найти выход.</p>
+                        <button class="button promo-cta" type="button" data-consult="Эмоции и напряжение">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/emotions.webp')"><img class="promo-image" src="/boba/services/emotions.webp" alt="" loading="lazy"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 04 / 07</p>
+                    <h2>Уверенность и самооценка</h2>
+                    <div class="promo-details"><p>Неуверенность, самокритика и повторяющиеся сценарии.</p>
+                        <button class="button promo-cta" type="button" data-consult="Самооценка и личные стратегии">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/confidence.webp')"><img class="promo-image" src="/boba/services/confidence.webp" alt="" loading="lazy"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 05 / 07</p>
+                    <h2>Потери и незавершённые истории</h2>
+                    <div class="promo-details"><p>Расставания, обиды и воспоминания, от которых сложно переключиться.</p>
+                        <button class="button promo-cta" type="button" data-consult="Потери и незавершённые истории">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/loss.webp')"><img class="promo-image" src="/boba/services/loss.webp" alt="" loading="lazy"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 06 / 07</p>
+                    <h2>Навязчивые мысли и действия</h2>
+                    <div class="promo-details"><p>Повторяющиеся мысли, действия и трудности речи.</p>
+                        <button class="button promo-cta" type="button" data-consult="Навязчивые мысли и действия">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/thoughts.webp')"><img class="promo-image" src="/boba/services/thoughts.webp" alt="" loading="lazy"></div>
+            </article>
+            <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
+                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 07 / 07</p>
+                    <h2>Личный и бизнес-коучинг</h2>
+                    <div class="promo-details"><p>Цели, решения, уверенность и продуктивные привычки.</p>
+                        <button class="button promo-cta" type="button" data-consult="Личный и бизнес-коучинг">Записаться <span>↗</span></button></div>
+                </div><div class="promo-photo" style="--promo-photo:url('/boba/services/productivity.webp')"><img class="promo-image" src="/boba/services/productivity.webp" alt="" loading="lazy"></div>
+            </article>
+        </div>
+        <div class="promo-controls" aria-label="Управление рекламными направлениями">
+            <button class="promo-arrow" type="button" data-promo-prev aria-label="Предыдущее направление">←</button>
+            <div class="promo-dots">
+                <button class="promo-dot is-active" type="button" data-promo-to="0" aria-label="Показать направление 1" aria-current="true"></button>
+                <button class="promo-dot" type="button" data-promo-to="1" aria-label="Показать направление 2"></button>
+                <button class="promo-dot" type="button" data-promo-to="2" aria-label="Показать направление 3"></button>
+                <button class="promo-dot" type="button" data-promo-to="3" aria-label="Показать направление 4"></button>
+                <button class="promo-dot" type="button" data-promo-to="4" aria-label="Показать направление 5"></button>
+                <button class="promo-dot" type="button" data-promo-to="5" aria-label="Показать направление 6"></button>
+                <button class="promo-dot" type="button" data-promo-to="6" aria-label="Показать направление 7"></button>
+            </div>
+            <button class="promo-arrow" type="button" data-promo-next aria-label="Следующее направление">→</button>
+            <button class="promo-toggle" type="button" data-promo-toggle aria-label="Остановить смену направлений" aria-pressed="false">Ⅱ</button>
+        </div>
+    </section>
+
     <section class="hero wrap">
         <div class="hero-copy">
             <p class="eyebrow"><span class="eyebrow-line"></span> ИНДИВИДУАЛЬНАЯ РАБОТА · ОНЛАЙН И ОЧНО</p>
             <h1>Меняться<br>можно <em>бережно.</em></h1>
-            <p class="hero-lead">Помогаю разобраться с внутренним напряжением и найти новый способ справляться с тем,
-                что мешает жить свободнее.</p>
+            <p class="hero-lead">Если страх перед общением, выступлением или конкретной ситуацией ограничивает вас,
+                обсудим, может ли гипнологическая работа помочь изменить привычную реакцию. Также можно работать над
+                уверенностью и более продуктивными способами действовать.</p>
             <div class="hero-actions">
                 <button class="button" type="button" data-consult="Бесплатная консультация">Бесплатная консультация
                     <span>↗</span></button>
                 <a class="under-link" href="#services">Посмотреть направления <span>↓</span></a></div>
-            <p class="hero-footnote">Сначала обсудим ваш запрос — без обязательств и обещаний результата.</p>
+            <p class="hero-footnote">Бесплатная консультация — без обязательств. Формат и стоимость дальнейшей работы
+                обсуждаем заранее; результат индивидуален.</p>
         </div>
         <div class="hero-art" aria-label="Абстрактная иллюстрация спокойного внутреннего пространства" role="img">
             <div class="orb orb-one"></div>
@@ -73,72 +144,93 @@
         <span>ВНИМАНИЕ К СЕБЕ</span><b>✳</b><span>БЕРЕЖНЫЙ ДИАЛОГ</span><b>✳</b><span>ВАШ ТЕМП</span><b>✳</b><span>НОВЫЙ ВЗГЛЯД</span><b>✳</b>
     </div>
 
-    <section class="section wrap" id="services">
+    <section class="section service-section" id="services">
         <div class="section-head">
             <div><p class="eyebrow">С ЧЕМ МОЖНО ОБРАТИТЬСЯ</p>
                 <h2>Направления<br><em>работы</em></h2></div>
-            <p class="section-intro">Каждая история индивидуальна. На бесплатной консультации мы уточним, подходит ли
-                гипнотерапевтическая работа под ваш запрос.</p></div>
+            <p class="section-intro">Можно обратиться со страхом конкретной ситуации, неуверенностью или привычками,
+                которые мешают быть продуктивнее. На бесплатной консультации обсудим запрос и подходит ли вам такой
+                формат работы.</p></div>
         <div class="service-grid">
-            <article class="service-card"><span class="card-number">01</span><span class="card-icon">↗</span>
-                <h3>Страхи и фобии</h3>
-                <p>Страх общения и знакомств, публичных выступлений, осуждения, темноты, поездок и другие ситуации,
-                    вызывающие сильное напряжение.</p>
-                <button class="card-link" type="button" data-consult="Страхи и фобии">Бесплатная консультация
-                    <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">01</span>
+                    <h3>Страхи и фобии</h3>
+                    <p>Общение, публичные выступления, поездки, темнота и другие ситуации, которые вызывают сильное
+                        напряжение.</p>
+                    <button class="card-link" type="button" data-consult="Страхи и фобии">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">02</span><span class="card-icon">◌</span>
-                <h3>Тревога и стресс</h3>
-                <p>Тревожность, хронический стресс, усталость, внутреннее беспокойство и трудности с расслаблением.</p>
-                <button class="card-link" type="button" data-consult="Тревога и стресс">Бесплатная консультация
-                    <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">02</span>
+                    <h3>Тревога и стресс</h3>
+                    <p>Внутреннее беспокойство, напряжение и трудности с расслаблением. Обсудим, что именно запускает
+                        тревогу и мешает вам.</p>
+                    <button class="card-link" type="button" data-consult="Тревога и стресс">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">03</span><span class="card-icon">✳</span>
-                <h3>Эмоции и напряжение</h3>
-                <p>Эмоциональная скованность, телесные зажимы, раздражение, злость и чувства, которым трудно найти
-                    выход.</p>
-                <button class="card-link" type="button" data-consult="Эмоции и напряжение">Бесплатная консультация
-                    <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">03</span>
+                    <h3>Эмоции и напряжение</h3>
+                    <p>Скованность, раздражение, злость и чувства, которым трудно найти выход. Работаем с тем, как они
+                        проявляются в жизни.</p>
+                    <button class="card-link" type="button" data-consult="Эмоции и напряжение">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">04</span><span class="card-icon">⌁</span>
-                <h3>Самооценка и личные стратегии</h3>
-                <p>Неуверенность, самокритика, повторяющиеся способы действовать и сложности в отношениях с собой и
-                    окружающими.</p>
-                <button class="card-link" type="button" data-consult="Самооценка и личные стратегии">Бесплатная
-                    консультация <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">04</span>
+                    <h3>Самооценка и личные стратегии</h3>
+                    <p>Неуверенность, самокритика и привычные способы действовать, которые мешают в отношениях с собой
+                        и окружающими.</p>
+                    <button class="card-link" type="button" data-consult="Самооценка и личные стратегии">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">05</span><span class="card-icon">◎</span>
-                <h3>Психосоматические запросы</h3>
-                <p>Телесный дискомфорт, аллергические реакции и трудности сексуального характера, если они связаны с
-                    эмоциональным напряжением. Не заменяет диагностику и лечение у врача.</p>
-                <button class="card-link" type="button" data-consult="Психосоматические запросы">Бесплатная консультация
-                    <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">05</span>
+                    <h3>Потери и незавершённые истории</h3>
+                    <p>Расставание, обида, воспоминания и повторяющиеся мысли, от которых сложно переключиться.</p>
+                    <button class="card-link" type="button" data-consult="Потери и незавершённые истории">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">06</span><span class="card-icon">↝</span>
-                <h3>Потери и незавершённые истории</h3>
-                <p>Тяжёлое переживание расставания, обиды, воспоминания и повторяющиеся мысли, от которых сложно
-                    переключиться.</p>
-                <button class="card-link" type="button" data-consult="Потери и незавершённые истории">Бесплатная
-                    консультация <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">06</span>
+                    <h3>Навязчивые мысли и действия</h3>
+                    <p>Повторяющиеся мысли и действия, трудности речи, в том числе заикание. На консультации обсудим
+                        подходящий формат помощи.</p>
+                    <button class="card-link" type="button" data-consult="Навязчивые мысли и действия">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
-            <article class="service-card"><span class="card-number">07</span><span class="card-icon">⌘</span>
-                <h3>Навязчивые мысли и действия</h3>
-                <p>Повторяющиеся мысли и действия, трудности речи, в том числе заикание. Обсудим влияние на жизнь и
-                    подходящий формат помощи.</p>
-                <button class="card-link" type="button" data-consult="Навязчивые мысли и действия">Бесплатная
-                    консультация <span>↗</span></button>
-            </article>
-            <article class="service-card"><span class="card-number">08</span><span class="card-icon">✧</span>
-                <h3>Личный и бизнес-коучинг</h3>
-                <p>Ограничивающие сценарии, трудности с целями, решениями, уверенностью и балансом между работой и
-                    личной жизнью.</p>
-                <button class="card-link" type="button" data-consult="Личный и бизнес-коучинг">Бесплатная консультация
-                    <span>↗</span></button>
+            <article class="service-card">
+                <div class="service-copy"><span class="card-number">07</span>
+                    <h3>Личный и бизнес-коучинг</h3>
+                    <p>Цели, решения, уверенность и баланс между работой и личной жизнью. Найдём более продуктивные
+                        способы действовать.</p>
+                    <button class="card-link" type="button" data-consult="Личный и бизнес-коучинг">Бесплатная консультация <span>↗</span></button>
+                </div>
             </article>
         </div>
         <p class="scope-note">Я не работаю с психическими расстройствами, зависимостями и семейной терапией.
             Гипнотерапия не заменяет помощь врача или психотерапевта. Если вы уже наблюдаетесь у специалиста, сообщите
             об этом на консультации.</p>
+    </section>
+
+    <section class="work-values">
+        <div class="wrap work-values-grid">
+            <article class="work-value">
+                <p class="eyebrow">ПОНЯТНЫЕ УСЛОВИЯ</p>
+                <h2>Сначала обсудим формат и стоимость</h2>
+                <p>Первая консультация бесплатная и ни к чему не обязывает. Если решите продолжить, каждая дальнейшая
+                    работа оплачивается; формат и стоимость назову до начала работы. У меня нет медицинского образования,
+                    поэтому я не берусь за запросы, требующие диагностики или лечения заболеваний, и порекомендую
+                    обратиться к врачу.</p>
+            </article>
+            <article class="work-value work-value-result">
+                <p class="eyebrow">МОЯ ЦЕЛЬ — РЕЗУЛЬТАТ</p>
+                <h2>Если работа даст результат — буду рад бонусу</h2>
+                <p>Моя цель — чтобы вы на практике заметили изменения и стали в обычной жизни реагировать и вести себя
+                    ближе к тому, как хотите сами. Если по итогам вы сочтёте, что я хорошо выполнил работу и она помогла
+                    вам, я планирую получить бонус за результат.</p>
+            </article>
+        </div>
     </section>
 
     <section class="approach" id="approach">
