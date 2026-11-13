@@ -5,8 +5,11 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
+use App\Models\VkManagerContactData;
+use App\Models\VkManagerEducationData;
 use App\Models\VkManagerMembership;
 use App\Models\VkManagerPerson;
+use App\Models\VkManagerProfileData;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -14,6 +17,20 @@ use InvalidArgumentException;
 class VkManagerHistoryService
 {
     private const DB_BATCH_SIZE = 500;
+
+    private const PROFILE_DATA_FIELDS = [
+        'first_name', 'last_name', 'first_name_nom', 'first_name_gen', 'first_name_dat', 'first_name_acc',
+        'first_name_ins', 'first_name_abl', 'last_name_nom', 'last_name_gen', 'last_name_dat', 'last_name_acc',
+        'last_name_ins', 'last_name_abl', 'nickname', 'screen_name', 'domain', 'maiden_name', 'verified',
+        'is_verified', 'photo_id', 'has_photo', 'photo', 'photo_rec', 'photo_50', 'photo_100', 'photo_200_orig',
+        'photo_200', 'photo_400', 'photo_400_orig', 'photo_big', 'photo_medium', 'photo_medium_rec', 'photo_max',
+        'photo_max_orig', 'photo_max_size', 'crop_photo', 'sex', 'bdate', 'bdate_visibility', 'city', 'country',
+        'home_town', 'timezone', 'language',
+    ];
+
+    private const EDUCATION_DATA_FIELDS = ['education', 'universities', 'schools', 'career', 'military', 'work'];
+
+    private const CONTACT_DATA_FIELDS = ['contacts', 'has_mobile', 'mobile_phone', 'home_phone', 'site', 'connections', 'exports'];
 
     public function ensureAccount(User $owner): VkManagerAccount
     {
@@ -47,6 +64,7 @@ class VkManagerHistoryService
         return DB::transaction(function () use ($account, $vkId, $status, $profile, $source, $now): array {
             $account = VkManagerAccount::query()->whereKey($account->getKey())->lockForUpdate()->firstOrFail();
             $person = $this->savePerson($vkId, $profile, $now);
+            $this->saveAdditionalData($account, $person, $profile, $source, $now);
             $current = VkManagerMembership::query()
                 ->where('account_id', $account->getKey())
                 ->where('person_id', $person->getKey())
@@ -121,8 +139,7 @@ class VkManagerHistoryService
         array $followers,
         string $source = 'vk_api_page',
         array $outgoingRequests = [],
-    ): array
-    {
+    ): array {
         return $this->applyObservations($owner, $friends, $followers, $outgoingRequests, $source, false);
     }
 
@@ -133,8 +150,7 @@ class VkManagerHistoryService
         array $followers,
         string $source = 'full_snapshot',
         array $outgoingRequests = [],
-    ): array
-    {
+    ): array {
         return $this->applyObservations($owner, $friends, $followers, $outgoingRequests, $source, true);
     }
 
@@ -246,6 +262,7 @@ class VkManagerHistoryService
                 if (! $person) {
                     continue;
                 }
+                $this->saveAdditionalData($account, $person, $observation['profile'], $source, $now);
                 $current = $currentByPerson->get($person->getKey(), collect());
                 if ($current->count() === 1 && $current->first()->status === $observation['status']) {
                     continue;
@@ -334,6 +351,63 @@ class VkManagerHistoryService
         }
 
         return $person;
+    }
+
+    private function saveAdditionalData(VkManagerAccount $account, VkManagerPerson $person, array $profile, string $source, Carbon $now): void
+    {
+        $this->saveDataVersion(VkManagerProfileData::class, self::PROFILE_DATA_FIELDS, $account, $person, $profile, $source, $now);
+        $this->saveDataVersion(VkManagerEducationData::class, self::EDUCATION_DATA_FIELDS, $account, $person, $profile, $source, $now);
+        $this->saveDataVersion(VkManagerContactData::class, self::CONTACT_DATA_FIELDS, $account, $person, $profile, $source, $now);
+    }
+
+    /** @param class-string<\Illuminate\Database\Eloquent\Model> $modelClass */
+    private function saveDataVersion(string $modelClass, array $fields, VkManagerAccount $account, VkManagerPerson $person, array $profile, string $source, Carbon $now): void
+    {
+        $incoming = array_intersect_key($profile, array_flip($fields));
+        if ($incoming === []) {
+            return;
+        }
+
+        $current = $modelClass::query()
+            ->where('account_id', $account->getKey())
+            ->where('person_id', $person->getKey())
+            ->whereNull('obsolete_at')
+            ->lockForUpdate()
+            ->orderByDesc('id')
+            ->first();
+        $data = array_replace($current?->data ?? [], $incoming);
+        $data = $this->sortAssociativeKeys($data);
+
+        if ($current && $data === $this->sortAssociativeKeys($current->data ?? [])) {
+            return;
+        }
+
+        if ($current) {
+            $current->forceFill(['obsolete_at' => $now])->save();
+        }
+
+        $modelClass::query()->create([
+            'account_id' => $account->getKey(),
+            'person_id' => $person->getKey(),
+            'data' => $data,
+            'source' => $source,
+        ]);
+    }
+
+    private function sortAssociativeKeys(array $data): array
+    {
+        foreach ($data as &$value) {
+            if (is_array($value)) {
+                $value = $this->sortAssociativeKeys($value);
+            }
+        }
+        unset($value);
+
+        if (! array_is_list($data)) {
+            ksort($data);
+        }
+
+        return $data;
     }
 
     private function normalizePerson(mixed $person, string $status): ?array

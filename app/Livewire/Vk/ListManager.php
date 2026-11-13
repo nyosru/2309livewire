@@ -8,6 +8,7 @@ use App\Models\VkManagerMembership;
 use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Throwable;
@@ -31,6 +32,10 @@ class ListManager extends Component
     public bool $showOnlyFavorites = false;
 
     public bool $showOnlyNameAndId = false;
+
+    public string $sortField = 'name';
+
+    public string $sortDirection = 'asc';
 
     /** @var array<int, string> */
     public array $selectedFriends = [];
@@ -69,9 +74,32 @@ class ListManager extends Component
     {
         if (in_array($tab, self::TABS, true)) {
             $this->activeTab = $tab;
+            if ($tab !== 'friends' && $this->sortField === 'friend_days') {
+                $this->sortField = 'name';
+                $this->sortDirection = 'asc';
+            }
             $this->seedActiveCommentDrafts();
             $this->dispatch('vk-list-manager-updated');
         }
+    }
+
+    public function sortBy(string $field): void
+    {
+        $allowedFields = ['name', 'vk_id', 'favorite', 'comment', 'friend_days'];
+        if (! in_array($field, $allowedFields, true)) {
+            return;
+        }
+        if ($field === 'friend_days' && $this->activeTab !== 'friends') {
+            return;
+        }
+
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        $this->resetPages();
     }
 
     public function updatedHideFavorites(bool $value): void
@@ -99,6 +127,22 @@ class ListManager extends Component
     public function updatedShowOnlyNameAndId(bool $value): void
     {
         session()->put('vk_manager.name_id_only', $value);
+    }
+
+    public function updatedSortField(string $field): void
+    {
+        $allowedFields = ['name', 'vk_id', 'favorite', 'comment', 'friend_days'];
+        if (! in_array($field, $allowedFields, true) || ($field === 'friend_days' && $this->activeTab !== 'friends')) {
+            $this->sortField = 'name';
+        }
+        $this->sortDirection = 'asc';
+        $this->resetPages();
+    }
+
+    public function toggleSortDirection(): void
+    {
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        $this->resetPages();
     }
 
     public function updatedCommentDrafts(mixed $value, string $vkId): void
@@ -225,8 +269,17 @@ class ListManager extends Component
         $count = (clone $query)->count();
         $pages = max(1, (int) ceil($count / self::PER_PAGE));
         $page = min(max(1, $page), $pages);
-        $memberships = $query->with('person')
-            ->orderBy('id')
+        $sortedQuery = $query
+            ->join('vk_manager_people as sort_people', 'sort_people.id', '=', 'vk_manager_memberships.person_id')
+            ->leftJoin('vk_manager_contacts as sort_contacts', function (JoinClause $join): void {
+                $join->on('sort_contacts.vk_friend_id', '=', 'sort_people.vk_id')
+                    ->where('sort_contacts.user_id', '=', Auth::id());
+            })
+            ->select('vk_manager_memberships.*')
+            ->with('person');
+        $this->applySort($sortedQuery);
+        $memberships = $sortedQuery
+            ->orderBy('vk_manager_memberships.id')
             ->offset(($page - 1) * self::PER_PAGE)
             ->limit(self::PER_PAGE)
             ->get();
@@ -249,12 +302,36 @@ class ListManager extends Component
                 'last_name' => $person?->last_name ?? '',
                 'domain' => $person?->domain,
                 'photo_100' => $person?->photo_url,
+                'friend_days' => $membership->status === VkManagerMembership::STATUS_FRIEND
+                    ? max(0, (int) $membership->started_at->diffInDays(now()))
+                    : null,
+                'started_at' => $membership->started_at,
                 'manager_comment' => $contact?->comment,
                 'manager_favorite' => (bool) ($contact?->is_favorite ?? false),
             ];
         })->filter(fn (array $person) => $person['id'] !== '')->values()->all();
 
         return ['people' => $people, 'count' => $count, 'page' => $page, 'pages' => $pages];
+    }
+
+    private function applySort(Builder $query): void
+    {
+        $direction = $this->sortDirection === 'desc' ? 'desc' : 'asc';
+
+        match ($this->sortField) {
+            'vk_id' => $query->orderBy('sort_people.vk_id', $direction),
+            'favorite' => $query->orderByRaw('COALESCE(sort_contacts.is_favorite, 0) '.$direction),
+            'comment' => $query
+                ->orderByRaw("CASE WHEN sort_contacts.comment IS NULL OR TRIM(sort_contacts.comment) = '' THEN 1 ELSE 0 END ASC")
+                ->orderBy('sort_contacts.comment', $direction),
+            'friend_days' => $query->orderBy(
+                'vk_manager_memberships.started_at',
+                $direction === 'asc' ? 'desc' : 'asc',
+            ),
+            default => $query
+                ->orderByRaw("COALESCE(NULLIF(sort_people.first_name, ''), sort_people.display_name, '') {$direction}")
+                ->orderBy('sort_people.last_name', $direction),
+        };
     }
 
     private function listQuery(string $status): Builder

@@ -57,13 +57,14 @@ class VkManagerHistoryController extends Controller
             'display_name' => ['nullable', 'string', 'max:255'],
             'domain' => ['nullable', 'string', 'max:100'],
             'photo_url' => ['nullable', 'string', 'max:4000'],
+            'profile' => ['sometimes', 'array'],
             'source' => ['nullable', 'string', 'max:50'],
         ]);
 
         $status = $data['status'] === 'none' ? null : $data['status'];
-        $profile = array_intersect_key($data, array_flip([
+        $profile = array_merge($data['profile'] ?? [], array_intersect_key($data, array_flip([
             'first_name', 'last_name', 'display_name', 'domain', 'photo_url',
-        ]));
+        ])));
         $result = $history->recordChange(
             $request->user(),
             $data['vk_id'],

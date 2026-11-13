@@ -17,6 +17,7 @@
         </div>
         <nav style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <a class="button" href="/">Друзья и подписчики</a>
+            @auth<a class="button" href="/history">История аккаунта</a>@endauth
             <a class="button" href="#agent-instructions">Описание для агентов</a>
         </nav>
     </header>

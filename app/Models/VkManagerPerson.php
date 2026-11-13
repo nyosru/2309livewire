@@ -17,4 +17,19 @@ class VkManagerPerson extends Model
     {
         return $this->hasMany(VkManagerMembership::class, 'person_id');
     }
+
+    public function profileData(): HasMany
+    {
+        return $this->hasMany(VkManagerProfileData::class, 'person_id');
+    }
+
+    public function educationData(): HasMany
+    {
+        return $this->hasMany(VkManagerEducationData::class, 'person_id');
+    }
+
+    public function contactData(): HasMany
+    {
+        return $this->hasMany(VkManagerContactData::class, 'person_id');
+    }
 }

@@ -8,6 +8,17 @@ use RuntimeException;
 
 class VkManagerSnapshotSyncService
 {
+    private const PROFILE_FIELDS = [
+        'first_name_nom', 'first_name_gen', 'first_name_dat', 'first_name_acc', 'first_name_ins', 'first_name_abl',
+        'last_name_nom', 'last_name_gen', 'last_name_dat', 'last_name_acc', 'last_name_ins', 'last_name_abl',
+        'nickname', 'screen_name', 'domain', 'maiden_name', 'verified', 'is_verified', 'photo_id', 'has_photo',
+        'photo', 'photo_rec', 'photo_50', 'photo_100', 'photo_200_orig', 'photo_200', 'photo_400', 'photo_400_orig',
+        'photo_big', 'photo_medium', 'photo_medium_rec', 'photo_max', 'photo_max_orig', 'photo_max_size', 'crop_photo',
+        'sex', 'bdate', 'bdate_visibility', 'city', 'country', 'home_town', 'timezone', 'language',
+        'education', 'universities', 'schools', 'career', 'military', 'work',
+        'contacts', 'has_mobile', 'site', 'connections', 'exports',
+    ];
+
     private float $lastRequestAt = 0;
 
     public function __construct(private readonly VkManagerHistoryService $history) {}
@@ -22,16 +33,16 @@ class VkManagerSnapshotSyncService
         $friends = $this->fetchCompleteList($owner, 'friends.get', [
             'user_id' => $owner->vk_id,
             'order' => 'hints',
-            'fields' => 'photo_100,domain',
+            'fields' => implode(',', self::PROFILE_FIELDS),
         ]);
         $followers = $this->fetchCompleteList($owner, 'users.getFollowers', [
             'user_id' => $owner->vk_id,
-            'fields' => 'photo_100,domain',
+            'fields' => implode(',', self::PROFILE_FIELDS),
         ]);
         $outgoingRequests = $this->fetchCompleteList($owner, 'friends.getRequests', [
             'out' => 1,
             'extended' => 1,
-            'fields' => 'photo_100,domain',
+            'fields' => implode(',', self::PROFILE_FIELDS),
         ]);
 
         $result = $this->history->reconcileSnapshot($owner, $friends, $followers, $source, $outgoingRequests);

@@ -21,4 +21,19 @@ class VkManagerAccount extends Model
     {
         return $this->hasMany(VkManagerMembership::class, 'account_id');
     }
+
+    public function profileData(): HasMany
+    {
+        return $this->hasMany(VkManagerProfileData::class, 'account_id');
+    }
+
+    public function educationData(): HasMany
+    {
+        return $this->hasMany(VkManagerEducationData::class, 'account_id');
+    }
+
+    public function contactData(): HasMany
+    {
+        return $this->hasMany(VkManagerContactData::class, 'account_id');
+    }
 }

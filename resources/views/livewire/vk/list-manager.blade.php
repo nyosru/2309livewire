@@ -7,13 +7,25 @@
     </div>
 
     <div class="panel">
-        <div class="vk-list-filters">
-            <label><input type="checkbox" wire:model.live="hideFavorites"> Скрыть избранных</label>
-            <label><input type="checkbox" wire:model.live="showOnlyFavorites"> Показывать только избранных</label>
-            @if($activeTab === 'friends')
-                <label><input type="checkbox" wire:model.live="showOnlyNameAndId"> Показывать только название и ID</label>
-            @endif
-        </div>
+        @if($activeTab !== 'database')
+            <div class="vk-list-filters">
+                <label><input type="checkbox" wire:model.live="hideFavorites"> Скрыть избранных</label>
+                <label><input type="checkbox" wire:model.live="showOnlyFavorites"> Показывать только избранных</label>
+                @if($activeTab === 'friends')
+                    <label><input type="checkbox" wire:model.live="showOnlyNameAndId"> Показывать только название и ID</label>
+                @endif
+                <label class="sort-control">Сортировать:
+                    <select wire:model.live="sortField">
+                        <option value="name">Имя</option>
+                        <option value="vk_id">VK ID</option>
+                        <option value="favorite">Избранное</option>
+                        <option value="comment">Комментарий</option>
+                        @if($activeTab === 'friends')<option value="friend_days">Дней в друзьях</option>@endif
+                    </select>
+                </label>
+                <button type="button" class="button secondary sort-direction" wire:click="toggleSortDirection">{{ $sortDirection === 'asc' ? 'По возрастанию ↑' : 'По убыванию ↓' }}</button>
+            </div>
+        @endif
 
         <div class="tabs" role="tablist" aria-label="Списки VK">
             <button type="button" class="{{ $activeTab === 'friends' ? 'active' : '' }}" wire:click="switchTab('friends')">Друзья ({{ $counts['friends'] }})</button>
@@ -28,7 +40,7 @@
 
         @if($activeTab === 'database')
             <section id="database" class="tab-content">
-                <h2>История аккаунта</h2>
+                <h2>Сводка данных в БД</h2>
                 <p class="muted">{{ $dbStats['name'] }} · VK ID {{ $dbStats['vk_id'] }}</p>
                 <div class="stats">
                     <div class="stat"><span class="muted">Уникальных контактов</span><strong>{{ $dbStats['unique_people'] }}</strong></div>
@@ -60,12 +72,24 @@
                         <button id="start-friend-removal" type="button" class="button danger">Удалить выбранных</button>
                     </div>
                     <div id="removal-status" class="message" role="status" aria-live="polite" wire:ignore hidden></div>
-                    <div class="friend-columns" aria-hidden="true"><span>Выбор</span><span>Аккаунт VK</span><span>Избранное</span><span>Комментарий</span></div>
+                    <div class="friend-columns" aria-label="Сортировка списка друзей">
+                        <span>Выбор</span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('name')">Имя {{ $sortField === 'name' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('vk_id')">VK ID {{ $sortField === 'vk_id' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('favorite')">Избранное {{ $sortField === 'favorite' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('comment')">Комментарий {{ $sortField === 'comment' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('friend_days')">Дней в друзьях {{ $sortField === 'friend_days' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                    </div>
                 @else
                     <p class="muted" style="margin-top:14px">
                         {{ $activeTab === 'followers' ? 'Комментарии и отметки избранного доступны так же, как в списке друзей.' : 'Заявки в друзья, которые вы отправили и которые ещё не приняты.' }}
                     </p>
-                    <div class="contact-columns" aria-hidden="true"><span>Аккаунт VK</span><span>Избранное</span><span>Комментарий</span></div>
+                    <div class="contact-columns" aria-label="Сортировка контактов">
+                        <span><button type="button" class="sort-button" wire:click="sortBy('name')">Имя {{ $sortField === 'name' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('vk_id')">VK ID {{ $sortField === 'vk_id' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('favorite')">Избранное {{ $sortField === 'favorite' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                        <span><button type="button" class="sort-button" wire:click="sortBy('comment')">Комментарий {{ $sortField === 'comment' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
+                    </div>
                 @endif
 
                 <div class="list contact-list {{ $activeTab === 'friends' ? 'friend-list' : '' }}" id="{{ $activeTab === 'friends' ? 'friends-list' : '' }}">
@@ -77,8 +101,9 @@
                             @endif
                             <div class="friend-row-account">
                                 @if($person['photo_100'])<img src="{{ $person['photo_100'] }}" alt="">@endif
-                                <div><div class="name">@if($person['domain'])<a href="https://vk.com/{{ $person['domain'] }}" target="_blank" rel="noopener">{{ $person['first_name'] }} {{ $person['last_name'] }}</a>@else{{ $person['first_name'] }} {{ $person['last_name'] }}@endif</div><div class="muted tiny">VK ID {{ $vkId }}</div></div>
+                                <div class="name">@if($person['domain'])<a href="https://vk.com/{{ $person['domain'] }}" target="_blank" rel="noopener">{{ $person['first_name'] }} {{ $person['last_name'] }}</a>@else{{ $person['first_name'] }} {{ $person['last_name'] }}@endif</div>
                             </div>
+                            <div class="friend-row-vk-id muted tiny">VK ID {{ $vkId }}</div>
                             <div class="friend-row-favorite">
                                 <button type="button" class="favorite" wire:click="toggleFavorite('{{ $vkId }}')" wire:loading.attr="disabled" wire:target="toggleFavorite('{{ $vkId }}')">{{ $person['manager_favorite'] ? '★ Убрать' : '☆ В избранное' }}</button>
                                 @if($person['manager_favorite'])<span class="star" title="Избранный">★</span>@endif
@@ -92,6 +117,7 @@
                                 @error('commentDrafts.'.$vkId)<span class="favorite-error tiny">{{ $message }}</span>@enderror
                                 @if($savedComments[$vkId] ?? false)<span class="muted tiny">Сохранено</span>@endif
                             </div>
+                            @if($activeTab === 'friends')<div class="friend-row-days" title="Друг с {{ $person['started_at']->format('d.m.Y') }}">{{ $person['friend_days'] }}</div>@endif
                         </article>
                     @empty
                         <p class="muted">@if($showOnlyFavorites)Избранных контактов в этом списке нет.@elseif($hideFavorites)После скрытия избранных список пуст.@elseif(!$dbStats['last_full_sync_at']){{ $listTitle }} пока не загружены в историю. Откройте «Данные в БД» и нажмите «Обновить состояние».@else{{ $listTitle }} нет.@endif</p>
