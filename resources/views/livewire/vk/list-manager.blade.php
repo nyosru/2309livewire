@@ -103,7 +103,7 @@
                                 @if($person['photo_100'])<img src="{{ $person['photo_100'] }}" alt="">@endif
                                 <div class="name">@if($person['domain'])<a href="https://vk.com/{{ $person['domain'] }}" target="_blank" rel="noopener">{{ $person['first_name'] }} {{ $person['last_name'] }}</a>@else{{ $person['first_name'] }} {{ $person['last_name'] }}@endif</div>
                             </div>
-                            <div class="friend-row-vk-id muted tiny">VK ID {{ $vkId }}</div>
+                            <a class="friend-row-vk-id muted tiny" href="/history?vk_id={{ urlencode($vkId) }}" target="_blank" rel="noopener">VK ID {{ $vkId }}</a>
                             <div class="friend-row-favorite">
                                 <button type="button" class="favorite" wire:click="toggleFavorite('{{ $vkId }}')" wire:loading.attr="disabled" wire:target="toggleFavorite('{{ $vkId }}')">{{ $person['manager_favorite'] ? '★ Убрать' : '☆ В избранное' }}</button>
                                 @if($person['manager_favorite'])<span class="star" title="Избранный">★</span>@endif

@@ -25,6 +25,18 @@ class AccountHistory extends Component
     public function mount(): void
     {
         abort_unless(Auth::check(), 403);
+
+        $vkId = request()->query('vk_id');
+        if (is_string($vkId) && preg_match('/^[1-9][0-9]{0,19}$/', $vkId)) {
+            $person = $this->personQuery()->where('vk_id', $vkId)->first();
+            if ($person) {
+                $this->selectedPersonId = (int) $person->getKey();
+                $this->searchTerm = $person->display_name.' · VK ID '.$person->vk_id;
+                $this->showHistory = true;
+            } else {
+                $this->searchError = 'Этот профиль не найден в истории вашего аккаунта.';
+            }
+        }
     }
 
     public function updatedSearchTerm(): void
