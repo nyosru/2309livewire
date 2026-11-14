@@ -42,4 +42,11 @@ Route::prefix('max/service')->middleware([\App\Http\Middleware\EnsureMaxServiceC
 Route::prefix('news-storage')->group(function () {
     Route::post('news', [\App\Http\Controllers\Api\NewsStorageController::class, 'store'])->name('api.news-storage.store');
     Route::patch('news/{id}/status', [\App\Http\Controllers\Api\NewsStorageController::class, 'updateStatus'])->name('api.news-storage.status');
+
+    Route::middleware(\App\Http\Middleware\CheckNewsStorageApiKey::class)->group(function () {
+        Route::get('sources', [\App\Http\Controllers\Api\NewsStorageSourceController::class, 'index'])->name('api.news-storage.sources.index');
+        Route::post('sources', [\App\Http\Controllers\Api\NewsStorageSourceController::class, 'store'])->name('api.news-storage.sources.store');
+        Route::get('sources/{id}', [\App\Http\Controllers\Api\NewsStorageSourceController::class, 'show'])->whereNumber('id')->name('api.news-storage.sources.show');
+        Route::patch('sources/{id}', [\App\Http\Controllers\Api\NewsStorageSourceController::class, 'update'])->whereNumber('id')->name('api.news-storage.sources.update');
+    });
 });

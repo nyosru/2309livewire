@@ -200,6 +200,38 @@
     </section>
 
     <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Источники новостей</h2>
+        <p class="text-gray-600 mb-4">Для всех запросов нужен заголовок <code>X-NewsStorage-Api-Key</code>. Удаление источников через API не предусмотрено: оно может удалить связанные новости.</p>
+
+        <div class="bg-gray-50 rounded p-4 mb-4">
+            <span class="inline-block bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded mr-2">GET</span>
+            <code class="text-sm">/api/news-storage/sources?limit=50</code>
+            <p class="text-sm text-gray-600 mt-2">Список источников с количеством связанных новостей. Максимум 100 записей на страницу.</p>
+        </div>
+        <div class="bg-gray-50 rounded p-4 mb-4">
+            <span class="inline-block bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded mr-2">GET</span>
+            <code class="text-sm">/api/news-storage/sources/{id}</code>
+            <p class="text-sm text-gray-600 mt-2">Получить один источник и количество связанных новостей.</p>
+        </div>
+        <div class="bg-gray-50 rounded p-4 mb-4">
+            <span class="inline-block bg-green-500 text-white text-xs font-bold px-2 py-1 rounded mr-2">POST</span>
+            <code class="text-sm">/api/news-storage/sources</code>
+            <p class="text-sm text-gray-600 mt-2">Создать источник. Обязательные поля: <code>name</code> и уникальный <code>url</code>. Необязательное поле: <code>parsing_instructions</code>.</p>
+        </div>
+        <div class="bg-gray-50 rounded p-4 mb-4">
+            <span class="inline-block bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded mr-2">PATCH</span>
+            <code class="text-sm">/api/news-storage/sources/{id}</code>
+            <p class="text-sm text-gray-600 mt-2">Изменить переданные поля источника: <code>name</code>, <code>url</code>, <code>parsing_instructions</code>.</p>
+        </div>
+
+        <h3 class="font-semibold text-gray-700 mb-2">Пример создания источника</h3>
+        <pre class="bg-gray-900 text-green-400 text-sm rounded-lg p-4 overflow-x-auto"><code>curl -X POST https://news.api.php-cat.ru/api/news-storage/sources \
+  -H "Content-Type: application/json" \
+  -H "X-NewsStorage-Api-Key: ваш-ключ" \
+  -d '{"name":"Тюменская область сегодня","url":"https://tumentoday.ru"}'</code></pre>
+    </section>
+
+    <section class="mb-12">
         <h2 class="text-2xl font-semibold text-gray-900 mb-4">Ошибки</h2>
 
         <div class="overflow-x-auto">
