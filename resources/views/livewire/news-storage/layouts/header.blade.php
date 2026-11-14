@@ -4,10 +4,5 @@
         <a href="/" wire:navigate class="shrink-0 text-neutral-900">
             <h1 class="text-2xl font-normal leading-none md:text-4xl">Самые<b>Тюменские</b>Новости<span class="text-neutral-500">.рф</span></h1>
         </a>
-        <nav class="flex flex-wrap justify-end gap-x-5 gap-y-2 text-sm">
-            <a href="/" wire:navigate class="text-neutral-500 hover:text-blue-600">Главная</a>
-            <a href="/admin" class="text-neutral-500 hover:text-blue-600">Админка</a>
-            <a href="/stn" wire:navigate class="text-neutral-500 hover:text-blue-600">STN</a>
-        </nav>
     </div>
 </header>
