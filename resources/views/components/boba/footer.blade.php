@@ -1,9 +1,9 @@
 <footer class="footer">
     <div class="wrap footer-inner">
         <section class="footer-col footer-left" aria-label="Контакты">
-            <a class="brand footer-brand" href="#top" aria-label="boba.рф — гипнолог Сергей Бакланов">
+            <a class="brand footer-brand" href="#top" aria-label="boba.рф — психосоматика Сергей Бакланов">
                 <span class="brand-oval">boba.рф</span>
-                <span class="brand-copy"><strong>Сергей Бакланов</strong><small>гипнолог</small></span>
+                <span class="brand-copy"><strong>Сергей Бакланов</strong><small>психосоматика</small></span>
             </a>
             <a class="footer-email" href="mailto:boba@php-cat.ru">boba@php-cat.ru</a>
         </section>

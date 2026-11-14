@@ -55,7 +55,7 @@ class ConsultationController extends Controller
         try {
             $notifier->send($message, timeout: 8);
         } catch (\Throwable $exception) {
-            Log::warning('Не удалось доставить заявку гипнолога во ВКонтакте.', [
+            Log::warning('Не удалось доставить заявку психосоматики во ВКонтакте.', [
                 'exception' => $exception::class,
             ]);
 

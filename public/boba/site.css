@@ -99,3 +99,8 @@
     .service-card p{font-size:15px;line-height:1.6}
     .card-link{gap:8px}
 }
+
+/* Slow, subtle beige-to-yellow waves behind the page content */
+body{background-color:#f7f5ed;background-image:radial-gradient(ellipse 68% 54% at 12% 18%,rgba(245,218,150,.26),transparent 74%),radial-gradient(ellipse 64% 58% at 88% 82%,rgba(240,211,133,.23),transparent 72%),linear-gradient(118deg,#f5f4ee 0%,#fbf5e5 34%,#f7efcf 65%,#f8f5eb 100%);background-repeat:no-repeat;background-size:170% 170%,160% 160%,220% 220%;background-attachment:fixed;animation:boba-background-waves 38s ease-in-out infinite alternate}
+@keyframes boba-background-waves{0%{background-position:0% 0%,100% 100%,0% 50%}100%{background-position:100% 100%,0% 0%,100% 50%}}
+@media(prefers-reduced-motion:reduce){body{animation:none;background-position:50% 50%,50% 50%,50% 50%}}

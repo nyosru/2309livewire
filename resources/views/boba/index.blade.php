@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>боба.рф — гипнолог Сергей Бакланов, Тюмень и онлайн</title>
-    <meta name="description" content="Страх общения, выступлений или конкретных ситуаций, неуверенность и привычки, мешающие продуктивности? Обсудите с гипнологом Сергеем Баклановым, подходит ли вам такой формат. Первая консультация бесплатная, без обязательств; стоимость дальнейшей работы обсуждается заранее.">
+    <title>боба.рф — психосоматика Сергей Бакланов, Тюмень и онлайн</title>
+    <meta name="description" content="Страх общения, выступлений или конкретных ситуаций, неуверенность и привычки, мешающие продуктивности? Обсудите с психосоматиком Сергеем Баклановым, подходит ли вам такой формат. Первая консультация бесплатная, без обязательств; стоимость дальнейшей работы обсуждается заранее.">
     <link rel="canonical" href="https://xn--80aba5c.xn--p1ai/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="боба.рф">
-    <meta property="og:title" content="боба.рф — гипнолог Сергей Бакланов">
+    <meta property="og:title" content="боба.рф — психосоматика Сергей Бакланов">
     <meta property="og:description" content="Работа со страхами и привычными реакциями, развитие уверенности и продуктивности. Бесплатно обсудим ваш запрос; формат и стоимость дальнейшей работы — заранее, без обязательств.">
     <meta property="og:url" content="https://xn--80aba5c.xn--p1ai/">
-    <meta property="og:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
-    <meta property="og:image:secure_url" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
+    <meta property="og:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=7">
+    <meta property="og:image:secure_url" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=7">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Гипнолог Сергей Бакланов и приглашение на бесплатную консультацию">
+    <meta property="og:image:alt" content="Сергей Бакланов, психосоматика и приглашение на бесплатную консультацию">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="боба.рф — гипнолог Сергей Бакланов">
+    <meta name="twitter:title" content="боба.рф — психосоматика Сергей Бакланов">
     <meta name="twitter:description" content="Работа со страхами и привычными реакциями, развитие уверенности и продуктивности. Бесплатно обсудим ваш запрос; формат и стоимость дальнейшей работы — заранее, без обязательств.">
-    <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=6">
+    <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=7">
     <meta name="theme-color" content="#111a1a">
     <link rel="stylesheet" href="/boba/site.css">
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
@@ -30,8 +30,8 @@
 </head>
 <body>
 <header class="topbar wrap">
-    <a class="brand" href="#top" aria-label="боба.рф — гипнолог Сергей Бакланов"><span class="brand-oval">боба.рф</span><span
-            class="brand-copy"><strong>Сергей Бакланов</strong><small>гипнолог</small></span></a>
+    <a class="brand" href="#top" aria-label="боба.рф — психосоматика Сергей Бакланов"><span class="brand-oval">боба.рф</span><span
+            <span class="brand-copy"><strong>Сергей Бакланов</strong><small>психосоматика</small></span></a>
     <nav aria-label="Основная навигация"><a href="#services">Направления</a><a href="#approach">Как проходит
             работа</a></nav>
     <button class="button button-small" type="button" data-consult="Бесплатная консультация">Записаться <span>↗</span>
@@ -50,51 +50,73 @@
              data-promo-carousel>
         <div class="promo-viewport">
             <article class="promo-slide is-active" data-promo-slide aria-hidden="false">
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 01 / 07</p>
-                    <h2>Страхи и фобии</h2>
-                    <div class="promo-details"><p>Общение, выступления и ситуации, которые вызывают сильное напряжение.</p>
+                <div class="promo-copy">
+
+                    <div class="promo-details">
+                        <h2>Страхи и&nbsp;фобии</h2>
+                        <br/>
+                        <p>Общение, выступления и&nbsp;ситуации, которые вызывают сильное напряжение.</p>
+                        <br/>
                         <button class="button promo-cta" type="button" data-consult="Страхи и фобии">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/fears.webp')"><img class="promo-image" src="/boba/services/fears.webp" alt="" fetchpriority="high"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 02 / 07</p>
-                    <h2>Тревога и стресс</h2>
-                    <div class="promo-details"><p>Беспокойство, напряжение и трудности с расслаблением.</p>
+                <div class="promo-copy">
+
+                    <div class="promo-details">
+                        <h2>Тревога и&nbsp;стресс</h2>
+                        <br/>
+                        <p>Беспокойство, напряжение и&nbsp;трудности с&nbsp;расслаблением.</p>
+                        <br/>
                         <button class="button promo-cta" type="button" data-consult="Тревога и стресс">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/stress.webp')"><img class="promo-image" src="/boba/services/stress.webp" alt="" loading="lazy"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 03 / 07</p>
-                    <h2>Эмоции и напряжение</h2>
-                    <div class="promo-details"><p>Скованность и чувства, которым трудно найти выход.</p>
+                <div class="promo-copy">
+
+                    <div class="promo-details"> <h2>Эмоции и&nbsp;напряжение</h2>
+                        <br/>
+
+                        <p>Скованность и&nbsp;чувства, которым трудно найти выход.</p>   <br/>
                         <button class="button promo-cta" type="button" data-consult="Эмоции и напряжение">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/emotions.webp')"><img class="promo-image" src="/boba/services/emotions.webp" alt="" loading="lazy"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 04 / 07</p>
-                    <h2>Уверенность и самооценка</h2>
-                    <div class="promo-details"><p>Неуверенность, самокритика и повторяющиеся сценарии.</p>
+                <div class="promo-copy">
+{{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 04 / 07</p>--}}
+
+                    <div class="promo-details">
+                        <h2>Уверенность и&nbsp;самооценка</h2>  <br/>
+                        <p>Неуверенность, самокритика и&nbsp;повторяющиеся сценарии.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Самооценка и личные стратегии">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/confidence.webp')"><img class="promo-image" src="/boba/services/confidence.webp" alt="" loading="lazy"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 05 / 07</p>
-                    <h2>Потери и незавершённые истории</h2>
-                    <div class="promo-details"><p>Расставания, обиды и воспоминания, от которых сложно переключиться.</p>
+                <div class="promo-copy">
+{{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 05 / 07</p>--}}
+
+                    <div class="promo-details">
+                        <h2>Потери и&nbsp;незавершённые истории</h2>  <br/>
+                        <p>Расставания, обиды и&nbsp;воспоминания, от&nbsp;которых сложно переключиться.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Потери и незавершённые истории">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/loss.webp')"><img class="promo-image" src="/boba/services/loss.webp" alt="" loading="lazy"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 06 / 07</p>
-                    <h2>Навязчивые мысли и действия</h2>
-                    <div class="promo-details"><p>Повторяющиеся мысли, действия и трудности речи.</p>
+                <div class="promo-copy">
+{{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 06 / 07</p>--}}
+
+                    <div class="promo-details">
+                        <h2>Навязчивые мысли и&nbsp;действия</h2>  <br/>
+                        <p>Повторяющиеся мысли, действия и&nbsp;трудности речи.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Навязчивые мысли и действия">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/thoughts.webp')"><img class="promo-image" src="/boba/services/thoughts.webp" alt="" loading="lazy"></div>
             </article>
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
-                <div class="promo-copy"><p class="promo-eyebrow">НАПРАВЛЕНИЕ · 07 / 07</p>
-                    <h2>Личный и бизнес-коучинг</h2>
-                    <div class="promo-details"><p>Цели, решения, уверенность и продуктивные привычки.</p>
+                <div class="promo-copy">
+
+                    <div class="promo-details">
+                        <h2>Личный и&nbsp;бизнес-коучинг</h2>  <br/>
+                        <p>Цели, решения, уверенность и&nbsp;продуктивные привычки.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Личный и бизнес-коучинг">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/productivity.webp')"><img class="promo-image" src="/boba/services/productivity.webp" alt="" loading="lazy"></div>
             </article>
@@ -120,7 +142,7 @@
             <p class="eyebrow"><span class="eyebrow-line"></span> ИНДИВИДУАЛЬНАЯ РАБОТА · ОНЛАЙН И ОЧНО</p>
             <h1>Меняться<br>можно <em>бережно.</em></h1>
             <p class="hero-lead">Если страх перед общением, выступлением или конкретной ситуацией ограничивает вас,
-                обсудим, может ли гипнологическая работа помочь изменить привычную реакцию. Также можно работать над
+                обсудим, может ли психосоматическая работа помочь изменить привычную реакцию. Также можно работать над
                 уверенностью и более продуктивными способами действовать.</p>
             <div class="hero-actions">
                 <button class="button" type="button" data-consult="Бесплатная консультация">Бесплатная консультация
