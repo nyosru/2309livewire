@@ -72,6 +72,12 @@
                         <td class="px-4 py-2">Заголовок новости</td>
                     </tr>
                     <tr>
+                        <td class="px-4 py-2 font-mono">news_date</td>
+                        <td class="px-4 py-2">date (YYYY-MM-DD)</td>
+                        <td class="px-4 py-2"><span class="text-red-500">нет</span></td>
+                        <td class="px-4 py-2">Дата публикации новости; если не указана, используется текущая дата</td>
+                    </tr>
+                    <tr>
                         <td class="px-4 py-2 font-mono">summary</td>
                         <td class="px-4 py-2">text</td>
                         <td class="px-4 py-2"><span class="text-red-500">нет</span></td>
@@ -126,6 +132,7 @@
     "source_id": 1,
     "url": "https://example.com/news/article",
     "title": "Заголовок новости",
+    "news_date": "2026-11-12",
     "summary": "Краткое описание новости",
     "content": "Полный текст новости",
     "media": [
