@@ -60,6 +60,7 @@
                         <button class="button promo-cta" type="button" data-consult="Страхи и фобии">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/fears.webp')"><img class="promo-image" src="/boba/services/fears.webp" alt="" fetchpriority="high"></div>
             </article>
+
             <article class="promo-slide" data-promo-slide aria-hidden="true" inert>
                 <div class="promo-copy">
 
@@ -175,55 +176,48 @@
                 формат работы.</p></div>
         <div class="service-grid">
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">01</span>
-                    <h3>Страхи и фобии</h3>
+                <div class="service-copy"><h3>Страхи и фобии</h3>
                     <p>Общение, публичные выступления, поездки, темнота и другие ситуации, которые вызывают сильное
                         напряжение.</p>
                     <button class="card-link" type="button" data-consult="Страхи и фобии">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">02</span>
-                    <h3>Тревога и стресс</h3>
+                <div class="service-copy"><h3>Тревога и стресс</h3>
                     <p>Внутреннее беспокойство, напряжение и трудности с расслаблением. Обсудим, что именно запускает
                         тревогу и мешает вам.</p>
                     <button class="card-link" type="button" data-consult="Тревога и стресс">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">03</span>
-                    <h3>Эмоции и напряжение</h3>
+                <div class="service-copy"><h3>Эмоции и напряжение</h3>
                     <p>Скованность, раздражение, злость и чувства, которым трудно найти выход. Работаем с тем, как они
                         проявляются в жизни.</p>
                     <button class="card-link" type="button" data-consult="Эмоции и напряжение">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">04</span>
-                    <h3>Самооценка и личные стратегии</h3>
+                <div class="service-copy"><h3>Самооценка и личные стратегии</h3>
                     <p>Неуверенность, самокритика и привычные способы действовать, которые мешают в отношениях с собой
                         и окружающими.</p>
                     <button class="card-link" type="button" data-consult="Самооценка и личные стратегии">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">05</span>
-                    <h3>Потери и незавершённые истории</h3>
+                <div class="service-copy"><h3>Потери и незавершённые истории</h3>
                     <p>Расставание, обида, воспоминания и повторяющиеся мысли, от которых сложно переключиться.</p>
                     <button class="card-link" type="button" data-consult="Потери и незавершённые истории">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">06</span>
-                    <h3>Навязчивые мысли и действия</h3>
+                <div class="service-copy"><h3>Навязчивые мысли и действия</h3>
                     <p>Повторяющиеся мысли и действия, трудности речи, в том числе заикание. На консультации обсудим
                         подходящий формат помощи.</p>
                     <button class="card-link" type="button" data-consult="Навязчивые мысли и действия">Бесплатная консультация <span>↗</span></button>
                 </div>
             </article>
             <article class="service-card">
-                <div class="service-copy"><span class="card-number">07</span>
-                    <h3>Личный и бизнес-коучинг</h3>
+                <div class="service-copy"><h3>Личный и бизнес-коучинг</h3>
                     <p>Цели, решения, уверенность и баланс между работой и личной жизнью. Найдём более продуктивные
                         способы действовать.</p>
                     <button class="card-link" type="button" data-consult="Личный и бизнес-коучинг">Бесплатная консультация <span>↗</span></button>
