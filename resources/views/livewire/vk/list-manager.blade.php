@@ -201,7 +201,7 @@
                     </div>
                     <div id="removal-status" class="message" role="status" aria-live="polite" wire:ignore hidden></div>
                     <div class="friend-columns" aria-label="Сортировка списка друзей">
-                        <span>Выбор</span>
+                        <span class="check-col" title="Выбор">✓</span>
                         <span><button type="button" class="sort-button" wire:click="sortBy('name')">Имя {{ $sortField === 'name' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
                         <span><button type="button" class="sort-button" wire:click="sortBy('vk_id')">VK ID {{ $sortField === 'vk_id' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
                         <span><button type="button" class="sort-button" wire:click="sortBy('favorite')">Избранное {{ $sortField === 'favorite' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' }}</button></span>
@@ -231,7 +231,7 @@
                                 @if($person['photo_100'])<img src="{{ $person['photo_100'] }}" alt="">@endif
                                 <div class="name">@if($person['domain'])<a href="https://vk.com/{{ $person['domain'] }}" target="_blank" rel="noopener">{{ $person['first_name'] }} {{ $person['last_name'] }}</a>@else{{ $person['first_name'] }} {{ $person['last_name'] }}@endif</div>
                             </div>
-                            <a class="friend-row-vk-id muted tiny" href="/history?vk_id={{ urlencode($vkId) }}" target="_blank" rel="noopener">VK ID {{ $vkId }}</a>
+                            <a class="friend-row-vk-id muted tiny" href="/history?vk_id={{ urlencode($vkId) }}" target="_blank" rel="noopener" title="VK ID {{ $vkId }}">{{ $vkId }}</a>
                             <div class="friend-row-favorite">
                                 <button type="button" class="favorite" wire:click="toggleFavorite('{{ $vkId }}')" wire:loading.attr="disabled" wire:target="toggleFavorite('{{ $vkId }}')">{{ $person['manager_favorite'] ? '★ Убрать' : '☆ В избранное' }}</button>
                                 @if($person['manager_favorite'])<span class="star" title="Избранный">★</span>@endif
