@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerSyncItem;
+use App\Models\VkManagerSyncPage;
 use App\Models\VkManagerSyncRun;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -14,6 +15,8 @@ use Throwable;
 class VkManagerSnapshotSyncService
 {
     private const PAGE_SIZE = 400;
+
+    private const COMMIT_CHUNK_SIZE = 100;
 
     private const LISTS = ['friends', 'followers', 'requests'];
 
@@ -46,6 +49,7 @@ class VkManagerSnapshotSyncService
                 VkManagerSyncRun::STATUS_RUNNING,
                 VkManagerSyncRun::STATUS_FAILED,
                 VkManagerSyncRun::STATUS_FINALIZING,
+                VkManagerSyncRun::STATUS_READY,
             ])
             ->latest('id')
             ->first();
@@ -62,6 +66,7 @@ class VkManagerSnapshotSyncService
                 VkManagerSyncRun::STATUS_RUNNING,
                 VkManagerSyncRun::STATUS_FAILED,
                 VkManagerSyncRun::STATUS_FINALIZING,
+                VkManagerSyncRun::STATUS_READY,
             ])
             ->latest('id')
             ->first();
@@ -86,14 +91,14 @@ class VkManagerSnapshotSyncService
     public function retryRun(User $owner): ?VkManagerSyncRun
     {
         $run = $this->latestRun($owner);
-        if (! $run || $run->status !== VkManagerSyncRun::STATUS_FAILED) {
+        if (! $run || $run->status !== VkManagerSyncRun::STATUS_FAILED || $run->error_page > 0) {
             return $run;
         }
 
         $run->forceFill([
             'status' => $run->error_list === 'finalizing'
                 ? VkManagerSyncRun::STATUS_FINALIZING
-                : ($run->error_page ? VkManagerSyncRun::STATUS_RUNNING : VkManagerSyncRun::STATUS_COUNTING),
+                : VkManagerSyncRun::STATUS_COUNTING,
             'error_message' => null,
             'error_list' => null,
             'error_page' => null,
@@ -110,6 +115,19 @@ class VkManagerSnapshotSyncService
             return;
         }
 
+        if ($run->error_page > 0) {
+            $run->pages()
+                ->where('list_name', $run->current_list)
+                ->where('page_number', $run->error_page)
+                ->where('status', VkManagerSyncPage::STATUS_ERROR)
+                ->update([
+                    'status' => VkManagerSyncPage::STATUS_NEW,
+                    'error_message' => null,
+                    'started_at' => null,
+                    'updated_at' => now(),
+                ]);
+        }
+
         $run->forceFill([
             'status' => $run->error_page ? VkManagerSyncRun::STATUS_RUNNING : VkManagerSyncRun::STATUS_COUNTING,
             'error_message' => null,
@@ -117,6 +135,59 @@ class VkManagerSnapshotSyncService
             'error_page' => null,
             'next_request_at' => null,
         ])->save();
+    }
+
+    public function retryPage(User $owner, string $list, int $pageNumber): ?VkManagerSyncRun
+    {
+        $run = $this->latestRun($owner);
+        if (! $run || $run->status !== VkManagerSyncRun::STATUS_FAILED || ! in_array($list, self::LISTS, true) || $pageNumber < 1) {
+            return $run;
+        }
+
+        $page = $run->pages()->where('list_name', $list)->where('page_number', $pageNumber)->first();
+        if (! $page || $page->status !== VkManagerSyncPage::STATUS_ERROR) {
+            return $run;
+        }
+
+        $page->forceFill([
+            'status' => VkManagerSyncPage::STATUS_NEW,
+            'error_message' => null,
+            'started_at' => null,
+        ])->save();
+        $run->forceFill([
+            'status' => VkManagerSyncRun::STATUS_RUNNING,
+            'current_list' => $list,
+            'current_page' => $pageNumber,
+            'error_message' => null,
+            'error_list' => null,
+            'error_page' => null,
+            'next_request_at' => null,
+        ])->save();
+
+        return $run->fresh();
+    }
+
+    public function commitSnapshot(User $owner): ?VkManagerSyncRun
+    {
+        $this->assertOwnerCanSync($owner);
+        $run = $this->latestRun($owner);
+        if (! $run || $run->status !== VkManagerSyncRun::STATUS_READY) {
+            return $run;
+        }
+
+        foreach (self::LISTS as $list) {
+            $state = $run->progress[$list] ?? [];
+            if (! is_numeric($state['count'] ?? null) || (int) $run->pages()->where('list_name', $list)->where('status', VkManagerSyncPage::STATUS_LOADED)->count() !== (int) ($state['pages'] ?? -1)) {
+                throw new RuntimeException('Нельзя отправить данные: не все страницы загружены успешно.');
+            }
+        }
+
+        $progress = $run->progress ?? [];
+        $progress['commit_completed'] = 0;
+        $progress['commit_total'] = (int) $run->items()->distinct('vk_id')->count('vk_id');
+        $run->forceFill(['status' => VkManagerSyncRun::STATUS_FINALIZING, 'progress' => $progress, 'next_request_at' => null])->save();
+
+        return $run->fresh();
     }
 
     public function advanceRun(User $owner): ?VkManagerSyncRun
@@ -131,6 +202,7 @@ class VkManagerSnapshotSyncService
         }
 
         $now = now();
+        $leaseSeconds = $run->status === VkManagerSyncRun::STATUS_FINALIZING ? 120 : 30;
         $claimed = VkManagerSyncRun::query()
             ->whereKey($run->getKey())
             ->where('account_id', $run->account_id)
@@ -138,7 +210,7 @@ class VkManagerSnapshotSyncService
             ->where(function ($query) use ($now): void {
                 $query->whereNull('next_request_at')->orWhere('next_request_at', '<=', $now);
             })
-            ->update(['next_request_at' => $now->copy()->addSeconds(30), 'updated_at' => $now]);
+            ->update(['next_request_at' => $now->copy()->addSeconds($leaseSeconds), 'updated_at' => $now]);
         if (! $claimed) {
             return $run->fresh();
         }
@@ -149,23 +221,49 @@ class VkManagerSnapshotSyncService
             if ($run->status === VkManagerSyncRun::STATUS_COUNTING) {
                 $this->countNextList($owner, $run);
             } elseif ($run->status === VkManagerSyncRun::STATUS_RUNNING) {
+                $stalledPage = $run->pages()
+                    ->where('list_name', $run->current_list)
+                    ->where('page_number', $run->current_page)
+                    ->where('status', VkManagerSyncPage::STATUS_LOADING)
+                    ->first();
+                if ($stalledPage) {
+                    $stalledPage->forceFill([
+                        'status' => VkManagerSyncPage::STATUS_NEW,
+                        'error_message' => null,
+                        'started_at' => null,
+                    ])->save();
+                }
                 $this->fetchNextPage($owner, $run);
             } else {
                 $this->finalizeRun($owner, $run);
             }
         } catch (Throwable $exception) {
             $isAuthorizationError = str_starts_with($exception->getMessage(), 'VK_AUTHORIZATION_ERROR:');
+            $errorPage = $run->status === VkManagerSyncRun::STATUS_RUNNING
+                ? (int) $run->current_page
+                : 0;
+            $errorMessage = $isAuthorizationError
+                ? substr($exception->getMessage(), strlen('VK_AUTHORIZATION_ERROR: '))
+                : $exception->getMessage();
+
+            if ($errorPage > 0) {
+                $run->pages()
+                    ->where('list_name', $run->current_list)
+                    ->where('page_number', $errorPage)
+                    ->update([
+                        'status' => VkManagerSyncPage::STATUS_ERROR,
+                        'error_message' => $errorMessage,
+                        'updated_at' => now(),
+                    ]);
+            }
+
             $run->forceFill([
                 'status' => VkManagerSyncRun::STATUS_FAILED,
-                'error_message' => $isAuthorizationError
-                    ? substr($exception->getMessage(), strlen('VK_AUTHORIZATION_ERROR: '))
-                    : $exception->getMessage(),
+                'error_message' => $errorMessage,
                 'error_list' => $isAuthorizationError
                     ? 'authorization'
                     : ($run->status === VkManagerSyncRun::STATUS_FINALIZING ? 'finalizing' : $run->current_list),
-                'error_page' => $run->status === VkManagerSyncRun::STATUS_RUNNING
-                    ? (int) data_get($run->progress, $run->current_list.'.completed_pages', 0) + 1
-                    : 0,
+                'error_page' => $errorPage,
             ])->save();
         }
 
@@ -190,13 +288,28 @@ class VkManagerSnapshotSyncService
         $progress[$list]['pages'] = (int) ceil((int) $count / self::PAGE_SIZE);
         $progress[$list]['done'] = (int) $count === 0;
         $nextCountList = $this->nextList($list, $progress, 'count');
-        $nextList = $nextCountList ?? $this->firstPendingPageList($progress);
+        $nextList = $nextCountList;
+        if ($nextCountList === null) {
+            DB::transaction(function () use ($run, $progress): void {
+                foreach (self::LISTS as $pageList) {
+                    for ($pageNumber = 1; $pageNumber <= (int) $progress[$pageList]['pages']; $pageNumber++) {
+                        $run->pages()->firstOrCreate(
+                            ['list_name' => $pageList, 'page_number' => $pageNumber],
+                            ['status' => VkManagerSyncPage::STATUS_NEW],
+                        );
+                    }
+                }
+            });
+            $nextPage = $this->nextPendingPage($run);
+            $nextList = $nextPage?->list_name;
+        }
         $run->forceFill([
             'progress' => $progress,
             'current_list' => $nextList,
+            'current_page' => isset($nextPage) ? (int) $nextPage->page_number : 0,
             'status' => $nextCountList !== null
                 ? VkManagerSyncRun::STATUS_COUNTING
-                : ($nextList === null ? VkManagerSyncRun::STATUS_FINALIZING : VkManagerSyncRun::STATUS_RUNNING),
+                : ($nextList === null ? VkManagerSyncRun::STATUS_READY : VkManagerSyncRun::STATUS_RUNNING),
             'next_request_at' => now()->addSecond(),
         ])->save();
     }
@@ -210,9 +323,15 @@ class VkManagerSnapshotSyncService
             throw new RuntimeException('Не найдено состояние списка для продолжения загрузки.');
         }
 
-        $page = (int) $state['completed_pages'] + 1;
-        $offset = (int) $state['completed_pages'] * self::PAGE_SIZE;
+        $page = $run->pages()->where('list_name', $list)->where('page_number', $run->current_page)->first();
+        if (! $page || $page->status !== VkManagerSyncPage::STATUS_NEW) {
+            throw new RuntimeException('Страница не готова к загрузке. Обновите список страниц.');
+        }
+
+        $pageNumber = (int) $page->page_number;
+        $offset = ($pageNumber - 1) * self::PAGE_SIZE;
         $expected = min(self::PAGE_SIZE, max(0, (int) $state['count'] - $offset));
+        $page->forceFill(['status' => VkManagerSyncPage::STATUS_LOADING, 'error_message' => null, 'started_at' => now()])->save();
         $response = $this->requestList($owner, $list, self::PAGE_SIZE, $offset, true);
         if ((int) data_get($response, 'count', -1) !== (int) $state['count']) {
             throw new RuntimeException('Количество записей списка изменилось во время загрузки. Запустите обновление заново.');
@@ -220,14 +339,14 @@ class VkManagerSnapshotSyncService
 
         $items = data_get($response, 'items');
         if (! is_array($items) || count($items) !== $expected) {
-            throw new RuntimeException('VK вернул неполную страницу '.$page.' списка «'.$this->listLabel($list).'».');
+            throw new RuntimeException('VK вернул неполную страницу '.$pageNumber.' списка «'.$this->listLabel($list).'».');
         }
 
         $rows = [];
         foreach ($items as $item) {
             $vkId = data_get($item, 'id', data_get($item, 'user_id'));
             if (! is_numeric($vkId) || (int) $vkId < 1) {
-                throw new RuntimeException('VK вернул запись без корректного ID на странице '.$page.'.');
+                throw new RuntimeException('VK вернул запись без корректного ID на странице '.$pageNumber.'.');
             }
             $rows[] = [
                 'run_id' => $run->getKey(),
@@ -239,18 +358,23 @@ class VkManagerSnapshotSyncService
             ];
         }
 
-        DB::transaction(function () use ($run, $rows, $progress, $list): void {
+        DB::transaction(function () use ($run, $rows, $progress, $list, $page): void {
             if ($rows !== []) {
                 VkManagerSyncItem::query()->upsert($rows, ['run_id', 'list_name', 'vk_id'], ['payload', 'updated_at']);
             }
+            $page->forceFill([
+                'status' => VkManagerSyncPage::STATUS_LOADED,
+                'error_message' => null,
+                'completed_at' => now(),
+            ])->save();
             $progress[$list]['completed_pages']++;
             $progress[$list]['done'] = $progress[$list]['completed_pages'] >= $progress[$list]['pages'];
-            $nextList = $progress[$list]['done'] ? $this->nextList($list, $progress, 'pages') : $list;
+            $nextPage = $this->nextPendingPage($run);
             $run->forceFill([
                 'progress' => $progress,
-                'current_list' => $nextList,
-                'current_page' => (int) $progress[$list]['completed_pages'],
-                'status' => $nextList === null ? VkManagerSyncRun::STATUS_FINALIZING : VkManagerSyncRun::STATUS_RUNNING,
+                'current_list' => $nextPage?->list_name,
+                'current_page' => $nextPage?->page_number ?? 0,
+                'status' => $nextPage === null ? VkManagerSyncRun::STATUS_READY : VkManagerSyncRun::STATUS_RUNNING,
                 'next_request_at' => now()->addSecond(),
             ])->save();
         });
@@ -258,20 +382,42 @@ class VkManagerSnapshotSyncService
 
     private function finalizeRun(User $owner, VkManagerSyncRun $run): void
     {
-        $people = [];
-        foreach (self::LISTS as $list) {
-            $people[$list] = $run->items()->where('list_name', $list)->orderBy('id')->get()
-                ->map(fn (VkManagerSyncItem $item): array => $item->payload)
-                ->all();
+        $priority = ['requests' => 1, 'followers' => 2, 'friends' => 3];
+        $items = $run->items();
+        $total = (int) (clone $items)->distinct('vk_id')->count('vk_id');
+        $progress = $run->progress ?? [];
+        $offset = max(0, (int) ($progress['commit_completed'] ?? 0));
+        $progress['commit_total'] = $total;
+
+        if ($offset < $total) {
+            $chunkIds = (clone $items)->select('vk_id')->groupBy('vk_id')->orderByRaw('MIN(id)')
+                ->offset($offset)->limit(self::COMMIT_CHUNK_SIZE)->pluck('vk_id')->map(fn ($id) => (string) $id)->all();
+            $observations = [];
+            foreach ((clone $items)->whereIn('vk_id', $chunkIds)->get(['list_name', 'vk_id', 'payload']) as $item) {
+                $list = $item->list_name;
+                $vkId = (string) $item->vk_id;
+                if (! isset($observations[$vkId]) || $priority[$list] > $priority[$observations[$vkId]['list']]) {
+                    $observations[$vkId] = ['list' => $list, 'payload' => $item->payload ?? []];
+                }
+            }
+            $lists = ['friends' => [], 'followers' => [], 'requests' => []];
+            foreach ($chunkIds as $vkId) {
+                if (! isset($observations[$vkId])) {
+                    continue;
+                }
+                $payload = $observations[$vkId]['payload'];
+                $payload['id'] = (int) $vkId;
+                $lists[$observations[$vkId]['list']][] = $payload;
+            }
+            $this->history->observeLists($owner, $lists['friends'], $lists['followers'], 'manual_full_sync', $lists['requests']);
+            $progress['commit_completed'] = $offset + count($chunkIds);
+            $run->forceFill(['progress' => $progress, 'next_request_at' => now()->addSecond()])->save();
+
+            return;
         }
 
-        $this->history->reconcileSnapshot(
-            $owner,
-            $people['friends'],
-            $people['followers'],
-            'manual_full_sync',
-            $people['requests'],
-        );
+        $observedVkIds = (clone $items)->distinct()->orderBy('vk_id')->pluck('vk_id')->map(fn ($id) => (string) $id)->all();
+        $this->history->completeSnapshot($owner, $observedVkIds);
         $run->items()->delete();
         $run->forceFill([
             'status' => VkManagerSyncRun::STATUS_COMPLETED,
@@ -346,11 +492,16 @@ class VkManagerSnapshotSyncService
         return null;
     }
 
-    private function firstPendingPageList(array $progress): ?string
+    private function nextPendingPage(VkManagerSyncRun $run): ?VkManagerSyncPage
     {
         foreach (self::LISTS as $list) {
-            if (! $progress[$list]['done']) {
-                return $list;
+            $page = $run->pages()
+                ->where('list_name', $list)
+                ->where('status', VkManagerSyncPage::STATUS_NEW)
+                ->orderBy('page_number')
+                ->first();
+            if ($page) {
+                return $page;
             }
         }
 

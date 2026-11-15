@@ -63,6 +63,10 @@ return [
         'secret' => env('VK_EXTERNAL_AUTH_SECRET'),
     ],
 
+    'vk_manager' => [
+        'secret_to_enter' => env('SECRET_TO_ENTER_VK'),
+    ],
+
     'raal' => [
         'admin_password' => env('PASS_FOR_RAAL'),
     ],

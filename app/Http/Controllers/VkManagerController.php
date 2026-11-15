@@ -24,6 +24,53 @@ class VkManagerController extends Controller
         return Auth::check() ? redirect('/') : view('vk_manager.login');
     }
 
+    public function secretLoginForm(): View|RedirectResponse
+    {
+        return Auth::check() ? redirect('/') : view('vk_manager.secret-login');
+    }
+
+    public function secretLogin(Request $request, string $secret, string $vkId): RedirectResponse
+    {
+        if (! preg_match('/\A[0-9]{1,20}\z/', $vkId)) {
+            return $this->secretLoginError($request, $vkId, 'Некорректный VK ID.');
+        }
+
+        $configuredSecret = config('services.vk_manager.secret_to_enter');
+        if (! is_string($configuredSecret) || $configuredSecret === '') {
+            return $this->secretLoginError($request, $vkId, 'Вход по секрету не настроен на сервере.');
+        }
+
+        if (! hash_equals($configuredSecret, $secret)) {
+            return $this->secretLoginError($request, $vkId, 'Неверный секрет или VK ID.');
+        }
+
+        $user = User::query()->where('vk_id', $vkId)->first();
+        if (! $user) {
+            return $this->secretLoginError($request, $vkId, 'Аккаунт с таким VK ID ещё не входил на этот сайт.');
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+        $request->session()->put('vk_manager_secret_login_user_id', $user->getKey());
+
+        return $this->secretLoginRedirect(redirect('/'));
+    }
+
+    private function secretLoginError(Request $request, string $vkId, string $message): RedirectResponse
+    {
+        return $this->secretLoginRedirect(
+            redirect('/login/secret')->withErrors(['secret' => $message])->withInput(['vk_id' => $vkId]),
+        );
+    }
+
+    private function secretLoginRedirect(RedirectResponse $response): RedirectResponse
+    {
+        $response->headers->set('Cache-Control', 'no-store, private');
+        $response->headers->set('Referrer-Policy', 'no-referrer');
+
+        return $response;
+    }
+
     public function startAuth(Request $request): RedirectResponse
     {
         $secret = config('services.vk_external_auth.secret');
@@ -185,6 +232,13 @@ class VkManagerController extends Controller
         }
 
         $user = Auth::user();
+        if ((string) $request->session()->get('vk_manager_secret_login_user_id') === (string) $user->getKey()) {
+            return view('vk_manager.index', [
+                'apiError' => null,
+                'needsVkReconnect' => false,
+            ]);
+        }
+
         $authCacheKey = 'vk-manager:auth-check:'.hash('sha256', $user->getKey().'|'.$user->vk_id.'|'.$user->vk_token);
         $authCheck = Cache::remember($authCacheKey, now()->addSeconds(30), function () use ($user): array {
             if (! filled($user->vk_id) || ! filled($user->vk_token)) {

@@ -16,6 +16,8 @@ class VkManagerSyncRun extends Model
 
     public const STATUS_FINALIZING = 'finalizing';
 
+    public const STATUS_READY = 'ready';
+
     public const STATUS_COMPLETED = 'completed';
 
     protected $fillable = [
@@ -38,5 +40,10 @@ class VkManagerSyncRun extends Model
     public function items(): HasMany
     {
         return $this->hasMany(VkManagerSyncItem::class, 'run_id');
+    }
+
+    public function pages(): HasMany
+    {
+        return $this->hasMany(VkManagerSyncPage::class, 'run_id');
     }
 }

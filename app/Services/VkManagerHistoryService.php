@@ -154,6 +154,42 @@ class VkManagerHistoryService
         return $this->applyObservations($owner, $friends, $followers, $outgoingRequests, $source, true);
     }
 
+    /** Close memberships missing from a snapshot after all its chunks were observed. */
+    public function completeSnapshot(User $owner, array $observedVkIds): array
+    {
+        $account = $this->ensureAccount($owner);
+        $observedVkIds = array_values(array_unique(array_filter(array_map('strval', $observedVkIds))));
+        $now = now();
+
+        return DB::transaction(function () use ($account, $observedVkIds, $now): array {
+            $account = VkManagerAccount::query()->whereKey($account->getKey())->lockForUpdate()->firstOrFail();
+            $observedPersonIds = [];
+            foreach (array_chunk($observedVkIds, self::DB_BATCH_SIZE) as $vkIds) {
+                $observedPersonIds = array_merge(
+                    $observedPersonIds,
+                    VkManagerPerson::query()->whereIn('vk_id', $vkIds)->pluck('id')->map(fn ($id) => (int) $id)->all(),
+                );
+            }
+
+            $current = VkManagerMembership::query()
+                ->where('account_id', $account->getKey())
+                ->where('is_current', true);
+            if ($observedPersonIds === []) {
+                $staled = $current->update(['is_current' => false, 'ended_at' => $now]);
+            } else {
+                $staled = $current->whereNotIn('person_id', $observedPersonIds)
+                    ->update(['is_current' => false, 'ended_at' => $now]);
+            }
+
+            $account->forceFill([
+                'last_observed_at' => $now,
+                'last_full_sync_at' => $now,
+            ])->save();
+
+            return ['account_id' => (int) $account->getKey(), 'staled' => $staled, 'complete_snapshot' => true];
+        });
+    }
+
     public function summary(User $owner): array
     {
         $account = VkManagerAccount::query()->where('user_id', $owner->getKey())->first();

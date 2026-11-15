@@ -242,8 +242,18 @@ class ListManager extends Component
             $this->statusMessage = 'Состояние обновлено. Временный снимок применён к истории аккаунта.';
             $this->statusIsError = false;
             $this->seedActiveCommentDrafts();
+        } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_READY) {
+            $this->statusMessage = 'Все страницы загружены без ошибок. Нажмите «Отправить полученные данные в базу данных», чтобы применить снимок к истории.';
+            $this->statusIsError = false;
+        } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING) {
+            $completed = (int) data_get($run->progress, 'commit_completed', 0);
+            $total = (int) data_get($run->progress, 'commit_total', 0);
+            $this->statusMessage = $total > 0
+                ? "Сохраняю данные в базу: {$completed} из {$total} контактов."
+                : 'Подготавливаю данные для сохранения в базу…';
+            $this->statusIsError = false;
         } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FAILED) {
-            $this->statusMessage = 'Загрузка остановлена на ошибке. Повторите неудачный шаг кнопкой «Загрузить заново».';
+            $this->statusMessage = 'Загрузка остановлена. Повторите ошибочную страницу или подсчёт в соответствующей строке.';
             $this->statusIsError = true;
         }
     }
@@ -255,11 +265,48 @@ class ListManager extends Component
         $this->statusIsError = false;
     }
 
+    public function retrySnapshotPage(string $list, int $page, VkManagerSnapshotSyncService $snapshotSync): void
+    {
+        $run = $snapshotSync->retryPage(Auth::user(), $list, $page);
+        if ($run?->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING) {
+            $this->statusMessage = 'Повторяю страницу '.$page.'. После успеха загрузка продолжится автоматически.';
+            $this->statusIsError = false;
+        } else {
+            $this->statusMessage = 'Не удалось повторить загрузку страницы. Обновите список и попробуйте ещё раз.';
+            $this->statusIsError = true;
+        }
+    }
+
+    public function commitSnapshot(VkManagerSnapshotSyncService $snapshotSync): void
+    {
+        try {
+            $run = $snapshotSync->commitSnapshot(Auth::user());
+            if ($run?->status === \App\Models\VkManagerSyncRun::STATUS_COMPLETED) {
+                $this->statusMessage = 'Снимок сохранён в истории аккаунта.';
+                $this->statusIsError = false;
+                $this->seedActiveCommentDrafts();
+            } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FAILED) {
+                $this->statusMessage = 'Не удалось применить снимок: '.$run->error_message;
+                $this->statusIsError = true;
+            } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING) {
+                $this->statusMessage = 'Сохранение запущено. Данные будут записываться небольшими шагами.';
+                $this->statusIsError = false;
+            } else {
+                $this->statusMessage = 'Данные пока не готовы к отправке. Проверьте статусы страниц.';
+                $this->statusIsError = true;
+            }
+        } catch (Throwable $exception) {
+            $this->statusMessage = $exception->getMessage();
+            $this->statusIsError = true;
+        }
+    }
+
     public function render()
     {
         $owner = Auth::user();
         $dbStats = app(VkManagerHistoryService::class)->summary($owner);
         $syncRun = app(VkManagerSnapshotSyncService::class)->latestRun($owner);
+        $syncPages = $syncRun?->pages()->orderBy('list_name')->orderBy('page_number')->get()->groupBy('list_name') ?? collect();
         $counts = [
             'friends' => $this->listQuery(VkManagerMembership::STATUS_FRIEND)->count(),
             'followers' => $this->listQuery(VkManagerMembership::STATUS_FOLLOWER)->count(),
@@ -275,6 +322,7 @@ class ListManager extends Component
         return view('livewire.vk.list-manager', [
             'dbStats' => $dbStats,
             'syncRun' => $syncRun,
+            'syncPages' => $syncPages,
             'counts' => $counts,
             'activeList' => $activeList,
             'pageFriendIds' => $this->activeTab === 'friends'

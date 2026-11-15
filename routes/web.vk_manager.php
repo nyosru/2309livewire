@@ -8,6 +8,12 @@ $d = function () {
     Route::get('/', [VkManagerController::class, 'index'])->name('index');
     Route::view('/history', 'vk_manager.history')->middleware('auth')->name('history');
     Route::get('/login', [VkManagerController::class, 'login'])->name('login');
+    Route::get('/login/secret', [VkManagerController::class, 'secretLoginForm'])->name('login.secret');
+    Route::get('/a/{secret}/{vkId}', [VkManagerController::class, 'secretLogin'])
+        ->middleware('throttle:5,1')
+        ->where('secret', '[A-Za-z0-9._~-]+')
+        ->whereNumber('vkId')
+        ->name('login.secret.direct');
     Route::post('/logout', [VkManagerController::class, 'logout'])->name('logout');
     Route::get('/auth/master', [VkManagerController::class, 'startAuth'])->name('auth.master');
     Route::get('/auth/master/callback', [VkManagerController::class, 'callback'])->name('auth.master.callback');
@@ -20,5 +26,3 @@ $d = function () {
 
 Route::group(['domain' => 'vk.php-cat.ru', 'as' => 'vk-manager.'], $d);
 Route::group(['domain' => 'vk.local', 'as' => 'vk-local.'], $d);
-
-

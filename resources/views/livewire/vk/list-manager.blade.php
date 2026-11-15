@@ -59,7 +59,11 @@
                 @if(!$syncRun)
                     <button type="button" class="button" wire:click="startSnapshotSync" wire:loading.attr="disabled" wire:target="startSnapshotSync">Обновить состояние</button>
                 @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED && $syncRun->error_list !== 'authorization')
-                    <button type="button" class="button" wire:click="retrySnapshotSync" wire:loading.attr="disabled" wire:target="retrySnapshotSync">Загрузить заново</button>
+                    @if($syncRun->error_page === 0 && $syncRun->error_list !== 'finalizing')
+                        <button type="button" class="button" wire:click="retrySnapshotSync" wire:loading.attr="disabled" wire:target="retrySnapshotSync">Повторить подсчёт</button>
+                    @elseif($syncRun->error_list === 'finalizing')
+                        <button type="button" class="button" wire:click="retrySnapshotSync" wire:loading.attr="disabled" wire:target="retrySnapshotSync">Повторить отправку</button>
+                    @endif
                 @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED && $syncRun->error_list === 'authorization')
                     <a class="button" href="/auth/master">Подключить VK заново</a>
                 @endif
@@ -80,11 +84,23 @@
                             @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING)
                                 Загружаю страницы по 400 записей…
                             @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING)
-                                Все страницы загружены. Сохраняю снимок в историю…
+                                Отправляю полученные данные в историю…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_READY)
+                                Все страницы загружены. Проверьте статусы и отправьте снимок в базу данных.
                             @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
                                 Загрузка остановлена
                             @endif
                         </strong>
+                        @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING)
+                            <div class="sync-commit-progress">
+                                Сохранено в историю: {{ number_format((int) data_get($syncRun->progress, 'commit_completed', 0), 0, ',', ' ') }}
+                                @if(data_get($syncRun->progress, 'commit_total'))
+                                    из {{ number_format((int) data_get($syncRun->progress, 'commit_total'), 0, ',', ' ') }} контактов
+                                @else
+                                    контактов
+                                @endif
+                            </div>
+                        @endif
                         @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
                             <div class="sync-error">
                                 Ошибка: {{ $syncRun->error_message }}
@@ -104,23 +120,52 @@
                                 @php
                                     $listProgress = $syncRun->progress[$listKey];
                                 @endphp
-                                <div class="sync-list-row">
-                                    <span>{{ $listLabel }}</span>
+                                <div class="sync-list-group">
+                                    <div class="sync-list-row">
+                                        <strong>{{ $listLabel }}</strong>
                                     @if($listProgress['count'] === null)
-                                        <span class="muted">ожидает подсчёта</span>
+                                        <span class="muted">общее количество ещё не получено</span>
                                     @else
-                                        <span>{{ number_format($listProgress['count'], 0, ',', ' ') }} записей</span>
-                                        <span class="muted">
-                                            @if($listProgress['pages'] === 0)
-                                                готово: список пуст
-                                            @else
-                                                страница {{ $listProgress['completed_pages'] }} из {{ $listProgress['pages'] }}
-                                            @endif
-                                        </span>
+                                        <span>{{ number_format($listProgress['count'], 0, ',', ' ') }} записей · {{ $listProgress['pages'] }} стр. по 400</span>
                                     @endif
+                                    </div>
+                                    @foreach(($syncPages[$listKey] ?? collect()) as $syncPage)
+                                        <div class="sync-page-row sync-page-{{ $syncPage->status }}">
+                                            <span>Страница {{ $syncPage->page_number }} · записи {{ (($syncPage->page_number - 1) * 400) + 1 }}–{{ min($syncPage->page_number * 400, $listProgress['count']) }}</span>
+                                            <span class="sync-page-status">
+                                                @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING && $syncRun->current_list === $listKey && (int) $syncRun->current_page === (int) $syncPage->page_number)
+                                                    <span wire:loading.remove wire:target="advanceSnapshotSync">
+                                                        @if($syncPage->status === \App\Models\VkManagerSyncPage::STATUS_LOADING)
+                                                            Данные загружаются…
+                                                        @else
+                                                            Новая
+                                                        @endif
+                                                    </span>
+                                                    <span wire:loading wire:target="advanceSnapshotSync">Загружаю…</span>
+                                                @elseif($syncPage->status === \App\Models\VkManagerSyncPage::STATUS_NEW)
+                                                    Новая
+                                                @elseif($syncPage->status === \App\Models\VkManagerSyncPage::STATUS_LOADING)
+                                                    Данные загружаются…
+                                                @elseif($syncPage->status === \App\Models\VkManagerSyncPage::STATUS_LOADED)
+                                                    Данные загружены
+                                                @else
+                                                    Ошибка: {{ $syncPage->error_message }}
+                                                @endif
+                                            </span>
+                                            @if($syncPage->status === \App\Models\VkManagerSyncPage::STATUS_ERROR && $syncRun->error_list !== 'authorization')
+                                                <button type="button" class="button secondary sync-retry" wire:click="retrySnapshotPage('{{ $listKey }}', {{ $syncPage->page_number }})" wire:loading.attr="disabled" wire:target="retrySnapshotPage">Повторить загрузку</button>
+                                            @endif
+                                        </div>
+                                    @endforeach
                                 </div>
                             @endforeach
                         </div>
+                        @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_READY)
+                            <div class="sync-submit">
+                                <span>Изменения в истории пока не применены.</span>
+                                <button type="button" class="button" wire:click="commitSnapshot" wire:loading.attr="disabled" wire:target="commitSnapshot">Отправить полученные данные в базу данных</button>
+                            </div>
+                        @endif
                     </div>
                 @endif
             </section>
