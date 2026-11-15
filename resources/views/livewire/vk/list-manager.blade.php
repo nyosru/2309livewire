@@ -56,8 +56,56 @@
                 </div>
                 <p class="muted">Последнее наблюдение: {{ $dbStats['last_observed_at']?->format('d.m.Y H:i:s') ?? 'ещё не было' }}<br>
                     Последняя полная сверка: {{ $dbStats['last_full_sync_at']?->format('d.m.Y H:i:s') ?? 'ещё не было' }}</p>
-                <button type="button" class="button" wire:click="refreshState" wire:loading.attr="disabled" wire:target="refreshState">Обновить состояние</button>
-                <span class="muted" wire:loading wire:target="refreshState">Получаю полные списки VK…</span>
+                @if(!$syncRun)
+                    <button type="button" class="button" wire:click="startSnapshotSync" wire:loading.attr="disabled" wire:target="startSnapshotSync">Обновить состояние</button>
+                @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
+                    <button type="button" class="button" wire:click="retrySnapshotSync" wire:loading.attr="disabled" wire:target="retrySnapshotSync">Загрузить заново</button>
+                @endif
+
+                @if($syncRun)
+                    @php
+                        $syncLists = ['friends' => 'Друзья', 'followers' => 'Подписчики', 'requests' => 'Исходящие заявки'];
+                        $syncIsActive = in_array($syncRun->status, [
+                            \App\Models\VkManagerSyncRun::STATUS_COUNTING,
+                            \App\Models\VkManagerSyncRun::STATUS_RUNNING,
+                            \App\Models\VkManagerSyncRun::STATUS_FINALIZING,
+                        ], true);
+                    @endphp
+                    <div class="sync-progress" @if($syncIsActive) wire:poll.1s="advanceSnapshotSync" @endif>
+                        <strong>
+                            @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_COUNTING)Считаю записи списков…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING)Загружаю страницы по 400 записей…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING)Все страницы загружены. Сохраняю снимок в историю…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)Загрузка остановлена
+                            @endif
+                        </strong>
+                        @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
+                            <div class="sync-error">
+                                Ошибка: {{ $syncRun->error_message }}
+                                @if($syncRun->error_list === 'finalizing')<br>Шаг: применение снимка к истории
+                                @elseif($syncRun->error_page)<br>Шаг: {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}, страница {{ $syncRun->error_page }}
+                                @else<br>Шаг: получение общего количества — {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}@endif
+                            </div>
+                        @endif
+                        <div class="sync-lists">
+                            @foreach($syncLists as $listKey => $listLabel)
+                                @php($listProgress = $syncRun->progress[$listKey])
+                                <div class="sync-list-row">
+                                    <span>{{ $listLabel }}</span>
+                                    @if($listProgress['count'] === null)
+                                        <span class="muted">ожидает подсчёта</span>
+                                    @else
+                                        <span>{{ number_format($listProgress['count'], 0, ',', ' ') }} записей</span>
+                                        <span class="muted">
+                                            @if($listProgress['pages'] === 0)готово: список пуст
+                                            @elseстраница {{ $listProgress['completed_pages'] }} из {{ $listProgress['pages'] }}@endif
+                                        </span>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </section>
         @elseif($activeList)
             @php

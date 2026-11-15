@@ -219,28 +219,47 @@ class ListManager extends Component
         $this->statusIsError = false;
     }
 
-    public function refreshState(VkManagerSnapshotSyncService $snapshotSync): void
+    public function startSnapshotSync(VkManagerSnapshotSyncService $snapshotSync): void
     {
         try {
-            $result = $snapshotSync->sync(Auth::user(), 'manual_full_sync');
-            $this->statusMessage = sprintf(
-                'Состояние обновлено: друзей %d, подписчиков %d, исходящих заявок %d.',
-                $result['friends'],
-                $result['followers'],
-                $result['outgoing_requests'],
-            );
+            $snapshotSync->startRun(Auth::user());
+            $this->statusMessage = 'Обновление запущено. Загружаю количества списков…';
             $this->statusIsError = false;
-            $this->seedActiveCommentDrafts();
         } catch (Throwable $exception) {
-            $this->statusMessage = 'Не удалось обновить данные: '.$exception->getMessage();
+            $this->statusMessage = 'Не удалось запустить обновление: '.$exception->getMessage();
             $this->statusIsError = true;
         }
+    }
+
+    public function advanceSnapshotSync(VkManagerSnapshotSyncService $snapshotSync): void
+    {
+        if ($this->activeTab !== 'database') {
+            return;
+        }
+
+        $run = $snapshotSync->advanceRun(Auth::user());
+        if ($run?->status === \App\Models\VkManagerSyncRun::STATUS_COMPLETED) {
+            $this->statusMessage = 'Состояние обновлено. Временный снимок применён к истории аккаунта.';
+            $this->statusIsError = false;
+            $this->seedActiveCommentDrafts();
+        } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FAILED) {
+            $this->statusMessage = 'Загрузка остановлена на ошибке. Повторите неудачный шаг кнопкой «Загрузить заново».';
+            $this->statusIsError = true;
+        }
+    }
+
+    public function retrySnapshotSync(VkManagerSnapshotSyncService $snapshotSync): void
+    {
+        $snapshotSync->retryRun(Auth::user());
+        $this->statusMessage = 'Повторяю остановленный шаг. После успеха загрузка продолжится автоматически.';
+        $this->statusIsError = false;
     }
 
     public function render()
     {
         $owner = Auth::user();
         $dbStats = app(VkManagerHistoryService::class)->summary($owner);
+        $syncRun = app(VkManagerSnapshotSyncService::class)->latestRun($owner);
         $counts = [
             'friends' => $this->listQuery(VkManagerMembership::STATUS_FRIEND)->count(),
             'followers' => $this->listQuery(VkManagerMembership::STATUS_FOLLOWER)->count(),
@@ -255,6 +274,7 @@ class ListManager extends Component
 
         return view('livewire.vk.list-manager', [
             'dbStats' => $dbStats,
+            'syncRun' => $syncRun,
             'counts' => $counts,
             'activeList' => $activeList,
             'pageFriendIds' => $this->activeTab === 'friends'
