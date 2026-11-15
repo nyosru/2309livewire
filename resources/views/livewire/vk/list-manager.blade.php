@@ -56,6 +56,22 @@
                 </div>
                 <p class="muted">Последнее наблюдение: {{ $dbStats['last_observed_at']?->format('d.m.Y H:i:s') ?? 'ещё не было' }}<br>
                     Последняя полная сверка: {{ $dbStats['last_full_sync_at']?->format('d.m.Y H:i:s') ?? 'ещё не было' }}</p>
+
+                <div class="public-link">
+                    <h3>Ссылка с данными для ИИ-агента</h3>
+                    <p class="muted" style="margin:0 0 10px">Ссылка открывается без входа на сайт и отдаёт JSON: VK ID и токен текущего аккаунта, а также все ID и ники в трёх списках — друзья, подписчики и исходящие заявки. Для обычного текста добавьте <code>?format=txt</code>.</p>
+                    @if($publicUrl)
+                        <p class="public-link-url"><a href="{{ $publicUrl }}" target="_blank" rel="noopener noreferrer"><code>{{ $publicUrl }}</code></a></p>
+                        <div class="public-link-actions">
+                            <button type="button" class="button secondary" data-copy="{{ $publicUrl }}" onclick="navigator.clipboard.writeText(this.dataset.copy).then(() => { this.textContent = 'Скопировано'; });">Скопировать ссылку</button>
+                            <button type="button" class="button secondary" wire:click="regeneratePublicLink" wire:confirm="Перевыпустить ссылку? Старая ссылка сразу перестанет работать." wire:loading.attr="disabled">Перевыпустить ссылку</button>
+                        </div>
+                        <p class="muted tiny" style="margin:10px 0 0">Ссылка даёт доступ к VK-токену без пароля. Передавайте её только тому агенту, которому доверяете; при утечке перевыпустите.</p>
+                    @else
+                        <p class="muted">Ссылку создать нельзя: у аккаунта нет VK ID.</p>
+                    @endif
+                </div>
+
                 @if(!$syncRun)
                     <button type="button" class="button" wire:click="startSnapshotSync" wire:loading.attr="disabled" wire:target="startSnapshotSync">Обновить состояние</button>
                 @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED && $syncRun->error_list !== 'authorization')

@@ -6,6 +6,7 @@ use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
 use App\Models\VkManagerMembership;
 use App\Services\VkManagerHistoryService;
+use App\Services\VkManagerPublicAccessService;
 use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
@@ -219,6 +220,19 @@ class ListManager extends Component
         $this->statusIsError = false;
     }
 
+    public function regeneratePublicLink(VkManagerPublicAccessService $access): void
+    {
+        if ($access->regenerate(Auth::user()) === null) {
+            $this->statusMessage = 'Не удалось создать ссылку: у аккаунта нет VK ID.';
+            $this->statusIsError = true;
+
+            return;
+        }
+
+        $this->statusMessage = 'Ссылка перевыпущена. Старая ссылка больше не работает.';
+        $this->statusIsError = false;
+    }
+
     public function startSnapshotSync(VkManagerSnapshotSyncService $snapshotSync): void
     {
         try {
@@ -321,6 +335,9 @@ class ListManager extends Component
 
         return view('livewire.vk.list-manager', [
             'dbStats' => $dbStats,
+            'publicUrl' => $this->activeTab === 'database'
+                ? app(VkManagerPublicAccessService::class)->url($owner)
+                : null,
             'syncRun' => $syncRun,
             'syncPages' => $syncPages,
             'counts' => $counts,

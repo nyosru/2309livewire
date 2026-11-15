@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VkManagerAccount extends Model
 {
-    protected $fillable = ['user_id', 'vk_id', 'name', 'last_observed_at', 'last_full_sync_at'];
+    protected $fillable = ['user_id', 'vk_id', 'name', 'public_token', 'last_observed_at', 'last_full_sync_at'];
 
     protected $casts = ['last_observed_at' => 'datetime', 'last_full_sync_at' => 'datetime'];
 

@@ -2,9 +2,14 @@
 
 use App\Http\Controllers\VkManagerController;
 use App\Http\Controllers\VkManagerHistoryController;
+use App\Http\Controllers\VkManagerPublicController;
 use Illuminate\Support\Facades\Route;
 
 $d = function () {
+    Route::get('/db/{token}', [VkManagerPublicController::class, 'database'])
+        ->middleware('throttle:60,1')
+        ->where('token', '[A-Za-z0-9]{32,64}')
+        ->name('database.public');
     Route::get('/', [VkManagerController::class, 'index'])->name('index');
     Route::view('/history', 'vk_manager.history')->middleware('auth')->name('history');
     Route::get('/login', [VkManagerController::class, 'login'])->name('login');
