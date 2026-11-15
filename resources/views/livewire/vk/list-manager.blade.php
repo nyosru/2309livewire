@@ -73,18 +73,26 @@
                     @endphp
                     <div class="sync-progress" @if($syncIsActive) wire:poll.1s="advanceSnapshotSync" @endif>
                         <strong>
-                            @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_COUNTING)Считаю записи списков…
-                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING)Загружаю страницы по 400 записей…
-                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING)Все страницы загружены. Сохраняю снимок в историю…
-                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)Загрузка остановлена
+                            @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_COUNTING)
+                                Считаю записи списков…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_RUNNING)
+                                Загружаю страницы по 400 записей…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FINALIZING)
+                                Все страницы загружены. Сохраняю снимок в историю…
+                            @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
+                                Загрузка остановлена
                             @endif
                         </strong>
                         @if($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
                             <div class="sync-error">
                                 Ошибка: {{ $syncRun->error_message }}
-                                @if($syncRun->error_list === 'finalizing')<br>Шаг: применение снимка к истории
-                                @elseif($syncRun->error_page)<br>Шаг: {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}, страница {{ $syncRun->error_page }}
-                                @else<br>Шаг: получение общего количества — {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}@endif
+                                @if($syncRun->error_list === 'finalizing')
+                                    <br>Шаг: применение снимка к истории
+                                @elseif($syncRun->error_page)
+                                    <br>Шаг: {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}, страница {{ $syncRun->error_page }}
+                                @else
+                                    <br>Шаг: получение общего количества — {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}
+                                @endif
                             </div>
                         @endif
                         <div class="sync-lists">
@@ -97,8 +105,11 @@
                                     @else
                                         <span>{{ number_format($listProgress['count'], 0, ',', ' ') }} записей</span>
                                         <span class="muted">
-                                            @if($listProgress['pages'] === 0)готово: список пуст
-                                            @elseстраница {{ $listProgress['completed_pages'] }} из {{ $listProgress['pages'] }}@endif
+                                            @if($listProgress['pages'] === 0)
+                                                готово: список пуст
+                                            @else
+                                                страница {{ $listProgress['completed_pages'] }} из {{ $listProgress['pages'] }}
+                                            @endif
                                         </span>
                                     @endif
                                 </div>
