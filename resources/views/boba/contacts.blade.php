@@ -21,7 +21,10 @@
 <main class="contact-page wrap">
     <p class="eyebrow"><span class="eyebrow-line"></span> СВЯЗЬ СО МНОЙ</p>
     <h1>Контакты</h1>
-    <p class="contact-lead">Все вопросы пишите на указанную электронную почту либо отправляйте через форму на сайте. Сообщение из формы придёт мне в рабочий аккаунт ВКонтакте.</p>
+    <div class="contact-profile">
+        <img class="contact-portrait" src="/boba/sergey-baklanov.jpg" alt="Сергей Бакланов">
+        <p class="contact-lead">Все вопросы пишите на указанную электронную почту либо отправляйте через форму на сайте. Сообщение из формы придёт мне в рабочий аккаунт ВКонтакте.</p>
+    </div>
 
     <div class="contact-methods">
         <a class="contact-method" href="mailto:boba@php-cat.ru"><span>Электронная почта</span><strong>boba@php-cat.ru</strong></a>

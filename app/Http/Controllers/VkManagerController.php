@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -183,9 +184,54 @@ class VkManagerController extends Controller
             return redirect('/login');
         }
 
+        $user = Auth::user();
+        $authCacheKey = 'vk-manager:auth-check:'.hash('sha256', $user->getKey().'|'.$user->vk_id.'|'.$user->vk_token);
+        $authCheck = Cache::remember($authCacheKey, now()->addSeconds(30), function () use ($user): array {
+            if (! filled($user->vk_id) || ! filled($user->vk_token)) {
+                return ['ok' => false, 'reconnect' => true, 'message' => 'Не найден токен VK. Подключите аккаунт заново.'];
+            }
+
+            try {
+                $response = Http::asForm()->acceptJson()->timeout(10)->post('https://api.vk.com/method/users.get', [
+                    'user_id' => $user->vk_id,
+                    'access_token' => $user->vk_token,
+                    'v' => config('services.vk.api_version', '5.199'),
+                ]);
+            } catch (ConnectionException) {
+                return ['ok' => false, 'reconnect' => false, 'message' => 'Не удалось проверить связь с VK. Проверьте подключение и обновите страницу.'];
+            } catch (Throwable) {
+                return ['ok' => false, 'reconnect' => false, 'message' => 'Не удалось проверить доступ к VK. Попробуйте обновить страницу позже.'];
+            }
+
+            if (! $response->successful()) {
+                return ['ok' => false, 'reconnect' => false, 'message' => 'VK временно недоступен. Попробуйте обновить страницу позже.'];
+            }
+
+            $payload = $response->json();
+            if (isset($payload['error'])) {
+                $code = (int) data_get($payload, 'error.error_code', 0);
+                if (in_array($code, [5, 27, 28], true)) {
+                    return ['ok' => false, 'reconnect' => true, 'message' => 'Срок действия токена VK истёк или доступ отозван. Подключите аккаунт заново.'];
+                }
+
+                return ['ok' => false, 'reconnect' => false, 'message' => 'VK отклонил проверку доступа (ошибка '.$code.'). Повторите позже.'];
+            }
+
+            $vkUser = data_get($payload, 'response.0');
+            if (! is_array($vkUser) || (string) data_get($vkUser, 'id') !== (string) $user->vk_id) {
+                return ['ok' => false, 'reconnect' => true, 'message' => 'Токен не подтвердил этот аккаунт VK. Подключите аккаунт заново.'];
+            }
+
+            return ['ok' => true, 'reconnect' => false, 'message' => null];
+        });
+
+        if ($authCheck['ok']) {
+            app(VkManagerSnapshotSyncService::class)->resumeAfterAuthorization($user);
+        }
+
         return view('vk_manager.index', [
-            'apiError' => null,
-            'needsVkReconnect' => false,
+            'apiError' => $authCheck['ok'] ? null : $authCheck['message'],
+            'needsVkReconnect' => $authCheck['reconnect'],
         ]);
     }
 

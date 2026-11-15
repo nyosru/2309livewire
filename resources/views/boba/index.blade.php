@@ -152,15 +152,9 @@
             <p class="hero-footnote">Бесплатная консультация — без обязательств. Формат и стоимость дальнейшей работы
                 обсуждаем заранее; результат индивидуален.</p>
         </div>
-        <div class="hero-art" aria-label="Абстрактная иллюстрация спокойного внутреннего пространства" role="img">
-            <div class="orb orb-one"></div>
-            <div class="orb orb-two"></div>
-            <div class="orbit orbit-one"></div>
-            <div class="orbit orbit-two"></div>
-            <div class="art-note"><span
-                    class="art-note-dot"></span><span>Внимание к вашему<br><strong>опыту и темпу</strong></span></div>
-            <div class="art-index">01 <span>—</span> 04</div>
-        </div>
+        <figure class="hero-portrait">
+            <img src="/boba/sergey-baklanov.jpg" alt="Сергей Бакланов — специалист по психосоматике" fetchpriority="high">
+        </figure>
     </section>
 
     <div class="ticker" aria-hidden="true">

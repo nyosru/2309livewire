@@ -103,6 +103,22 @@ class VkManagerSnapshotSyncService
         return $run->fresh();
     }
 
+    public function resumeAfterAuthorization(User $owner): void
+    {
+        $run = $this->latestRun($owner);
+        if (! $run || $run->status !== VkManagerSyncRun::STATUS_FAILED || $run->error_list !== 'authorization') {
+            return;
+        }
+
+        $run->forceFill([
+            'status' => $run->error_page ? VkManagerSyncRun::STATUS_RUNNING : VkManagerSyncRun::STATUS_COUNTING,
+            'error_message' => null,
+            'error_list' => null,
+            'error_page' => null,
+            'next_request_at' => null,
+        ])->save();
+    }
+
     public function advanceRun(User $owner): ?VkManagerSyncRun
     {
         $run = $this->latestRun($owner);
@@ -138,10 +154,15 @@ class VkManagerSnapshotSyncService
                 $this->finalizeRun($owner, $run);
             }
         } catch (Throwable $exception) {
+            $isAuthorizationError = str_starts_with($exception->getMessage(), 'VK_AUTHORIZATION_ERROR:');
             $run->forceFill([
                 'status' => VkManagerSyncRun::STATUS_FAILED,
-                'error_message' => $exception->getMessage(),
-                'error_list' => $run->status === VkManagerSyncRun::STATUS_FINALIZING ? 'finalizing' : $run->current_list,
+                'error_message' => $isAuthorizationError
+                    ? substr($exception->getMessage(), strlen('VK_AUTHORIZATION_ERROR: '))
+                    : $exception->getMessage(),
+                'error_list' => $isAuthorizationError
+                    ? 'authorization'
+                    : ($run->status === VkManagerSyncRun::STATUS_FINALIZING ? 'finalizing' : $run->current_list),
                 'error_page' => $run->status === VkManagerSyncRun::STATUS_RUNNING
                     ? (int) data_get($run->progress, $run->current_list.'.completed_pages', 0) + 1
                     : 0,
@@ -284,7 +305,12 @@ class VkManagerSnapshotSyncService
         }
         $payload = $response->json();
         if (isset($payload['error'])) {
-            throw new RuntimeException('VK API '.data_get($payload, 'error.error_code', 'unknown').': '.data_get($payload, 'error.error_msg', 'ошибка VK API'));
+            $code = (int) data_get($payload, 'error.error_code', 0);
+            if (in_array($code, [5, 7, 15, 27, 28], true)) {
+                throw new RuntimeException('VK_AUTHORIZATION_ERROR: Токен VK не даёт нужный доступ или срок его действия истёк. Переподключите VK.');
+            }
+
+            throw new RuntimeException('VK API '.$code.': '.data_get($payload, 'error.error_msg', 'ошибка VK API'));
         }
 
         return data_get($payload, 'response', []);

@@ -58,8 +58,10 @@
                     Последняя полная сверка: {{ $dbStats['last_full_sync_at']?->format('d.m.Y H:i:s') ?? 'ещё не было' }}</p>
                 @if(!$syncRun)
                     <button type="button" class="button" wire:click="startSnapshotSync" wire:loading.attr="disabled" wire:target="startSnapshotSync">Обновить состояние</button>
-                @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED)
+                @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED && $syncRun->error_list !== 'authorization')
                     <button type="button" class="button" wire:click="retrySnapshotSync" wire:loading.attr="disabled" wire:target="retrySnapshotSync">Загрузить заново</button>
+                @elseif($syncRun->status === \App\Models\VkManagerSyncRun::STATUS_FAILED && $syncRun->error_list === 'authorization')
+                    <a class="button" href="/auth/master">Подключить VK заново</a>
                 @endif
 
                 @if($syncRun)
@@ -88,6 +90,8 @@
                                 Ошибка: {{ $syncRun->error_message }}
                                 @if($syncRun->error_list === 'finalizing')
                                     <br>Шаг: применение снимка к истории
+                                @elseif($syncRun->error_list === 'authorization')
+                                    <br>Проверьте подключение VK, затем повторите обновление.
                                 @elseif($syncRun->error_page)
                                     <br>Шаг: {{ $syncLists[$syncRun->error_list] ?? $syncRun->error_list }}, страница {{ $syncRun->error_page }}
                                 @else
@@ -97,7 +101,9 @@
                         @endif
                         <div class="sync-lists">
                             @foreach($syncLists as $listKey => $listLabel)
-                                @php($listProgress = $syncRun->progress[$listKey])
+                                @php
+                                    $listProgress = $syncRun->progress[$listKey];
+                                @endphp
                                 <div class="sync-list-row">
                                     <span>{{ $listLabel }}</span>
                                     @if($listProgress['count'] === null)
