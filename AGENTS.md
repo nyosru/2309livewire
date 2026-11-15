@@ -77,6 +77,12 @@ Deployment sends Telegram notifications to chat ID `360209578`.
 - Livewire `class_namespace` is `App\Livewire`, `view_path` is `resources/views/livewire`
 - `.env.example` shows all expected env vars
 
+## Локальные домены и SSL
+
+- Локальные домены (`vk.local` и подобные) отдаются только по HTTPS с самоподписанным сертификатом. Ошибки вида `ERR_CERT_AUTHORITY_INVALID`, `SSL certificate problem` и предупреждения браузера о сертификате — ожидаемы: при проверке сайта их нужно игнорировать (`curl -k`, `http://` сразу редиректит на `https://`), а не «исправлять» сертификат, nginx или TLS-проверку в коде приложения.
+- Встроенный браузер OpenCode может отказаться открывать такой домен по TLS. Это не ошибка приложения — страницу проверяйте через `curl -sk https://vk.local/...` (редирект на `/login` без сессии) или просите пользователя открыть её в своём браузере.
+- Контейнер `2309livewire` не публикует порты; запросы идут через отдельный nginx-прокси на 443, поэтому `http://127.0.0.1` с `Host: vk.local` вернёт 308 на HTTPS.
+
 ## Blog API — создание записей AI-агентами
 
 ### Эндпоинт

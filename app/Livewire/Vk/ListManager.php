@@ -321,11 +321,6 @@ class ListManager extends Component
         $dbStats = app(VkManagerHistoryService::class)->summary($owner);
         $syncRun = app(VkManagerSnapshotSyncService::class)->latestRun($owner);
         $syncPages = $syncRun?->pages()->orderBy('list_name')->orderBy('page_number')->get()->groupBy('list_name') ?? collect();
-        $counts = [
-            'friends' => $this->listQuery(VkManagerMembership::STATUS_FRIEND)->count(),
-            'followers' => $this->listQuery(VkManagerMembership::STATUS_FOLLOWER)->count(),
-            'requests' => $this->listQuery(VkManagerMembership::STATUS_OUTGOING_REQUEST)->count(),
-        ];
         $activeList = match ($this->activeTab) {
             'friends' => $this->pageData(VkManagerMembership::STATUS_FRIEND, $this->friendsPage),
             'followers' => $this->pageData(VkManagerMembership::STATUS_FOLLOWER, $this->followersPage),
@@ -340,7 +335,6 @@ class ListManager extends Component
                 : null,
             'syncRun' => $syncRun,
             'syncPages' => $syncPages,
-            'counts' => $counts,
             'activeList' => $activeList,
             'pageFriendIds' => $this->activeTab === 'friends'
                 ? array_map(fn (array $person) => (string) $person['id'], $activeList['people'])

@@ -1,10 +1,19 @@
 <div class="vk-list-manager" id="vk-list-manager">
-    <div class="stats">
-        <div class="stat"><span class="muted">Друзья</span><strong>{{ $dbStats['current_friends'] }}</strong></div>
-        <div class="stat"><span class="muted">Подписчики</span><strong>{{ $dbStats['current_followers'] }}</strong></div>
-        <div class="stat"><span class="muted">Всего контактов</span><strong>{{ $dbStats['current_friends'] + $dbStats['current_followers'] }}</strong></div>
-        <div class="stat"><span class="muted">Исходящие заявки</span><strong>{{ $dbStats['current_outgoing_requests'] }}</strong></div>
+    <div class="stats" aria-label="Разделы списков VK">
+        <button type="button" class="stat stat-button {{ $activeTab === 'friends' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'friends' ? 'true' : 'false' }}" wire:click="switchTab('friends')">
+            <span class="muted">Друзья</span><strong>{{ $dbStats['current_friends'] }}</strong>
+        </button>
+        <button type="button" class="stat stat-button {{ $activeTab === 'followers' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'followers' ? 'true' : 'false' }}" wire:click="switchTab('followers')">
+            <span class="muted">Подписчики</span><strong>{{ $dbStats['current_followers'] }}</strong>
+        </button>
+        <button type="button" class="stat stat-button {{ $activeTab === 'requests' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'requests' ? 'true' : 'false' }}" wire:click="switchTab('requests')">
+            <span class="muted">Исходящие заявки</span><strong>{{ $dbStats['current_outgoing_requests'] }}</strong>
+        </button>
+        <button type="button" class="stat stat-button {{ $activeTab === 'database' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'database' ? 'true' : 'false' }}" wire:click="switchTab('database')">
+            <span class="muted">Данные в БД</span><span class="stat-note">Сводка и история</span>
+        </button>
     </div>
+    <p class="stats-total muted">Всего контактов: <strong>{{ $dbStats['current_friends'] + $dbStats['current_followers'] }}</strong></p>
 
     <div class="panel">
         @if($activeTab !== 'database')
@@ -26,13 +35,6 @@
                 <button type="button" class="button secondary sort-direction" wire:click="toggleSortDirection">{{ $sortDirection === 'asc' ? 'По возрастанию ↑' : 'По убыванию ↓' }}</button>
             </div>
         @endif
-
-        <div class="tabs" role="tablist" aria-label="Списки VK">
-            <button type="button" class="{{ $activeTab === 'friends' ? 'active' : '' }}" wire:click="switchTab('friends')">Друзья ({{ $counts['friends'] }})</button>
-            <button type="button" class="{{ $activeTab === 'followers' ? 'active' : '' }}" wire:click="switchTab('followers')">Подписчики ({{ $counts['followers'] }})</button>
-            <button type="button" class="{{ $activeTab === 'requests' ? 'active' : '' }}" wire:click="switchTab('requests')">Исходящие заявки ({{ $counts['requests'] }})</button>
-            <button type="button" class="{{ $activeTab === 'database' ? 'active' : '' }}" wire:click="switchTab('database')">Данные в БД</button>
-        </div>
 
         @if($statusMessage)
             <div class="message {{ $statusIsError ? 'error' : '' }}" role="status" aria-live="polite">{{ $statusMessage }}</div>
