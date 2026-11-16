@@ -23,7 +23,7 @@
         </nav>
     </header>
 
-    <livewire:vk.account-history />
+    <livewire:vk-manager.account-history />
 
     <footer><a href="https://php-cat.com">Создание сайта</a></footer>
 </main>

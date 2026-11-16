@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Livewire\Vk;
+namespace App\Livewire\VkManager;
 
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
+use App\Models\VkManagerContactData;
 use App\Models\VkManagerMembership;
 use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerPublicAccessService;
@@ -11,6 +12,7 @@ use App\Services\VkManagerSnapshotSyncService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Throwable;
 
@@ -38,15 +40,6 @@ class ListManager extends Component
 
     public string $sortDirection = 'asc';
 
-    /** @var array<int, string> */
-    public array $selectedFriends = [];
-
-    /** @var array<string, string> */
-    public array $commentDrafts = [];
-
-    /** @var array<string, bool> */
-    public array $savedComments = [];
-
     public ?string $statusMessage = null;
 
     public bool $statusIsError = false;
@@ -67,8 +60,6 @@ class ListManager extends Component
         if ($this->hideFavorites && $this->showOnlyFavorites) {
             $this->hideFavorites = false;
         }
-
-        $this->seedActiveCommentDrafts();
     }
 
     public function switchTab(string $tab): void
@@ -79,7 +70,6 @@ class ListManager extends Component
                 $this->sortField = 'name';
                 $this->sortDirection = 'asc';
             }
-            $this->seedActiveCommentDrafts();
             $this->dispatch('vk-list-manager-updated');
         }
     }
@@ -146,9 +136,11 @@ class ListManager extends Component
         $this->resetPages();
     }
 
-    public function updatedCommentDrafts(mixed $value, string $vkId): void
+    #[On('vk-contact-updated')]
+    public function contactUpdated(string $message = '', bool $isError = false): void
     {
-        unset($this->savedComments[$vkId]);
+        $this->statusMessage = $message !== '' ? $message : null;
+        $this->statusIsError = $isError;
     }
 
     public function goToPage(string $list, int $page): void
@@ -167,57 +159,7 @@ class ListManager extends Component
         $status = $this->statusForList($list);
         $lastPage = max(1, (int) ceil($this->listQuery($status)->count() / self::PER_PAGE));
         $this->{$pageProperty} = min(max(1, $page), $lastPage);
-        $this->seedActiveCommentDrafts();
         $this->dispatch('vk-list-manager-updated');
-    }
-
-    public function toggleSelectPage(): void
-    {
-        if ($this->activeTab !== 'friends') {
-            return;
-        }
-
-        $page = $this->pageData(VkManagerMembership::STATUS_FRIEND, $this->friendsPage);
-        $ids = array_map(fn (array $person) => (string) $person['id'], $page['people']);
-        $selected = array_map('strval', $this->selectedFriends);
-        $allSelected = $ids !== [] && count(array_intersect($ids, $selected)) === count($ids);
-
-        $this->selectedFriends = $allSelected
-            ? array_values(array_diff($selected, $ids))
-            : array_values(array_unique(array_merge($selected, $ids)));
-    }
-
-    public function toggleFavorite(string $vkId): void
-    {
-        $this->assertCurrentContact($vkId);
-        $owner = Auth::user();
-        $contact = VkManagerContact::query()->firstOrNew([
-            'user_id' => $owner->getKey(),
-            'vk_friend_id' => $vkId,
-        ]);
-        $contact->is_favorite = ! (bool) $contact->is_favorite;
-        $contact->save();
-
-        $this->statusMessage = $contact->is_favorite ? 'Контакт добавлен в избранное.' : 'Контакт убран из избранного.';
-        $this->statusIsError = false;
-    }
-
-    public function saveComment(string $vkId): void
-    {
-        $this->assertCurrentContact($vkId);
-        $validated = $this->validate([
-            'commentDrafts.'.$vkId => ['nullable', 'string', 'max:2000'],
-        ]);
-
-        $comment = trim((string) ($validated['commentDrafts'][$vkId] ?? ''));
-        VkManagerContact::query()->updateOrCreate(
-            ['user_id' => Auth::id(), 'vk_friend_id' => $vkId],
-            ['comment' => $comment === '' ? null : $comment],
-        );
-        $this->commentDrafts[$vkId] = $comment;
-        $this->savedComments[$vkId] = true;
-        $this->statusMessage = 'Комментарий сохранён.';
-        $this->statusIsError = false;
     }
 
     public function regeneratePublicLink(VkManagerPublicAccessService $access): void
@@ -255,7 +197,6 @@ class ListManager extends Component
         if ($run?->status === \App\Models\VkManagerSyncRun::STATUS_COMPLETED) {
             $this->statusMessage = 'Состояние обновлено. Временный снимок применён к истории аккаунта.';
             $this->statusIsError = false;
-            $this->seedActiveCommentDrafts();
         } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_READY) {
             $this->statusMessage = 'Все страницы загружены без ошибок. Нажмите «Отправить полученные данные в базу данных», чтобы применить снимок к истории.';
             $this->statusIsError = false;
@@ -298,7 +239,6 @@ class ListManager extends Component
             if ($run?->status === \App\Models\VkManagerSyncRun::STATUS_COMPLETED) {
                 $this->statusMessage = 'Снимок сохранён в истории аккаунта.';
                 $this->statusIsError = false;
-                $this->seedActiveCommentDrafts();
             } elseif ($run?->status === \App\Models\VkManagerSyncRun::STATUS_FAILED) {
                 $this->statusMessage = 'Не удалось применить снимок: '.$run->error_message;
                 $this->statusIsError = true;
@@ -328,7 +268,7 @@ class ListManager extends Component
             default => null,
         };
 
-        return view('livewire.vk.list-manager', [
+        return view('livewire.vk_manager.list-manager', [
             'dbStats' => $dbStats,
             'publicUrl' => $this->activeTab === 'database'
                 ? app(VkManagerPublicAccessService::class)->url($owner)
@@ -370,7 +310,11 @@ class ListManager extends Component
             ->whereIn('vk_friend_id', $ids)
             ->get()
             ->keyBy(fn (VkManagerContact $contact) => (string) $contact->vk_friend_id);
-        $people = $memberships->map(function (VkManagerMembership $membership) use ($metadata): array {
+        $personIds = $memberships->map(fn (VkManagerMembership $membership) => $membership->person?->getKey())
+            ->filter()
+            ->values();
+        $phones = $this->phonesForPeople($personIds->all());
+        $people = $memberships->map(function (VkManagerMembership $membership) use ($metadata, $phones): array {
             $person = $membership->person;
             $id = (string) $person?->vk_id;
             $contact = $metadata->get($id);
@@ -381,16 +325,69 @@ class ListManager extends Component
                 'last_name' => $person?->last_name ?? '',
                 'domain' => $person?->domain,
                 'photo_100' => $person?->photo_url,
+                'phone' => $phones[$person?->getKey()] ?? null,
                 'friend_days' => $membership->status === VkManagerMembership::STATUS_FRIEND
                     ? max(0, (int) $membership->started_at->diffInDays(now()))
                     : null,
-                'started_at' => $membership->started_at,
+                'friend_since' => $membership->started_at?->format('d.m.Y'),
                 'manager_comment' => $contact?->comment,
                 'manager_favorite' => (bool) ($contact?->is_favorite ?? false),
             ];
         })->filter(fn (array $person) => $person['id'] !== '')->values()->all();
 
         return ['people' => $people, 'count' => $count, 'page' => $page, 'pages' => $pages];
+    }
+
+    /** @param array<int, int> $personIds
+     * @return array<int, string>
+     */
+    private function phonesForPeople(array $personIds): array
+    {
+        if ($personIds === []) {
+            return [];
+        }
+
+        $accountId = VkManagerAccount::query()
+            ->where('user_id', Auth::id())
+            ->value('id');
+        if (! $accountId) {
+            return [];
+        }
+
+        $contactData = VkManagerContactData::query()
+            ->where('account_id', $accountId)
+            ->whereIn('person_id', $personIds)
+            ->whereNull('obsolete_at')
+            ->orderBy('id')
+            ->get()
+            ->keyBy('person_id');
+
+        $phones = [];
+        foreach ($contactData as $personId => $data) {
+            $phone = $this->contactPhone($data->data ?? []);
+            if ($phone !== null) {
+                $phones[(int) $personId] = $phone;
+            }
+        }
+
+        return $phones;
+    }
+
+    private function contactPhone(array $data): ?string
+    {
+        foreach (['mobile_phone', 'home_phone'] as $key) {
+            $value = $data[$key] ?? null;
+            if (! is_string($value)) {
+                continue;
+            }
+
+            $value = trim($value);
+            if (preg_match('/^\+?[\d\s()\-]{5,}$/', $value) === 1 && preg_match_all('/\d/', $value) >= 5) {
+                return $value;
+            }
+        }
+
+        return null;
     }
 
     private function applySort(Builder $query): void
@@ -442,17 +439,6 @@ class ListManager extends Component
         return $query;
     }
 
-    private function assertCurrentContact(string $vkId): void
-    {
-        abort_unless(preg_match('/^[1-9][0-9]{0,19}$/', $vkId), 404);
-        $accountId = VkManagerAccount::query()->where('user_id', Auth::id())->value('id');
-        abort_unless(VkManagerMembership::query()
-            ->where('account_id', $accountId)
-            ->where('is_current', true)
-            ->whereHas('person', fn (Builder $query) => $query->where('vk_id', $vkId))
-            ->exists(), 404);
-    }
-
     private function statusForList(string $list): string
     {
         return match ($list) {
@@ -468,23 +454,5 @@ class ListManager extends Component
         $this->friendsPage = 1;
         $this->followersPage = 1;
         $this->requestsPage = 1;
-        $this->seedActiveCommentDrafts();
-    }
-
-    private function seedActiveCommentDrafts(): void
-    {
-        $list = match ($this->activeTab) {
-            'friends' => $this->pageData(VkManagerMembership::STATUS_FRIEND, $this->friendsPage),
-            'followers' => $this->pageData(VkManagerMembership::STATUS_FOLLOWER, $this->followersPage),
-            'requests' => $this->pageData(VkManagerMembership::STATUS_OUTGOING_REQUEST, $this->requestsPage),
-            default => null,
-        };
-
-        foreach ($list['people'] ?? [] as $person) {
-            $vkId = (string) $person['id'];
-            if (! array_key_exists($vkId, $this->commentDrafts)) {
-                $this->commentDrafts[$vkId] = (string) ($person['manager_comment'] ?? '');
-            }
-        }
     }
 }

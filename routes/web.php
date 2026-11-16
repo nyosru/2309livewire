@@ -107,6 +107,7 @@ require 'web.raal.php';
 require 'web.marudi.php';
 
 require 'web.gerchik.php';
+require 'web.calls.php';
 
 require __DIR__.'/web.debug.php';
 

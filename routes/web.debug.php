@@ -42,6 +42,14 @@ if (config('app.debug')) {
                 ],
             ],
 
+            /* ---------- Calls (диктофон) ---------- */
+            'calls' => [
+                'label' => 'Calls (записи диктофона)',
+                'items' => [
+                    ['value' => 'calls.local', 'env' => 'local', 'file' => 'routes/web.calls.php', 'note' => 'локальный, записи из /Volumes/sam1kk/00 запись диктофон'],
+                ],
+            ],
+
             /* ---------- Hleb ---------- */
             'hleb' => [
                 'label' => 'Hleb (хлебная)',
@@ -249,9 +257,9 @@ if (config('app.debug')) {
 
         $config = [
             'app.debug' => config('app.debug'),
-            'app.env'   => config('app.env'),
-            'app.url'   => config('app.url'),
-            'app.name'  => config('app.name'),
+            'app.env' => config('app.env'),
+            'app.url' => config('app.url'),
+            'app.name' => config('app.name'),
         ];
 
         return view('debug.domains', compact('categories', 'config'));

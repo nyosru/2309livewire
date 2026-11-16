@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Vk;
+namespace App\Livewire\VkManager;
 
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContactData;
@@ -271,7 +271,7 @@ class AccountHistory extends Component
 
     public function render()
     {
-        return view('livewire.vk.account-history', [
+        return view('livewire.vk_manager.account-history', [
             'suggestions' => $this->searchResults(),
             'history' => $this->historyData(),
         ]);
