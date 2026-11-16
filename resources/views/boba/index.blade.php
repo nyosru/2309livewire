@@ -24,6 +24,9 @@
     <meta name="twitter:description" content="Работа со страхами и привычными реакциями, развитие уверенности и продуктивности. Бесплатно обсудим ваш запрос; формат и стоимость дальнейшей работы — заранее, без обязательств.">
     <meta name="twitter:image" content="https://xn--80aba5c.xn--p1ai/boba/og-preview.jpg?v=7">
     <meta name="theme-color" content="#111a1a">
+    <link rel="icon" href="/boba/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/boba/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/boba/apple-touch-icon.png">
     <link rel="stylesheet" href="/boba/site.css">
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
     <script src="/boba/site.js" defer></script>

@@ -6,6 +6,9 @@
     <title>Текст согласия — боба.рф</title>
     <meta name="description" content="Текст согласия на работу с Сергеем Баклановым — боба.рф.">
     <meta name="theme-color" content="#f5f6f1">
+    <link rel="icon" href="/boba/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/boba/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/boba/apple-touch-icon.png">
     <link rel="stylesheet" href="/boba/site.css">
 </head>
 <body>
