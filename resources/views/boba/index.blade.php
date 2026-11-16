@@ -141,7 +141,7 @@
     <section class="hero wrap">
         <div class="hero-copy">
             <p class="eyebrow"><span class="eyebrow-line"></span> ИНДИВИДУАЛЬНАЯ РАБОТА · ОНЛАЙН И ОЧНО</p>
-            <h1>Меняться<br>можно
+            <h1><em>Меняться</em><br>можно
 {{--                <em>бережно.</em>--}}
             </h1>
             <p class="hero-lead">Если страх перед общением, выступлением или конкретной ситуацией ограничивает вас,
