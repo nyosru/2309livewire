@@ -162,3 +162,11 @@ margin-top:auto;padding:13px 19px 10px 19px;
 .contact-status{margin:0 0 18px;padding:14px 16px;border-radius:10px;background:#e8f3d9;color:#34472d;font-size:15px}
 .contact-status-error{background:#fff0e8;color:#773a28}
 @media(max-width:720px){.contact-page{padding-top:52px;padding-bottom:68px}.contact-methods{grid-template-columns:minmax(0,1fr);gap:12px}.contact-method{padding:18px}.contact-form-card{padding:23px 18px}.contact-form-card h2{font-size:24px}.contact-lead{font-size:16px}.contact-inputs{grid-template-columns:minmax(0,1fr);gap:14px}}
+
+/* Sticky header on tablet and larger screens; phones keep the static header */
+@media(min-width:768px){
+    .topbar{position:sticky;top:0;z-index:20;border-bottom:0}
+    .topbar::before{content:"";position:fixed;top:0;left:0;right:0;height:92px;background:rgba(247,246,240,.94);border-bottom:1px solid var(--line);box-shadow:0 6px 22px rgba(25,36,36,.06);-webkit-backdrop-filter:saturate(140%) blur(12px);backdrop-filter:saturate(140%) blur(12px);z-index:-1}
+    html{scroll-padding-top:104px}
+    .notice{top:104px}
+}
