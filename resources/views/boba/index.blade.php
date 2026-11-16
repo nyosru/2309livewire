@@ -284,31 +284,33 @@
             <h2 id="dialog-title">Расскажите<br><em>о запросе</em></h2></div>
         <button class="close-button" type="button" data-close aria-label="Закрыть форму">×</button>
     </div>
-    <p class="dialog-intro">Оставьте номер и коротко опишите ситуацию. Я свяжусь с вами лично.</p>
-    <form method="post" action="{{ url('/consultation') }}" id="consult-form">
-        @csrf
-        <input type="hidden" name="service" id="service-input" value="Бесплатная консультация">
-        <label>Телефон<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="22"
-                             placeholder="+7 (___) ___-__-__" pattern="[+0-9()\s-]{10,22}"></label>
-        <label>Кратко о вашем запросе<textarea name="request" rows="3" required minlength="10" maxlength="2000"
-                                               placeholder="Что хотелось бы изменить или обсудить?"></textarea></label>
-        <label class="check-row"><input type="checkbox" name="consent" value="1" required><span>Согласен(на), чтобы Сергей связался со мной по этой заявке. Номер и описание запроса будут переданы в рабочий аккаунт ВКонтакте для обработки заявки.</span></label>
-        <div class="discount-option"><label class="check-row"><input type="checkbox" name="discount" value="1"
-                                                                     id="discount-check"><span>Хочу участвовать в еженедельном розыгрыше скидки 50%.</span></label>
-            <p>Если вы участвуете, для участия потребуется разрешить видеозапись встречи и её использование для показа и
-                просмотра.</p><label class="check-row video-consent" hidden><input type="checkbox" name="video_consent"
-                                                                                   value="1" id="video-consent"><span>Разрешаю видеозапись встречи и её использование для показа и просмотра.</span></label>
-        </div>
-        <label class="honeypot" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
-        @if($errors->any())
-            <div class="form-errors" role="alert">@foreach($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach</div>
-        @endif
-        <button class="button submit-button" type="submit">Отправить заявку <span>↗</span></button>
-        <small class="form-note">Нажимая «Отправить», вы соглашаетесь на использование данных только для ответа на эту
-            заявку.</small>
-    </form>
+    <div class="dialog-body">
+        <p class="dialog-intro">Оставьте номер и коротко опишите ситуацию. Я свяжусь с вами лично.</p>
+        <form method="post" action="{{ url('/consultation') }}" id="consult-form">
+            @csrf
+            <input type="hidden" name="service" id="service-input" value="Бесплатная консультация">
+            <label>Телефон<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="22"
+                                 placeholder="+7 (___) ___-__-__" pattern="[+0-9()\s-]{10,22}"></label>
+            <label>Кратко о вашем запросе<textarea name="request" rows="3" required minlength="10" maxlength="2000"
+                                                   placeholder="Что хотелось бы изменить или обсудить?"></textarea></label>
+            <label class="check-row"><input type="checkbox" name="consent" value="1" required><span>Согласен(на), чтобы Сергей связался со мной по этой заявке. Номер и описание запроса будут переданы в рабочий аккаунт ВКонтакте для обработки заявки.</span></label>
+            <div class="discount-option"><label class="check-row"><input type="checkbox" name="discount" value="1"
+                                                                         id="discount-check"><span>Хочу участвовать в еженедельном розыгрыше скидки 50%.</span></label>
+                <p>Если вы участвуете, для участия потребуется разрешить видеозапись встречи и её использование для показа и
+                    просмотра.</p><label class="check-row video-consent" hidden><input type="checkbox" name="video_consent"
+                                                                                       value="1" id="video-consent"><span>Разрешаю видеозапись встречи и её использование для показа и просмотра.</span></label>
+            </div>
+            <label class="honeypot" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
+            @if($errors->any())
+                <div class="form-errors" role="alert">@foreach($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach</div>
+            @endif
+            <button class="button submit-button" type="submit">Отправить заявку <span>↗</span></button>
+            <small class="form-note">Нажимая «Отправить», вы соглашаетесь на использование данных только для ответа на эту
+                заявку.</small>
+        </form>
+    </div>
 </dialog>
 @if($errors->any())
     <script>window.addEventListener('DOMContentLoaded', () => document.querySelector('#consult-dialog').showModal());</script>

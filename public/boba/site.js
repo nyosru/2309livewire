@@ -1,5 +1,6 @@
 (() => {
     const dialog = document.querySelector('#consult-dialog');
+    const dialogBody = dialog.querySelector('.dialog-body');
     const serviceInput = document.querySelector('#service-input');
     const discountCheck = document.querySelector('#discount-check');
     const videoConsent = document.querySelector('#video-consent');
@@ -12,6 +13,7 @@
             discountCheck.checked = wantsDiscount;
             videoConsent.checked = false;
             videoConsentRow.hidden = !wantsDiscount;
+            if (dialogBody) dialogBody.scrollTop = 0;
             dialog.showModal();
         });
     });
@@ -21,10 +23,8 @@
         if (!discountCheck.checked) videoConsent.checked = false;
     });
 
+    // Форма закрывается только крестиком: клик внутри диалога и по фону вокруг него её не скрывает.
     dialog.querySelectorAll('[data-close]').forEach((button) => button.addEventListener('click', () => dialog.close()));
-    dialog.addEventListener('click', (event) => {
-        if (event.target === dialog) dialog.close();
-    });
 
     const phone = dialog.querySelector('[name="phone"]');
     phone.addEventListener('input', () => {

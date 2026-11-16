@@ -170,3 +170,16 @@ margin-top:auto;padding:13px 19px 10px 19px;
     html{scroll-padding-top:104px}
     .notice{top:104px}
 }
+
+/* Dialog: the heading with the cross stays put, only the form body scrolls */
+.consult-dialog{display:flex;flex-direction:column;padding:0;overflow:hidden}
+.dialog-heading{flex:none;padding:33px 33px 0}
+.close-button{flex:none;transition:background .2s,border-color .2s,color .2s}
+.close-button:hover{border-color:#b5c99c;background:#eef3e8;color:var(--ink)}
+.close-button:focus-visible{outline:3px solid #718d51;outline-offset:3px}
+.dialog-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:0 33px 33px;scrollbar-gutter:stable}
+@media(max-width:650px){
+    .consult-dialog{padding:0}
+    .dialog-heading{padding:25px 21px 0}
+    .dialog-body{padding:0 21px 25px}
+}
