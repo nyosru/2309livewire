@@ -1,7 +1,7 @@
 <article class="person friend-row contact-row" data-favorite="{{ $favorite ? '1' : '0' }}">
     @if($activeTab === 'friends')
         <label class="friend-select">
-        <div class="friend-row-select hover:bg-green-200">
+        <div class="friend-row-select">
                 <input class="check" type="checkbox" name="friends[]" value="{{ $person['id'] }}" @checked($selected) wire:change="toggleSelection($event.target.checked)" aria-label="Выбрать {{ $person['first_name'] }}">
         </div>
         </label>
@@ -11,15 +11,15 @@
         <div class="friend-row-identity">
             <div class="name">@if($person['domain'])<a href="https://vk.com/{{ $person['domain'] }}" target="_blank" rel="noopener">{{ $person['first_name'] }} {{ $person['last_name'] }}</a>@else{{ $person['first_name'] }} {{ $person['last_name'] }}@endif</div>
             @if(filled($person['phone'] ?? null))
-    @php
-        $digits = preg_replace('/[^0-9]/', '', $person['phone']);
-        $telHref = $digits;
-        $telDisplay = strlen($digits) === 11 && preg_match('/^[78]/', $digits)
-            ? '8-' . substr($digits, 1, 3) . '-' . substr($digits, 4, 3) . '-' . substr($digits, 7, 2) . '-' . substr($digits, 9, 2)
-            : $person['phone'];
-    @endphp
-    <div class="friend-row-phone muted tiny"><a href="tel:{{ $telHref }}">{{ $telDisplay }}</a></div>
-@endif
+                @php
+                    $digits = preg_replace('/[^0-9]/', '', $person['phone']);
+                    $telHref = $digits;
+                    $telDisplay = strlen($digits) === 11 && preg_match('/^[78]/', $digits)
+                        ? '8-' . substr($digits, 1, 3) . '-' . substr($digits, 4, 3) . '-' . substr($digits, 7, 2) . '-' . substr($digits, 9, 2)
+                        : $person['phone'];
+                @endphp
+                <div class="friend-row-phone muted tiny">Телефон: <a href="tel:{{ $telHref }}">{{ $telDisplay }}</a></div>
+            @endif
         </div>
     </div>
     <a class="friend-row-vk-id muted tiny" href="/history?vk_id={{ urlencode($person['id']) }}" target="_blank" rel="noopener" title="VK ID {{ $person['id'] }}">{{ $person['id'] }}</a>

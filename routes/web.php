@@ -137,6 +137,8 @@ Route::group([
 
 use App\Livewire\Auth\Vk;
 
+require 'web.bu.php';
+
 Route::get('/auth/vk', [Vk::class, 'redir'])->name('auth.vk');
 Route::any('/auth/vk/callback', [Vk::class, 'handleVKCallback'])->name('auth.vk.callback');
 
