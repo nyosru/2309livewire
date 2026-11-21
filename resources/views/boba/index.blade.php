@@ -300,7 +300,7 @@
         <button class="close-button" type="button" data-close aria-label="Закрыть форму">×</button>
     </div>
     <div class="dialog-body">
-        <p class="dialog-intro">Оставьте номер и коротко опишите ситуацию. Я свяжусь с вами лично.</p>
+        <p class="dialog-intro">Оставьте номер и&nbsp;коротко опишите ситуацию. Я&nbsp;свяжусь с&nbsp;вами лично. (мой&nbsp;телефон 8-932-472-22-89&nbsp;)</p>
         <form method="post" action="{{ url('/consultation') }}" id="consult-form">
             @csrf
             <input type="hidden" name="service" id="service-input" value="Бесплатная консультация">
