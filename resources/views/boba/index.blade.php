@@ -29,6 +29,7 @@
     <link rel="apple-touch-icon" href="/boba/apple-touch-icon.png">
     <link rel="stylesheet" href="/boba/site.css">
 {{--    <link rel="stylesheet" href="/css/output.css?v=1" />--}}
+    <script>window.dataLayer = window.dataLayer || [];</script>
     <script src="/boba/site.js" defer></script>
 </head>
 <body>
@@ -51,7 +52,7 @@
 
     <section class="service-promo wrap" aria-label="Направления работы" aria-roledescription="карусель"
              data-promo-carousel>
-        <div class="promo-viewport">
+        <div class="promo-viewport ">
             <article class="promo-slide is-active" data-promo-slide aria-hidden="false">
                 <div class="promo-copy">
 
