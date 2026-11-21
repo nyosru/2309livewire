@@ -1,4 +1,36 @@
 (() => {
+    const serviceCards = [...document.querySelectorAll('.service-grid .service-card')];
+    const serviceProducts = serviceCards.map((card, index) => ({
+        id: `service-${index + 1}`,
+        name: card.querySelector('h3')?.textContent.trim() || `Направление ${index + 1}`,
+        category: 'Направления работы',
+        list: 'Направления работы',
+        position: index + 1,
+    }));
+
+    if (serviceProducts.length) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            ecommerce: {
+                currencyCode: 'RUB',
+                impressions: serviceProducts,
+            },
+        });
+
+        serviceCards.forEach((card, index) => {
+            card.querySelector('[data-consult]')?.addEventListener('click', () => {
+                window.dataLayer.push({
+                    ecommerce: {
+                        currencyCode: 'RUB',
+                        click: {
+                            products: [serviceProducts[index]],
+                        },
+                    },
+                });
+            });
+        });
+    }
+
     const dialog = document.querySelector('#consult-dialog');
     const dialogBody = dialog.querySelector('.dialog-body');
     const serviceInput = document.querySelector('#service-input');
