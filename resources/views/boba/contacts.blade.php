@@ -29,10 +29,13 @@
         <p class="contact-lead">Все вопросы пишите на указанную электронную почту либо отправляйте через форму на сайте. Сообщение из формы придёт мне в рабочий аккаунт ВКонтакте.</p>
     </div>
 
-    <div class="contact-methods">
-        <a class="contact-method" href="mailto:boba@php-cat.ru"><span>Электронная почта</span><strong>boba@php-cat.ru</strong></a>
-        <a class="contact-method" href="tel:+79324722289"><span>Телефон</span><strong>8-932-472-22-89</strong></a>
-        <a class="contact-method" href="https://max.ru/" target="_blank" rel="noopener noreferrer"><span>Мессенджер</span><strong>Написать в MAX ↗</strong><small>В MAX найдите меня по номеру телефона.</small></a>
+    <div class="
+    flex space-x-3
+    contact-methods
+    ">
+{{--        <a class="contact-method" href="mailto:boba@php-cat.ru"><span>Электронная почта</span><strong>boba@php-cat.ru</strong></a>--}}
+        <a class="w-1/2 contact-method" href="tel:+79324722289"><span>Телефон</span><strong>8-932-472-22-89</strong><small>Если не ответил, перезвоню</small></a>
+        <a class="w-1/2 contact-method" href="https://max.ru/" target="_blank" rel="noopener noreferrer"><span>Мессенджер</span><strong>Написать в MAX ↗</strong><small>В MAX найдите меня по номеру телефона.</small></a>
     </div>
 
     <section class="contact-form-card" aria-labelledby="contact-form-title">
