@@ -26,7 +26,7 @@
     <h1>Контакты</h1>
     <div class="contact-profile">
         <img class="contact-portrait" src="/boba/sergey-baklanov.jpg" alt="Сергей Бакланов">
-        <p class="contact-lead">Все вопросы пишите на указанную электронную почту либо отправляйте через форму на сайте. Сообщение из формы придёт мне в рабочий аккаунт ВКонтакте.</p>
+        <p class="contact-lead">Все вопросы пишите в МАКС либо отправляйте через форму на сайте.</p>
     </div>
 
     <div class="

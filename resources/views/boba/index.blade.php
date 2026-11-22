@@ -300,7 +300,7 @@
         <button class="close-button" type="button" data-close aria-label="Закрыть форму">×</button>
     </div>
     <div class="dialog-body">
-        <p class="dialog-intro">Оставьте номер и&nbsp;коротко опишите ситуацию. Я&nbsp;свяжусь с&nbsp;вами лично. (мой&nbsp;телефон 8-932-472-22-89&nbsp;)</p>
+        <p class="dialog-intro">Оставьте номер и&nbsp;коротко опишите ситуацию. Я&nbsp;свяжусь с&nbsp;вами. (мой&nbsp;телефон 8-932-472-22-89&nbsp;)</p>
         <form method="post" action="{{ url('/consultation') }}" id="consult-form">
             @csrf
             <input type="hidden" name="service" id="service-input" value="Бесплатная консультация">
@@ -308,7 +308,7 @@
                                  placeholder="+7 (___) ___-__-__" pattern="[+0-9()\s-]{10,22}"></label>
             <label>Кратко о вашем запросе<textarea name="request" rows="3" required minlength="10" maxlength="2000"
                                                    placeholder="Что хотелось бы изменить или обсудить?"></textarea></label>
-            <label class="check-row"><input type="checkbox" name="consent" value="1" required><span>Согласен(на), чтобы Сергей связался со мной по этой заявке. Номер и описание запроса будут переданы в рабочий аккаунт ВКонтакте для обработки заявки.</span></label>
+            <label class="check-row"><input type="checkbox" name="consent" value="1" required><span>Согласен(на), чтобы Сергей связался со мной по этой заявке. Номер и описание запроса будут переданы для обработки заявки.</span></label>
             <div class="discount-option"><label class="check-row"><input type="checkbox" name="discount" value="1"
                                                                          id="discount-check"><span>Хочу участвовать в еженедельном розыгрыше скидки 50%.</span></label>
                 <p>Если вы участвуете, для участия потребуется разрешить видеозапись встречи и её использование для показа и
