@@ -51,6 +51,7 @@
             {{--коллекция кружек--}}
             <livewire:Phpcat.caps />
 
+
         </div>
 
     @endif

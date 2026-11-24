@@ -5,6 +5,10 @@
         </div>
     </div>
 
+
+    {{--проверка контрагентов через Чекко--}}
+    <livewire:Phpcat.Services.checko />
+
 {{--    <!-- Dropdown для выбора компонента -->--}}
 {{--    <select wire:model.live="selectedComponent" class="border p-2 mb-4">--}}
 {{--        <option value="">Выберите нужный (их уже 2)</option>--}}

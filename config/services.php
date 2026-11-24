@@ -83,4 +83,8 @@ return [
         'url' => env('NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
     ],
 
+    'checko' => [
+        'api_key' => env('KEY_API_CHECKO'),
+    ],
+
 ];

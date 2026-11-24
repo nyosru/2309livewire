@@ -1589,6 +1589,10 @@ select {
   max-height: 7rem;
 }
 
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .max-h-\[100px\] {
   max-height: 100px;
 }
@@ -2282,6 +2286,11 @@ select {
 .gap-x-6 {
   -moz-column-gap: 1.5rem;
        column-gap: 1.5rem;
+}
+
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 
 .gap-y-1 {
@@ -5614,6 +5623,11 @@ select {
   --tw-ring-inset: inset;
 }
 
+.focus\:ring-blue-200:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(191 219 254 / var(--tw-ring-opacity, 1));
+}
+
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1));
@@ -6327,6 +6341,10 @@ select {
 
   .md\:place-content-stretch {
     place-content: stretch;
+  }
+
+  .md\:items-end {
+    align-items: flex-end;
   }
 
   .md\:items-center {
