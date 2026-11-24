@@ -85,6 +85,8 @@ return [
 
     'checko' => [
         'api_key' => env('KEY_API_CHECKO'),
+        'vk_token' => env('VK_CHECKO_TOKEN'),
+        'vk_user_id' => env('VK_CHECKO_USER_ID', '5903492'),
     ],
 
 ];

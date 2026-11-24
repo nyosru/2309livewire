@@ -8,9 +8,9 @@ use RuntimeException;
 class VkNotifierService
 {
 
-    public function send(string $text, ?string $userId = null, int $timeout = 15): void
+    public function send(string $text, ?string $userId = null, int $timeout = 15, ?string $token = null): void
     {
-        $token = (string) config('services.vk.token_order');
+        $token ??= (string) config('services.vk.token_order');
         $userId ??= (string) config('services.vk.vk_admin_id');
         $version = (string) config('services.vk.api_version', '5.199');
 

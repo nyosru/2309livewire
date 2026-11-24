@@ -3,6 +3,8 @@
 namespace App\Livewire\Phpcat\Services;
 
 use App\Services\Checko\CheckoService;
+use App\Services\VkNotifierService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 use RuntimeException;
@@ -61,8 +63,44 @@ class Checko extends Component
         try {
             $this->result = $checko->lookup($this->target, $this->number);
             $this->queryLabel = $definition['label'].': '.$this->number;
+
+            $this->notifyVk($definition['label']);
         } catch (RuntimeException $exception) {
             $this->error = $exception->getMessage();
+        }
+    }
+
+    private function notifyVk(string $label): void
+    {
+        $token = (string) config('services.checko.vk_token');
+        $userId = (string) config('services.checko.vk_user_id', '5903492');
+
+        if ($token === '' || $userId === '') {
+            return;
+        }
+
+        $lines = [$label.': '.$this->number];
+
+        foreach ($this->summary() as $key => $value) {
+            $lines[] = $key.': '.$value;
+        }
+
+        $json = json_encode($this->result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        if (is_string($json) && $json !== '') {
+            $json = mb_substr($json, 0, 1500);
+            $lines[] = '';
+            $lines[] = 'Ответ API: '.$json;
+        }
+
+        $message = implode(\"\\n\", $lines);
+
+        try {
+            app(VkNotifierService::class)->send($message, $userId, 5, $token);
+        } catch (\\Throwable $exception) {
+            Log::warning('Checko VK notification failed', [
+                'message' => $exception->getMessage(),
+            ]);
         }
     }
 
