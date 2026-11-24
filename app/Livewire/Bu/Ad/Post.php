@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Ad;
+namespace App\Livewire\Bu\Ad;
 
 use App\Models\BuAd;
 use App\Models\BuAdImage;
@@ -40,7 +40,7 @@ class Post extends Component
 
     public function render()
     {
-        return view('livewire.ad.post', [
+        return view('livewire.bu.ad.post', [
             'types' => BuAdType::where('is_visible', true)->orderBy('sort')->get(),
             'categories' => $this->getCategories(),
             'category_path' => $this->getCategoryPath(),

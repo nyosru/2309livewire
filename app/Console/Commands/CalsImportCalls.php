@@ -52,11 +52,12 @@ class CalsImportCalls extends Command
                 $metadataDate = $metadata['date'] ?? null;
                 $date = is_string($metadataDate) && trim($metadataDate) !== '' ? trim($metadataDate) : $folderMatch[0];
                 $metadataTime = $metadata['time'] ?? null;
-                $time = is_string($metadataTime) && trim($metadataTime) !== ''
-                    ? trim($metadataTime)
-                    : ((is_string($recordingData['time'] ?? null) && trim($recordingData['time']) !== '')
-                        ? trim($recordingData['time'])
-                        : ($this->timeFromFilename($file->getFilename()) ?: '00:00:00'));
+                $time = $this->timeFromFilename($file->getFilename())
+                    ?: (is_string($metadataTime) && trim($metadataTime) !== ''
+                        ? trim($metadataTime)
+                        : ((is_string($recordingData['time'] ?? null) && trim($recordingData['time']) !== '')
+                            ? trim($recordingData['time'])
+                            : '00:00:00'));
                 try {
                     $calledAt = Carbon::parse($date.' '.$time);
                 } catch (\Throwable) {

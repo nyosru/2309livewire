@@ -1,0 +1,8 @@
+# Use together with the existing local Docker Compose configuration.
+services:
+  2309livewire:
+    volumes:
+      - type: bind
+        source: /Volumes/sam1kk/00 звонки
+        target: /Volumes/sam1kk/00 звонки
+        read_only: true

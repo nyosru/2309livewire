@@ -16,7 +16,7 @@
   <div class="card mb-3">
     <div class="card-body">
       <h6 class="mb-3"><i class="bi bi-plus-circle me-1"></i>Новое объявление (куплю / продам)</h6>
-      <livewire:ad.post />
+      <livewire:bu.ad.post />
     </div>
   </div>
 @endif

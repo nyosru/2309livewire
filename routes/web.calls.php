@@ -12,6 +12,14 @@ Route::group([
         ->where('filename', '.*')
         ->name('file');
 
+    Route::get('/audio/{source}/{filename}', [RecorderController::class, 'audioFile'])
+        ->where('filename', '.*')->name('audio');
+    Route::post('/branches', [RecorderController::class, 'storeBranch'])->name('branches.store');
+    Route::post('/contacts', [RecorderController::class, 'storeContact'])->name('contacts.store');
+    Route::put('/branches/{branch}', [RecorderController::class, 'updateBranch'])->name('branches.update');
+    Route::put('/recordings/{key}/branch', [RecorderController::class, 'assignBranch'])->name('recordings.branch');
+    Route::put('/recordings/{key}/status', [RecorderController::class, 'updateRecordingStatus'])->name('recordings.status');
+
     Route::post('/tags', [RecorderController::class, 'storeTag'])->name('tags.store');
     Route::put('/tags/{tag}', [RecorderController::class, 'updateTag'])->name('tags.update');
     Route::delete('/tags/{tag}', [RecorderController::class, 'destroyTag'])->name('tags.destroy');
