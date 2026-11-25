@@ -93,11 +93,11 @@ class Checko extends Component
             $lines[] = 'Ответ API: '.$json;
         }
 
-        $message = implode(\"\\n\", $lines);
+        $message = implode("\n", $lines);
 
         try {
             app(VkNotifierService::class)->send($message, $userId, 5, $token);
-        } catch (\\Throwable $exception) {
+        } catch (\Throwable $exception) {
             Log::warning('Checko VK notification failed', [
                 'message' => $exception->getMessage(),
             ]);

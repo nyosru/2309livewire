@@ -46,6 +46,7 @@ require 'web.ttt.php';
 //    ->name('profile');
 //
 require 'web.vk_manager.php';
+require 'web.vk_author_stats.php';
 require __DIR__.'/auth.php';
 
 // $files = scandir( __DIR__.'/web/');

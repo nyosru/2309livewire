@@ -11,7 +11,7 @@
         </section>
 
         <section class="footer-col footer-center" aria-label="О специалисте">
-            <p>Бережная работа начинается с разговора.</p>
+            <p>Работа начинается с&nbsp;разговора.</p>
             <small class="copyright">© {{ date('Y') }} Сергей Бакланов</small>
         </section>
 
@@ -19,7 +19,7 @@
             <a class="crm-link" href="https://процессмастер.рф" target="_blank" rel="noopener noreferrer">CRM для ведения клиентов — ПроцессМастер.рф ↗</a>
             <a class="creator-link" href="/contacts">Контакты</a>
             <a class="creator-link" href="/text-consent">Текст согласия</a>
-            <a class="creator-link" href="https://php-cat.ru">Создание сайта — php-cat.ru</a>
+            <a class="creator-link" target="_blank" href="https://php-cat.ru">Создание сайта — php-cat.ru</a>
         </section>
     </div>
 </footer>

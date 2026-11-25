@@ -46,6 +46,9 @@ class ZaglushkaController extends Controller
 
     public function show(Request $request)
     {
+        if ($request->getHost() === 'go.vk.local' && $request->path() === '/') {
+            return app(VkAuthorStatsController::class)->index($request, app(\App\Services\VkAuthorStatsService::class));
+        }
 
         if (strtolower(substr($_SERVER['HTTP_HOST'], 0, 4)) == 'www.') {
             $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';

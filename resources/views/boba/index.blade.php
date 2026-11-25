@@ -58,7 +58,6 @@
 
                     <div class="promo-details">
                         <h2>Страхи и&nbsp;фобии</h2>
-                        <br/>
                         <p>Общение, выступления и&nbsp;ситуации, которые вызывают сильное напряжение.</p>
                         <br/>
                         <button class="button promo-cta" type="button" data-consult="Страхи и фобии">Записаться <span>↗</span></button></div>
@@ -70,7 +69,6 @@
 
                     <div class="promo-details">
                         <h2>Тревога и&nbsp;стресс</h2>
-                        <br/>
                         <p>Беспокойство, напряжение и&nbsp;трудности с&nbsp;расслаблением.</p>
                         <br/>
                         <button class="button promo-cta" type="button" data-consult="Тревога и стресс">Записаться <span>↗</span></button></div>
@@ -80,8 +78,6 @@
                 <div class="promo-copy">
 
                     <div class="promo-details"> <h2>Эмоции и&nbsp;напряжение</h2>
-                        <br/>
-
                         <p>Скованность и&nbsp;чувства, которым трудно найти выход.</p>   <br/>
                         <button class="button promo-cta" type="button" data-consult="Эмоции и напряжение">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/emotions.webp')"><img class="promo-image" src="/boba/services/emotions.webp" alt="" loading="lazy"></div>
@@ -91,7 +87,7 @@
 {{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 04 / 07</p>--}}
 
                     <div class="promo-details">
-                        <h2>Уверенность и&nbsp;самооценка</h2>  <br/>
+                        <h2>Уверенность и&nbsp;самооценка</h2>
                         <p>Неуверенность, самокритика и&nbsp;повторяющиеся сценарии.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Самооценка и личные стратегии">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/confidence.webp')"><img class="promo-image" src="/boba/services/confidence.webp" alt="" loading="lazy"></div>
@@ -101,7 +97,7 @@
 {{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 05 / 07</p>--}}
 
                     <div class="promo-details">
-                        <h2>Потери и&nbsp;незавершённые истории</h2>  <br/>
+                        <h2>Потери и&nbsp;незавершённые истории</h2>
                         <p>Расставания, обиды и&nbsp;воспоминания, от&nbsp;которых сложно переключиться.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Потери и незавершённые истории">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/loss.webp')"><img class="promo-image" src="/boba/services/loss.webp" alt="" loading="lazy"></div>
@@ -111,7 +107,7 @@
 {{--                    <p class="promo-eyebrow">НАПРАВЛЕНИЕ · 06 / 07</p>--}}
 
                     <div class="promo-details">
-                        <h2>Навязчивые мысли и&nbsp;действия</h2>  <br/>
+                        <h2>Навязчивые мысли и&nbsp;действия</h2>
                         <p>Повторяющиеся мысли, действия и&nbsp;трудности речи.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Навязчивые мысли и действия">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/thoughts.webp')"><img class="promo-image" src="/boba/services/thoughts.webp" alt="" loading="lazy"></div>
@@ -120,7 +116,7 @@
                 <div class="promo-copy">
 
                     <div class="promo-details">
-                        <h2>Личный и&nbsp;бизнес-коучинг</h2>  <br/>
+                        <h2>Личный и&nbsp;бизнес-коучинг</h2>
                         <p>Цели, решения, уверенность и&nbsp;продуктивные привычки.</p>  <br/>
                         <button class="button promo-cta" type="button" data-consult="Личный и бизнес-коучинг">Записаться <span>↗</span></button></div>
                 </div><div class="promo-photo" style="--promo-photo:url('/boba/services/productivity.webp')"><img class="promo-image" src="/boba/services/productivity.webp" alt="" loading="lazy"></div>

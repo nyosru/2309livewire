@@ -1,6 +1,12 @@
 {{-- {{ $_SERVER['HTTP_HOST'] }} --}}
 
 @if(
+    $_SERVER['HTTP_HOST'] == 'go.vk.local'
+    )
+
+    {!! app(\App\Http\Controllers\VkAuthorStatsController::class)->index(request(), app(\App\Services\VkAuthorStatsService::class))->getContent() !!}
+
+@elseif(
     $_SERVER['HTTP_HOST'] == 'php-cat.com' ||
     $_SERVER['HTTP_HOST'] == 'seotel.ru' ||
     $_SERVER['HTTP_HOST'] == '1.php-cat.com' ||

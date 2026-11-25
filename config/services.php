@@ -57,6 +57,13 @@ return [
 
     ],
 
+    'vk_author_stats' => [
+        'access_token' => env('VK_AUTHOR_STATS_ACCESS_TOKEN'),
+        'owner_id' => (int) env('VK_AUTHOR_STATS_OWNER_ID', '-226660164'),
+        'api_version' => env('VK_AUTHOR_STATS_API_VERSION', '5.199'),
+        'refresh_interval_minutes' => 240,
+    ],
+
     // Внешняя авторизация через Процесс Мастер. Секрет хранится только на серверах.
     'vk_external_auth' => [
         'base_url' => env('VK_EXTERNAL_AUTH_URL', 'https://xn--80ajb0aifhffacm9b.xn--p1ai'),

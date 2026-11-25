@@ -7,7 +7,6 @@ use RuntimeException;
 
 class VkNotifierService
 {
-
     public function send(string $text, ?string $userId = null, int $timeout = 15, ?string $token = null): void
     {
         $token ??= (string) config('services.vk.token_order');
