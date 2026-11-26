@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
 use App\Models\VkManagerInvitationAttempt;
-use App\Models\VkManagerInvitationAttempt;
 use App\Models\VkManagerMembership;
 use App\Models\VkManagerPerson;
 use Illuminate\Support\Facades\Http;
