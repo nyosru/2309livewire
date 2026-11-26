@@ -69,6 +69,16 @@ class OutgoingInvitations extends Component
         }
     }
 
+    public function startInvitation(string $vkId): void
+    {
+        if (! collect($this->people)->contains(fn ($person) => (string) ($person['id'] ?? '') === $vkId)) return;
+
+        if (! in_array($this->statuses[$vkId] ?? null, ['Заявка отправлена', 'Пользователь уже добавлен в друзья'], true)) {
+            $this->statuses[$vkId] = 'Начато добавление в друзья';
+        }
+
+    }
+
     public function render()
     {
         return view('livewire.vk_manager.outgoing-invitations');
