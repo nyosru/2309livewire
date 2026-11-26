@@ -11,6 +11,7 @@ $d = function () {
         ->where('token', '[A-Za-z0-9]{32,64}')
         ->name('database.public');
     Route::get('/', [VkManagerController::class, 'index'])->name('index');
+    Route::view('/outgoing-invitations', 'vk_manager.outgoing-invitations')->middleware('auth')->name('outgoing-invitations');
     Route::view('/history', 'vk_manager.history')->middleware('auth')->name('history');
     Route::get('/login', [VkManagerController::class, 'login'])->name('login');
     Route::get('/login/secret', [VkManagerController::class, 'secretLoginForm'])->name('login.secret');
