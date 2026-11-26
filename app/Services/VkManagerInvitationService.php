@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\VkManagerAccount;
+use App\Models\VkManagerContact;
 use App\Models\VkManagerMembership;
+use App\Models\VkManagerPerson;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -22,12 +24,19 @@ class VkManagerInvitationService
         }
 
         $account = $this->history->ensureAccount($owner);
-        $excluded = VkManagerMembership::query()
+        $personIds = VkManagerMembership::query()
             ->where('account_id', $account->getKey())
             ->where('is_current', true)
             ->pluck('person_id');
-        $excludedIds = $excluded->isEmpty() ? [] : \App\Models\VkManagerPerson::query()->whereIn('id', $excluded)->pluck('vk_id')->map(fn ($id) => (string) $id)->all();
-        $excludedIds[] = (string) $owner->vk_id;
+        $excludedIds = $personIds->isEmpty()
+            ? []
+            : VkManagerPerson::query()->whereIn('id', $personIds)->pluck('vk_id')->map(fn ($id) => (string) $id)->all();
+        $knownContactIds = VkManagerContact::query()
+            ->where('user_id', $owner->getKey())
+            ->pluck('vk_friend_id')
+            ->map(fn ($id) => (string) $id)
+            ->all();
+        $excludedIds = array_fill_keys(array_merge($excludedIds, $knownContactIds, [(string) $owner->vk_id]), true);
         $found = [];
 
         for ($offset = 0; $offset < 1000 && count($found) < 50; $offset += 100) {
@@ -46,7 +55,7 @@ class VkManagerInvitationService
             $items = data_get($payload, 'response.items', []);
             foreach ($items as $person) {
                 $id = (string) ($person['id'] ?? '');
-                if ($id === '' || in_array($id, $excludedIds, true)) continue;
+                if ($id === '' || isset($excludedIds[$id])) continue;
                 $found[$id] = $person;
                 if (count($found) >= 50) break;
             }
@@ -61,9 +70,18 @@ class VkManagerInvitationService
         $id = filter_var($vkId, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
         if (! $id) throw new RuntimeException('Некорректный VK ID.');
         $token = $this->token($owner);
-        $accountId = VkManagerAccount::query()->where('user_id', $owner->getKey())->value('id');
-        $personId = \App\Models\VkManagerPerson::query()->where('vk_id', $vkId)->value('id');
-        if ($personId && VkManagerMembership::query()->where('account_id', $accountId)->where('person_id', $personId)->where('is_current', true)->exists()) {
+        $account = $this->history->ensureAccount($owner);
+        $personId = VkManagerPerson::query()->where('vk_id', $vkId)->value('id');
+        $alreadyInCurrentList = $personId && VkManagerMembership::query()
+            ->where('account_id', $account->getKey())
+            ->where('person_id', $personId)
+            ->where('is_current', true)
+            ->exists();
+        $alreadyKnownForOwner = VkManagerContact::query()
+            ->where('user_id', $owner->getKey())
+            ->where('vk_friend_id', $vkId)
+            ->exists();
+        if ($alreadyInCurrentList || $alreadyKnownForOwner) {
             throw new RuntimeException('Этот аккаунт уже числится в одном из ваших списков.');
         }
 
