@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
+use App\Models\VkManagerInvitationAttempt;
 use App\Models\VkManagerContactData;
 use App\Models\VkManagerEducationData;
 use App\Models\VkManagerMembership;
@@ -244,8 +245,15 @@ class VkManagerHistoryService
         $account = $this->ensureAccount($owner);
         $now = now();
 
-        return DB::transaction(function () use ($account, $observations, $source, $complete, $now): array {
+        return DB::transaction(function () use ($account, $observations, $source, $complete, $now, $owner): array {
             $account = VkManagerAccount::query()->whereKey($account->getKey())->lockForUpdate()->firstOrFail();
+            if ($observations !== []) {
+                VkManagerInvitationAttempt::query()
+                    ->where('user_id', $owner->getKey())
+                    ->whereNull('resolved_at')
+                    ->whereIn('vk_id', array_keys($observations))
+                    ->update(['resolved_at' => $now]);
+            }
             $peopleRows = [];
             foreach ($observations as $observation) {
                 $profile = $this->profileAttributes($observation['profile']);

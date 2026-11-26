@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VkManager;
 
+use App\Models\VkManagerInvitationAttempt;
 use App\Services\VkManagerInvitationService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -58,6 +59,7 @@ class OutgoingInvitations extends Component
 
         try {
             $person = collect($this->people)->first(fn ($candidate) => (string) ($candidate['id'] ?? '') === $vkId) ?? [];
+            $this->persistAttempt($vkId, $person);
             $result = $invitations->invite(Auth::user(), $vkId, $person);
             $this->statuses[$vkId] = $result === 'friend' ? 'Пользователь уже добавлен в друзья' : 'Заявка отправлена';
             $this->message = $this->statuses[$vkId].' (VK ID '.$vkId.').';
@@ -71,12 +73,28 @@ class OutgoingInvitations extends Component
 
     public function startInvitation(string $vkId): void
     {
-        if (! collect($this->people)->contains(fn ($person) => (string) ($person['id'] ?? '') === $vkId)) return;
+        $person = collect($this->people)->first(fn ($candidate) => (string) ($candidate['id'] ?? '') === $vkId);
+        if (! $person) return;
+
+        $this->persistAttempt($vkId, $person);
 
         if (! in_array($this->statuses[$vkId] ?? null, ['Заявка отправлена', 'Пользователь уже добавлен в друзья'], true)) {
             $this->statuses[$vkId] = 'Начато добавление в друзья';
         }
+    }
 
+    private function persistAttempt(string $vkId, array $person): void
+    {
+        VkManagerInvitationAttempt::query()->updateOrCreate(
+            ['user_id' => Auth::id(), 'vk_id' => $vkId],
+            [
+                'first_name' => $person['first_name'] ?? null,
+                'last_name' => $person['last_name'] ?? null,
+                'photo_url' => $person['photo_100'] ?? null,
+                'started_at' => now(),
+                'resolved_at' => null,
+            ],
+        );
     }
 
     public function render()

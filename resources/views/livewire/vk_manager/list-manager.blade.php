@@ -9,6 +9,9 @@
         <button type="button" class="stat stat-button {{ $activeTab === 'requests' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'requests' ? 'true' : 'false' }}" wire:click="switchTab('requests')">
             <span class="muted">Исходящие заявки</span><strong>{{ $dbStats['current_outgoing_requests'] }}</strong>
         </button>
+        <button type="button" class="stat stat-button {{ $activeTab === 'preparing' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'preparing' ? 'true' : 'false' }}" wire:click="switchTab('preparing')">
+            <span class="muted">Подготавливаем заявки</span><strong>{{ $preparingCount }}</strong>
+        </button>
         <button type="button" class="stat stat-button {{ $activeTab === 'database' ? 'active' : '' }}" aria-pressed="{{ $activeTab === 'database' ? 'true' : 'false' }}" wire:click="switchTab('database')">
             <span class="muted">Данные в БД</span><span class="stat-note">Сводка и история</span>
         </button>
@@ -16,7 +19,7 @@
     <p class="stats-total muted">Всего контактов: <strong>{{ $dbStats['current_friends'] + $dbStats['current_followers'] }}</strong></p>
 
     <div class="panel">
-        @if($activeTab !== 'database')
+        @if(!in_array($activeTab, ['database', 'preparing'], true))
             <div class="vk-list-filters">
                 <label><input type="checkbox" wire:model.live="hideFavorites"> Скрыть избранных</label>
                 <label><input type="checkbox" wire:model.live="showOnlyFavorites"> Показывать только избранных</label>
@@ -184,6 +187,27 @@
                                 <button type="button" class="button" wire:click="commitSnapshot" wire:loading.attr="disabled" wire:target="commitSnapshot">Отправить полученные данные в базу данных</button>
                             </div>
                         @endif
+                    </div>
+                @endif
+            </section>
+        @elseif($activeTab === 'preparing')
+            <section id="preparing" class="tab-content">
+                <h2>Подготавливаем заявки <span class="muted">({{ $preparingCount }})</span></h2>
+                <p class="muted">Здесь отображаются профили, которые вы открыли для добавления в друзья, но которые ещё не появились среди исходящих заявок.</p>
+                @if($preparingAttempts->isEmpty())
+                    <p class="empty">Пока нет начатых заявок, ожидающих появления в списке исходящих.</p>
+                @else
+                    <div class="list">
+                        @foreach($preparingAttempts as $attempt)
+                            <article class="person" wire:key="preparing-{{ $attempt->vk_id }}">
+                                @if($attempt->photo_url)<img src="{{ $attempt->photo_url }}" alt="">@else<div></div>@endif
+                                <div>
+                                    <div class="name">{{ trim(($attempt->first_name ?? '').' '.($attempt->last_name ?? '')) ?: 'Пользователь VK' }}</div>
+                                    <div class="tiny muted">VK ID: <a href="https://m.vk.com/id{{ rawurlencode($attempt->vk_id) }}" target="_blank" rel="noopener noreferrer">{{ $attempt->vk_id }}</a></div>
+                                    <div class="tiny muted">Начато: {{ $attempt->started_at?->format('d.m.Y H:i') }}</div>
+                                </div>
+                            </article>
+                        @endforeach
                     </div>
                 @endif
             </section>

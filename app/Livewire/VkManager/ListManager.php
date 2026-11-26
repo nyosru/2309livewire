@@ -5,7 +5,9 @@ namespace App\Livewire\VkManager;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
 use App\Models\VkManagerContactData;
+use App\Models\VkManagerInvitationAttempt;
 use App\Models\VkManagerMembership;
+use App\Models\VkManagerPerson;
 use App\Services\VkManagerHistoryService;
 use App\Services\VkManagerPublicAccessService;
 use App\Services\VkManagerSnapshotSyncService;
@@ -20,7 +22,7 @@ class ListManager extends Component
 {
     private const PER_PAGE = 200;
 
-    private const TABS = ['friends', 'followers', 'requests', 'database'];
+    private const TABS = ['friends', 'followers', 'requests', 'preparing', 'database'];
 
     public string $activeTab = 'friends';
 
@@ -267,6 +269,23 @@ class ListManager extends Component
             'requests' => $this->pageData(VkManagerMembership::STATUS_OUTGOING_REQUEST, $this->requestsPage),
             default => null,
         };
+        $accountId = VkManagerAccount::query()->where('user_id', $owner->getKey())->value('id');
+        $currentPersonIds = $accountId
+            ? VkManagerMembership::query()->where('account_id', $accountId)->where('is_current', true)->pluck('person_id')
+            : collect();
+        $currentVkIds = $currentPersonIds->isNotEmpty()
+            ? VkManagerPerson::query()->whereIn('id', $currentPersonIds)->pluck('vk_id')->map(fn ($id) => (string) $id)
+            : collect();
+        $knownContactIds = VkManagerContact::query()->where('user_id', $owner->getKey())->pluck('vk_friend_id')->map(fn ($id) => (string) $id);
+        $excludedIds = $currentVkIds->merge($knownContactIds)->unique()->values()->all();
+        $preparingQuery = VkManagerInvitationAttempt::query()
+            ->where('user_id', $owner->getKey())
+            ->whereNull('resolved_at');
+        if ($excludedIds !== []) {
+            $preparingQuery->whereNotIn('vk_id', $excludedIds);
+        }
+        $preparingCount = (clone $preparingQuery)->count();
+        $preparingAttempts = $preparingQuery->latest('started_at')->get();
 
         return view('livewire.vk_manager.list-manager', [
             'dbStats' => $dbStats,
@@ -279,6 +298,8 @@ class ListManager extends Component
             'pageFriendIds' => $this->activeTab === 'friends'
                 ? array_map(fn (array $person) => (string) $person['id'], $activeList['people'])
                 : [],
+            'preparingCount' => $preparingCount,
+            'preparingAttempts' => $preparingAttempts,
         ]);
     }
 

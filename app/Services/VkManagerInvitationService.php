@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\VkManagerAccount;
 use App\Models\VkManagerContact;
+use App\Models\VkManagerInvitationAttempt;
+use App\Models\VkManagerInvitationAttempt;
 use App\Models\VkManagerMembership;
 use App\Models\VkManagerPerson;
 use Illuminate\Support\Facades\Http;
@@ -36,7 +38,13 @@ class VkManagerInvitationService
             ->pluck('vk_friend_id')
             ->map(fn ($id) => (string) $id)
             ->all();
-        $excludedIds = array_fill_keys(array_merge($excludedIds, $knownContactIds, [(string) $owner->vk_id]), true);
+        $pendingAttemptIds = VkManagerInvitationAttempt::query()
+            ->where('user_id', $owner->getKey())
+            ->whereNull('resolved_at')
+            ->pluck('vk_id')
+            ->map(fn ($id) => (string) $id)
+            ->all();
+        $excludedIds = array_fill_keys(array_merge($excludedIds, $knownContactIds, $pendingAttemptIds, [(string) $owner->vk_id]), true);
         $found = [];
 
         for ($offset = 0; $offset < 1000 && count($found) < 50; $offset += 100) {
@@ -92,6 +100,11 @@ class VkManagerInvitationService
         if ($result === 4) throw new RuntimeException('VK сообщил, что пользователь отклонил заявку.');
         $status = $result === 2 ? VkManagerMembership::STATUS_FRIEND : VkManagerMembership::STATUS_OUTGOING_REQUEST;
         $this->history->recordChange($owner, $vkId, $status, $profile, 'outgoing_invitation');
+        VkManagerInvitationAttempt::query()
+            ->where('user_id', $owner->getKey())
+            ->where('vk_id', $vkId)
+            ->whereNull('resolved_at')
+            ->update(['resolved_at' => now()]);
 
         return $status;
     }
